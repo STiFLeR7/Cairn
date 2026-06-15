@@ -10,7 +10,7 @@
 |---|---|---|---|---|
 | **0** | Project Definition | Establish identity + operating model | 🟢 Complete | Repo scaffolded with governance docs; vision/positioning/scope approved; AP + phase process live |
 | **1** | Conceptual & Research Foundation | Formalize the problem; map the field | 🟢 Complete | Continuation-sufficiency & recovery-fidelity *defined*; related-work survey; claims registry; concept docs. **No code.** |
-| **2** | Architecture & Protocol Design | Specify the mechanism (docs/ADRs) | ⬜ Not started | Continuation State schema, boundary contract, resume protocol, effect-safety WAL, tool taxonomy — accepted as specs/ADRs |
+| **2** | Architecture & Protocol Design | Specify the mechanism (docs/ADRs) | 🟡 In Progress | Continuation State schema, boundary contract, resume protocol, effect-safety WAL, tool taxonomy — accepted as specs/ADRs |
 | **3** | Minimal Harness | Build the substrate (no recovery yet) | ⬜ Not started | Minimal Code Harness + Runtime honoring the boundary contract; baseline tasks complete |
 | **4** | Recovery v1 (three pillars) | Unified distillation + re-grounding + effect-safety | ⬜ Not started | Agent recovers from injected failure end-to-end |
 | **5** | Evaluation & Benchmark | Failure-injection harness, baselines, ablations | ⬜ Not started | Results reproduce the headline claims |

@@ -39,6 +39,10 @@ updates this file.
   (AP-0011, `Done`).
 
 ### Status (Phase 1)
-- **Phase 1 — Conceptual & Research Foundation: complete on branch** `phase-1-conceptual-foundation`
-  (2026-06-15). All six APs (AP-0007 … AP-0012) `Done`; awaiting review + merge to `master`.
-  Next: Phase 2 — Architecture & Protocol Design.
+- **Phase 1 — Conceptual & Research Foundation: complete & merged** (PR #1, 2026-06-15). All six APs
+  (AP-0007 … AP-0012) `Done` and merged to `master` via merge commit.
+
+### Status (Phase 2)
+- **Phase 2 — Architecture & Protocol Design: entered 2026-06-15** on branch
+  `phase-2-architecture-protocol`. Six provisional APs (AP-0013 … AP-0018) refined into committed Action
+  Points (`Accepted`); phase scaffold and README added.

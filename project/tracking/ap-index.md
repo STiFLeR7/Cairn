@@ -28,16 +28,16 @@
 | [AP-0011](../phases/phase-1-conceptual-foundation/action-points/AP-0011-claims-registry.md) | Establish research claims registry | Done |
 | [AP-0012](../phases/phase-1-conceptual-foundation/action-points/AP-0012-state-and-tool-taxonomies.md) | State taxonomy + tool effect taxonomy (conceptual) | Done |
 
-## Phase 2 — Architecture & Protocol Design *(provisional)*
+## Phase 2 — Architecture & Protocol Design *(committed — entered 2026-06-15)*
 
 | ID | Title | Status |
 |---|---|---|
-| AP-0013 | Continuation State (cairn) schema spec | Proposed |
-| AP-0014 | Code Harness ↔ Runtime boundary contract spec | Proposed |
-| AP-0015 | Re-grounding resume protocol spec | Proposed |
-| AP-0016 | Unified compaction/checkpoint distillation design (core/tail) | Proposed |
-| AP-0017 | Effect-safety write-ahead protocol spec | Proposed |
-| AP-0018 | Tool effect taxonomy → recovery-policy mapping | Proposed |
+| [AP-0013](../phases/phase-2-architecture-protocol/action-points/AP-0013-continuation-state-schema.md) | Continuation State (cairn) schema spec | Accepted |
+| [AP-0014](../phases/phase-2-architecture-protocol/action-points/AP-0014-boundary-contract.md) | Code Harness ↔ Runtime boundary contract spec | Accepted |
+| [AP-0015](../phases/phase-2-architecture-protocol/action-points/AP-0015-resume-protocol.md) | Re-grounding resume protocol spec | Accepted |
+| [AP-0016](../phases/phase-2-architecture-protocol/action-points/AP-0016-unified-distillation.md) | Unified compaction/checkpoint distillation design (core/tail) | Accepted |
+| [AP-0017](../phases/phase-2-architecture-protocol/action-points/AP-0017-effect-safety-protocol.md) | Effect-safety write-ahead protocol spec | Accepted |
+| [AP-0018](../phases/phase-2-architecture-protocol/action-points/AP-0018-tool-recovery-policy.md) | Tool effect taxonomy → recovery-policy mapping | Accepted |
 
 ## Phase 3 — Minimal Harness *(provisional)*
 
