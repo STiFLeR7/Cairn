@@ -64,6 +64,14 @@ The dangerous window is between the last checkpoint and the failure. Three diver
   class). This is where effect-safety (claim C3) is enforced on resume.
 - **Plan drift** — `plan.status` is reconciled against what the world shows actually completed.
 
+> **v1 implementation note (restore-first).** The reference harness performs step 1 (LOAD, including
+> `restore_workspace`) *before* step 3 (RECONCILE). The restored workspace therefore matches the cairn's
+> `world.digest` by construction, so the **torn-write / plan-drift detection above is a no-op in the v1
+> flow** — a post-checkpoint divergence is discarded by the restore and the step is redone from the clean
+> checkpoint (outcome equivalence). The detection is implemented and unit-tested but reserved for a future
+> restore-less *crash-in-place* mode. In v1, reconcile's active jobs are the **effect danger window** and
+> **plan re-grounding**. See [ADR-0008](../adr/ADR-0008-recovery-v1-implementation.md) §7.
+
 ### 4. Re-plan *(non-determinism is a feature here)*
 With intent, the reconciled plan, and the decision ledger (including ruled-out dead-ends, so failed paths
 aren't re-explored), the agent produces the next action. It need not match the original trajectory — the

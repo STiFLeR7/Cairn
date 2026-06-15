@@ -39,7 +39,10 @@ window); LLM re-planning (the injected model handles "re-plan"; v1 continues via
 ## Acceptance Criteria
 
 - [x] `resume` performs load → restore → re-observe **before** acting ("re-observe before re-act")
-- [x] `reconcile` detects torn writes (digest mismatch) and plan drift, and surfaces the danger window
+- [x] `reconcile` re-grounds the plan from the cairn and surfaces the effect danger window
+- [x] `reconcile` *implements* torn-write/plan-drift detection (digest mismatch) — note: in the v1
+      restore-first flow this branch is a no-op because `restore_workspace` precedes `reconcile`; it is
+      retained for a future restore-less crash-in-place mode (see ADR-0008 §7)
 - [x] `resume(task)` completes a task that crashed mid-run (outcome equivalence, not replay)
 - [x] Re-planning may take a different valid path; the bar is outcome equivalence
 - [x] No hardcoded harness (ADR-0007); docs + ADR-0008 + trackers updated; tests pass
@@ -52,3 +55,4 @@ window); LLM re-planning (the injected model handles "re-plan"; v1 continues via
 
 - 2026-06-15 — Proposed → Accepted (refined on Phase 4 entry).
 - 2026-06-15 — Accepted → Done. Delivered `observe.py` + `reconcile.py` + `CodeHarness.resume`; `reconcile` added to the contract; reconcile/resume tests pass.
+- 2026-06-15 — Debugging pass: systematic probe found torn-write detection is a no-op in the restore-first resume flow. Per ADR-0008 §7, kept behavior (correct) and reworded this AP / resume-protocol doc to state reconcile's v1 jobs are effect danger-window + plan re-grounding; torn-detection reserved for crash-in-place mode.

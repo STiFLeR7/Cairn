@@ -52,6 +52,17 @@ ADR records them so they are visible and stable; it changes none of the prior de
    `step_hook(step)` callback; tests/utilities wire it to raise `InjectedFailure` after step *k*. No
    test-specific "crash" flag is baked into the harness; the hook is a legitimate, general lifecycle seam.
 
+7. **v1 recovery is restore-first; torn-write detection is reserved.** `resume` restores the workspace
+   from the last snapshot (step 1 LOAD) *before* `reconcile` runs (step 3). Because the restored workspace
+   therefore matches the cairn's `world.digest` by construction, the torn-write / plan-drift branch of
+   `reconcile` is a **no-op in the integrated flow** — any post-checkpoint divergence is simply discarded
+   by the restore and the affected step is redone from the clean checkpoint (outcome equivalence). The
+   detection logic is implemented and unit-tested, but its *active* role is reserved for a future
+   restore-less **crash-in-place** mode (compare on-disk reality to the cairn and repair selectively). In
+   v1, reconcile's load-bearing jobs are (a) **effect danger-window resolution** and (b) **plan
+   re-grounding** from the cairn. This was surfaced by a systematic-debugging probe and is recorded here
+   rather than papered over.
+
 ## Consequences
 
 - Resume works across a real process restart (fresh runtime over the same `base_dir`), which the Phase 5

@@ -11,6 +11,12 @@ three axes from the resume protocol (ADR-0004):
 `reconcile` is a pure function of `(state, observed)`; it produces a `ResumePlan` the harness
 acts on. Re-planning itself is the model's job (a different valid path is fine — the bar is
 outcome equivalence, not replay).
+
+v1 note (ADR-0008 §7): `CodeHarness.resume` restores the workspace *before* calling `reconcile`,
+so the restored world matches the cairn digest and the torn-write/plan-drift branch is a no-op in
+the integrated flow (post-checkpoint divergence is discarded by the restore and the step redone).
+The detection is retained/unit-tested for a future restore-less crash-in-place mode; in v1
+reconcile's active jobs are the effect danger window and plan re-grounding.
 """
 
 from __future__ import annotations
