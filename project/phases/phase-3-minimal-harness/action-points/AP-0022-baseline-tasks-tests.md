@@ -2,7 +2,7 @@
 id: AP-0022
 title: Baseline task suite (no recovery) + smoke tests
 phase: phase-3-minimal-harness
-status: Accepted
+status: Done
 owner: maintainers
 created: 2026-06-15
 updated: 2026-06-15
@@ -33,11 +33,11 @@ verified by a success oracle; assembly/config wiring (factory that injects runti
 
 ## Acceptance Criteria
 
-- [ ] At least one baseline task runs end-to-end and its success oracle passes
-- [ ] Smoke tests cover: effect-ledger append-only/offsets, checkpoint atomicity, sandbox exec, loop completion
-- [ ] `pytest` passes locally (evidence captured)
-- [ ] Assembly is config-driven; swapping model/sandbox/task requires no harness edits (ADR-0007)
-- [ ] Documentation updated (quickstart); trackers updated
+- [x] At least one baseline task runs end-to-end and its success oracle passes
+- [x] Smoke tests cover: effect-ledger append-only/offsets, checkpoint atomicity, sandbox exec, loop completion
+- [x] `pytest` passes locally (evidence captured)
+- [x] Assembly is config-driven; swapping model/sandbox/task requires no harness edits (ADR-0007)
+- [x] Documentation updated (quickstart); trackers updated
 
 ## Dependencies
 
@@ -46,3 +46,6 @@ verified by a success oracle; assembly/config wiring (factory that injects runti
 ## Status / Log
 
 - 2026-06-15 — Proposed → Accepted (refined on Phase 3 entry).
+- 2026-06-15 — Accepted → Done. Delivered `cairn.tasks.CreateFileTask`, `cairn.app.build_harness`,
+  `examples/quickstart.py`, and `tests/` smoke suite. Evidence: `pytest -q` → 11 passed; quickstart
+  runs end-to-end (success=True, 1 checkpoint).

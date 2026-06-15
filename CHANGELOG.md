@@ -54,8 +54,16 @@ updates this file.
 - **Phase 2 — Architecture & Protocol Design: complete & merged** (PR #2, 2026-06-15). All six APs
   (AP-0013 … AP-0018) `Done`; ADRs 0002–0006 accepted.
 
+### Added (Phase 3, on branch `phase-3-minimal-harness`) — first runnable code
+- `pyproject.toml`; `src/cairn/` package: `state` (ContinuationState), `contract` (Runtime/CodeHarness
+  protocols), `sandbox`, `model`, `tools`, `task` interfaces (AP-0021).
+- `cairn.runtime` — `LocalSubprocessSandbox`, workspace snapshot/restore, append-only effect ledger,
+  atomic checkpoint store, `LocalRuntime` (AP-0019).
+- `cairn.harness` — agent loop (code-as-action), minimal distill; `ScriptableMockModel` (AP-0020).
+- `cairn.tasks.CreateFileTask`, `cairn.app.build_harness`, `examples/quickstart.py`, `tests/` (AP-0022).
+- ADR-0007 — Python stack + no-hardcoded-harness principle.
+
 ### Status (Phase 3)
-- **Phase 3 — Minimal Harness: entered 2026-06-15** on branch `phase-3-minimal-harness`. Four provisional
-  APs (AP-0019/0020/0021/0022) refined into committed Action Points (`Accepted`). Stack decided —
-  Python, pluggable sandbox (local-subprocess default), pluggable model provider (scriptable mock
-  default), **no hardcoded harness** (ADR-0007). First code phase; "tests pass" joins the DoD.
+- **Phase 3 — Minimal Harness: complete on branch** `phase-3-minimal-harness` (2026-06-15). All four APs
+  `Done`; **`pytest -q` → 11 passed**; quickstart runs end-to-end. No hardcoded harness (ADR-0007).
+  Awaiting review + merge. Next: Phase 4 — Recovery v1.

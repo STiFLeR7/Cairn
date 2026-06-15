@@ -43,10 +43,10 @@
 
 | ID | Title | Status |
 |---|---|---|
-| [AP-0021](../phases/phase-3-minimal-harness/action-points/AP-0021-boundary-interfaces.md) | Boundary-contract interfaces + core data models | Accepted |
-| [AP-0019](../phases/phase-3-minimal-harness/action-points/AP-0019-minimal-runtime.md) | Minimal Runtime (sandbox, workspace, effect ledger, checkpoint store) | Accepted |
-| [AP-0020](../phases/phase-3-minimal-harness/action-points/AP-0020-minimal-code-harness.md) | Minimal Code Harness (agent loop, code-as-action, model provider) | Accepted |
-| [AP-0022](../phases/phase-3-minimal-harness/action-points/AP-0022-baseline-tasks-tests.md) | Baseline task suite (no recovery) + smoke tests | Accepted |
+| [AP-0021](../phases/phase-3-minimal-harness/action-points/AP-0021-boundary-interfaces.md) | Boundary-contract interfaces + core data models | Done |
+| [AP-0019](../phases/phase-3-minimal-harness/action-points/AP-0019-minimal-runtime.md) | Minimal Runtime (sandbox, workspace, effect ledger, checkpoint store) | Done |
+| [AP-0020](../phases/phase-3-minimal-harness/action-points/AP-0020-minimal-code-harness.md) | Minimal Code Harness (agent loop, code-as-action, model provider) | Done |
+| [AP-0022](../phases/phase-3-minimal-harness/action-points/AP-0022-baseline-tasks-tests.md) | Baseline task suite (no recovery) + smoke tests | Done |
 
 ## Phase 4 — Recovery v1 (three pillars) *(provisional)*
 

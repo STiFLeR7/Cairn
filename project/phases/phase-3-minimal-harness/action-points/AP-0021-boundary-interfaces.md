@@ -2,7 +2,7 @@
 id: AP-0021
 title: Boundary-contract interfaces + core data models
 phase: phase-3-minimal-harness
-status: Accepted
+status: Done
 owner: maintainers
 created: 2026-06-15
 updated: 2026-06-15
@@ -35,11 +35,11 @@ Everything injectable — no concrete bindings.
 
 ## Acceptance Criteria
 
-- [ ] All boundary-contract operations appear as typed methods on `Runtime` / `CodeHarness`
-- [ ] `ContinuationState` mirrors the schema (durable core + elastic tail) and round-trips to/from dict/JSON
-- [ ] `Sandbox`, `ModelProvider`, `ToolRegistry`, `Task` are abstract/Protocol — no concrete logic
-- [ ] No hardcoded model/tool/task/path (ADR-0007)
-- [ ] Documentation updated; trackers updated
+- [x] All boundary-contract operations appear as typed methods on `Runtime` / `CodeHarness`
+- [x] `ContinuationState` mirrors the schema (durable core + elastic tail) and round-trips to/from dict/JSON
+- [x] `Sandbox`, `ModelProvider`, `ToolRegistry`, `Task` are abstract/Protocol — no concrete logic
+- [x] No hardcoded model/tool/task/path (ADR-0007)
+- [x] Documentation updated; trackers updated
 
 ## Dependencies
 
@@ -48,3 +48,5 @@ Everything injectable — no concrete bindings.
 ## Status / Log
 
 - 2026-06-15 — Proposed → Accepted (refined on Phase 3 entry).
+- 2026-06-15 — Accepted → Done. Delivered `cairn.state`, `cairn.contract`, `cairn.sandbox`,
+  `cairn.model`, `cairn.tools`, `cairn.task` + `pyproject.toml`. State round-trip test passes.

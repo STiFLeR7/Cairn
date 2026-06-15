@@ -2,7 +2,7 @@
 id: AP-0019
 title: Minimal Runtime (sandbox, workspace, effect ledger, checkpoint store)
 phase: phase-3-minimal-harness
-status: Accepted
+status: Done
 owner: maintainers
 created: 2026-06-15
 updated: 2026-06-15
@@ -33,12 +33,12 @@ atomicity — I2); a `LocalRuntime` wiring them to the `Runtime` protocol.
 
 ## Acceptance Criteria
 
-- [ ] `LocalRuntime` implements every Runtime-side contract operation
-- [ ] Effect ledger is append-only with monotonic offsets (I3); write-ahead supported (I1)
-- [ ] Checkpoints are atomic — `load_latest` never returns a partial cairn (I2)
-- [ ] Sandbox runs commands via the pluggable interface (local subprocess default)
-- [ ] No hardcoded paths/model/tools (paths come from config/injection) (ADR-0007)
-- [ ] Documentation updated; trackers updated; unit tests for ledger + checkpoint atomicity pass
+- [x] `LocalRuntime` implements every Runtime-side contract operation
+- [x] Effect ledger is append-only with monotonic offsets (I3); write-ahead supported (I1)
+- [x] Checkpoints are atomic — `load_latest` never returns a partial cairn (I2)
+- [x] Sandbox runs commands via the pluggable interface (local subprocess default)
+- [x] No hardcoded paths/model/tools (paths come from config/injection) (ADR-0007)
+- [x] Documentation updated; trackers updated; unit tests for ledger + checkpoint atomicity pass
 
 ## Dependencies
 
@@ -47,3 +47,5 @@ atomicity — I2); a `LocalRuntime` wiring them to the `Runtime` protocol.
 ## Status / Log
 
 - 2026-06-15 — Proposed → Accepted (refined on Phase 3 entry).
+- 2026-06-15 — Accepted → Done. Delivered `cairn.runtime` (local sandbox, workspace, append-only
+  effect ledger, atomic checkpoint store, LocalRuntime). Ledger + checkpoint-atomicity tests pass.

@@ -2,7 +2,7 @@
 id: AP-0020
 title: Minimal Code Harness (agent loop, code-as-action, model provider)
 phase: phase-3-minimal-harness
-status: Accepted
+status: Done
 owner: maintainers
 created: 2026-06-15
 updated: 2026-06-15
@@ -33,12 +33,12 @@ from the run — full distillation policy is Phase 4). Everything injected.
 
 ## Acceptance Criteria
 
-- [ ] The agent loop runs to task completion using an injected model provider + tool registry + runtime
-- [ ] Actions are code executed via the Runtime sandbox; observations feed back into the loop
-- [ ] `ScriptableMockModel` enables deterministic end-to-end runs
-- [ ] A minimal `distill` produces a schema-valid `ContinuationState` (seam for Phase 4)
-- [ ] No hardcoded model/tools/tasks (all injected) (ADR-0007)
-- [ ] Documentation updated; trackers updated; loop unit test passes
+- [x] The agent loop runs to task completion using an injected model provider + tool registry + runtime
+- [x] Actions are code executed via the Runtime sandbox; observations feed back into the loop
+- [x] `ScriptableMockModel` enables deterministic end-to-end runs
+- [x] A minimal `distill` produces a schema-valid `ContinuationState` (seam for Phase 4)
+- [x] No hardcoded model/tools/tasks (all injected) (ADR-0007)
+- [x] Documentation updated; trackers updated; loop unit test passes
 
 ## Dependencies
 
@@ -47,3 +47,5 @@ from the run — full distillation policy is Phase 4). Everything injected.
 ## Status / Log
 
 - 2026-06-15 — Proposed → Accepted (refined on Phase 3 entry).
+- 2026-06-15 — Accepted → Done. Delivered `cairn.harness` (agent loop, code-as-action, minimal
+  distill) + `cairn.model_mock.ScriptableMockModel`. Agent-loop test passes.
