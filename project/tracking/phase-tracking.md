@@ -6,7 +6,7 @@
 | Phase | Name | Status | APs (done / total) |
 |---|---|---|---|
 | 0 | Project Definition | 🟢 Complete | 6 / 6 |
-| 1 | Conceptual & Research Foundation | ⬜ Not started | 0 / 6 |
+| 1 | Conceptual & Research Foundation | 🟡 In Progress | 0 / 6 |
 | 2 | Architecture & Protocol Design | ⬜ Not started | 0 / 6 |
 | 3 | Minimal Harness | ⬜ Not started | 0 / 4 |
 | 4 | Recovery v1 (three pillars) | ⬜ Not started | 0 / 5 |
@@ -15,7 +15,8 @@
 
 **Legend:** ⬜ Not started · 🟡 In Progress · 🟢 Complete · 🔴 Blocked
 
-## Current phase: 0 — Project Definition (complete) → Phase 1 next
+## Current phase: 1 — Conceptual & Research Foundation
 
-Phase 0 reviewed and approved 2026-06-15. See
-[`project/phases/phase-0-definition/README.md`](../phases/phase-0-definition/README.md).
+Entered 2026-06-15; six APs (AP-0007 … AP-0012) refined and committed (`Accepted`). See
+[`project/phases/phase-1-conceptual-foundation/README.md`](../phases/phase-1-conceptual-foundation/README.md).
+Phase 0 complete (reviewed & approved 2026-06-15).

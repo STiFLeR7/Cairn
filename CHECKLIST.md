@@ -7,7 +7,7 @@
 ## Phases
 
 - [x] **Phase 0 — Project Definition** 🟢 *(complete — reviewed & approved 2026-06-15)*
-- [ ] **Phase 1 — Conceptual & Research Foundation**
+- [ ] **Phase 1 — Conceptual & Research Foundation** 🟡 *(in progress — entered 2026-06-15)*
 - [ ] **Phase 2 — Architecture & Protocol Design**
 - [ ] **Phase 3 — Minimal Harness**
 - [ ] **Phase 4 — Recovery v1 (three pillars)**
@@ -31,3 +31,20 @@
 - [x] Vision, positioning, and scope authored and approved
 - [x] Master trackers live and cross-linked
 - [x] Apache-2.0 license + contribution + citation files present
+
+## Phase 1 — Action Points
+
+- [ ] `AP-0007` Formalize the recovery problem (continuation sufficiency)
+- [ ] `AP-0008` Define recovery-fidelity metric & eval dimensions (conceptual)
+- [ ] `AP-0009` Related-work survey & positioning matrix
+- [ ] `AP-0010` Conceptual framework docs (Code Harness / Runtime / recovery)
+- [ ] `AP-0011` Establish research claims registry
+- [ ] `AP-0012` State taxonomy + tool effect taxonomy (conceptual)
+
+## Phase 1 completion criteria
+
+- [ ] Continuation-sufficiency and recovery-fidelity *defined* (not asserted)
+- [ ] Related work mapped; white space explicit and defensible
+- [ ] Conceptual framework + taxonomies authored and internally consistent
+- [ ] Claims registry populated and frozen
+- [ ] No code introduced (Phase 1 is conceptual)

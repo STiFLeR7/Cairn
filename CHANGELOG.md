@@ -18,3 +18,5 @@ updates this file.
 ### Status
 - **Phase 0 — Project Definition: complete.** Reviewed and approved 2026-06-15; all six Phase-0
   Action Points (AP-0001 … AP-0006) marked `Done`. Next: Phase 1 — Conceptual & Research Foundation.
+- **Phase 1 — Conceptual & Research Foundation: entered 2026-06-15.** Six provisional APs
+  (AP-0007 … AP-0012) refined into committed Action Points (`Accepted`); phase scaffold and README added.
