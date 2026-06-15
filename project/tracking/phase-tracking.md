@@ -10,12 +10,21 @@
 | 2 | Architecture & Protocol Design | 🟢 Complete (merged) | 6 / 6 |
 | 3 | Minimal Harness | 🟢 Complete (merged) | 4 / 4 |
 | 4 | Recovery v1 (three pillars) | 🟢 Complete (merged) | 5 / 5 |
-| 5 | Evaluation & Benchmark | ⬜ Not started | 0 / 6 |
+| 5 | Evaluation & Benchmark | 🟡 In Progress | 0 / 6 |
 | 6 | Paper & Release | ⬜ Not started | 0 / 4 |
 
 **Legend:** ⬜ Not started · 🟡 In Progress · 🟢 Complete · 🔴 Blocked
 
-## Current phase: 4 — Recovery v1 (complete & merged) → Phase 5 next
+## Current phase: 5 — Evaluation & Benchmark (in progress)
+
+Entered 2026-06-15 on branch `phase-5-evaluation`. Six APs (AP-0028 … AP-0033) refined to `Accepted`;
+ADR-0009 records the eval-framework design + honest-results policy. Builds the failure-injection harness,
+baselines B0–B3, the five fidelity axes, the Continuation-State ablation (C2/C5), cross-version resume
+(C4), and the matrix runner that aggregates results and updates the claims registry (C1/C3). See
+[`project/phases/phase-5-evaluation/README.md`](../phases/phase-5-evaluation/README.md).
+Phases 0–4 complete and **merged** (PR #1–#4).
+
+## Prior phase: 4 — Recovery v1 (complete & merged)
 
 All five APs (AP-0023 … AP-0027) `Done` and **merged to `master`** via PR #4 (2026-06-15, merge commit
 `b008a4f`). `pytest -q` → **33 passed**; `examples/recovery_demo.py` shows crash→resume with
