@@ -2,7 +2,7 @@
 id: AP-0016
 title: Unified compaction/checkpoint distillation design (core/tail)
 phase: phase-2-architecture-protocol
-status: Accepted
+status: Done
 owner: maintainers
 created: 2026-06-15
 updated: 2026-06-15
@@ -34,13 +34,13 @@ mechanism.
 
 ## Acceptance Criteria
 
-- [ ] Both write paths (compaction, checkpoint) are specified and shown to share one distillation
-- [ ] The durable-core / elastic-tail handling per path is defined (prune vs freeze)
-- [ ] Distillation triggers and the step-boundary definition are specified
-- [ ] The fidelity-non-degradation argument (C2) is stated and linked to the claims registry
-- [ ] ADR-0005 records the unified-distillation decision
-- [ ] Documentation updated (single source of truth, front-matter current)
-- [ ] Trackers updated (`ap-index.md`, `phase-tracking.md`, `CHANGELOG.md`)
+- [x] Both write paths (compaction, checkpoint) are specified and shown to share one distillation
+- [x] The durable-core / elastic-tail handling per path is defined (prune vs freeze)
+- [x] Distillation triggers and the step-boundary definition are specified
+- [x] The fidelity-non-degradation argument (C2) is stated and linked to the claims registry
+- [x] ADR-0005 records the unified-distillation decision
+- [x] Documentation updated (single source of truth, front-matter current)
+- [x] Trackers updated (`ap-index.md`, `phase-tracking.md`, `CHANGELOG.md`)
 
 ## Dependencies
 
@@ -49,3 +49,4 @@ mechanism.
 ## Status / Log
 
 - 2026-06-15 — Proposed → Accepted (refined on Phase 2 entry).
+- 2026-06-15 — Accepted → Done. Delivered `docs/design/unified-distillation.md` + ADR-0005.

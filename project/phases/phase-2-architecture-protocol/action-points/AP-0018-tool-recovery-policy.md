@@ -2,7 +2,7 @@
 id: AP-0018
 title: Tool effect taxonomy → recovery-policy mapping
 phase: phase-2-architecture-protocol
-status: Accepted
+status: Done
 owner: maintainers
 created: 2026-06-15
 updated: 2026-06-15
@@ -32,13 +32,13 @@ policy table per class; promotion/wrapping rules; the default class for undeclar
 
 ## Acceptance Criteria
 
-- [ ] A tool-declaration schema (class + idempotency/verify hooks) is specified
-- [ ] The resume policy for each of the three classes is specified operationally
-- [ ] Promotion/wrapping rules (e.g. add idempotency key to lift a class) are defined
-- [ ] The conservative default for undeclared tools is specified
-- [ ] Consistent with AP-0017 and the tool-effect taxonomy
-- [ ] Documentation updated (single source of truth, front-matter current)
-- [ ] Trackers updated (`ap-index.md`, `phase-tracking.md`, `CHANGELOG.md`)
+- [x] A tool-declaration schema (class + idempotency/verify hooks) is specified
+- [x] The resume policy for each of the three classes is specified operationally
+- [x] Promotion/wrapping rules (e.g. add idempotency key to lift a class) are defined
+- [x] The conservative default for undeclared tools is specified
+- [x] Consistent with AP-0017 and the tool-effect taxonomy
+- [x] Documentation updated (single source of truth, front-matter current)
+- [x] Trackers updated (`ap-index.md`, `phase-tracking.md`, `CHANGELOG.md`)
 
 ## Dependencies
 
@@ -47,3 +47,4 @@ policy table per class; promotion/wrapping rules; the default class for undeclar
 ## Status / Log
 
 - 2026-06-15 — Proposed → Accepted (refined on Phase 2 entry).
+- 2026-06-15 — Accepted → Done. Delivered `docs/design/tool-recovery-policy.md` (references ADR-0006).

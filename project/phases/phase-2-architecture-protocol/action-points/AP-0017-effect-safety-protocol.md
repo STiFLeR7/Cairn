@@ -2,7 +2,7 @@
 id: AP-0017
 title: Effect-safety write-ahead protocol spec
 phase: phase-2-architecture-protocol
-status: Accepted
+status: Done
 owner: maintainers
 created: 2026-06-15
 updated: 2026-06-15
@@ -33,13 +33,13 @@ keyed to the [tool effect taxonomy](../../../docs/concepts/tool-effect-taxonomy.
 
 ## Acceptance Criteria
 
-- [ ] The effect-ledger record format and the INTENT/COMPLETE sequence are specified
-- [ ] Resume-time reconciliation (detect + resolve the danger window) is defined
-- [ ] The redo/skip/escalate policy is keyed to the three tool classes
-- [ ] The `never-retry` scope limit is stated explicitly (escalation path)
-- [ ] ADR-0006 records the effect-safety decision; C3 is referenced
-- [ ] Documentation updated (single source of truth, front-matter current)
-- [ ] Trackers updated (`ap-index.md`, `phase-tracking.md`, `CHANGELOG.md`)
+- [x] The effect-ledger record format and the INTENT/COMPLETE sequence are specified
+- [x] Resume-time reconciliation (detect + resolve the danger window) is defined
+- [x] The redo/skip/escalate policy is keyed to the three tool classes
+- [x] The `never-retry` scope limit is stated explicitly (escalation path)
+- [x] ADR-0006 records the effect-safety decision; C3 is referenced
+- [x] Documentation updated (single source of truth, front-matter current)
+- [x] Trackers updated (`ap-index.md`, `phase-tracking.md`, `CHANGELOG.md`)
 
 ## Dependencies
 
@@ -48,3 +48,4 @@ keyed to the [tool effect taxonomy](../../../docs/concepts/tool-effect-taxonomy.
 ## Status / Log
 
 - 2026-06-15 — Proposed → Accepted (refined on Phase 2 entry).
+- 2026-06-15 — Accepted → Done. Delivered `docs/design/effect-safety-protocol.md` + ADR-0006.

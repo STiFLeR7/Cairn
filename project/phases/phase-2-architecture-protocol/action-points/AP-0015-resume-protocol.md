@@ -2,7 +2,7 @@
 id: AP-0015
 title: Re-grounding resume protocol spec
 phase: phase-2-architecture-protocol
-status: Accepted
+status: Done
 owner: maintainers
 created: 2026-06-15
 updated: 2026-06-15
@@ -34,13 +34,13 @@ implementation.
 
 ## Acceptance Criteria
 
-- [ ] All five steps are specified with inputs/outputs and the boundary-contract calls they make
-- [ ] Torn-step reconciliation is defined (detect + resolve the last-checkpoint→failure window)
-- [ ] "Re-observe before re-act" is explicit; effect-safety hand-off to AP-0017 is referenced
-- [ ] Consistent with the boundary contract (AP-0014) and the schema (AP-0013)
-- [ ] ADR-0004 records the re-grounding-not-replay decision
-- [ ] Documentation updated (single source of truth, front-matter current)
-- [ ] Trackers updated (`ap-index.md`, `phase-tracking.md`, `CHANGELOG.md`)
+- [x] All five steps are specified with inputs/outputs and the boundary-contract calls they make
+- [x] Torn-step reconciliation is defined (detect + resolve the last-checkpoint→failure window)
+- [x] "Re-observe before re-act" is explicit; effect-safety hand-off to AP-0017 is referenced
+- [x] Consistent with the boundary contract (AP-0014) and the schema (AP-0013)
+- [x] ADR-0004 records the re-grounding-not-replay decision
+- [x] Documentation updated (single source of truth, front-matter current)
+- [x] Trackers updated (`ap-index.md`, `phase-tracking.md`, `CHANGELOG.md`)
 
 ## Dependencies
 
@@ -49,3 +49,4 @@ implementation.
 ## Status / Log
 
 - 2026-06-15 — Proposed → Accepted (refined on Phase 2 entry).
+- 2026-06-15 — Accepted → Done. Delivered `docs/design/resume-protocol.md` + ADR-0004.

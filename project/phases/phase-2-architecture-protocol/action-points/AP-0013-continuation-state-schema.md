@@ -2,7 +2,7 @@
 id: AP-0013
 title: Continuation State (cairn) schema spec
 phase: phase-2-architecture-protocol
-status: Accepted
+status: Done
 owner: maintainers
 created: 2026-06-15
 updated: 2026-06-15
@@ -32,13 +32,13 @@ core-vs-tail boundary rule. An ADR (ADR-0002) for the schema shape.
 
 ## Acceptance Criteria
 
-- [ ] Every durable-core field is specified with type, meaning, and its source state-taxonomy layer
-- [ ] The elastic tail and the core/tail boundary rule are defined
-- [ ] Schema versioning + provenance (model/harness version, step index) are specified
-- [ ] A concrete worked example of a populated Continuation State is included
-- [ ] ADR-0002 records the schema-shape decision
-- [ ] Documentation updated (single source of truth, front-matter current)
-- [ ] Trackers updated (`ap-index.md`, `phase-tracking.md`, `CHANGELOG.md`)
+- [x] Every durable-core field is specified with type, meaning, and its source state-taxonomy layer
+- [x] The elastic tail and the core/tail boundary rule are defined
+- [x] Schema versioning + provenance (model/harness version, step index) are specified
+- [x] A concrete worked example of a populated Continuation State is included
+- [x] ADR-0002 records the schema-shape decision
+- [x] Documentation updated (single source of truth, front-matter current)
+- [x] Trackers updated (`ap-index.md`, `phase-tracking.md`, `CHANGELOG.md`)
 
 ## Dependencies
 
@@ -47,3 +47,4 @@ core-vs-tail boundary rule. An ADR (ADR-0002) for the schema shape.
 ## Status / Log
 
 - 2026-06-15 — Proposed → Accepted (refined on Phase 2 entry).
+- 2026-06-15 — Accepted → Done. Delivered `docs/design/continuation-state-schema.md` + ADR-0002.

@@ -42,7 +42,15 @@ updates this file.
 - **Phase 1 — Conceptual & Research Foundation: complete & merged** (PR #1, 2026-06-15). All six APs
   (AP-0007 … AP-0012) `Done` and merged to `master` via merge commit.
 
+### Added (Phase 2, on branch `phase-2-architecture-protocol`)
+- `docs/design/continuation-state-schema.md` + ADR-0002 — the cairn schema, durable core + elastic tail (AP-0013).
+- `docs/design/boundary-contract.md` + ADR-0003 — Code Harness ↔ Runtime operations + invariants I1–I5 (AP-0014).
+- `docs/design/resume-protocol.md` + ADR-0004 — RGR: load → re-observe → reconcile → re-plan → continue (AP-0015).
+- `docs/design/unified-distillation.md` + ADR-0005 — one `distill` for compaction + checkpoint, core/tail (AP-0016).
+- `docs/design/effect-safety-protocol.md` + ADR-0006 — write-ahead INTENT/COMPLETE ledger + reconciliation (AP-0017).
+- `docs/design/tool-recovery-policy.md` — tool declaration + per-class resume policy + conservative default (AP-0018).
+
 ### Status (Phase 2)
-- **Phase 2 — Architecture & Protocol Design: entered 2026-06-15** on branch
-  `phase-2-architecture-protocol`. Six provisional APs (AP-0013 … AP-0018) refined into committed Action
-  Points (`Accepted`); phase scaffold and README added.
+- **Phase 2 — Architecture & Protocol Design: complete on branch** `phase-2-architecture-protocol`
+  (2026-06-15). All six APs (AP-0013 … AP-0018) `Done`; ADRs 0002–0006 accepted. Awaiting review + merge.
+  Next: Phase 3 — Minimal Harness.

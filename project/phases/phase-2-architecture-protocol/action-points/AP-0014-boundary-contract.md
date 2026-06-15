@@ -2,7 +2,7 @@
 id: AP-0014
 title: Code Harness ↔ Runtime boundary contract spec
 phase: phase-2-architecture-protocol
-status: Accepted
+status: Done
 owner: maintainers
 created: 2026-06-15
 updated: 2026-06-15
@@ -33,13 +33,13 @@ implementation.
 
 ## Acceptance Criteria
 
-- [ ] Each operation has a signature, semantics, and pre/postconditions
-- [ ] Invariants are stated (write-ahead effects; atomic checkpoint; monotonic effect offsets)
-- [ ] The Runtime-owned (mechanism) vs Code-Harness-owned (semantics) operations are clearly split
-- [ ] The contract is consistent with the Continuation State schema (AP-0013)
-- [ ] ADR-0003 records the contract decision
-- [ ] Documentation updated (single source of truth, front-matter current)
-- [ ] Trackers updated (`ap-index.md`, `phase-tracking.md`, `CHANGELOG.md`)
+- [x] Each operation has a signature, semantics, and pre/postconditions
+- [x] Invariants are stated (write-ahead effects; atomic checkpoint; monotonic effect offsets)
+- [x] The Runtime-owned (mechanism) vs Code-Harness-owned (semantics) operations are clearly split
+- [x] The contract is consistent with the Continuation State schema (AP-0013)
+- [x] ADR-0003 records the contract decision
+- [x] Documentation updated (single source of truth, front-matter current)
+- [x] Trackers updated (`ap-index.md`, `phase-tracking.md`, `CHANGELOG.md`)
 
 ## Dependencies
 
@@ -48,3 +48,4 @@ implementation.
 ## Status / Log
 
 - 2026-06-15 — Proposed → Accepted (refined on Phase 2 entry).
+- 2026-06-15 — Accepted → Done. Delivered `docs/design/boundary-contract.md` + ADR-0003.
