@@ -85,8 +85,15 @@ updates this file.
   `examples/recovery_demo.py`; `tests/test_recovery_e2e.py` (AP-0027).
 - ADR-0008 — Recovery v1 implementation decisions (snapshot numbering, digest, resume, effects, hook).
 
+### Fixed (Phase 4, PR #4 review/debugging)
+- `reconcile` no longer reopens a step when an *unrelated* file diverges (step id `s0` had
+  substring-matched a path like `logs0.txt`); regression test added.
+- Documented honestly (ADR-0008 §7) that v1 resume is **restore-first**, so torn-write/plan-drift
+  detection is a no-op in the integrated flow (reserved for a future crash-in-place mode); reconcile's
+  active v1 jobs are effect danger-window resolution + plan re-grounding.
+
 ### Status (Phase 4)
-- **Phase 4 — Recovery v1: complete on branch** `phase-4-recovery-v1` (2026-06-15). All five APs
-  (AP-0023 … AP-0027) `Done`; **`pytest -q` → 32 passed**; `examples/recovery_demo.py` shows crash→resume
+- **Phase 4 — Recovery v1: complete & merged** (PR #4, 2026-06-15; merge commit `b008a4f`). All five APs
+  (AP-0023 … AP-0027) `Done`; **`pytest -q` → 33 passed**; `examples/recovery_demo.py` shows crash→resume
   with **recovery_tax=1** (vs cold-restart 3) and the effect resolved exactly once (no duplicate). No
-  hardcoded harness (ADR-0007). Awaiting review + merge. Next: Phase 5 — Evaluation & Benchmark.
+  hardcoded harness (ADR-0007). Next: Phase 5 — Evaluation & Benchmark.

@@ -9,7 +9,7 @@ checking what actually happened, and continuing — not by starting over.*
 
 [![License](https://img.shields.io/badge/license-Apache--2.0-blue.svg)](LICENSE)
 [![Status](https://img.shields.io/badge/status-Phase%204%3A%20Recovery%20v1%20complete-brightgreen.svg)](ROADMAP.md)
-[![Tests](https://img.shields.io/badge/tests-32%20passing-brightgreen.svg)](tests/)
+[![Tests](https://img.shields.io/badge/tests-33%20passing-brightgreen.svg)](tests/)
 
 </div>
 
@@ -53,12 +53,12 @@ Cairn **complements** agent frameworks (OpenHands, LangGraph, custom harnesses) 
 **unified distillation** writes the cairn for both compaction and checkpointing, **re-grounding resume**
 recovers from a crash (load → re-observe → reconcile → re-plan → continue), and **effect-safety** stops a
 resumed agent re-firing an irreversible effect. An injected-failure demo recovers a task with **no
-duplicate effect** and a recovery tax far below a cold restart. **32 passing tests.** Phases 0–4 done;
+duplicate effect** and a recovery tax far below a cold restart. **33 passing tests.** Phases 0–4 done;
 **Phase 5 — Evaluation & Benchmark** is next. See the [Roadmap](ROADMAP.md), the
 [Master Checklist](CHECKLIST.md), and live state under [`project/`](project/).
 
 ```bash
-python -m pytest -q             # 32 passing
+python -m pytest -q             # 33 passing
 python examples/quickstart.py   # end-to-end baseline task
 python examples/recovery_demo.py # crash mid-task, then recover via re-grounding
 ```

@@ -1,6 +1,6 @@
 # Phase 4 — Recovery v1 (three pillars)
 
-- **Status:** 🟢 Complete on branch *(2026-06-15 — `pytest` 32 passed; awaiting review + merge)*
+- **Status:** 🟢 Complete & merged *(2026-06-15 — PR #4, merge commit `b008a4f`; `pytest` 33 passed)*
 - **Goal:** Turn the Phase 3 substrate into a **recoverable** agent. Implement the three recovery
   pillars defined in Phase 2 — **unified distillation**, **re-grounding resume (RGR)**, and
   **effect-safety** — and prove them with an **end-to-end recovery from an injected failure**.

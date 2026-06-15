@@ -10,7 +10,7 @@
 - [x] **Phase 1 — Conceptual & Research Foundation** 🟢 *(complete & merged — PR #1)*
 - [x] **Phase 2 — Architecture & Protocol Design** 🟢 *(complete & merged — PR #2)*
 - [x] **Phase 3 — Minimal Harness** 🟢 *(complete & merged — PR #3; 13 tests passing)*
-- [x] **Phase 4 — Recovery v1 (three pillars)** 🟢 *(complete on branch — awaiting merge; 32 tests)*
+- [x] **Phase 4 — Recovery v1 (three pillars)** 🟢 *(complete & merged — PR #4; 33 tests passing)*
 - [ ] **Phase 5 — Evaluation & Benchmark**
 - [ ] **Phase 6 — Paper & Release**
 
