@@ -1,0 +1,21 @@
+cff-version: 1.2.0
+title: "Cairn: Recoverable Long-Horizon Agents"
+message: "If you use Cairn, please cite it using these metadata."
+type: software
+authors:
+  - family-names: "STiFLeR7"
+    name-particle: ""
+repository-code: "https://github.com/STiFLeR7/Cairn"
+url: "https://github.com/STiFLeR7/Cairn"
+abstract: >-
+  Cairn is a framework-agnostic reference implementation and benchmark for recoverable
+  long-horizon agents. It defines the Continuation State contract and the Re-grounding
+  Recovery (RGR) protocol, unifying context compaction and crash recovery under the thesis
+  "Checkpoints Are Compactions", and ships a failure-injection harness for measuring recovery fidelity.
+keywords:
+  - autonomous agents
+  - agent recovery
+  - checkpointing
+  - long-horizon agents
+  - re-grounding
+license: Apache-2.0
