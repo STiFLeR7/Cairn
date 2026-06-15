@@ -74,7 +74,9 @@ def _reconcile_plan(plan: list[PlanStep], diverged: set[str]) -> list[PlanStep]:
     out: list[PlanStep] = []
     for p in plan:
         status = p.status
-        if status == "done" and any(p.id in d or d in p.description for d in diverged):
+        # Re-open a done step only when a diverged file is named in its description.
+        # (A step id like "s0" must not substring-match an unrelated path like "logs0.txt".)
+        if status == "done" and any(d in p.description for d in diverged):
             status = "pending"
         out.append(PlanStep(id=p.id, description=p.description, status=status, depends_on=list(p.depends_on)))
     return out

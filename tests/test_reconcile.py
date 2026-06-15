@@ -33,6 +33,14 @@ def test_plan_step_reopened_when_its_evidence_diverged():
     assert rp.plan[0].status == "pending"  # 'a.txt' in description → re-opened for redo
 
 
+def test_unrelated_diverged_file_does_not_reopen_step_by_id_substring():
+    # Regression: step id 's0' must NOT match the unrelated file 'logs0.txt'. The only
+    # legitimate signal is the file appearing in the step's description.
+    plan = [PlanStep(id="s0", description="init the project", status="done")]
+    rp = reconcile(_state({"logs0.txt": "h"}, plan), ObservedWorld(digest={"logs0.txt": "DIFF"}))
+    assert rp.plan[0].status == "done"  # unrelated divergence → step stays done
+
+
 def test_surfaces_effect_danger_window():
     obs = ObservedWorld(
         digest={},
