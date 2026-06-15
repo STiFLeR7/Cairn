@@ -51,6 +51,11 @@ updates this file.
 - `docs/design/tool-recovery-policy.md` — tool declaration + per-class resume policy + conservative default (AP-0018).
 
 ### Status (Phase 2)
-- **Phase 2 — Architecture & Protocol Design: complete on branch** `phase-2-architecture-protocol`
-  (2026-06-15). All six APs (AP-0013 … AP-0018) `Done`; ADRs 0002–0006 accepted. Awaiting review + merge.
-  Next: Phase 3 — Minimal Harness.
+- **Phase 2 — Architecture & Protocol Design: complete & merged** (PR #2, 2026-06-15). All six APs
+  (AP-0013 … AP-0018) `Done`; ADRs 0002–0006 accepted.
+
+### Status (Phase 3)
+- **Phase 3 — Minimal Harness: entered 2026-06-15** on branch `phase-3-minimal-harness`. Four provisional
+  APs (AP-0019/0020/0021/0022) refined into committed Action Points (`Accepted`). Stack decided —
+  Python, pluggable sandbox (local-subprocess default), pluggable model provider (scriptable mock
+  default), **no hardcoded harness** (ADR-0007). First code phase; "tests pass" joins the DoD.
