@@ -17,16 +17,16 @@
 | [AP-0005](../phases/phase-0-definition/action-points/AP-0005-master-trackers.md) | Stand up master trackers | Done |
 | [AP-0006](../phases/phase-0-definition/action-points/AP-0006-license-contribution-citation.md) | License + contribution + citation scaffolding | Done |
 
-## Phase 1 — Conceptual & Research Foundation *(provisional)*
+## Phase 1 — Conceptual & Research Foundation *(committed — entered 2026-06-15)*
 
 | ID | Title | Status |
 |---|---|---|
-| AP-0007 | Formalize the recovery problem (continuation sufficiency) | Proposed |
-| AP-0008 | Define recovery-fidelity metric & eval dimensions (conceptual) | Proposed |
-| AP-0009 | Related-work survey & positioning matrix | Proposed |
-| AP-0010 | Conceptual framework docs (Code Harness / Runtime / recovery) | Proposed |
-| AP-0011 | Establish research claims registry | Proposed |
-| AP-0012 | State taxonomy + tool effect taxonomy (conceptual) | Proposed |
+| [AP-0007](../phases/phase-1-conceptual-foundation/action-points/AP-0007-formalize-recovery-problem.md) | Formalize the recovery problem (continuation sufficiency) | Done |
+| [AP-0008](../phases/phase-1-conceptual-foundation/action-points/AP-0008-recovery-fidelity-metric.md) | Define recovery-fidelity metric & eval dimensions (conceptual) | Done |
+| [AP-0009](../phases/phase-1-conceptual-foundation/action-points/AP-0009-related-work-positioning.md) | Related-work survey & positioning matrix | Done |
+| [AP-0010](../phases/phase-1-conceptual-foundation/action-points/AP-0010-conceptual-framework.md) | Conceptual framework docs (Code Harness / Runtime / recovery) | Done |
+| [AP-0011](../phases/phase-1-conceptual-foundation/action-points/AP-0011-claims-registry.md) | Establish research claims registry | Done |
+| [AP-0012](../phases/phase-1-conceptual-foundation/action-points/AP-0012-state-and-tool-taxonomies.md) | State taxonomy + tool effect taxonomy (conceptual) | Done |
 
 ## Phase 2 — Architecture & Protocol Design *(provisional)*
 
