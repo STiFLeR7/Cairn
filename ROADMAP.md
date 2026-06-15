@@ -12,7 +12,7 @@
 | **1** | Conceptual & Research Foundation | Formalize the problem; map the field | 🟢 Complete | Continuation-sufficiency & recovery-fidelity *defined*; related-work survey; claims registry; concept docs. **No code.** |
 | **2** | Architecture & Protocol Design | Specify the mechanism (docs/ADRs) | 🟢 Complete | Continuation State schema, boundary contract, resume protocol, effect-safety WAL, tool taxonomy — accepted as specs/ADRs |
 | **3** | Minimal Harness | Build the substrate (no recovery yet) | 🟢 Complete | Minimal Code Harness + Runtime honoring the boundary contract; baseline tasks complete |
-| **4** | Recovery v1 (three pillars) | Unified distillation + re-grounding + effect-safety | ⬜ Not started | Agent recovers from injected failure end-to-end |
+| **4** | Recovery v1 (three pillars) | Unified distillation + re-grounding + effect-safety | 🟡 In Progress | Agent recovers from injected failure end-to-end |
 | **5** | Evaluation & Benchmark | Failure-injection harness, baselines, ablations | ⬜ Not started | Results reproduce the headline claims |
 | **6** | Paper & Release | Write-up + reproducible OSS artifact | ⬜ Not started | Paper drafted/submitted; `v1.0` released with repro instructions |
 

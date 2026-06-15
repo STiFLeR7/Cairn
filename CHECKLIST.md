@@ -10,7 +10,7 @@
 - [x] **Phase 1 — Conceptual & Research Foundation** 🟢 *(complete & merged — PR #1)*
 - [x] **Phase 2 — Architecture & Protocol Design** 🟢 *(complete & merged — PR #2)*
 - [x] **Phase 3 — Minimal Harness** 🟢 *(complete & merged — PR #3; 13 tests passing)*
-- [ ] **Phase 4 — Recovery v1 (three pillars)**
+- [ ] **Phase 4 — Recovery v1 (three pillars)** 🟡 *(in progress — entered 2026-06-15)*
 - [ ] **Phase 5 — Evaluation & Benchmark**
 - [ ] **Phase 6 — Paper & Release**
 
@@ -79,3 +79,19 @@
 - [x] `pytest` smoke suite passes (contract behaviors + baseline task)
 - [x] No hardcoded harness — model/tools/tasks/sandbox injected (ADR-0007)
 - [x] Recovery not implemented (Phase 4); seams exist
+
+## Phase 4 — Action Points
+
+- [ ] `AP-0023` Unified distillation engine (cairn writer)
+- [ ] `AP-0024` Checkpoint persistence + workspace snapshot integration
+- [ ] `AP-0025` Re-grounding resume protocol implementation
+- [ ] `AP-0026` Effect-safety WAL + idempotency enforcement
+- [ ] `AP-0027` End-to-end recovery from injected failure
+
+## Phase 4 completion criteria
+
+- [ ] Agent recovers from an injected failure end-to-end and completes the task (claim C1)
+- [ ] Unified `distill` yields an identical durable core for compaction and checkpoint paths (claim C2)
+- [ ] No duplicate effect for safe-to-retry / check-before-retry; never-retry escalates (claim C3)
+- [ ] `pytest` green across the new recovery suite and the existing Phase 3 tests
+- [ ] No hardcoded harness (ADR-0007); docs + ADR-0008 + trackers updated

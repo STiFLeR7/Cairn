@@ -48,15 +48,15 @@
 | [AP-0020](../phases/phase-3-minimal-harness/action-points/AP-0020-minimal-code-harness.md) | Minimal Code Harness (agent loop, code-as-action, model provider) | Done |
 | [AP-0022](../phases/phase-3-minimal-harness/action-points/AP-0022-baseline-tasks-tests.md) | Baseline task suite (no recovery) + smoke tests | Done |
 
-## Phase 4 — Recovery v1 (three pillars) *(provisional)*
+## Phase 4 — Recovery v1 (three pillars) *(committed — entered 2026-06-15)*
 
 | ID | Title | Status |
 |---|---|---|
-| AP-0023 | Unified distillation engine (cairn writer) | Proposed |
-| AP-0024 | Checkpoint persistence + workspace snapshot integration | Proposed |
-| AP-0025 | Re-grounding resume protocol implementation | Proposed |
-| AP-0026 | Effect-safety WAL + idempotency enforcement | Proposed |
-| AP-0027 | End-to-end recovery from injected failure | Proposed |
+| [AP-0023](../phases/phase-4-recovery-v1/action-points/AP-0023-unified-distillation-engine.md) | Unified distillation engine (cairn writer) | Accepted |
+| [AP-0024](../phases/phase-4-recovery-v1/action-points/AP-0024-checkpoint-snapshot-integration.md) | Checkpoint persistence + workspace snapshot integration | Accepted |
+| [AP-0025](../phases/phase-4-recovery-v1/action-points/AP-0025-regrounding-resume.md) | Re-grounding resume protocol implementation | Accepted |
+| [AP-0026](../phases/phase-4-recovery-v1/action-points/AP-0026-effect-safety-wal.md) | Effect-safety WAL + idempotency enforcement | Accepted |
+| [AP-0027](../phases/phase-4-recovery-v1/action-points/AP-0027-end-to-end-recovery.md) | End-to-end recovery from injected failure | Accepted |
 
 ## Phase 5 — Evaluation & Benchmark *(provisional)*
 
