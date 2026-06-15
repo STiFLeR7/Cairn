@@ -8,11 +8,11 @@
 
 - [x] **Phase 0 — Project Definition** 🟢 *(complete — reviewed & approved 2026-06-15)*
 - [x] **Phase 1 — Conceptual & Research Foundation** 🟢 *(complete & merged — PR #1)*
-- [x] **Phase 2 — Architecture & Protocol Design** 🟢 *(complete on branch — awaiting merge)*
-- [x] **Phase 3 — Minimal Harness**
-- [x] **Phase 4 — Recovery v1 (three pillars)**
-- [x] **Phase 5 — Evaluation & Benchmark**
-- [x] **Phase 6 — Paper & Release**
+- [x] **Phase 2 — Architecture & Protocol Design** 🟢 *(complete & merged — PR #2)*
+- [x] **Phase 3 — Minimal Harness** 🟢 *(complete on branch — awaiting merge)*
+- [ ] **Phase 4 — Recovery v1 (three pillars)**
+- [ ] **Phase 5 — Evaluation & Benchmark**
+- [ ] **Phase 6 — Paper & Release**
 
 ## Phase 0 — Action Points
 
@@ -65,3 +65,17 @@
 - [x] ADRs accepted for the keystone decisions (schema, boundary contract, unified distillation)
 - [x] Design is implementable — Phase 3 can build against these contracts
 - [x] No runnable code (Phase 2 is design)
+
+## Phase 3 — Action Points
+
+- [x] `AP-0021` Boundary-contract interfaces + core data models
+- [x] `AP-0019` Minimal Runtime (sandbox, workspace, effect ledger, checkpoint store)
+- [x] `AP-0020` Minimal Code Harness (agent loop, code-as-action, model provider)
+- [x] `AP-0022` Baseline task suite (no recovery) + smoke tests
+
+## Phase 3 completion criteria
+
+- [x] Assembled harness completes a baseline task end-to-end
+- [x] `pytest` smoke suite passes (contract behaviors + baseline task)
+- [x] No hardcoded harness — model/tools/tasks/sandbox injected (ADR-0007)
+- [x] Recovery not implemented (Phase 4); seams exist

@@ -39,14 +39,14 @@
 | [AP-0017](../phases/phase-2-architecture-protocol/action-points/AP-0017-effect-safety-protocol.md) | Effect-safety write-ahead protocol spec | Done |
 | [AP-0018](../phases/phase-2-architecture-protocol/action-points/AP-0018-tool-recovery-policy.md) | Tool effect taxonomy → recovery-policy mapping | Done |
 
-## Phase 3 — Minimal Harness *(provisional)*
+## Phase 3 — Minimal Harness *(committed — entered 2026-06-15)*
 
 | ID | Title | Status |
 |---|---|---|
-| AP-0019 | Minimal Runtime (workspace, sandbox, execution, effect-ledger store) | Proposed |
-| AP-0020 | Minimal Code Harness (agent loop, code-as-action) | Proposed |
-| AP-0021 | Implement boundary-contract interfaces | Proposed |
-| AP-0022 | Baseline task suite (no recovery) + smoke tests | Proposed |
+| [AP-0021](../phases/phase-3-minimal-harness/action-points/AP-0021-boundary-interfaces.md) | Boundary-contract interfaces + core data models | Done |
+| [AP-0019](../phases/phase-3-minimal-harness/action-points/AP-0019-minimal-runtime.md) | Minimal Runtime (sandbox, workspace, effect ledger, checkpoint store) | Done |
+| [AP-0020](../phases/phase-3-minimal-harness/action-points/AP-0020-minimal-code-harness.md) | Minimal Code Harness (agent loop, code-as-action, model provider) | Done |
+| [AP-0022](../phases/phase-3-minimal-harness/action-points/AP-0022-baseline-tasks-tests.md) | Baseline task suite (no recovery) + smoke tests | Done |
 
 ## Phase 4 — Recovery v1 (three pillars) *(provisional)*
 
