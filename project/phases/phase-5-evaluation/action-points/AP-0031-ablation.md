@@ -2,7 +2,7 @@
 id: AP-0031
 title: Continuation-State ablation study
 phase: phase-5-evaluation
-status: Accepted
+status: Done
 owner: maintainers
 created: 2026-06-15
 updated: 2026-06-15
@@ -32,11 +32,11 @@ each ablated cairn and reports fidelity per ablation; the unified-vs-checkpoint-
 
 ## Acceptance Criteria
 
-- [ ] Ablation can drop each headline cairn component independently
-- [ ] At least one ablation demonstrably degrades recovery (a fidelity cliff) and one does not (slack)
-- [ ] Unified distillation scores no worse than a checkpoint-only cairn on the same scenario (C2 evidence)
-- [ ] Honest scope: deterministic reference harness, not a live-LLM study (ADR-0009)
-- [ ] Documentation + trackers updated; unit tests pass
+- [x] Ablation can drop each headline cairn component independently
+- [x] At least one ablation demonstrably degrades recovery (a fidelity cliff) and one does not (slack)
+- [x] Unified distillation scores no worse than a checkpoint-only cairn on the same scenario (C2 evidence)
+- [x] Honest scope: deterministic reference harness, not a live-LLM study (ADR-0009)
+- [x] Documentation + trackers updated; unit tests pass
 
 ## Dependencies
 
@@ -45,3 +45,4 @@ each ablated cairn and reports fidelity per ablation; the unified-vs-checkpoint-
 ## Status / Log
 
 - 2026-06-15 — Proposed → Accepted (refined on Phase 5 entry).
+- 2026-06-15 — Accepted → Done. Delivered `eval/ablation.py` + `benchmarks/ablation_study.py`; C5 cliff (plan) located; tests pass.

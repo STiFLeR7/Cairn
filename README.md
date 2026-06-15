@@ -8,8 +8,8 @@
 checking what actually happened, and continuing — not by starting over.*
 
 [![License](https://img.shields.io/badge/license-Apache--2.0-blue.svg)](LICENSE)
-[![Status](https://img.shields.io/badge/status-Phase%204%3A%20Recovery%20v1%20complete-brightgreen.svg)](ROADMAP.md)
-[![Tests](https://img.shields.io/badge/tests-33%20passing-brightgreen.svg)](tests/)
+[![Status](https://img.shields.io/badge/status-Phase%205%3A%20Evaluation%20complete-brightgreen.svg)](ROADMAP.md)
+[![Tests](https://img.shields.io/badge/tests-42%20passing-brightgreen.svg)](tests/)
 
 </div>
 
@@ -49,18 +49,20 @@ Cairn **complements** agent frameworks (OpenHands, LangGraph, custom harnesses) 
 
 ## Project status
 
-**Phase 4 — Recovery v1: complete (on branch).** The three recovery pillars now work end-to-end: a single
-**unified distillation** writes the cairn for both compaction and checkpointing, **re-grounding resume**
-recovers from a crash (load → re-observe → reconcile → re-plan → continue), and **effect-safety** stops a
-resumed agent re-firing an irreversible effect. An injected-failure demo recovers a task with **no
-duplicate effect** and a recovery tax far below a cold restart. **33 passing tests.** Phases 0–4 done;
-**Phase 5 — Evaluation & Benchmark** is next. See the [Roadmap](ROADMAP.md), the
-[Master Checklist](CHECKLIST.md), and live state under [`project/`](project/).
+**Phase 5 — Evaluation & Benchmark: complete (on branch).** Recovery is now *measured*, not just
+demonstrated. A failure-injection benchmark runs the four baselines (B0 cold-restart, B1 log-replay, B2
+snapshot-only, B3 RGR) across the failure-step matrix and scores five fidelity axes against the
+uninterrupted run. In the deterministic reference harness, **RGR beats cold restart** (recovery tax 1.5 vs
+5.0 steps; preserves all pre-failure work) and the **effect-safety WAL yields zero duplicate effects** vs
+one without it; an ablation locates the *plan* as the minimal sufficient state. **42 passing tests.**
+Phases 0–5 done; **Phase 6 — Paper & Release** is next. Results are honestly scoped (reference harness, not
+a live-LLM study — [ADR-0009](docs/adr/ADR-0009-evaluation-framework.md)). See the [Roadmap](ROADMAP.md),
+the [Master Checklist](CHECKLIST.md), and the [claims registry](docs/research/claims-registry.md).
 
 ```bash
-python -m pytest -q             # 33 passing
-python examples/quickstart.py   # end-to-end baseline task
-python examples/recovery_demo.py # crash mid-task, then recover via re-grounding
+python -m pytest -q                  # 42 passing
+python examples/recovery_demo.py     # crash mid-task, then recover via re-grounding
+python benchmarks/recovery_matrix.py # the baseline×failure-step benchmark (C1, C3)
 ```
 
 The harness is **never hardcoded** (ADR-0007): model provider, tools, tasks, sandbox, storage, and
@@ -77,8 +79,9 @@ scripted model live only in [`examples/`](examples/) and [`tests/`](tests/), nev
 | [`docs/governance/`](docs/governance/) | How we work: documentation policy, AP workflow, phase process |
 | [`docs/design/`](docs/design/) | **Specs** — Continuation State schema, boundary contract, resume protocol, effect-safety |
 | [`project/`](project/) | **Live state** — phases, Action Points, tracking, templates |
-| [`src/cairn/`](src/cairn/) | The harness: `state`, `contract`, `runtime/` (sandbox, snapshot, ledger, checkpoint, digest), `harness/` (loop, distill, reconcile, effects, resume), `tasks/`, `app` |
-| [`examples/`](examples/), [`tests/`](tests/) | Quickstart + recovery demo + suite (32 tests) |
+| [`src/cairn/`](src/cairn/) | The harness: `state`, `contract`, `runtime/` (sandbox, snapshot, ledger, checkpoint, digest), `harness/` (loop, distill, reconcile, effects, resume), `eval/` (failure, baselines, metrics, ablation, runner), `tasks/`, `app` |
+| [`benchmarks/`](benchmarks/) | Concrete benchmark scenarios + runnable studies (recovery matrix, ablation, cross-version) |
+| [`examples/`](examples/), [`tests/`](tests/) | Quickstart + recovery demo + suite (42 tests) |
 | `benchmarks/` | Empty until Phase 5 (failure-injection eval) |
 
 ## How we work

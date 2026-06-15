@@ -2,7 +2,7 @@
 id: AP-0033
 title: Results aggregation & claims update
 phase: phase-5-evaluation
-status: Accepted
+status: Done
 owner: maintainers
 created: 2026-06-15
 updated: 2026-06-15
@@ -33,12 +33,12 @@ scope limits.
 
 ## Acceptance Criteria
 
-- [ ] `run_matrix` produces a results table over (step × type × baseline) with the five axes
-- [ ] C1 supported (B3 > B0 on tax + no-regression); C3 supported (0 duplicate effects with WAL)
-- [ ] C2/C5 evidenced by the ablation; C4 evidenced by the cross-version experiment
-- [ ] Claims registry Status lines updated with dated notes **and** explicit scope (deterministic harness)
-- [ ] `benchmarks/recovery_matrix.py` runs end-to-end; full `pytest` suite green
-- [ ] Documentation + CHANGELOG + trackers updated; Phase 5 completion criteria met
+- [x] `run_matrix` produces a results table over (step × type × baseline) with the five axes
+- [x] C1 supported (B3 > B0 on tax + no-regression); C3 supported (0 duplicate effects with WAL)
+- [x] C2/C5 evidenced by the ablation; C4 evidenced by the cross-version experiment
+- [x] Claims registry Status lines updated with dated notes **and** explicit scope (deterministic harness)
+- [x] `benchmarks/recovery_matrix.py` runs end-to-end; full `pytest` suite green
+- [x] Documentation + CHANGELOG + trackers updated; Phase 5 completion criteria met
 
 ## Dependencies
 
@@ -47,3 +47,4 @@ scope limits.
 ## Status / Log
 
 - 2026-06-15 — Proposed → Accepted (refined on Phase 5 entry).
+- 2026-06-15 — Accepted → Done. Delivered `eval/runner.py` + `benchmarks/recovery_matrix.py`; C1/C3 SUPPORTED; claims registry updated with dated, scoped evidence.

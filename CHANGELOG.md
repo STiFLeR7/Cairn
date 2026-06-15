@@ -97,3 +97,23 @@ updates this file.
   (AP-0023 … AP-0027) `Done`; **`pytest -q` → 33 passed**; `examples/recovery_demo.py` shows crash→resume
   with **recovery_tax=1** (vs cold-restart 3) and the effect resolved exactly once (no duplicate). No
   hardcoded harness (ADR-0007). Next: Phase 5 — Evaluation & Benchmark.
+
+### Added (Phase 5, on branch `phase-5-evaluation`) — benchmark
+- `cairn.eval` package: `failure` (FailureType), `scenario` (`Scenario`/`EffectSpec`, reference +
+  run-until-failure, external-effect model), `baselines` (B0 ColdRestart / B1 LogReplay / B2 SnapshotOnly /
+  B3 RGR behind one `RecoveryStrategy`), `metrics` (five axes + `RecoveryReport` gate), `ablation`
+  (`ablate` + suite), `runner` (`run_matrix` + aggregate + table) (AP-0028…AP-0031, AP-0033).
+- `CodeHarness.continue_from` — public seam for baselines to continue from a supplied history.
+- `benchmarks/` — concrete scenarios + runnable studies: `recovery_matrix.py`, `ablation_study.py`,
+  `cross_version_resume.py` (AP-0032/0033); `tests/conftest.py` makes them importable.
+- ADR-0009 — evaluation-framework design + honest-results policy.
+- Claims registry updated with dated, scoped evidence.
+
+### Status (Phase 5)
+- **Phase 5 — Evaluation & Benchmark: complete on branch** `phase-5-evaluation` (2026-06-15). All six APs
+  (AP-0028 … AP-0033) `Done`; **`pytest -q` → 42 passed**; the three benchmarks run end-to-end. Evidence
+  (deterministic reference harness, ADR-0009): **C1 supported** (RGR tax 1.5 vs cold-restart 5.0,
+  no-regression 1.0 vs 0.0), **C3 supported** (0 duplicate effects with WAL vs 1 without; gate PASS vs
+  FAIL), **C5 supported** (ablation locates `plan` as the fidelity cliff), **C2 evidenced**, **C4 mechanism
+  shown** (cross-version provenance A→B). No hardcoded harness (ADR-0007). Awaiting review + merge. Next:
+  Phase 6 — Paper & Release.

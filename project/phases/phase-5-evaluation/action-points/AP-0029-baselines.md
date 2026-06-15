@@ -2,7 +2,7 @@
 id: AP-0029
 title: Baselines (cold restart, log-replay, snapshot-only, RGR)
 phase: phase-5-evaluation
-status: Accepted
+status: Done
 owner: maintainers
 created: 2026-06-15
 updated: 2026-06-15
@@ -32,11 +32,11 @@ latest snapshot then continue with a fresh model context — no `reconcile`, no 
 
 ## Acceptance Criteria
 
-- [ ] All four baselines implement one interface and run the same failed scenario
-- [ ] B0 starts over; B2 restores the workspace but does not re-ground; B3 re-grounds via the cairn
-- [ ] A without-WAL contrast is available for the effect-safety claim (C3)
-- [ ] No hardcoded harness — strategies parameterized by the injected scenario (ADR-0007)
-- [ ] Documentation + trackers updated; unit tests pass
+- [x] All four baselines implement one interface and run the same failed scenario
+- [x] B0 starts over; B2 restores the workspace but does not re-ground; B3 re-grounds via the cairn
+- [x] A without-WAL contrast is available for the effect-safety claim (C3)
+- [x] No hardcoded harness — strategies parameterized by the injected scenario (ADR-0007)
+- [x] Documentation + trackers updated; unit tests pass
 
 ## Dependencies
 
@@ -45,3 +45,4 @@ latest snapshot then continue with a fresh model context — no `reconcile`, no 
 ## Status / Log
 
 - 2026-06-15 — Proposed → Accepted (refined on Phase 5 entry).
+- 2026-06-15 — Accepted → Done. Delivered `eval/baselines.py` (B0–B3 behind one interface); matrix tests pass.

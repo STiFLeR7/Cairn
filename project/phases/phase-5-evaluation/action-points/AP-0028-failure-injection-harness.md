@@ -2,7 +2,7 @@
 id: AP-0028
 title: Failure-injection harness (step × failure-type matrix)
 phase: phase-5-evaluation
-status: Accepted
+status: Done
 owner: maintainers
 created: 2026-06-15
 updated: 2026-06-15
@@ -34,11 +34,11 @@ faithfully; other types are modeled as a stop-at-`k` with a typed label (honest:
 
 ## Acceptance Criteria
 
-- [ ] Failure injected at step `k` for each declared `FailureType` via a generic seam (no hardcoding)
-- [ ] The uninterrupted reference run is reproducible and used as the fidelity yardstick
-- [ ] The failed run leaves the expected durable state (checkpoints, snapshots, effect ledger) for recovery
-- [ ] Honest labeling of which failure types are faithfully realized vs modeled (ADR-0009)
-- [ ] Documentation + trackers updated; unit tests pass
+- [x] Failure injected at step `k` for each declared `FailureType` via a generic seam (no hardcoding)
+- [x] The uninterrupted reference run is reproducible and used as the fidelity yardstick
+- [x] The failed run leaves the expected durable state (checkpoints, snapshots, effect ledger) for recovery
+- [x] Honest labeling of which failure types are faithfully realized vs modeled (ADR-0009)
+- [x] Documentation + trackers updated; unit tests pass
 
 ## Dependencies
 
@@ -47,3 +47,4 @@ faithfully; other types are modeled as a stop-at-`k` with a typed label (honest:
 ## Status / Log
 
 - 2026-06-15 — Proposed → Accepted (refined on Phase 5 entry).
+- 2026-06-15 — Accepted → Done. Delivered `eval/failure.py` + `eval/scenario.py` (reference + run-until-failure); tests pass.

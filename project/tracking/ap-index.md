@@ -1,8 +1,7 @@
 # Action Point Index
 
-> Live rollup of all Action Points. **Phases 0–4** APs (AP-0001 … AP-0027) are committed and `Done`;
-> **Phase 5** (AP-0028 … AP-0033) is committed and in progress; Phase 6 APs are *provisional*
-> placeholders, refined when their phase is entered (see
+> Live rollup of all Action Points. **Phases 0–5** APs (AP-0001 … AP-0033) are committed and `Done`;
+> Phase 6 APs are *provisional* placeholders, refined when their phase is entered (see
 > [phase process](../../docs/governance/phase-process.md)). Last updated: 2026-06-15.
 
 **Status values:** Proposed · Accepted · In Progress · In Review · Done · Blocked · Superseded
@@ -63,12 +62,12 @@
 
 | ID | Title | Status |
 |---|---|---|
-| [AP-0028](../phases/phase-5-evaluation/action-points/AP-0028-failure-injection-harness.md) | Failure-injection harness (step × failure-type matrix) | Accepted |
-| [AP-0029](../phases/phase-5-evaluation/action-points/AP-0029-baselines.md) | Baselines (cold restart, log-replay, snapshot-only, RGR) | Accepted |
-| [AP-0030](../phases/phase-5-evaluation/action-points/AP-0030-metrics.md) | Metrics implementation (five fidelity axes) | Accepted |
-| [AP-0031](../phases/phase-5-evaluation/action-points/AP-0031-ablation.md) | Continuation-State ablation study | Accepted |
-| [AP-0032](../phases/phase-5-evaluation/action-points/AP-0032-cross-version-resume.md) | Cross-version resume experiment | Accepted |
-| [AP-0033](../phases/phase-5-evaluation/action-points/AP-0033-results-aggregation.md) | Results aggregation & claims update | Accepted |
+| [AP-0028](../phases/phase-5-evaluation/action-points/AP-0028-failure-injection-harness.md) | Failure-injection harness (step × failure-type matrix) | Done |
+| [AP-0029](../phases/phase-5-evaluation/action-points/AP-0029-baselines.md) | Baselines (cold restart, log-replay, snapshot-only, RGR) | Done |
+| [AP-0030](../phases/phase-5-evaluation/action-points/AP-0030-metrics.md) | Metrics implementation (five fidelity axes) | Done |
+| [AP-0031](../phases/phase-5-evaluation/action-points/AP-0031-ablation.md) | Continuation-State ablation study | Done |
+| [AP-0032](../phases/phase-5-evaluation/action-points/AP-0032-cross-version-resume.md) | Cross-version resume experiment | Done |
+| [AP-0033](../phases/phase-5-evaluation/action-points/AP-0033-results-aggregation.md) | Results aggregation & claims update | Done |
 
 ## Phase 6 — Paper & Release *(provisional)*
 

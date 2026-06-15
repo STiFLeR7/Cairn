@@ -2,7 +2,7 @@
 id: AP-0030
 title: Metrics implementation (five fidelity axes)
 phase: phase-5-evaluation
-status: Accepted
+status: Done
 owner: maintainers
 created: 2026-06-15
 updated: 2026-06-15
@@ -32,11 +32,11 @@ ideal), `recovery_tax` (steps/work from failure to completion); a `RecoveryRepor
 
 ## Acceptance Criteria
 
-- [ ] All five axes implemented and computed against the uninterrupted reference run
-- [ ] Effect-safety is reported as a hard gate (a single duplicate fails the gate regardless of success)
-- [ ] No-regression penalizes discarding/corrupting pre-failure completed work
-- [ ] Recovery tax captures recovery cost (post-failure steps) distinct from the reference cost
-- [ ] Documentation + trackers updated; unit tests pass
+- [x] All five axes implemented and computed against the uninterrupted reference run
+- [x] Effect-safety is reported as a hard gate (a single duplicate fails the gate regardless of success)
+- [x] No-regression penalizes discarding/corrupting pre-failure completed work
+- [x] Recovery tax captures recovery cost (post-failure steps) distinct from the reference cost
+- [x] Documentation + trackers updated; unit tests pass
 
 ## Dependencies
 
@@ -45,3 +45,4 @@ ideal), `recovery_tax` (steps/work from failure to completion); a `RecoveryRepor
 ## Status / Log
 
 - 2026-06-15 — Proposed → Accepted (refined on Phase 5 entry).
+- 2026-06-15 — Accepted → Done. Delivered `eval/metrics.py` (five axes + RecoveryReport gate); tests pass.
