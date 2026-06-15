@@ -1,7 +1,7 @@
 # Action Point Index
 
-> Live rollup of all Action Points. **Phases 0–4** APs (AP-0001 … AP-0027) are committed and `Done`;
-> Phase 5–6 APs are *provisional* placeholders, refined when their phase is entered (see
+> Live rollup of all Action Points. **Phases 0–5** APs (AP-0001 … AP-0033) are committed and `Done`;
+> Phase 6 APs are *provisional* placeholders, refined when their phase is entered (see
 > [phase process](../../docs/governance/phase-process.md)). Last updated: 2026-06-15.
 
 **Status values:** Proposed · Accepted · In Progress · In Review · Done · Blocked · Superseded
@@ -58,16 +58,16 @@
 | [AP-0026](../phases/phase-4-recovery-v1/action-points/AP-0026-effect-safety-wal.md) | Effect-safety WAL + idempotency enforcement | Done |
 | [AP-0027](../phases/phase-4-recovery-v1/action-points/AP-0027-end-to-end-recovery.md) | End-to-end recovery from injected failure | Done |
 
-## Phase 5 — Evaluation & Benchmark *(provisional)*
+## Phase 5 — Evaluation & Benchmark *(committed — entered 2026-06-15)*
 
 | ID | Title | Status |
 |---|---|---|
-| AP-0028 | Failure-injection harness (step × failure-type matrix) | Proposed |
-| AP-0029 | Baselines (cold restart, log-replay, snapshot-only) | Proposed |
-| AP-0030 | Metrics implementation (fidelity, recovery tax, effect-safety) | Proposed |
-| AP-0031 | Continuation-state ablation study | Proposed |
-| AP-0032 | Cross-version resume experiment | Proposed |
-| AP-0033 | Results aggregation & analysis | Proposed |
+| [AP-0028](../phases/phase-5-evaluation/action-points/AP-0028-failure-injection-harness.md) | Failure-injection harness (step × failure-type matrix) | Done |
+| [AP-0029](../phases/phase-5-evaluation/action-points/AP-0029-baselines.md) | Baselines (cold restart, log-replay, snapshot-only, RGR) | Done |
+| [AP-0030](../phases/phase-5-evaluation/action-points/AP-0030-metrics.md) | Metrics implementation (five fidelity axes) | Done |
+| [AP-0031](../phases/phase-5-evaluation/action-points/AP-0031-ablation.md) | Continuation-State ablation study | Done |
+| [AP-0032](../phases/phase-5-evaluation/action-points/AP-0032-cross-version-resume.md) | Cross-version resume experiment | Done |
+| [AP-0033](../phases/phase-5-evaluation/action-points/AP-0033-results-aggregation.md) | Results aggregation & claims update | Done |
 
 ## Phase 6 — Paper & Release *(provisional)*
 

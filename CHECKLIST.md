@@ -11,7 +11,7 @@
 - [x] **Phase 2 — Architecture & Protocol Design** 🟢 *(complete & merged — PR #2)*
 - [x] **Phase 3 — Minimal Harness** 🟢 *(complete & merged — PR #3; 13 tests passing)*
 - [x] **Phase 4 — Recovery v1 (three pillars)** 🟢 *(complete & merged — PR #4; 33 tests passing)*
-- [ ] **Phase 5 — Evaluation & Benchmark**
+- [x] **Phase 5 — Evaluation & Benchmark** 🟢 *(complete on branch — awaiting merge; 42 tests)*
 - [ ] **Phase 6 — Paper & Release**
 
 ## Phase 0 — Action Points
@@ -95,3 +95,22 @@
 - [x] No duplicate effect for safe-to-retry / check-before-retry; never-retry escalates (claim C3)
 - [x] `pytest` green across the new recovery suite and the existing Phase 3 tests
 - [x] No hardcoded harness (ADR-0007); docs + ADR-0008 + trackers updated
+
+## Phase 5 — Action Points
+
+- [x] `AP-0028` Failure-injection harness (step × failure-type matrix)
+- [x] `AP-0029` Baselines (cold restart, log-replay, snapshot-only, RGR)
+- [x] `AP-0030` Metrics implementation (five fidelity axes)
+- [x] `AP-0031` Continuation-State ablation study
+- [x] `AP-0032` Cross-version resume experiment
+- [x] `AP-0033` Results aggregation & claims update
+
+## Phase 5 completion criteria
+
+- [x] Benchmark runs end-to-end; results table over (step × type × baseline)
+- [x] C1 supported: B3 (RGR) beats B0 (cold restart) on recovery tax + no-regression
+- [x] C3 supported: with-WAL resume yields 0 duplicate effects vs without-WAL
+- [x] C2/C5 evidenced by ablation; C4 mechanism shown by cross-version experiment
+- [x] Claims registry updated with dated, honestly-scoped evidence (ADR-0009)
+- [x] `pytest` green across the new eval suite and all prior tests
+- [x] No hardcoded harness (ADR-0007); docs + ADR-0009 + trackers updated

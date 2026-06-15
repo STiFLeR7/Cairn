@@ -38,7 +38,7 @@ change a claim's *statement*, register a **new** claim that supersedes the old o
 - **Rationale:** RGR preserves completed work, intent, and ruled-out dead-ends; cold restart discards all
   of it.
 - **Evaluated by:** task success, solution quality, no-regression, recovery tax; B3 vs B0; `AP-0029`/`AP-0030`.
-- **Status:** registered.
+- **Status:** supported *(reference harness, 2026-06-15)* — see status log.
 
 ### C2 — Unified distillation does not degrade checkpoint fidelity
 - **Statement:** A Continuation State produced by the **unified** distillation mechanism (durable core +
@@ -48,7 +48,7 @@ change a claim's *statement*, register a **new** claim that supersedes the old o
   elastic tail is frozen at checkpoint time, so unification should not cost fidelity. This is the testable
   heart of *Checkpoints Are Compactions*.
 - **Evaluated by:** all five axes; unified vs checkpoint-only ablation; `AP-0031`.
-- **Status:** registered.
+- **Status:** evidenced *(reference harness, 2026-06-15)* — see status log.
 
 ### C3 — Effect-safety WAL eliminates duplicate effects
 - **Statement:** With the write-ahead effect ledger, resume produces **zero** duplicated irreversible
@@ -58,7 +58,7 @@ change a claim's *statement*, register a **new** claim that supersedes the old o
 - **Evaluated by:** effect-safety axis (hard gate); with-WAL vs without-WAL; `AP-0026`/`AP-0030`.
 - **Scope note:** does **not** claim coverage of `never-retry` tools (acknowledged limit — see
   [tool-effect-taxonomy.md](../concepts/tool-effect-taxonomy.md)).
-- **Status:** registered.
+- **Status:** supported *(reference harness, 2026-06-15)* — see status log.
 
 ### C4 — Re-grounding is robust to cross-version resume
 - **Statement:** RGR retains recovery fidelity when the model/version that resumes differs from the one
@@ -66,15 +66,38 @@ change a claim's *statement*, register a **new** claim that supersedes the old o
 - **Rationale:** re-grounding re-derives from intent and observed world rather than reproducing tokens, so
   it does not depend on the original model's exact behavior.
 - **Evaluated by:** task success, solution quality; checkpoint-on-A / resume-on-B; `AP-0032`.
-- **Status:** registered.
+- **Status:** partially evidenced *(mechanism only, 2026-06-15)* — see status log.
 
 ### C5 — A minimal sufficient Continuation State is empirically identifiable
 - **Statement:** Ablating components of the Continuation State reveals a minimal subset below which
   fidelity sharply degrades — i.e. continuation sufficiency is measurable, not merely asserted.
 - **Rationale:** fidelity provides the constraint; ablation provides the search over `S`.
 - **Evaluated by:** all axes under component ablation; `AP-0031`.
-- **Status:** registered.
+- **Status:** supported *(reference harness, 2026-06-15)* — see status log.
 
 ## Status log
 
 - 2026-06-15 — C1–C5 registered (Phase 1, `AP-0011`).
+- 2026-06-15 — Phase 5 evidence (deterministic **reference harness** with a scripted mock model; **not** a
+  live-LLM study — see [ADR-0009](../adr/ADR-0009-evaluation-framework.md)):
+  - **C1 → supported.** Over failures at k=1..4 (`benchmarks/recovery_matrix.py`), RGR (B3) imposed lower
+    recovery tax than cold restart (B0) (mean 1.5 vs 5.0 steps) and preserved all pre-failure work
+    (no-regression 1.0 vs 0.0). Test: `tests/test_eval_matrix.py`.
+  - **C3 → supported.** On a torn `check-before-retry` effect, B3 produced **0** duplicate effects (gate
+    PASS) while B0 (no WAL) produced **1** (gate FAIL). Test: `tests/test_eval_effect_safety.py`. Scope
+    limit unchanged: `never-retry` tools are escalated, not covered.
+  - **C5 → supported.** Ablation (`benchmarks/ablation_study.py`) shows dropping `plan` collapses fidelity
+    (tax 2→5, no-regression 1.0→0.0) while dropping `decisions`/`ruled_out`/`world_digest`/`verification`
+    does not — a minimal sufficient state is empirically identifiable *in this harness*. The located cliff
+    is harness-specific (a deterministic mock under-exercises decisions/dead-ends a real model would use).
+  - **C2 → evidenced (not yet strongly).** The unified `distill` produces an identical durable core for the
+    compaction and checkpoint paths (`tests/test_distill.py`) and the full cairn recovers at full fidelity;
+    no checkpoint-only degradation was observed. A dedicated unified-vs-checkpoint-only contrast under a
+    real model remains future work.
+  - **C4 → partially evidenced (mechanism only).** Cross-version resume (checkpoint under A, resume under B)
+    completes and `provenance` records both versions (`tests/test_eval_cross_version.py`). The
+    distinguishing claim — that RGR holds where log-replay *fails* under non-determinism — cannot be forced
+    with a deterministic mock and is deferred to the live-LLM study.
+- 2026-06-15 — **Open scope:** all Phase 5 evidence is from the deterministic reference harness. A live-LLM
+  empirical study with statistical testing (and faithfully-realized non-crash failure types) is future
+  work; negative/insufficient results will be recorded here rather than buried.

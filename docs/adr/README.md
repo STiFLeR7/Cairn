@@ -26,3 +26,4 @@ Use the [ADR template](../../project/templates/adr-template.md). Number monotoni
 | [ADR-0006](ADR-0006-effect-safety-wal.md) | Effect-safety via write-ahead effect ledger + idempotency | Accepted |
 | [ADR-0007](ADR-0007-implementation-stack.md) | Implementation stack (Python) + no-hardcoded-harness principle | Accepted |
 | [ADR-0008](ADR-0008-recovery-v1-implementation.md) | Recovery v1 implementation decisions (snapshot numbering, digest, resume, effects, failure hook) | Accepted |
+| [ADR-0009](ADR-0009-evaluation-framework.md) | Evaluation framework design & honest-results policy | Accepted |

@@ -136,6 +136,28 @@ class CodeHarness:
             resume_plan=plan,
         )
 
+    # --- continue from a supplied history (used by eval baselines) -----------
+    def continue_from(
+        self, task: Task, history: list, workspace: Optional[str] = None, *,
+        step_hook: Optional[StepHook] = None,
+    ) -> RunResult:
+        """Continue the loop from a caller-supplied history, without re-grounding.
+
+        A public seam for baselines that rebuild context their own way (e.g. log-replay)
+        and then want the normal decide-act-checkpoint loop to finish the task.
+        """
+        cwd = workspace or getattr(self.runtime, "workspace_dir", None)
+        executed, checkpoints, final_state = self._loop(
+            task, history, cwd, start=len(history), step_hook=step_hook
+        )
+        return RunResult(
+            success=bool(task.is_complete(cwd)) if cwd else False,
+            steps=len(history),
+            checkpoints=checkpoints,
+            final_state=final_state,
+            recovery_tax=executed,
+        )
+
     # --- shared decide-act-checkpoint loop -----------------------------------
     def _loop(self, task, history, cwd, *, start, step_hook):
         checkpoints = 0
