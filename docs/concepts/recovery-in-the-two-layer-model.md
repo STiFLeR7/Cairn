@@ -50,7 +50,7 @@ a world it can no longer see accurately.
 ## 3. The recovery loop across the boundary
 
 Recovery is not a restore; it is a loop that crosses the layer boundary. (The concrete protocol is
-designed in Phase 2 — [resume protocol `AP-0015`], [distillation `AP-0016`], [effect-safety `AP-0017`];
+designed in Phase 2 — resume protocol `AP-0015`, distillation `AP-0016`, effect-safety `AP-0017`;
 here we show only the division of labor.)
 
 ```
