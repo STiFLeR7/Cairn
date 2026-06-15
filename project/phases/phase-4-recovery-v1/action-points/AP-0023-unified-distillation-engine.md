@@ -2,7 +2,7 @@
 id: AP-0023
 title: Unified distillation engine (cairn writer)
 phase: phase-4-recovery-v1
-status: Accepted
+status: Done
 owner: maintainers
 created: 2026-06-15
 updated: 2026-06-15
@@ -36,12 +36,12 @@ salience policy stays deterministic/rule-based for v1).
 
 ## Acceptance Criteria
 
-- [ ] `distill` produces a schema-valid `ContinuationState` with a real core (intent/plan/decisions/digest)
-- [ ] Durable core is **identical** for `mode="compact"` and `mode="checkpoint"` on the same trajectory (C2)
-- [ ] Elastic tail is pruned under `compact` and frozen (last N verbatim) under `checkpoint`
-- [ ] `world.digest` reflects actual workspace file contents and is stable across calls
-- [ ] No hardcoded model/task/path (ADR-0007); back-compat shim keeps the agent loop working
-- [ ] Documentation updated; trackers updated; unit tests pass
+- [x] `distill` produces a schema-valid `ContinuationState` with a real core (intent/plan/decisions/digest)
+- [x] Durable core is **identical** for `mode="compact"` and `mode="checkpoint"` on the same trajectory (C2)
+- [x] Elastic tail is pruned under `compact` and frozen (last N verbatim) under `checkpoint`
+- [x] `world.digest` reflects actual workspace file contents and is stable across calls
+- [x] No hardcoded model/task/path (ADR-0007); back-compat shim keeps the agent loop working
+- [x] Documentation updated; trackers updated; unit tests pass
 
 ## Dependencies
 
@@ -50,3 +50,4 @@ salience policy stays deterministic/rule-based for v1).
 ## Status / Log
 
 - 2026-06-15 — Proposed → Accepted (refined on Phase 4 entry).
+- 2026-06-15 — Accepted → Done. Delivered unified `distill(mode=...)` + `runtime/digest.py`; durable-core-equality / tail / digest tests pass.

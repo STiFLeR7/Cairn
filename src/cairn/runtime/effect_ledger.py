@@ -2,7 +2,7 @@
 
 Implements the write-ahead discipline's storage: INTENT and COMPLETE records, both
 append-only with monotonic sequence numbers (boundary-contract invariants I1, I3).
-The resume-time reconciliation that consumes it is Phase 4.
+Resume-time reconciliation consumes it via `cairn.harness.effects` (Phase 4).
 """
 
 from __future__ import annotations

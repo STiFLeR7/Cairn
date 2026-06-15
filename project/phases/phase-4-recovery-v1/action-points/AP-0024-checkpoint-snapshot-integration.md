@@ -2,7 +2,7 @@
 id: AP-0024
 title: Checkpoint persistence + workspace snapshot integration
 phase: phase-4-recovery-v1
-status: Accepted
+status: Done
 owner: maintainers
 created: 2026-06-15
 updated: 2026-06-15
@@ -37,11 +37,11 @@ the checkpoint write so a checkpoint records the digest of the snapshotted works
 
 ## Acceptance Criteria
 
-- [ ] `WorkspaceManager` continues snapshot numbering from the highest existing `snap_N` (no reset to 0)
-- [ ] A new `LocalRuntime` over an existing `base_dir` neither overwrites nor loses prior snapshots (I4)
-- [ ] `load_latest()` after restart returns `(state, snap, offset)` with a restorable snapshot
-- [ ] Restored workspace matches the checkpoint's recorded `world.digest`
-- [ ] No hardcoded paths (ADR-0007); documentation + ADR-0008 updated; tests pass
+- [x] `WorkspaceManager` continues snapshot numbering from the highest existing `snap_N` (no reset to 0)
+- [x] A new `LocalRuntime` over an existing `base_dir` neither overwrites nor loses prior snapshots (I4)
+- [x] `load_latest()` after restart returns `(state, snap, offset)` with a restorable snapshot
+- [x] Restored workspace matches the checkpoint's recorded `world.digest`
+- [x] No hardcoded paths (ADR-0007); documentation + ADR-0008 updated; tests pass
 
 ## Dependencies
 
@@ -51,3 +51,4 @@ the checkpoint write so a checkpoint records the digest of the snapshotted works
 
 - 2026-06-15 — Proposed → Accepted (refined on Phase 4 entry). Carries the Phase 3 snapshot-numbering
   watch-item as its primary fix.
+- 2026-06-15 — Accepted → Done. Fixed `WorkspaceManager` continue-from-highest numbering; restart-survival tests pass (I4 holds across reconstruction).

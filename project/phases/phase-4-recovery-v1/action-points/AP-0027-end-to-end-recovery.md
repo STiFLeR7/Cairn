@@ -2,7 +2,7 @@
 id: AP-0027
 title: End-to-end recovery from injected failure
 phase: phase-4-recovery-v1
-status: Accepted
+status: Done
 owner: maintainers
 created: 2026-06-15
 updated: 2026-06-15
@@ -37,12 +37,12 @@ end-to-end test (crash → fresh runtime → resume → assertions); a recovery-
 
 ## Acceptance Criteria
 
-- [ ] A task that crashed after step *k* completes after `resume` in a freshly-constructed runtime (C1)
-- [ ] The tracked effect appears **exactly once** despite the crash in its danger window (C3)
-- [ ] Recovery does not restart from scratch — recovery tax (post-resume steps) < cold-restart steps
-- [ ] The failure point is injected generically (`step_hook`), not hardcoded into the harness (ADR-0007)
-- [ ] `examples/recovery_demo.py` runs end-to-end; full `pytest` suite green
-- [ ] Documentation updated; CHANGELOG + trackers updated; Phase 4 completion criteria met
+- [x] A task that crashed after step *k* completes after `resume` in a freshly-constructed runtime (C1)
+- [x] The tracked effect appears **exactly once** despite the crash in its danger window (C3)
+- [x] Recovery does not restart from scratch — recovery tax (post-resume steps) < cold-restart steps
+- [x] The failure point is injected generically (`step_hook`), not hardcoded into the harness (ADR-0007)
+- [x] `examples/recovery_demo.py` runs end-to-end; full `pytest` suite green
+- [x] Documentation updated; CHANGELOG + trackers updated; Phase 4 completion criteria met
 
 ## Dependencies
 
@@ -51,3 +51,4 @@ end-to-end test (crash → fresh runtime → resume → assertions); a recovery-
 ## Status / Log
 
 - 2026-06-15 — Proposed → Accepted (refined on Phase 4 entry).
+- 2026-06-15 — Accepted → Done. Delivered `step_hook` + `failure.py` + `examples/recovery_demo.py` + `tests/test_recovery_e2e.py`; end-to-end recovery (C1+C3) green, recovery_tax=1 vs cold-restart 3.

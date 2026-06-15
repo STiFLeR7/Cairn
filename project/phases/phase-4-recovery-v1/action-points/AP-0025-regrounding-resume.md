@@ -2,7 +2,7 @@
 id: AP-0025
 title: Re-grounding resume protocol implementation
 phase: phase-4-recovery-v1
-status: Accepted
+status: Done
 owner: maintainers
 created: 2026-06-15
 updated: 2026-06-15
@@ -38,11 +38,11 @@ window); LLM re-planning (the injected model handles "re-plan"; v1 continues via
 
 ## Acceptance Criteria
 
-- [ ] `resume` performs load → restore → re-observe **before** acting ("re-observe before re-act")
-- [ ] `reconcile` detects torn writes (digest mismatch) and plan drift, and surfaces the danger window
-- [ ] `resume(task)` completes a task that crashed mid-run (outcome equivalence, not replay)
-- [ ] Re-planning may take a different valid path; the bar is outcome equivalence
-- [ ] No hardcoded harness (ADR-0007); docs + ADR-0008 + trackers updated; tests pass
+- [x] `resume` performs load → restore → re-observe **before** acting ("re-observe before re-act")
+- [x] `reconcile` detects torn writes (digest mismatch) and plan drift, and surfaces the danger window
+- [x] `resume(task)` completes a task that crashed mid-run (outcome equivalence, not replay)
+- [x] Re-planning may take a different valid path; the bar is outcome equivalence
+- [x] No hardcoded harness (ADR-0007); docs + ADR-0008 + trackers updated; tests pass
 
 ## Dependencies
 
@@ -51,3 +51,4 @@ window); LLM re-planning (the injected model handles "re-plan"; v1 continues via
 ## Status / Log
 
 - 2026-06-15 — Proposed → Accepted (refined on Phase 4 entry).
+- 2026-06-15 — Accepted → Done. Delivered `observe.py` + `reconcile.py` + `CodeHarness.resume`; `reconcile` added to the contract; reconcile/resume tests pass.

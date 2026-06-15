@@ -1,6 +1,6 @@
 # Phase 4 — Recovery v1 (three pillars)
 
-- **Status:** 🟡 In Progress *(entered 2026-06-15)*
+- **Status:** 🟢 Complete on branch *(2026-06-15 — `pytest` 32 passed; awaiting review + merge)*
 - **Goal:** Turn the Phase 3 substrate into a **recoverable** agent. Implement the three recovery
   pillars defined in Phase 2 — **unified distillation**, **re-grounding resume (RGR)**, and
   **effect-safety** — and prove them with an **end-to-end recovery from an injected failure**.
@@ -30,11 +30,11 @@ and storage stay injected — the recovery logic must not assume a concrete task
 
 | ID | Title | Status |
 |---|---|---|
-| [AP-0023](action-points/AP-0023-unified-distillation-engine.md) | Unified distillation engine (cairn writer) | Accepted |
-| [AP-0024](action-points/AP-0024-checkpoint-snapshot-integration.md) | Checkpoint persistence + workspace snapshot integration | Accepted |
-| [AP-0025](action-points/AP-0025-regrounding-resume.md) | Re-grounding resume protocol implementation | Accepted |
-| [AP-0026](action-points/AP-0026-effect-safety-wal.md) | Effect-safety WAL + idempotency enforcement | Accepted |
-| [AP-0027](action-points/AP-0027-end-to-end-recovery.md) | End-to-end recovery from injected failure | Accepted |
+| [AP-0023](action-points/AP-0023-unified-distillation-engine.md) | Unified distillation engine (cairn writer) | Done |
+| [AP-0024](action-points/AP-0024-checkpoint-snapshot-integration.md) | Checkpoint persistence + workspace snapshot integration | Done |
+| [AP-0025](action-points/AP-0025-regrounding-resume.md) | Re-grounding resume protocol implementation | Done |
+| [AP-0026](action-points/AP-0026-effect-safety-wal.md) | Effect-safety WAL + idempotency enforcement | Done |
+| [AP-0027](action-points/AP-0027-end-to-end-recovery.md) | End-to-end recovery from injected failure | Done |
 
 ## Dependency order
 
@@ -48,17 +48,17 @@ AP-0023 (distill: real core + world digest)
 
 ## Checklist
 
-- [ ] `distill(goal, history, mode=compact|checkpoint)` builds a real core (intent/plan/decisions/digest); tail pruned vs frozen (AP-0023)
-- [ ] Snapshot ids continue-from-highest; checkpoint references a restorable snapshot after a fresh-runtime restart (AP-0024)
-- [ ] `reconcile` + `CodeHarness.resume` re-ground and finish the task after a crash (AP-0025)
-- [ ] Write-ahead `perform_effect`; danger-window resolution per tool class; no duplicate `check-before-retry` effect (AP-0026)
-- [ ] End-to-end injected-failure recovery test: task completes, no duplicate effect, recovery tax recorded (AP-0027)
-- [ ] No hardcoded harness anywhere (ADR-0007); docs + ADR-0008 + trackers updated
+- [x] `distill(goal, history, mode=compact|checkpoint)` builds a real core (intent/plan/decisions/digest); tail pruned vs frozen (AP-0023)
+- [x] Snapshot ids continue-from-highest; checkpoint references a restorable snapshot after a fresh-runtime restart (AP-0024)
+- [x] `reconcile` + `CodeHarness.resume` re-ground and finish the task after a crash (AP-0025)
+- [x] Write-ahead `perform_effect`; danger-window resolution per tool class; no duplicate `check-before-retry` effect (AP-0026)
+- [x] End-to-end injected-failure recovery test: task completes, no duplicate effect, recovery tax recorded (AP-0027)
+- [x] No hardcoded harness anywhere (ADR-0007); docs + ADR-0008 + trackers updated
 
 ## Completion criteria
 
-- [ ] An agent recovers from an **injected failure** end-to-end and completes the task (claim **C1** harness exists)
-- [ ] Unified `distill` yields an identical durable core for compaction and checkpoint paths (claim **C2**)
-- [ ] No duplicate effect for `safe-to-retry` / `check-before-retry`; `never-retry` escalates (claim **C3**)
-- [ ] `pytest` green across the new recovery suite **and** the existing Phase 3 tests
-- [ ] All Phase 4 APs `Done`; ROADMAP, trackers, CHANGELOG, and design/ADR docs updated
+- [x] An agent recovers from an **injected failure** end-to-end and completes the task (claim **C1** harness exists)
+- [x] Unified `distill` yields an identical durable core for compaction and checkpoint paths (claim **C2**)
+- [x] No duplicate effect for `safe-to-retry` / `check-before-retry`; `never-retry` escalates (claim **C3**)
+- [x] `pytest` green across the new recovery suite **and** the existing Phase 3 tests
+- [x] All Phase 4 APs `Done`; ROADMAP, trackers, CHANGELOG, and design/ADR docs updated

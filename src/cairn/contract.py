@@ -57,4 +57,6 @@ class CodeHarness(Protocol):
     def distill(self, goal: str, history: list, *, step: int) -> ContinuationState:
         ...
 
-    # reconcile(...) is added in Phase 4 (recovery); the seam is intentional.
+    def reconcile(self, state: ContinuationState, observed: "object") -> "object":
+        """On resume, compare the cairn against the re-observed world and produce a
+        ResumePlan (the next action / repaired plan). Implemented in Phase 4 (AP-0025)."""

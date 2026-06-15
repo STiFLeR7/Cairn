@@ -69,3 +69,24 @@ updates this file.
 - **Phase 3 — Minimal Harness: complete & merged** (PR #3, 2026-06-15; merge commit `ea658e2`). All four
   APs (AP-0019 … AP-0022) `Done`; **`pytest -q` → 13 passed**; quickstart runs end-to-end. No hardcoded
   harness (ADR-0007). Next: Phase 4 — Recovery v1.
+
+### Added (Phase 4, on branch `phase-4-recovery-v1`) — recovery
+- `cairn.harness.distill` — unified `distill(goal, history, mode=compact|checkpoint)`: real durable core
+  (intent, plan + status, decisions incl. ruled-out) identical across modes (claim C2), tail pruned vs
+  frozen; `cairn.runtime.digest.world_digest` (per-file sha256) recorded in `world.digest` (AP-0023).
+- `cairn.runtime.workspace` — snapshot ids now **continue-from-highest** so a resumed (freshly
+  constructed) runtime never overwrites a referenced snapshot — invariant I4 across restart (AP-0024).
+- `cairn.harness.observe` (`observe_world`) + `cairn.harness.reconcile` (`reconcile` → `ResumePlan`:
+  torn writes via digest mismatch, plan drift, effect danger window) + `CodeHarness.resume` implementing
+  RGR (load → re-observe → reconcile → re-plan → continue); `reconcile` added to the contract (AP-0025).
+- `cairn.harness.effects` — `EffectfulTool`, write-ahead `perform_effect` (INTENT→run→COMPLETE),
+  `danger_window`, `resolve_danger_window` (redo / verify-then-redo-or-skip / escalate); claim C3 (AP-0026).
+- `cairn.harness.failure` (`InjectedFailure`, `crash_after`) + generic `step_hook` lifecycle seam;
+  `examples/recovery_demo.py`; `tests/test_recovery_e2e.py` (AP-0027).
+- ADR-0008 — Recovery v1 implementation decisions (snapshot numbering, digest, resume, effects, hook).
+
+### Status (Phase 4)
+- **Phase 4 — Recovery v1: complete on branch** `phase-4-recovery-v1` (2026-06-15). All five APs
+  (AP-0023 … AP-0027) `Done`; **`pytest -q` → 32 passed**; `examples/recovery_demo.py` shows crash→resume
+  with **recovery_tax=1** (vs cold-restart 3) and the effect resolved exactly once (no duplicate). No
+  hardcoded harness (ADR-0007). Awaiting review + merge. Next: Phase 5 — Evaluation & Benchmark.

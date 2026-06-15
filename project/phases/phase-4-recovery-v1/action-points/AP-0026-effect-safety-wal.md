@@ -2,7 +2,7 @@
 id: AP-0026
 title: Effect-safety WAL + idempotency enforcement
 phase: phase-4-recovery-v1
-status: Accepted
+status: Done
 owner: maintainers
 created: 2026-06-15
 updated: 2026-06-15
@@ -37,12 +37,12 @@ the tool *taxonomy doc* already exists (Phase 1) — this AP implements its poli
 
 ## Acceptance Criteria
 
-- [ ] `perform_effect` writes INTENT durably before running and COMPLETE only after success (I1)
-- [ ] Danger window = exactly the `INTENT`-without-`COMPLETE` keys since the checkpoint offset
-- [ ] `check-before-retry`: an authoritative verify decides skip-vs-redo → **no duplicate effect** (C3)
-- [ ] `safe-to-retry` redoes; `never-retry` escalates and is **not** auto-retried
-- [ ] A COMPLETE is written after resolution so the key leaves the danger window
-- [ ] No hardcoded tools (classes/verify injected — ADR-0007); docs + ADR-0008 + trackers updated; tests pass
+- [x] `perform_effect` writes INTENT durably before running and COMPLETE only after success (I1)
+- [x] Danger window = exactly the `INTENT`-without-`COMPLETE` keys since the checkpoint offset
+- [x] `check-before-retry`: an authoritative verify decides skip-vs-redo → **no duplicate effect** (C3)
+- [x] `safe-to-retry` redoes; `never-retry` escalates and is **not** auto-retried
+- [x] A COMPLETE is written after resolution so the key leaves the danger window
+- [x] No hardcoded tools (classes/verify injected — ADR-0007); docs + ADR-0008 + trackers updated; tests pass
 
 ## Dependencies
 
@@ -51,3 +51,4 @@ the tool *taxonomy doc* already exists (Phase 1) — this AP implements its poli
 ## Status / Log
 
 - 2026-06-15 — Proposed → Accepted (refined on Phase 4 entry).
+- 2026-06-15 — Accepted → Done. Delivered `harness/effects.py` (write-ahead + danger-window resolution); C3 skip/redo/escalate tests pass.

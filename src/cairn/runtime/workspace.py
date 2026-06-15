@@ -12,7 +12,22 @@ class WorkspaceManager:
         self.snapshots_dir = snapshots_dir
         os.makedirs(workspace_dir, exist_ok=True)
         os.makedirs(snapshots_dir, exist_ok=True)
-        self._n = 0
+        # Continue numbering from the highest existing snap_N, so a freshly-constructed
+        # manager (the resume case) never re-mints snap_0 and overwrites a snapshot an
+        # existing checkpoint references (boundary-contract invariant I4). ADR-0008.
+        self._n = self._highest() + 1
+
+    def _highest(self) -> int:
+        hi = -1
+        for name in os.listdir(self.snapshots_dir):
+            if name.startswith("snap_") and os.path.isdir(
+                os.path.join(self.snapshots_dir, name)
+            ):
+                try:
+                    hi = max(hi, int(name[len("snap_") :]))
+                except ValueError:
+                    pass
+        return hi
 
     def snapshot(self) -> str:
         snap_id = f"snap_{self._n}"

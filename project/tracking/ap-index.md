@@ -1,7 +1,7 @@
 # Action Point Index
 
-> Live rollup of all Action Points. Only **Phase 0** APs are committed; later-phase APs are
-> *provisional* placeholders, refined when their phase is entered (see
+> Live rollup of all Action Points. **Phases 0–4** APs (AP-0001 … AP-0027) are committed and `Done`;
+> Phase 5–6 APs are *provisional* placeholders, refined when their phase is entered (see
 > [phase process](../../docs/governance/phase-process.md)). Last updated: 2026-06-15.
 
 **Status values:** Proposed · Accepted · In Progress · In Review · Done · Blocked · Superseded
@@ -52,11 +52,11 @@
 
 | ID | Title | Status |
 |---|---|---|
-| [AP-0023](../phases/phase-4-recovery-v1/action-points/AP-0023-unified-distillation-engine.md) | Unified distillation engine (cairn writer) | Accepted |
-| [AP-0024](../phases/phase-4-recovery-v1/action-points/AP-0024-checkpoint-snapshot-integration.md) | Checkpoint persistence + workspace snapshot integration | Accepted |
-| [AP-0025](../phases/phase-4-recovery-v1/action-points/AP-0025-regrounding-resume.md) | Re-grounding resume protocol implementation | Accepted |
-| [AP-0026](../phases/phase-4-recovery-v1/action-points/AP-0026-effect-safety-wal.md) | Effect-safety WAL + idempotency enforcement | Accepted |
-| [AP-0027](../phases/phase-4-recovery-v1/action-points/AP-0027-end-to-end-recovery.md) | End-to-end recovery from injected failure | Accepted |
+| [AP-0023](../phases/phase-4-recovery-v1/action-points/AP-0023-unified-distillation-engine.md) | Unified distillation engine (cairn writer) | Done |
+| [AP-0024](../phases/phase-4-recovery-v1/action-points/AP-0024-checkpoint-snapshot-integration.md) | Checkpoint persistence + workspace snapshot integration | Done |
+| [AP-0025](../phases/phase-4-recovery-v1/action-points/AP-0025-regrounding-resume.md) | Re-grounding resume protocol implementation | Done |
+| [AP-0026](../phases/phase-4-recovery-v1/action-points/AP-0026-effect-safety-wal.md) | Effect-safety WAL + idempotency enforcement | Done |
+| [AP-0027](../phases/phase-4-recovery-v1/action-points/AP-0027-end-to-end-recovery.md) | End-to-end recovery from injected failure | Done |
 
 ## Phase 5 — Evaluation & Benchmark *(provisional)*
 
