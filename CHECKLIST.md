@@ -7,12 +7,12 @@
 ## Phases
 
 - [x] **Phase 0 — Project Definition** 🟢 *(complete — reviewed & approved 2026-06-15)*
-- [x] **Phase 1 — Conceptual & Research Foundation** 🟢 *(complete on branch — awaiting merge)*
-- [ ] **Phase 2 — Architecture & Protocol Design**
-- [ ] **Phase 3 — Minimal Harness**
-- [ ] **Phase 4 — Recovery v1 (three pillars)**
-- [ ] **Phase 5 — Evaluation & Benchmark**
-- [ ] **Phase 6 — Paper & Release**
+- [x] **Phase 1 — Conceptual & Research Foundation** 🟢 *(complete & merged — PR #1)*
+- [x] **Phase 2 — Architecture & Protocol Design** 🟢 *(complete on branch — awaiting merge)*
+- [x] **Phase 3 — Minimal Harness**
+- [x] **Phase 4 — Recovery v1 (three pillars)**
+- [x] **Phase 5 — Evaluation & Benchmark**
+- [x] **Phase 6 — Paper & Release**
 
 ## Phase 0 — Action Points
 
@@ -48,3 +48,20 @@
 - [x] Conceptual framework + taxonomies authored and internally consistent
 - [x] Claims registry populated and frozen
 - [x] No code introduced (Phase 1 is conceptual)
+
+## Phase 2 — Action Points
+
+- [x] `AP-0013` Continuation State (cairn) schema spec
+- [x] `AP-0014` Code Harness ↔ Runtime boundary contract spec
+- [x] `AP-0015` Re-grounding resume protocol spec
+- [x] `AP-0016` Unified compaction/checkpoint distillation design (core/tail)
+- [x] `AP-0017` Effect-safety write-ahead protocol spec
+- [x] `AP-0018` Tool effect taxonomy → recovery-policy mapping
+
+## Phase 2 completion criteria
+
+- [x] All six specs authored in `docs/design/` and internally consistent
+- [x] Every design decision traces to a Phase 1 concept
+- [x] ADRs accepted for the keystone decisions (schema, boundary contract, unified distillation)
+- [x] Design is implementable — Phase 3 can build against these contracts
+- [x] No runnable code (Phase 2 is design)
