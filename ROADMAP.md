@@ -20,6 +20,6 @@
 
 ## AP distribution
 
-37 planned Action Points span the 7 phases (~4–6 each). Only **Phase 0 APs are committed**; later-phase
-APs are provisional placeholders refined when their phase is entered. Full list:
-[`project/tracking/ap-index.md`](project/tracking/ap-index.md).
+37 planned Action Points span the 7 phases (~4–6 each). **Phases 0–3 APs (AP-0001 … AP-0022) are
+committed and `Done`**; Phase 4–6 APs are provisional placeholders refined when their phase is entered.
+Full list: [`project/tracking/ap-index.md`](project/tracking/ap-index.md).

@@ -8,7 +8,8 @@
 checking what actually happened, and continuing — not by starting over.*
 
 [![License](https://img.shields.io/badge/license-Apache--2.0-blue.svg)](LICENSE)
-[![Status](https://img.shields.io/badge/status-Phase%200%3A%20Definition-orange.svg)](ROADMAP.md)
+[![Status](https://img.shields.io/badge/status-Phase%203%3A%20Minimal%20Harness%20complete-brightgreen.svg)](ROADMAP.md)
+[![Tests](https://img.shields.io/badge/tests-13%20passing-brightgreen.svg)](tests/)
 
 </div>
 
@@ -48,8 +49,19 @@ Cairn **complements** agent frameworks (OpenHands, LangGraph, custom harnesses) 
 
 ## Project status
 
-**Phase 0 — Project Definition.** No implementation yet. See the [Roadmap](ROADMAP.md),
-the [Master Checklist](CHECKLIST.md), and live state under [`project/`](project/).
+**Phase 3 — Minimal Harness: complete & merged.** The substrate is runnable: a fully pluggable Code
+Harness + Runtime that honors the Phase 2 boundary contract, with **13 passing tests** — but **no
+recovery yet** (that is Phase 4). Phases 0–3 are done; **Phase 4 — Recovery v1** is next. See the
+[Roadmap](ROADMAP.md), the [Master Checklist](CHECKLIST.md), and live state under [`project/`](project/).
+
+```bash
+python -m pytest -q          # 13 passing
+python examples/quickstart.py # end-to-end baseline task
+```
+
+The harness is **never hardcoded** (ADR-0007): model provider, tools, tasks, sandbox, storage, and
+policies are all injected through [`cairn.app.build_harness`](src/cairn/app.py). The concrete task and
+scripted model live only in [`examples/`](examples/) and [`tests/`](tests/), never in the library.
 
 ## Repository map
 
@@ -59,8 +71,11 @@ the [Master Checklist](CHECKLIST.md), and live state under [`project/`](project/
 | [`CHECKLIST.md`](CHECKLIST.md) | Master checklist (always-visible status) |
 | [`docs/`](docs/) | **Knowledge** — vision, concepts, governance rules, research, design |
 | [`docs/governance/`](docs/governance/) | How we work: documentation policy, AP workflow, phase process |
+| [`docs/design/`](docs/design/) | **Specs** — Continuation State schema, boundary contract, resume protocol, effect-safety |
 | [`project/`](project/) | **Live state** — phases, Action Points, tracking, templates |
-| `src/`, `tests/`, `benchmarks/` | Empty until Phases 3 / 5 |
+| [`src/cairn/`](src/cairn/) | The harness: `state`, `contract`, `runtime/`, `harness/`, `tasks/`, `app` |
+| [`examples/`](examples/), [`tests/`](tests/) | Quickstart wiring + smoke suite (13 tests) |
+| `benchmarks/` | Empty until Phase 5 (failure-injection eval) |
 
 ## How we work
 

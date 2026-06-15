@@ -62,8 +62,10 @@ updates this file.
 - `cairn.harness` — agent loop (code-as-action), minimal distill; `ScriptableMockModel` (AP-0020).
 - `cairn.tasks.CreateFileTask`, `cairn.app.build_harness`, `examples/quickstart.py`, `tests/` (AP-0022).
 - ADR-0007 — Python stack + no-hardcoded-harness principle.
+- `tests/test_workspace.py` — workspace snapshot/restore round-trip + unknown-snapshot guard, added during
+  PR #3 review (`restore_workspace` had been delivered but untested).
 
 ### Status (Phase 3)
-- **Phase 3 — Minimal Harness: complete on branch** `phase-3-minimal-harness` (2026-06-15). All four APs
-  `Done`; **`pytest -q` → 11 passed**; quickstart runs end-to-end. No hardcoded harness (ADR-0007).
-  Awaiting review + merge. Next: Phase 4 — Recovery v1.
+- **Phase 3 — Minimal Harness: complete & merged** (PR #3, 2026-06-15; merge commit `ea658e2`). All four
+  APs (AP-0019 … AP-0022) `Done`; **`pytest -q` → 13 passed**; quickstart runs end-to-end. No hardcoded
+  harness (ADR-0007). Next: Phase 4 — Recovery v1.

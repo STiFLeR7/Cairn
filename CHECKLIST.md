@@ -9,7 +9,7 @@
 - [x] **Phase 0 — Project Definition** 🟢 *(complete — reviewed & approved 2026-06-15)*
 - [x] **Phase 1 — Conceptual & Research Foundation** 🟢 *(complete & merged — PR #1)*
 - [x] **Phase 2 — Architecture & Protocol Design** 🟢 *(complete & merged — PR #2)*
-- [x] **Phase 3 — Minimal Harness** 🟢 *(complete on branch — awaiting merge)*
+- [x] **Phase 3 — Minimal Harness** 🟢 *(complete & merged — PR #3; 13 tests passing)*
 - [ ] **Phase 4 — Recovery v1 (three pillars)**
 - [ ] **Phase 5 — Evaluation & Benchmark**
 - [ ] **Phase 6 — Paper & Release**

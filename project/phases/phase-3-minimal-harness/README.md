@@ -1,6 +1,6 @@
 # Phase 3 — Minimal Harness
 
-- **Status:** 🟢 Complete on branch *(2026-06-15 — `pytest` 11 passed; awaiting review + merge)*
+- **Status:** 🟢 Complete & merged *(2026-06-15 — PR #3, merge commit `ea658e2`; `pytest` 13 passed)*
 - **Goal:** Build the substrate — a minimal, **fully pluggable** Code Harness + Runtime that honors the
   Phase 2 boundary contract — with **no recovery yet**. First runnable code; "tests pass" is now part of
   the Definition of Done.
