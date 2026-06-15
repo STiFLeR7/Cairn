@@ -9,15 +9,18 @@
 | 1 | Conceptual & Research Foundation | 🟢 Complete (merged) | 6 / 6 |
 | 2 | Architecture & Protocol Design | 🟢 Complete (merged) | 6 / 6 |
 | 3 | Minimal Harness | 🟢 Complete (merged) | 4 / 4 |
-| 4 | Recovery v1 (three pillars) | ⬜ Not started | 0 / 5 |
+| 4 | Recovery v1 (three pillars) | 🟢 Complete (branch) | 5 / 5 |
 | 5 | Evaluation & Benchmark | ⬜ Not started | 0 / 6 |
 | 6 | Paper & Release | ⬜ Not started | 0 / 4 |
 
 **Legend:** ⬜ Not started · 🟡 In Progress · 🟢 Complete · 🔴 Blocked
 
-## Current phase: 3 — Minimal Harness (complete & merged) → Phase 4 next
+## Current phase: 4 — Recovery v1 (complete on branch) → Phase 5 next
 
-All four APs (AP-0019/0020/0021/0022) `Done` and **merged to `master`** via PR #3 (2026-06-15, merge
-commit `ea658e2`). `pytest -q` → 13 passed; quickstart runs end-to-end. No hardcoded harness (ADR-0007).
-See [`project/phases/phase-3-minimal-harness/README.md`](../phases/phase-3-minimal-harness/README.md).
-Phases 1 & 2 also complete and **merged** (PR #1, #2). **Next: Phase 4 — Recovery v1** (AP-0023 … AP-0027).
+All five APs (AP-0023 … AP-0027) `Done` on branch `phase-4-recovery-v1` (2026-06-15). `pytest -q` →
+**32 passed**; `examples/recovery_demo.py` shows crash→resume with **recovery_tax=1** (vs cold-restart 3)
+and the effect resolved exactly once. Implements the three recovery pillars: unified distillation
+(ADR-0005 / C2), re-grounding resume (ADR-0004), effect-safety WAL (ADR-0006 / C3), proven end-to-end
+(C1); ADR-0008 records the implementation decisions. Awaiting review + merge. See
+[`project/phases/phase-4-recovery-v1/README.md`](../phases/phase-4-recovery-v1/README.md).
+Phases 0–3 complete and **merged** (PR #1, #2, #3). **Next: Phase 5 — Evaluation & Benchmark.**
