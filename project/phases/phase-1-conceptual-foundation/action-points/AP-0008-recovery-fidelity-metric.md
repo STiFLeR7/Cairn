@@ -2,7 +2,7 @@
 id: AP-0008
 title: Define recovery-fidelity metric & eval dimensions (conceptual)
 phase: phase-1-conceptual-foundation
-status: Accepted
+status: Done
 owner: maintainers
 created: 2026-06-15
 updated: 2026-06-15
@@ -32,12 +32,12 @@ detail (revisited in Phase 5).
 
 ## Acceptance Criteria
 
-- [ ] Fidelity is defined as outcome equivalence, with the rationale (non-determinism) stated
-- [ ] At least five axes are defined, each with a precise meaning and direction (higher/lower = better)
-- [ ] The baseline set is named and the comparison framing is explicit
-- [ ] Each axis is linked forward to how Phase 5 will measure it
-- [ ] Documentation updated (single source of truth, front-matter current)
-- [ ] Trackers updated (`ap-index.md`, `phase-tracking.md`, `CHANGELOG.md`)
+- [x] Fidelity is defined as outcome equivalence, with the rationale (non-determinism) stated
+- [x] At least five axes are defined, each with a precise meaning and direction (higher/lower = better)
+- [x] The baseline set is named and the comparison framing is explicit
+- [x] Each axis is linked forward to how Phase 5 will measure it
+- [x] Documentation updated (single source of truth, front-matter current)
+- [x] Trackers updated (`ap-index.md`, `phase-tracking.md`, `CHANGELOG.md`)
 
 ## Dependencies
 
@@ -46,3 +46,5 @@ detail (revisited in Phase 5).
 ## Status / Log
 
 - 2026-06-15 — Proposed → Accepted (refined on Phase 1 entry).
+- 2026-06-15 — Accepted → Done. Delivered `docs/concepts/recovery-fidelity.md` (outcome equivalence,
+  five axes, four baselines, sufficiency ablation, Phase 5 forward map).

@@ -16,8 +16,12 @@ The conceptual framework, authored across Phase 1.
 | [problem-formalization.md](problem-formalization.md) | The agent-recovery problem; continuation sufficiency | AP-0007 | ✅ done |
 | [code-harness-and-runtime.md](code-harness-and-runtime.md) | Two-layer model + the *one concern, two altitudes* rule | AP-0010 | ✅ done |
 | [recovery-in-the-two-layer-model.md](recovery-in-the-two-layer-model.md) | Recovery = Runtime mechanism + Code Harness semantics | AP-0010 | ✅ done |
-| recovery-fidelity.md | Recovery-fidelity metric (outcome equivalence) | AP-0008 | ⬜ pending |
-| state-taxonomy.md | Five-layer agent-state taxonomy | AP-0012 | ⬜ pending |
-| tool-effect-taxonomy.md | Tool reversibility classes + recovery policy | AP-0012 | ⬜ pending |
+| [recovery-fidelity.md](recovery-fidelity.md) | Recovery-fidelity metric (outcome equivalence) | AP-0008 | ✅ done |
+| [state-taxonomy.md](state-taxonomy.md) | Five-layer agent-state taxonomy | AP-0012 | ✅ done |
+| [tool-effect-taxonomy.md](tool-effect-taxonomy.md) | Tool reversibility classes + recovery policy | AP-0012 | ✅ done |
+
+Research-side companions live in [`../research/`](../research/): the
+[related-work survey](../research/related-work.md) and the
+[claims registry](../research/claims-registry.md).
 
 See also the [glossary](../governance/glossary.md) and the [vision](../vision/vision.md).

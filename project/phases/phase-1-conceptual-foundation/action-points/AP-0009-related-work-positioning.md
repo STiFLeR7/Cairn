@@ -2,7 +2,7 @@
 id: AP-0009
 title: Related-work survey & positioning matrix
 phase: phase-1-conceptual-foundation
-status: Accepted
+status: Done
 owner: maintainers
 created: 2026-06-15
 updated: 2026-06-15
@@ -32,12 +32,12 @@ CRIU/DMTCP/HPC checkpoint-restart). A capability × system matrix and an honest 
 
 ## Acceptance Criteria
 
-- [ ] At least six prior systems/approaches surveyed, each with a citation/reference
-- [ ] Positioning matrix present and filled, showing the gap Cairn occupies
-- [ ] Novelty statement is honest about what prior work already solves
-- [ ] Cross-links to `docs/vision/positioning.md` (which references this survey)
-- [ ] Documentation updated (single source of truth, front-matter current)
-- [ ] Trackers updated (`ap-index.md`, `phase-tracking.md`, `CHANGELOG.md`)
+- [x] At least six prior systems/approaches surveyed, each with a citation/reference
+- [x] Positioning matrix present and filled, showing the gap Cairn occupies
+- [x] Novelty statement is honest about what prior work already solves
+- [x] Cross-links to `docs/vision/positioning.md` (which references this survey)
+- [x] Documentation updated (single source of truth, front-matter current)
+- [x] Trackers updated (`ap-index.md`, `phase-tracking.md`, `CHANGELOG.md`)
 
 ## Dependencies
 
@@ -46,3 +46,5 @@ CRIU/DMTCP/HPC checkpoint-restart). A capability × system matrix and an honest 
 ## Status / Log
 
 - 2026-06-15 — Proposed → Accepted (refined on Phase 1 entry).
+- 2026-06-15 — Accepted → Done. Delivered `docs/research/related-work.md` (7 prior systems, filled
+  positioning matrix, honest novelty statement).

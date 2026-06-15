@@ -28,3 +28,17 @@ updates this file.
   topology resolution (AP-0010, `Done`).
 - `docs/concepts/recovery-in-the-two-layer-model.md` — recovery = Runtime mechanism + Code Harness
   semantics; neither-alone argument (AP-0010, `Done`).
+- `docs/concepts/recovery-fidelity.md` — recovery fidelity as outcome equivalence; five axes; four
+  baselines; sufficiency ablation (AP-0008, `Done`).
+- `docs/concepts/state-taxonomy.md` — five-layer agent-state taxonomy with owners (AP-0012, `Done`).
+- `docs/concepts/tool-effect-taxonomy.md` — three tool classes + write-ahead effect discipline
+  (AP-0012, `Done`).
+- `docs/research/related-work.md` — prior-art survey, positioning matrix, novelty statement
+  (AP-0009, `Done`).
+- `docs/research/claims-registry.md` — falsifiable claims C1–C5, schema, freeze policy
+  (AP-0011, `Done`).
+
+### Status (Phase 1)
+- **Phase 1 — Conceptual & Research Foundation: complete on branch** `phase-1-conceptual-foundation`
+  (2026-06-15). All six APs (AP-0007 … AP-0012) `Done`; awaiting review + merge to `master`.
+  Next: Phase 2 — Architecture & Protocol Design.

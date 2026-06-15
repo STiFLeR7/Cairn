@@ -1,6 +1,6 @@
 # Phase 1 — Conceptual & Research Foundation
 
-- **Status:** 🟡 In Progress *(entered 2026-06-15)*
+- **Status:** 🟢 Complete on branch *(2026-06-15 — awaiting review + merge to `master`)*
 - **Goal:** Formalize the recovery problem and map the field — establish the vocabulary, the
   formal objects, and the research claims that the rest of the project will build on. **No code.**
 
@@ -45,18 +45,18 @@ findings).
 ## Checklist
 
 - [x] Recovery problem formalized; continuation sufficiency defined (AP-0007)
-- [ ] Recovery-fidelity metric and axes defined (AP-0008)
-- [ ] Related-work survey + positioning matrix complete (AP-0009)
+- [x] Recovery-fidelity metric and axes defined (AP-0008)
+- [x] Related-work survey + positioning matrix complete (AP-0009)
 - [x] Conceptual framework docs authored (AP-0010)
-- [ ] Claims registry stood up with initial falsifiable claims (AP-0011)
-- [ ] State + tool-effect taxonomies authored (AP-0012)
+- [x] Claims registry stood up with initial falsifiable claims (AP-0011)
+- [x] State + tool-effect taxonomies authored (AP-0012)
 
 ## Completion criteria
 
-- [ ] Continuation-sufficiency and recovery-fidelity are *defined* (not merely asserted)
-- [ ] Related work mapped; the white space is explicit and defensible
-- [ ] Conceptual framework + taxonomies authored and internally consistent
-- [ ] Claims registry populated and frozen
-- [ ] All Phase 1 APs `Done` or explicitly deferred (with reason)
-- [ ] ROADMAP and trackers updated
-- [ ] No code introduced (Phase 1 is conceptual)
+- [x] Continuation-sufficiency and recovery-fidelity are *defined* (not merely asserted)
+- [x] Related work mapped; the white space is explicit and defensible
+- [x] Conceptual framework + taxonomies authored and internally consistent
+- [x] Claims registry populated and frozen
+- [x] All Phase 1 APs `Done` or explicitly deferred (with reason)
+- [x] ROADMAP and trackers updated
+- [x] No code introduced (Phase 1 is conceptual)

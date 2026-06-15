@@ -41,8 +41,8 @@ Cairn is positioned against — and credits — durable-execution engines (Tempo
 persistence (LangGraph checkpointers, OpenHands state), virtual context management (MemGPT/Letta), and
 classical recovery (ARIES, event sourcing, CRIU). Each solves a *slice*. The white space Cairn occupies:
 crash-recovery **+** non-determinism **+** effect-safety **+** context-loss, unified under
-*Checkpoints Are Compactions* with a recovery-fidelity metric. The detailed positioning matrix is built
-in Phase 1 ([related work](../research/)).
+*Checkpoints Are Compactions* with a recovery-fidelity metric. The full survey and positioning matrix
+are in [`../research/related-work.md`](../research/related-work.md).
 
 ## License
 

@@ -2,7 +2,7 @@
 id: AP-0012
 title: State taxonomy + tool effect taxonomy (conceptual)
 phase: phase-1-conceptual-foundation
-status: Accepted
+status: Done
 owner: maintainers
 created: 2026-06-15
 updated: 2026-06-15
@@ -32,13 +32,13 @@ AP-0017) — these consume the taxonomies but are designed later.
 
 ## Acceptance Criteria
 
-- [ ] State taxonomy enumerates the layers with recoverability and owner (Code Harness / Runtime)
-- [ ] The working-memory layer is identified as the crux (non-serializable) and the durable/effect
+- [x] State taxonomy enumerates the layers with recoverability and owner (Code Harness / Runtime)
+- [x] The working-memory layer is identified as the crux (non-serializable) and the durable/effect
       layers as Runtime-owned
-- [ ] Tool taxonomy defines three classes, each with an explicit recovery policy and an example
-- [ ] Both docs state how they feed specific Phase 2 APs (AP-0013, AP-0017)
-- [ ] Documentation updated (single source of truth, front-matter current)
-- [ ] Trackers updated (`ap-index.md`, `phase-tracking.md`, `CHANGELOG.md`)
+- [x] Tool taxonomy defines three classes, each with an explicit recovery policy and an example
+- [x] Both docs state how they feed specific Phase 2 APs (AP-0013, AP-0017)
+- [x] Documentation updated (single source of truth, front-matter current)
+- [x] Trackers updated (`ap-index.md`, `phase-tracking.md`, `CHANGELOG.md`)
 
 ## Dependencies
 
@@ -47,3 +47,5 @@ AP-0017) — these consume the taxonomies but are designed later.
 ## Status / Log
 
 - 2026-06-15 — Proposed → Accepted (refined on Phase 1 entry).
+- 2026-06-15 — Accepted → Done. Delivered `docs/concepts/state-taxonomy.md` (5 layers, owners) and
+  `docs/concepts/tool-effect-taxonomy.md` (3 classes, WAL discipline, scope limit).

@@ -2,7 +2,7 @@
 id: AP-0011
 title: Establish research claims registry
 phase: phase-1-conceptual-foundation
-status: Accepted
+status: Done
 owner: maintainers
 created: 2026-06-15
 updated: 2026-06-15
@@ -37,11 +37,11 @@ of falsifiable claims.
 
 ## Acceptance Criteria
 
-- [ ] Claim schema defined and the freeze policy stated
-- [ ] At least four claims registered, each falsifiable and each naming how it will be evaluated
-- [ ] Each claim references the fidelity axis (AP-0008) it will be judged on, where applicable
-- [ ] Documentation updated (single source of truth, front-matter current)
-- [ ] Trackers updated (`ap-index.md`, `phase-tracking.md`, `CHANGELOG.md`)
+- [x] Claim schema defined and the freeze policy stated
+- [x] At least four claims registered, each falsifiable and each naming how it will be evaluated
+- [x] Each claim references the fidelity axis (AP-0008) it will be judged on, where applicable
+- [x] Documentation updated (single source of truth, front-matter current)
+- [x] Trackers updated (`ap-index.md`, `phase-tracking.md`, `CHANGELOG.md`)
 
 ## Dependencies
 
@@ -50,3 +50,5 @@ of falsifiable claims.
 ## Status / Log
 
 - 2026-06-15 — Proposed → Accepted (refined on Phase 1 entry).
+- 2026-06-15 — Accepted → Done. Delivered `docs/research/claims-registry.md` (schema, freeze policy,
+  claims C1–C5 registered).
