@@ -20,3 +20,11 @@ updates this file.
   Action Points (AP-0001 … AP-0006) marked `Done`. Next: Phase 1 — Conceptual & Research Foundation.
 - **Phase 1 — Conceptual & Research Foundation: entered 2026-06-15.** Six provisional APs
   (AP-0007 … AP-0012) refined into committed Action Points (`Accepted`); phase scaffold and README added.
+
+### Added (Phase 1, on branch `phase-1-conceptual-foundation`)
+- `docs/concepts/problem-formalization.md` — formal agent-recovery problem, three assumption
+  violations, continuation sufficiency (AP-0007, `Done`).
+- `docs/concepts/code-harness-and-runtime.md` — two-layer model + *one concern, two altitudes* rule,
+  topology resolution (AP-0010, `Done`).
+- `docs/concepts/recovery-in-the-two-layer-model.md` — recovery = Runtime mechanism + Code Harness
+  semantics; neither-alone argument (AP-0010, `Done`).

@@ -2,7 +2,7 @@
 id: AP-0007
 title: Formalize the recovery problem (continuation sufficiency)
 phase: phase-1-conceptual-foundation
-status: Accepted
+status: Done
 owner: maintainers
 created: 2026-06-15
 updated: 2026-06-15
@@ -35,12 +35,12 @@ checkpoint-granularity / step-boundary question.
 
 ## Acceptance Criteria
 
-- [ ] The recovery problem is stated with explicit definitions (not prose hand-waving)
-- [ ] Continuation sufficiency is defined as minimality subject to continuation equivalence
-- [ ] All three assumption violations are argued with at least one agent example each
-- [ ] Open questions are enumerated and routed to the phases that will answer them
-- [ ] Documentation updated (single source of truth, front-matter current)
-- [ ] Trackers updated (`ap-index.md`, `phase-tracking.md`, `CHANGELOG.md`)
+- [x] The recovery problem is stated with explicit definitions (not prose hand-waving)
+- [x] Continuation sufficiency is defined as minimality subject to continuation equivalence
+- [x] All three assumption violations are argued with at least one agent example each
+- [x] Open questions are enumerated and routed to the phases that will answer them
+- [x] Documentation updated (single source of truth, front-matter current)
+- [x] Trackers updated (`ap-index.md`, `phase-tracking.md`, `CHANGELOG.md`)
 
 ## Dependencies
 
@@ -49,3 +49,5 @@ checkpoint-granularity / step-boundary question.
 ## Status / Log
 
 - 2026-06-15 — Proposed → Accepted (refined on Phase 1 entry).
+- 2026-06-15 — Accepted → Done. Delivered `docs/concepts/problem-formalization.md`
+  (failure model, three violations with examples, continuation sufficiency, routed open questions).

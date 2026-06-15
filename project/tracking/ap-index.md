@@ -21,10 +21,10 @@
 
 | ID | Title | Status |
 |---|---|---|
-| [AP-0007](../phases/phase-1-conceptual-foundation/action-points/AP-0007-formalize-recovery-problem.md) | Formalize the recovery problem (continuation sufficiency) | Accepted |
+| [AP-0007](../phases/phase-1-conceptual-foundation/action-points/AP-0007-formalize-recovery-problem.md) | Formalize the recovery problem (continuation sufficiency) | Done |
 | [AP-0008](../phases/phase-1-conceptual-foundation/action-points/AP-0008-recovery-fidelity-metric.md) | Define recovery-fidelity metric & eval dimensions (conceptual) | Accepted |
 | [AP-0009](../phases/phase-1-conceptual-foundation/action-points/AP-0009-related-work-positioning.md) | Related-work survey & positioning matrix | Accepted |
-| [AP-0010](../phases/phase-1-conceptual-foundation/action-points/AP-0010-conceptual-framework.md) | Conceptual framework docs (Code Harness / Runtime / recovery) | Accepted |
+| [AP-0010](../phases/phase-1-conceptual-foundation/action-points/AP-0010-conceptual-framework.md) | Conceptual framework docs (Code Harness / Runtime / recovery) | Done |
 | [AP-0011](../phases/phase-1-conceptual-foundation/action-points/AP-0011-claims-registry.md) | Establish research claims registry | Accepted |
 | [AP-0012](../phases/phase-1-conceptual-foundation/action-points/AP-0012-state-and-tool-taxonomies.md) | State taxonomy + tool effect taxonomy (conceptual) | Accepted |
 

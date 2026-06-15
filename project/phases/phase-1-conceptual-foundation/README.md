@@ -23,10 +23,10 @@ This phase produces *understanding*, captured as documents. It commits nothing a
 
 | ID | Title | Status |
 |---|---|---|
-| [AP-0007](action-points/AP-0007-formalize-recovery-problem.md) | Formalize the recovery problem (continuation sufficiency) | Accepted |
+| [AP-0007](action-points/AP-0007-formalize-recovery-problem.md) | Formalize the recovery problem (continuation sufficiency) | Done |
 | [AP-0008](action-points/AP-0008-recovery-fidelity-metric.md) | Define recovery-fidelity metric & eval dimensions (conceptual) | Accepted |
 | [AP-0009](action-points/AP-0009-related-work-positioning.md) | Related-work survey & positioning matrix | Accepted |
-| [AP-0010](action-points/AP-0010-conceptual-framework.md) | Conceptual framework docs (Code Harness / Runtime / recovery) | Accepted |
+| [AP-0010](action-points/AP-0010-conceptual-framework.md) | Conceptual framework docs (Code Harness / Runtime / recovery) | Done |
 | [AP-0011](action-points/AP-0011-claims-registry.md) | Establish research claims registry | Accepted |
 | [AP-0012](action-points/AP-0012-state-and-tool-taxonomies.md) | State taxonomy + tool effect taxonomy (conceptual) | Accepted |
 
@@ -44,10 +44,10 @@ findings).
 
 ## Checklist
 
-- [ ] Recovery problem formalized; continuation sufficiency defined (AP-0007)
+- [x] Recovery problem formalized; continuation sufficiency defined (AP-0007)
 - [ ] Recovery-fidelity metric and axes defined (AP-0008)
 - [ ] Related-work survey + positioning matrix complete (AP-0009)
-- [ ] Conceptual framework docs authored (AP-0010)
+- [x] Conceptual framework docs authored (AP-0010)
 - [ ] Claims registry stood up with initial falsifiable claims (AP-0011)
 - [ ] State + tool-effect taxonomies authored (AP-0012)
 

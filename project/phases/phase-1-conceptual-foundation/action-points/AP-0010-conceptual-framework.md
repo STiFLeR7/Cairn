@@ -2,7 +2,7 @@
 id: AP-0010
 title: Conceptual framework docs (Code Harness / Runtime / recovery)
 phase: phase-1-conceptual-foundation
-status: Accepted
+status: Done
 owner: maintainers
 created: 2026-06-15
 updated: 2026-06-15
@@ -32,12 +32,12 @@ two-layer model.
 
 ## Acceptance Criteria
 
-- [ ] Both layers are defined with their responsibilities
-- [ ] The "same concern, two altitudes" rule is stated with the shared-concern table
-- [ ] The topology is resolved consistently (logically above, physically inside) and diagrams obey it
-- [ ] Recovery is split into Runtime-mechanism vs Code-Harness-semantics, with the "neither alone" argument
-- [ ] Documentation updated (single source of truth, front-matter current)
-- [ ] Trackers updated (`ap-index.md`, `phase-tracking.md`, `CHANGELOG.md`)
+- [x] Both layers are defined with their responsibilities
+- [x] The "same concern, two altitudes" rule is stated with the shared-concern table
+- [x] The topology is resolved consistently (logically above, physically inside) and diagrams obey it
+- [x] Recovery is split into Runtime-mechanism vs Code-Harness-semantics, with the "neither alone" argument
+- [x] Documentation updated (single source of truth, front-matter current)
+- [x] Trackers updated (`ap-index.md`, `phase-tracking.md`, `CHANGELOG.md`)
 
 ## Dependencies
 
@@ -46,3 +46,5 @@ two-layer model.
 ## Status / Log
 
 - 2026-06-15 — Proposed → Accepted (refined on Phase 1 entry).
+- 2026-06-15 — Accepted → Done. Delivered `docs/concepts/code-harness-and-runtime.md` and
+  `docs/concepts/recovery-in-the-two-layer-model.md` (two-layer model, split rule, topology, recovery split).
