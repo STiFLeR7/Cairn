@@ -218,6 +218,13 @@ Effectful task, torn `check-before-retry` effect at k=2:
 - **Deterministic reference harness, not a live-LLM study.** The headline numbers establish mechanism
   correctness and reproducibility, not real-model behavior. A live-LLM empirical study with statistical
   testing is the primary future work.
+- **First live run (recorded honestly).** A pilot run through the live pipeline (a real model via
+  OpenRouter, Milestone M1) validated that an LLM can drive the harness end-to-end, but did **not** validate
+  C1–C5: the multi-file task and its recovery metrics assume the mock's *one-action-per-step* cadence,
+  whereas the real model **batched all files into one action and finished before the injected crash**, so
+  recovery was never exercised and per-baseline outcomes were unstable across repetitions. The lesson — a
+  task must force **non-batchable sequential** steps, with metrics robust to action granularity, before live
+  evidence can speak to the claims — is the concrete next step (see the claims registry, 2026-06-16).
 - **Failure types.** Only `crash` is faithfully realized; context-overflow, tool-timeout, and model-error
   are modeled as a typed stop-at-`k`.
 - **Restore-first resume.** Torn-write detection is reserved for a future crash-in-place mode (§5, ADR-0008 §7).

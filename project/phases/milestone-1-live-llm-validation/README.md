@@ -1,6 +1,6 @@
 # Milestone M1 — Live-LLM Validation
 
-- **Status:** 🟡 In Progress *(entered 2026-06-16 — branch `milestone-1-live-llm-validation`; AP-0038/0039 `Done`, AP-0040 runner offline-validated (live run gated), 69 tests)*
+- **Status:** 🟢 Complete *(2026-06-16 — all 5 APs `Done`; **outcome: NO-GO for v1.0**, project stays 0.x; 76 tests)*
 - **Goal:** Replace the deterministic scripted-mock model with **real LLM `ModelProvider`s** and re-run the
   Phase 5 failure-injection benchmark **live**, gathering empirical evidence for claims C1–C5 under genuine
   model non-determinism. On success this unblocks the deferred v1.0 release and announcement (AP-0036/0037);
@@ -43,9 +43,20 @@
 |---|---|---|
 | [AP-0038](action-points/AP-0038-live-model-providers.md) | Live LLM `ModelProvider` adapters (injected, no hardcoding) | Done |
 | [AP-0039](action-points/AP-0039-determinism-cost-repro.md) | Determinism, cost & reproducibility controls for live runs | Done |
-| [AP-0040](action-points/AP-0040-live-failure-injection-study.md) | Live failure-injection study (Phase 5 matrix, real model) | In Progress *(runner offline-validated; live run gated)* |
-| [AP-0041](action-points/AP-0041-live-results-claims-update.md) | Live results analysis & claims update (C1–C5) | Accepted |
-| [AP-0042](action-points/AP-0042-v1-go-no-go.md) | v1.0 go/no-go gate (unblock AP-0036/0037 on success) | Accepted |
+| [AP-0040](action-points/AP-0040-live-failure-injection-study.md) | Live failure-injection study (Phase 5 matrix, real model) | Done *(ran `owl-alpha`; honest negative)* |
+| [AP-0041](action-points/AP-0041-live-results-claims-update.md) | Live results analysis & claims update (C1–C5) | Done |
+| [AP-0042](action-points/AP-0042-v1-go-no-go.md) | v1.0 go/no-go gate (unblock AP-0036/0037 on success) | Done *(**NO-GO**)* |
+
+## Outcome
+
+The live pipeline works — a real model (`openrouter/owl-alpha` via OpenRouter) drove the harness end-to-end,
+with replayable transcripts. But the first live run **did not validate C1–C5**: the model batches the
+multi-file task into one action and finishes before the injected crash, so the Phase-5 recovery
+scenario/metrics (built around the mock's one-action-per-step cadence) are ill-defined and unstable. **Go/no-go:
+NO-GO** — the project stays at **0.x**; AP-0036/0037 remain `Blocked`. The hold is now *confirmed by evidence*.
+**Next:** a benchmark task that forces non-batchable sequential steps, action-granularity-robust metrics, and
+repetitions with statistics (a future milestone). See the [claims registry](../../../docs/research/claims-registry.md)
+(2026-06-16) and `PAPER.md` §9.
 
 ## Dependency order
 
@@ -62,17 +73,18 @@ AP-0038 (live providers) ──→ AP-0039 (determinism/cost/repro) ──→ AP
 
 - [x] Real-LLM provider(s) run behind `cairn.model` with provider/model injected; no hardcoding (AP-0038, ADR-0007/0010)
 - [x] Live runs are seed/temperature-controlled, cached, transcript-logged, and budget-guarded (AP-0039)
-- [~] The Phase 5 failure-injection matrix runs through the live pipeline — offline-validated on a fake
-  transport (reproduces C1/C3); **the real-model run is gated** (AP-0040)
-- [ ] C1–C5 re-evaluated with dated, live-scoped evidence; negatives recorded (AP-0041, ADR-0009)
-- [ ] Go/no-go documented; AP-0036/0037 unblocked only on "go" **and** explicit approval (AP-0042)
-- [ ] No hardcoded harness; docs + trackers updated; tests green
+- [x] The Phase 5 failure-injection matrix runs through the live pipeline against a real model
+  (`openrouter/owl-alpha`); honest negative recorded (AP-0040)
+- [x] C1–C5 re-evaluated with dated, live-scoped evidence; **negative recorded** (AP-0041, ADR-0009)
+- [x] Go/no-go documented — **NO-GO**; AP-0036/0037 stay `Blocked` (AP-0042)
+- [x] No hardcoded harness; docs + trackers updated; tests green (76)
 
 ## Completion criteria
 
-- [ ] At least one real LLM provider is integrated behind the existing model seam, injected via config
-- [ ] The live failure-injection study runs reproducibly (cached transcripts; documented cost/seed controls)
-- [ ] The claims registry carries dated **live-LLM** evidence for C1–C5 (supporting *or* refuting), distinct
-      from the reference-harness notes
-- [ ] A recorded go/no-go decision on v1.0; if "go," AP-0036/0037 move from `Blocked` to actionable
-      (still pending explicit approval for the outward release/announcement)
+- [x] At least one real LLM provider is integrated behind the existing model seam, injected via config
+      (Anthropic + OpenRouter factories; ran `openrouter/owl-alpha`)
+- [x] The live study runs reproducibly (transcript captured + offline-replayable; documented cost/seed controls)
+- [x] The claims registry carries dated **live-LLM** evidence (a recorded **negative**: C1 not validated live;
+      C1–C5 stay reference-harness-only), distinct from the reference-harness notes
+- [x] A recorded go/no-go decision on v1.0 — **NO-GO**; AP-0036/0037 remain `Blocked` (the "go" condition
+      was not met). Project stays 0.x.

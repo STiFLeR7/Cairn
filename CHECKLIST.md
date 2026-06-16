@@ -16,7 +16,7 @@
 
 ## Milestones (post-7-phase)
 
-- [ ] **Milestone M1 — Live-LLM Validation** 🟡 *(in progress — entered 2026-06-16 on branch `milestone-1-live-llm-validation`; 2 / 5 APs done, AP-0040 runner offline-validated / live run gated)*
+- [x] **Milestone M1 — Live-LLM Validation** 🟢 *(complete 2026-06-16; 5 / 5 APs; **outcome NO-GO** — live run didn't validate the claims, project stays 0.x)*
 
 ## Phase 0 — Action Points
 
@@ -138,13 +138,13 @@
 
 - [x] `AP-0038` Live LLM `ModelProvider` adapters (injected, no hardcoding)
 - [x] `AP-0039` Determinism, cost & reproducibility controls for live runs
-- [~] `AP-0040` Live failure-injection study (Phase 5 matrix, real model) — *runner offline-validated; real-model run gated*
-- [ ] `AP-0041` Live results analysis & claims update (C1–C5)
-- [ ] `AP-0042` v1.0 go/no-go gate (unblock AP-0036/0037 on success)
+- [x] `AP-0040` Live failure-injection study (Phase 5 matrix, real model) — *ran `owl-alpha`; honest negative*
+- [x] `AP-0041` Live results analysis & claims update (C1–C5)
+- [x] `AP-0042` v1.0 go/no-go gate — **NO-GO** (project stays 0.x)
 
 ## Milestone M1 completion criteria
 
 - [x] ≥1 real LLM provider integrated behind the model seam, injected via config (no hardcoding, ADR-0007/0010)
-- [~] Live failure-injection study runs reproducibly (cached transcripts; documented cost/seed controls) — *controls ready (AP-0039); the study run is AP-0040 (gated)*
-- [ ] Claims registry carries dated **live-LLM** evidence for C1–C5, distinct from reference-harness notes
-- [ ] Recorded v1.0 go/no-go; on "go", AP-0036/0037 unblocked (outward steps still pending explicit approval)
+- [x] Live failure-injection study ran against a real model, reproducibly (transcript captured + offline-replayable)
+- [x] Claims registry carries dated **live-LLM** evidence — a recorded **negative** (C1 not validated live; C1–C5 stay reference-harness-only)
+- [x] Recorded v1.0 go/no-go — **NO-GO**; AP-0036/0037 stay `Blocked` (the "go" condition was not met)

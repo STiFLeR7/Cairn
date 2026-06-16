@@ -39,6 +39,9 @@ DEFAULT_SYSTEM = (
 )
 
 _CODE_FENCE = re.compile(r"```(?:[a-zA-Z0-9_+-]+)?\s*\n(.*?)```", re.DOTALL)
+# Fallback for models that emit an XML-style tool call instead of a markdown fence
+# (e.g. `<…_arg_value>CODE</…_arg_value>`). General over the wrapper tag — not a model id.
+_TOOL_ARG_VALUE = re.compile(r"<[a-zA-Z0-9_]*arg_value>\s*(.*?)\s*</[a-zA-Z0-9_]*arg_value>", re.DOTALL)
 
 
 def render_prompt(goal: str, history: list[StepRecord]) -> str:
@@ -67,20 +70,46 @@ def render_prompt(goal: str, history: list[StepRecord]) -> str:
 def parse_action(text: str, *, finish_sentinel: str = DEFAULT_FINISH_SENTINEL) -> Action:
     """Parse a model reply into an Action.
 
-    Priority: a fenced code block -> ``CODE``; else the finish sentinel -> ``FINISH``;
-    else ``FINISH`` flagged as unparseable — so a malformed reply ends the run rather
-    than looping forever, and the reason is recorded honestly in ``Action.result``.
+    Priority:
+
+      1. a fenced code block -> ``CODE``;
+      2. an XML-style tool-call arg value -> ``CODE`` (some models emit tool calls);
+      3. the finish sentinel -> ``FINISH``;
+      4. an *unfenced* reply that nonetheless **compiles as Python** -> ``CODE`` (some
+         models omit fences entirely — `compile()` distinguishes bare code from prose);
+      5. otherwise ``FINISH`` flagged as unparseable — so a malformed reply ends the run
+         rather than looping forever, recorded honestly in ``Action.result``.
+
+    Steps 2 and 4 were added from live observations (a stealth model mixed fenced, XML
+    tool-call, and bare-code outputs across steps); none of them is model-specific.
     """
     if not text:
         return Action(kind=FINISH, result="empty model reply")
-    match = _CODE_FENCE.search(text)
-    if match:
-        code = match.group(1).strip()
-        if code:
-            return Action(kind=CODE, code=code)
-    if finish_sentinel and finish_sentinel in text:
+    for pattern in (_CODE_FENCE, _TOOL_ARG_VALUE):
+        match = pattern.search(text)
+        if match:
+            code = match.group(1).strip()
+            if code:
+                return Action(kind=CODE, code=code)
+    # Unfenced reply. A model may bundle bare code with a trailing completion signal in the
+    # same turn; prefer doing the action (completion then lands on the next turn). `compile()`
+    # separates code from prose; the sentinel is stripped before the check.
+    has_finish = bool(finish_sentinel) and finish_sentinel in text
+    candidate = text.replace(finish_sentinel, "").strip() if has_finish else text.strip()
+    if candidate and _looks_like_python(candidate):
+        return Action(kind=CODE, code=candidate)
+    if has_finish:
         return Action(kind=FINISH, result="model signaled completion")
     return Action(kind=FINISH, result="no code block or completion signal in reply")
+
+
+def _looks_like_python(text: str) -> bool:
+    """True if ``text`` parses as a Python module — used to accept unfenced code."""
+    try:
+        compile(text, "<live-reply>", "exec")
+        return True
+    except (SyntaxError, ValueError):
+        return False
 
 
 class LiveModelProvider:
@@ -173,3 +202,82 @@ def _text_from_message(message: object) -> str:
         if text:
             parts.append(text)
     return "".join(parts)
+
+
+def openrouter_transport(
+    *,
+    model: str,
+    system: str = DEFAULT_SYSTEM,
+    max_tokens: int = 2048,
+    temperature: float = 0.0,
+    api_key: Optional[str] = None,
+    api_key_env: str = "OPENROUTER_API_KEY",
+    url: str = "https://openrouter.ai/api/v1/chat/completions",
+    referer: str = "https://github.com/STiFLeR7/Cairn",
+    title: str = "Cairn",
+    timeout: float = 120.0,
+    request: Optional[Callable[[dict], dict]] = None,
+) -> Transport:
+    """Build a :data:`Transport` over OpenRouter's OpenAI-compatible chat API.
+
+    ``model`` is required and injected (a provider/model slug) — no model id is hardcoded.
+    The key comes from ``api_key`` or ``$api_key_env``, never from source. The
+    HTTP call uses only the standard library (no SDK / no new dependency); pass ``request``
+    (a callable ``payload_dict -> response_dict``) to inject a fake in tests — so this
+    factory is exercisable offline. This is a second instance of the ADR-0010 pattern
+    (a vendor is just another ``*_transport`` factory; the harness is unchanged).
+    """
+    if request is None:
+        key = api_key or os.environ.get(api_key_env)
+        if not key:
+            raise LiveModelConfigError(
+                f"no API key: set ${api_key_env} or pass api_key= for openrouter_transport"
+            )
+        request = _urllib_json_poster(url, key, referer=referer, title=title, timeout=timeout)
+
+    def complete(prompt: str) -> str:
+        payload = {
+            "model": model,
+            "max_tokens": max_tokens,
+            "temperature": temperature,
+            "messages": [
+                {"role": "system", "content": system},
+                {"role": "user", "content": prompt},
+            ],
+        }
+        return _content_from_chat(request(payload))
+
+    return complete
+
+
+def _urllib_json_poster(
+    url: str, key: str, *, referer: str, title: str, timeout: float
+) -> Callable[[dict], dict]:
+    """A stdlib JSON POST-er (payload dict -> response dict) for OpenAI-compatible APIs."""
+    import json
+    import urllib.request
+
+    def post(payload: dict) -> dict:
+        body = json.dumps(payload).encode("utf-8")
+        req = urllib.request.Request(url, data=body, method="POST")
+        req.add_header("Authorization", f"Bearer {key}")
+        req.add_header("Content-Type", "application/json")
+        if referer:
+            req.add_header("HTTP-Referer", referer)  # OpenRouter attribution headers
+        if title:
+            req.add_header("X-Title", title)
+        with urllib.request.urlopen(req, timeout=timeout) as resp:  # pragma: no cover - network
+            return json.loads(resp.read().decode("utf-8"))
+
+    return post
+
+
+def _content_from_chat(data: dict) -> str:
+    """Extract the assistant text from an OpenAI-compatible chat response."""
+    if isinstance(data, dict) and data.get("error"):
+        raise LiveModelConfigError(f"chat API error: {data['error']}")
+    choices = (data or {}).get("choices") or []
+    if not choices:
+        return ""
+    message = choices[0].get("message") or {}
+    return message.get("content") or ""

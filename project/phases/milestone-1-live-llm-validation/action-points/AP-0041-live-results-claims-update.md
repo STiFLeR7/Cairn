@@ -2,7 +2,7 @@
 id: AP-0041
 title: Live results analysis & claims update (C1–C5)
 phase: milestone-1-live-llm-validation
-status: Accepted
+status: Done
 owner: maintainers
 created: 2026-06-16
 updated: 2026-06-16
@@ -30,13 +30,14 @@ supersede, don't edit).
 
 ## Acceptance Criteria
 
-- [ ] C1–C5 each carry a dated **live-LLM** status note in the claims registry (supporting, refining, or
-      refuting), kept separate from the reference-harness notes
-- [ ] Live results for the matrix, ablation, and cross-version experiments are summarized honestly,
-      including negatives/insufficient evidence
-- [ ] `PAPER.md` reports the live results alongside the reference-harness results, with scope preserved
-- [ ] The registry's freeze policy is respected (statements immutable; supersede to change a statement)
-- [ ] Docs + trackers updated; tests green
+- [x] The claims registry carries a dated **live-LLM** note (2026-06-16): pipeline validated; **C1 not
+      validated live (invalid/insufficient evidence)**; C1–C5 remain reference-harness-only — kept distinct
+      from the reference-harness notes
+- [x] Live results summarized **honestly**, including the negative result (batched action → crash never
+      fired → metrics ill-defined and unstable across repetitions) and the two bugs it exposed/fixed
+- [x] `PAPER.md` §9 reports the live finding alongside the reference-harness results, scope preserved
+- [x] Freeze policy respected — no claim *statement* was edited; only dated status evidence was appended
+- [x] Docs + trackers updated; **76 tests green**
 
 ## Dependencies
 
@@ -45,3 +46,8 @@ supersede, don't edit).
 ## Status / Log
 
 - 2026-06-16 — Proposed → Accepted (refined on Milestone M1 entry).
+- 2026-06-16 — Accepted → Done. Recorded the live finding in the claims registry (dated live-LLM log entry)
+  and `PAPER.md` §9. Verdict: the live pipeline works, but **C1–C5 stay reference-harness-only** — the live
+  run's evidence is invalid under the current task/metrics (the model batches the task into one action, so
+  the injected crash never interrupts partial work). The concrete next step is a **non-batchable sequential
+  task + action-granularity-robust metrics + repetitions**. No claim statement changed (registry freeze).

@@ -12,23 +12,22 @@
 | 4 | Recovery v1 (three pillars) | 🟢 Complete (merged) | 5 / 5 |
 | 5 | Evaluation & Benchmark | 🟢 Complete (merged) | 6 / 6 |
 | 6 | Paper & Release | 🟢 Core done (release deferred to M1) | 2 / 4 |
-| M1 | Live-LLM Validation | 🟡 In Progress | 2 / 5 (AP-0040 runner offline-validated; live run gated) |
+| M1 | Live-LLM Validation | 🟢 Complete (outcome: **NO-GO**; stays 0.x) | 5 / 5 |
 
 **Legend:** ⬜ Not started · 🟡 In Progress · 🟢 Complete · 🔴 Blocked
 
-## Current milestone: M1 — Live-LLM Validation (entered 2026-06-16)
+## Current milestone: M1 — Live-LLM Validation (complete 2026-06-16 — outcome NO-GO)
 
-Entered on branch `milestone-1-live-llm-validation` (master stays clean per branch-per-phase). Goal: replace
-the deterministic scripted mock with **real LLM `ModelProvider`s** (injected, no hardcoding — ADR-0007),
-re-run the Phase 5 failure-injection benchmark **live**, and re-evaluate C1–C5 under genuine non-determinism.
-Five APs (AP-0038 … AP-0042); **AP-0038 + AP-0039 `Done`** — `src/cairn/model_live.py` (`LiveModelProvider`
-over an injected transport + `anthropic_transport` factory) and `src/cairn/live_controls.py` (transcript
-record / offline replay / budget guard), `ADR-0010` accepted. **AP-0040 `In Progress`** — the live-pipeline
-study runner (`benchmarks/live_study.py` + wiring in `benchmarks/scenarios.py`, `make bench-live`) is built
-and **offline-validated** on a fake transport (reproduces C1/C3 through the live code path); the **paid
-real-model run is gated** on explicit approval. **64 → 69 tests**, core free of model-id/key literals
-(ADR-0007). AP-0041/0042 `Accepted`. On a "go" decision (AP-0042) this unblocks the deferred v1.0 release +
-announcement (AP-0036/0037), still pending explicit approval. See
+Ran on branch `milestone-1-live-llm-validation` (master stays clean per branch-per-phase). All five APs
+(AP-0038 … AP-0042) `Done`: `src/cairn/model_live.py` (`LiveModelProvider` + injected `anthropic_transport`
+/ stdlib `openrouter_transport`), `src/cairn/live_controls.py` (transcript / offline replay / budget),
+`ADR-0010`, and the live-pipeline study runner (`benchmarks/live_study.py`, `make bench-live`). **76 tests**,
+core free of model-id/key literals (ADR-0007). The live study **ran against a real model**
+(`openrouter/owl-alpha` via OpenRouter, user-authorized). **Outcome — NO-GO:** the pipeline works, but the
+model batches the task into one action and finishes before the injected crash, so the Phase-5
+scenario/metrics do not validate C1–C5 — they stay **reference-harness-only** (claims registry, 2026-06-16).
+The project **remains 0.x**; AP-0036/0037 stay `Blocked` (hold now *confirmed by evidence*). **Next-milestone
+input:** a non-batchable sequential task + action-granularity-robust metrics + repetitions. See
 [`project/phases/milestone-1-live-llm-validation/README.md`](../phases/milestone-1-live-llm-validation/README.md).
 
 ## Prior phase: 6 — Paper & Release (core done; release deferred to M1)

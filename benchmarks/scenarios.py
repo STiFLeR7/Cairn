@@ -13,7 +13,7 @@ from typing import Optional
 from cairn.eval.scenario import EffectSpec, Scenario
 from cairn.live_controls import Budget, record_to
 from cairn.model import CODE, Action
-from cairn.model_live import LiveModelProvider, Transport, anthropic_transport
+from cairn.model_live import LiveModelProvider, Transport, anthropic_transport, openrouter_transport
 from cairn.model_mock import ScriptableMockModel
 from cairn.task import Task
 
@@ -118,19 +118,28 @@ def live_effectful_scenario(
 def build_live_transport(
     model: str,
     *,
+    provider: str = "anthropic",
+    api_key_env: Optional[str] = None,
     transcript_path: Optional[str] = None,
     max_calls: Optional[int] = None,
     max_chars: Optional[int] = None,
 ) -> Transport:
-    """Construct the REAL transport for a paid live run (AP-0040, **GATED**).
+    """Construct the REAL transport for a live run (AP-0040, **GATED**).
 
-    Requires ``ANTHROPIC_API_KEY`` and the optional ``cairn[live]`` extra. Wraps the
-    Anthropic transport with a transcript recorder (so the run replays offline afterwards)
-    and a :class:`Budget` ceiling (so it cannot run away on cost). Calling this without a
-    key raises ``LiveModelConfigError`` — the live path is wired but **inert** until
-    explicitly enabled with a key and an approved spend.
+    ``provider`` selects a bundled factory: ``"anthropic"`` (needs ``ANTHROPIC_API_KEY`` +
+    the ``cairn[live]`` extra) or ``"openrouter"`` (OpenAI-compatible, stdlib-only; needs an
+    OpenRouter key). The base transport is wrapped with a transcript recorder (so the run
+    replays offline afterwards) and a :class:`Budget` ceiling (so it cannot run away on
+    cost). Calling this without a key raises ``LiveModelConfigError`` — the live path is
+    wired but **inert** until explicitly enabled with a key and an approved spend.
     """
-    transport = anthropic_transport(model=model)
+    kw = {"api_key_env": api_key_env} if api_key_env else {}
+    if provider == "anthropic":
+        transport = anthropic_transport(model=model, **kw)
+    elif provider == "openrouter":
+        transport = openrouter_transport(model=model, **kw)
+    else:
+        raise ValueError(f"unknown provider {provider!r} (expected 'anthropic' or 'openrouter')")
     if transcript_path:
         transport = record_to(transport, transcript_path, model_version=model)
     if max_calls is not None or max_chars is not None:

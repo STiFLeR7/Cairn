@@ -153,21 +153,27 @@ updates this file.
   `replay_from_transcript` (FIFO-by-prompt-key replay, offline and key-free — deterministic independent of the
   model), and `Budget`/`budgeted` (call/char ceiling → `BudgetExceeded` before overrun). `REPRODUCE.md` gains
   a "Live runs" section; transcripts carry no secrets.
-- Live-pipeline study runner (**AP-0040, `In Progress`**) — `benchmarks/live_study.py` + the live wiring in
-  `benchmarks/scenarios.py` (`fake_multifile_transport`, `live_multi_file_scenario`,
-  `live_effectful_scenario`, and the gated `build_live_transport(model, …)`), plus `make bench-live`. Runs the
-  Phase 5 matrix through the **live code path** (`LiveModelProvider` + `live_controls`); on the deterministic
-  fake transport it reproduces C1 (B3 tax 1.50 vs B0 5.00; no-regression 1.0 vs 0.0) and C3 (B3 dup 0 / gate
-  PASS vs B0 1) **offline — no key, no spend**. This validates the *pipeline*, not the claims under a real
-  model; the paid real-model run is the remaining **gated** step (no claims-registry update from the fake run).
+- Live-pipeline study runner (**AP-0040, `Done`**) — `benchmarks/live_study.py` + live wiring in
+  `benchmarks/scenarios.py` (`fake_multifile_transport`, `live_multi_file_scenario`, `live_effectful_scenario`,
+  `build_live_transport(model, provider=…)`), plus `make bench-live` and a stdlib `openrouter_transport`
+  (OpenAI-compatible; no new dependency). Offline (fake transport) it reproduces C1/C3 through the live code
+  path; **run live against `openrouter/owl-alpha`** it exposed an honest negative (below). Two real fixes the
+  live run forced: `parse_action` generalized to tolerate XML tool-call and unfenced/`compile()`-checked code
+  (real models don't reliably emit fences), and a C1 verdict that had ignored `task_success`.
+- **Milestone M1 outcome — `NO-GO` (AP-0041/0042).** The first live run validated the *pipeline* but **not**
+  the claims: the real model batches the multi-file task into one action and finishes before the injected
+  crash, so the Phase-5 recovery scenario/metrics (built around the mock's one-action-per-step cadence) are
+  ill-defined and unstable across repetitions. C1–C5 stay **reference-harness-only** (claims registry +
+  `PAPER.md` §9, dated 2026-06-16). The project **remains 0.x**; the v1.0 release + announcement
+  (AP-0036/0037) **stay `Blocked`** — the Phase-6 hold is now *confirmed by evidence*. The fix becomes **M2**
+  (a non-batchable sequential task + action-granularity-robust metrics + repetitions).
 
 ### Status (Milestone M1)
-- **Milestone M1 — Live-LLM Validation: in progress** (entered 2026-06-16). Branch
-  `milestone-1-live-llm-validation` off `master` (master stays clean, branch-per-phase). **AP-0038 + AP-0039
-  `Done`** (`cairn.model_live` + `cairn.live_controls` + ADR-0010; `tests/test_model_live.py` +
-  `tests/test_live_controls.py`, 22 offline tests). **AP-0040 `In Progress`** — live-pipeline study runner
-  built and **offline-validated** (reproduces C1/C3 through the live code path on a fake transport); the paid
-  real-model run is **gated** on explicit approval. `tests/test_live_study.py` (5 offline tests) →
-  **`pytest -q` → 69 passed**; core free of model-id/key literals. AP-0041/0042 `Accepted`. Goal: re-run the
-  benchmark against real LLMs and re-evaluate C1–C5 under genuine non-determinism; on success, unblock the
-  v1.0 release/announcement (still gated on explicit approval).
+- **Milestone M1 — Live-LLM Validation: complete** (2026-06-16; **outcome NO-GO**). Branch
+  `milestone-1-live-llm-validation` off `master` (master stays clean, branch-per-phase). All five APs
+  (AP-0038 … AP-0042) `Done`: `cairn.model_live` (+ Anthropic & stdlib OpenRouter transports),
+  `cairn.live_controls`, ADR-0010, the live-pipeline study runner, and the live run itself against
+  `openrouter/owl-alpha`. **`pytest -q` → 76 passed** (offline); core free of model-id/key literals. The live
+  run validated the pipeline but **not** the claims (batched-action → crash never fired → metrics invalid),
+  so **C1–C5 stay reference-harness-only**, the project **remains 0.x**, and AP-0036/0037 stay `Blocked`. The
+  next milestone (**M2**) makes the live benchmark actually exercise recovery.
