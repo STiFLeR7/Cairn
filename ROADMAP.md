@@ -14,7 +14,7 @@
 | **3** | Minimal Harness | Build the substrate (no recovery yet) | 🟢 Complete | Minimal Code Harness + Runtime honoring the boundary contract; baseline tasks complete |
 | **4** | Recovery v1 (three pillars) | Unified distillation + re-grounding + effect-safety | 🟢 Complete | Agent recovers from injected failure end-to-end |
 | **5** | Evaluation & Benchmark | Failure-injection harness, baselines, ablations | 🟢 Complete | Results reproduce the headline claims |
-| **6** | Paper & Release | Write-up + reproducible OSS artifact | ⬜ Not started | Paper drafted/submitted; `v1.0` released with repro instructions |
+| **6** | Paper & Release | Write-up + reproducible OSS artifact | 🟡 In Progress | Paper drafted/submitted; `v1.0` released with repro instructions |
 
 **Legend:** ⬜ Not started · 🟡 In Progress · 🟢 Complete · 🔴 Blocked
 

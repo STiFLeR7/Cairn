@@ -12,7 +12,7 @@
 - [x] **Phase 3 — Minimal Harness** 🟢 *(complete & merged — PR #3; 13 tests passing)*
 - [x] **Phase 4 — Recovery v1 (three pillars)** 🟢 *(complete & merged — PR #4; 33 tests passing)*
 - [x] **Phase 5 — Evaluation & Benchmark** 🟢 *(complete & merged — PR #5; 42 tests passing)*
-- [ ] **Phase 6 — Paper & Release**
+- [ ] **Phase 6 — Paper & Release** 🟡 *(in progress — entered 2026-06-15; release/announce gated on approval)*
 
 ## Phase 0 — Action Points
 
@@ -114,3 +114,18 @@
 - [x] Claims registry updated with dated, honestly-scoped evidence (ADR-0009)
 - [x] `pytest` green across the new eval suite and all prior tests
 - [x] No hardcoded harness (ADR-0007); docs + ADR-0009 + trackers updated
+
+## Phase 6 — Action Points
+
+- [x] `AP-0034` Paper draft ("Checkpoints Are Compactions")
+- [x] `AP-0035` Reproducibility package & artifact polish
+- [ ] `AP-0036` v1.0 OSS release — *artifacts prepared; tag/version bump gated on approval*
+- [ ] `AP-0037` Public positioning — *README polished + announcement drafted; posting gated on approval*
+
+## Phase 6 completion criteria
+
+- [ ] `PAPER.md` drafted; consistent with the repo's claims/results and honest scope
+- [ ] Fresh clone reproduces tests + demo + benchmarks via `REPRODUCE.md`
+- [ ] v1.0 release artifacts prepared (notes, CITATION, version); **tag cut only on approval**
+- [ ] Public positioning prepared; **announcement posted only on approval**
+- [ ] Docs + trackers updated; tests green
