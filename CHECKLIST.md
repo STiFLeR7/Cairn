@@ -117,10 +117,10 @@
 
 ## Phase 6 — Action Points
 
-- [ ] `AP-0034` Paper draft ("Checkpoints Are Compactions")
-- [ ] `AP-0035` Reproducibility package & artifact polish
-- [ ] `AP-0036` v1.0 OSS release (docs, examples, citation) — *release gated on approval*
-- [ ] `AP-0037` Public positioning (README, announcement) — *posting gated on approval*
+- [x] `AP-0034` Paper draft ("Checkpoints Are Compactions")
+- [x] `AP-0035` Reproducibility package & artifact polish
+- [ ] `AP-0036` v1.0 OSS release — *artifacts prepared; tag/version bump gated on approval*
+- [ ] `AP-0037` Public positioning — *README polished + announcement drafted; posting gated on approval*
 
 ## Phase 6 completion criteria
 

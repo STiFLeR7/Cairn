@@ -2,7 +2,7 @@
 
 Run from the repo root:
 
-    PYTHONPATH=src python examples/recovery_demo.py
+    python examples/recovery_demo.py
 
 Shows the three pillars together: a checkpoint written each step (unified distillation), a
 crash in an effect's danger window, and a fresh runtime that resumes — re-grounding from the
@@ -11,7 +11,10 @@ cairn, resolving the effect safely (no duplicate), and finishing the task. Every
 """
 
 import os
+import sys
 import tempfile
+
+sys.path.insert(0, os.path.join(os.path.dirname(__file__), "..", "src"))  # run without PYTHONPATH
 
 from cairn.app import build_harness
 from cairn.harness.effects import CHECK_BEFORE_RETRY, EffectfulTool

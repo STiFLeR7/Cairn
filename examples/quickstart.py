@@ -2,11 +2,16 @@
 
 Run from the repo root:
 
-    PYTHONPATH=src python examples/quickstart.py
+    python examples/quickstart.py
 
 Everything concrete (the task, the scripted model) is wired *here*, in the example —
 the library hardcodes none of it.
 """
+
+import os
+import sys
+
+sys.path.insert(0, os.path.join(os.path.dirname(__file__), "..", "src"))  # run without PYTHONPATH
 
 from cairn.app import build_harness
 from cairn.model import CODE, Action

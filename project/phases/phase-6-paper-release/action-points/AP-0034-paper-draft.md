@@ -2,7 +2,7 @@
 id: AP-0034
 title: Paper draft ("Checkpoints Are Compactions")
 phase: phase-6-paper-release
-status: Accepted
+status: Done
 owner: maintainers
 created: 2026-06-15
 updated: 2026-06-15
@@ -32,11 +32,11 @@ later); new experiments (it reports existing Phase 5 results).
 
 ## Acceptance Criteria
 
-- [ ] Covers problem → two-layer model → Continuation State → RGR → effect-safety → unified distillation
-- [ ] Reports the Phase 5 evaluation (baselines, axes, C1–C5) with the **honest scope** from ADR-0009
-- [ ] States limitations and future work (live-LLM study, non-crash failure types, B1/B2 in non-determinism)
-- [ ] Cross-references the in-repo concept/design docs and the claims registry (single source of truth)
-- [ ] Documentation + trackers updated; tests remain green (no code change expected)
+- [x] Covers problem → two-layer model → Continuation State → RGR → effect-safety → unified distillation
+- [x] Reports the Phase 5 evaluation (baselines, axes, C1–C5) with the **honest scope** from ADR-0009
+- [x] States limitations and future work (live-LLM study, non-crash failure types, B1/B2 in non-determinism)
+- [x] Cross-references the in-repo concept/design docs and the claims registry (single source of truth)
+- [x] Documentation + trackers updated; tests remain green (no code change expected)
 
 ## Dependencies
 
@@ -45,3 +45,4 @@ later); new experiments (it reports existing Phase 5 results).
 ## Status / Log
 
 - 2026-06-15 — Proposed → Accepted (refined on Phase 6 entry).
+- 2026-06-15 — Accepted → Done. Delivered `PAPER.md` (problem→method→evaluation→limitations, cites in-repo docs, honest scope per ADR-0009).

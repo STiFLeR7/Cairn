@@ -11,15 +11,17 @@
 | 3 | Minimal Harness | 🟢 Complete (merged) | 4 / 4 |
 | 4 | Recovery v1 (three pillars) | 🟢 Complete (merged) | 5 / 5 |
 | 5 | Evaluation & Benchmark | 🟢 Complete (merged) | 6 / 6 |
-| 6 | Paper & Release | 🟡 In Progress | 0 / 4 |
+| 6 | Paper & Release | 🟡 In Progress | 2 / 4 |
 
 **Legend:** ⬜ Not started · 🟡 In Progress · 🟢 Complete · 🔴 Blocked
 
 ## Current phase: 6 — Paper & Release (in progress)
 
 Entered 2026-06-15 on branch `phase-6-paper-release`. Four APs (AP-0034 … AP-0037) refined to `Accepted`.
-AP-0034 (paper draft) and AP-0035 (reproducibility package) are internal and in progress; **AP-0036 (cut
-v1.0 tag) and AP-0037 (public announcement) are outward actions gated on explicit human approval.** See
+**AP-0034 (`PAPER.md`) and AP-0035 (`REPRODUCE.md` + `Makefile`) are `Done` and verified** (42 tests,
+demo, all benchmarks reproduce). **AP-0036 and AP-0037 artifacts are prepared** (release notes +
+`ANNOUNCEMENT.md` drafts) but their **outward execution — cutting the v1.0 tag and posting the
+announcement — is gated on explicit human approval.** See
 [`project/phases/phase-6-paper-release/README.md`](../phases/phase-6-paper-release/README.md).
 Phases 0–5 complete and **merged** (PR #1–#5).
 

@@ -2,7 +2,7 @@
 id: AP-0035
 title: Reproducibility package & artifact polish
 phase: phase-6-paper-release
-status: Accepted
+status: Done
 owner: maintainers
 created: 2026-06-15
 updated: 2026-06-15
@@ -31,11 +31,11 @@ reproduces the Phase 5 tables.
 
 ## Acceptance Criteria
 
-- [ ] A fresh clone runs the tests, the recovery demo, and the three benchmarks via documented commands
-- [ ] Expected outputs (test count, headline numbers) are documented and match a clean run
-- [ ] Determinism noted (scripted mock, no wall-clock/network) so results are stable (ADR-0009)
-- [ ] No hardcoded paths; works from the repo root cross-platform where feasible (ADR-0007)
-- [ ] Documentation + trackers updated; tests green
+- [x] A fresh clone runs the tests, the recovery demo, and the three benchmarks via documented commands
+- [x] Expected outputs (test count, headline numbers) are documented and match a clean run
+- [x] Determinism noted (scripted mock, no wall-clock/network) so results are stable (ADR-0009)
+- [x] No hardcoded paths; works from the repo root cross-platform where feasible (ADR-0007)
+- [x] Documentation + trackers updated; tests green
 
 ## Dependencies
 
@@ -44,3 +44,4 @@ reproduces the Phase 5 tables.
 ## Status / Log
 
 - 2026-06-15 — Proposed → Accepted (refined on Phase 6 entry).
+- 2026-06-15 — Accepted → Done. Delivered `REPRODUCE.md` + `Makefile`; added self-bootstrap to examples so `python examples/*.py` runs without PYTHONPATH; fixed Makefile PY var (Windows backslash-path env collision). Verified: 42 tests, demo, all benchmarks reproduce; make targets work.

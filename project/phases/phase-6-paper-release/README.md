@@ -1,6 +1,6 @@
 # Phase 6 — Paper & Release
 
-- **Status:** 🟡 In Progress *(entered 2026-06-15)*
+- **Status:** 🟡 In Progress *(2026-06-15 — paper + repro `Done`; release/announce prepared, gated on approval)*
 - **Goal:** Tell the story and ship the artifact. Synthesize Phases 0–5 into a research **paper draft**
   ("Checkpoints Are Compactions"), make the repository **reproducible** by anyone, and prepare the
   **v1.0 release** + public positioning — with the release and announcement gated on explicit approval.
@@ -25,10 +25,10 @@ the release tag and posting the announcement require explicit human go-ahead.
 
 | ID | Title | Status |
 |---|---|---|
-| [AP-0034](action-points/AP-0034-paper-draft.md) | Paper draft ("Checkpoints Are Compactions") | Accepted |
-| [AP-0035](action-points/AP-0035-reproducibility-package.md) | Reproducibility package & artifact polish | Accepted |
-| [AP-0036](action-points/AP-0036-v1-release.md) | v1.0 OSS release (docs, examples, citation) | Accepted |
-| [AP-0037](action-points/AP-0037-public-positioning.md) | Public positioning (README, announcement) | Accepted |
+| [AP-0034](action-points/AP-0034-paper-draft.md) | Paper draft ("Checkpoints Are Compactions") | Done |
+| [AP-0035](action-points/AP-0035-reproducibility-package.md) | Reproducibility package & artifact polish | Done |
+| [AP-0036](action-points/AP-0036-v1-release.md) | v1.0 OSS release (docs, examples, citation) | Accepted *(prepared; gated)* |
+| [AP-0037](action-points/AP-0037-public-positioning.md) | Public positioning (README, announcement) | Accepted *(prepared; gated)* |
 
 ## Dependency order
 
@@ -39,11 +39,11 @@ AP-0035 (repro package) ─┼─→ AP-0036 (v1.0 release — GATED) ──→ 
 
 ## Checklist
 
-- [ ] Paper draft covers problem → method → evaluation → limitations, cites in-repo docs (AP-0034)
-- [ ] One-command repro for tests + demo + benchmarks; environment documented (AP-0035)
-- [ ] Release notes + `CITATION.cff` + version bump prepared; tag cut only on approval (AP-0036)
-- [ ] README/announcement polished; external posting only on approval (AP-0037)
-- [ ] Honest framing preserved (ADR-0009); docs + trackers updated; tests green
+- [x] Paper draft covers problem → method → evaluation → limitations, cites in-repo docs (AP-0034)
+- [x] One-command repro for tests + demo + benchmarks; environment documented (AP-0035)
+- [x] Release notes drafted; version bump + `CITATION.cff` finalize + tag held for approval (AP-0036)
+- [x] README polished + announcement drafted; external posting held for approval (AP-0037)
+- [x] Honest framing preserved (ADR-0009); docs + trackers updated; tests green
 
 ## Completion criteria
 

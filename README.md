@@ -73,6 +73,8 @@ scripted model live only in [`examples/`](examples/) and [`tests/`](tests/), nev
 
 | Path | Purpose |
 |---|---|
+| [`PAPER.md`](PAPER.md) | The research write-up ("Checkpoints Are Compactions") |
+| [`REPRODUCE.md`](REPRODUCE.md) | One-command reproduction of the tests, demo, and benchmarks |
 | [`ROADMAP.md`](ROADMAP.md) | The 7-phase project spine |
 | [`CHECKLIST.md`](CHECKLIST.md) | Master checklist (always-visible status) |
 | [`docs/`](docs/) | **Knowledge** — vision, concepts, governance rules, research, design |

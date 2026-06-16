@@ -25,11 +25,11 @@ release are cut only after explicit human approval.**
 
 ## Acceptance Criteria
 
-- [ ] `pyproject.toml` version set to `1.0.0`; `CHANGELOG.md` has a dated `v1.0.0` section
-- [ ] `CITATION.cff` finalized (title, authors, version, date, repo URL)
-- [ ] Release notes drafted (highlights, scope/limitations, repro pointer)
+- [ ] `pyproject.toml` version set to `1.0.0`; `CHANGELOG.md` has a dated `v1.0.0` section *(on approval)*
+- [ ] `CITATION.cff` finalized with `version`/`date-released` *(on approval; title/authors/URL already set)*
+- [x] Release notes drafted (highlights, scope/limitations, repro pointer) — `docs/release/RELEASE_NOTES_v1.0.0.md`
 - [ ] **Gate:** tag + GitHub release performed **only** on explicit approval (recorded in the log)
-- [ ] Documentation + trackers updated
+- [x] Documentation + trackers updated
 
 ## Dependencies
 
@@ -38,3 +38,6 @@ release are cut only after explicit human approval.**
 ## Status / Log
 
 - 2026-06-15 — Proposed → Accepted (refined on Phase 6 entry). Release execution gated on approval.
+- 2026-06-15 — Prepared: release notes drafted (`docs/release/RELEASE_NOTES_v1.0.0.md`). **Remaining
+  (gated on approval):** bump `pyproject` to 1.0.0, finalize `CITATION.cff` version/date, move CHANGELOG
+  `Unreleased` → `v1.0.0`, tag `v1.0.0`, publish GitHub release.

@@ -117,3 +117,17 @@ updates this file.
   FAIL), **C5 supported** (ablation locates `plan` as the fidelity cliff), **C2 evidenced**, **C4 mechanism
   shown** (cross-version provenance A→B). No hardcoded harness (ADR-0007). Awaiting review + merge. Next:
   Phase 6 — Paper & Release.
+
+### Added (Phase 6, on branch `phase-6-paper-release`) — paper & release prep
+- `PAPER.md` — research paper draft ("Checkpoints Are Compactions"): problem → two-layer model →
+  Continuation State → RGR → effect-safety → unified distillation → Phase 5 evaluation → limitations,
+  with honest scope (ADR-0009) and references to the in-repo docs (AP-0034).
+- `REPRODUCE.md` + `Makefile` — one-command reproduction (`make test|demo|bench`) with documented
+  expected outputs; examples self-bootstrap `sys.path` so `python examples/*.py` runs without
+  `PYTHONPATH`; Makefile uses `PY` to avoid a Windows backslash-path env collision (AP-0035).
+- `docs/release/RELEASE_NOTES_v1.0.0.md` (draft) and `ANNOUNCEMENT.md` (draft) — prepared, **gated**.
+
+### Status (Phase 6)
+- **Phase 6 — Paper & Release: in progress** on branch `phase-6-paper-release` (2026-06-15). AP-0034
+  (paper) and AP-0035 (reproducibility) `Done` and verified (42 tests, demo, benchmarks reproduce).
+  **AP-0036 (cut v1.0 tag) and AP-0037 (post announcement) are prepared but gated on explicit approval.**

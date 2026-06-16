@@ -26,10 +26,10 @@ on explicit approval.**
 
 ## Acceptance Criteria
 
-- [ ] README presents status, headline results (with honest scope), repro pointer, and citation
-- [ ] `ANNOUNCEMENT.md` drafted — accurate, non-overclaiming (ADR-0009)
+- [x] README presents status, headline results (with honest scope), repro pointer, and citation
+- [x] `ANNOUNCEMENT.md` drafted — accurate, non-overclaiming (ADR-0009)
 - [ ] **Gate:** no external posting without explicit approval (recorded in the log)
-- [ ] Documentation + trackers updated
+- [x] Documentation + trackers updated
 
 ## Dependencies
 
@@ -38,3 +38,5 @@ on explicit approval.**
 ## Status / Log
 
 - 2026-06-15 — Proposed → Accepted (refined on Phase 6 entry). External posting gated on approval.
+- 2026-06-15 — Prepared: `ANNOUNCEMENT.md` drafted (short + medium form, honest scope); README polished.
+  **Remaining (gated on approval):** post the announcement externally.
