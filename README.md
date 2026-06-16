@@ -49,7 +49,7 @@ Cairn **complements** agent frameworks (OpenHands, LangGraph, custom harnesses) 
 
 ## Project status
 
-**Phase 5 — Evaluation & Benchmark: complete (on branch).** Recovery is now *measured*, not just
+**Phase 5 — Evaluation & Benchmark: complete & merged.** Recovery is now *measured*, not just
 demonstrated. A failure-injection benchmark runs the four baselines (B0 cold-restart, B1 log-replay, B2
 snapshot-only, B3 RGR) across the failure-step matrix and scores five fidelity axes against the
 uninterrupted run. In the deterministic reference harness, **RGR beats cold restart** (recovery tax 1.5 vs

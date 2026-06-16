@@ -110,8 +110,8 @@ updates this file.
 - Claims registry updated with dated, scoped evidence.
 
 ### Status (Phase 5)
-- **Phase 5 — Evaluation & Benchmark: complete on branch** `phase-5-evaluation` (2026-06-15). All six APs
-  (AP-0028 … AP-0033) `Done`; **`pytest -q` → 42 passed**; the three benchmarks run end-to-end. Evidence
+- **Phase 5 — Evaluation & Benchmark: complete & merged** (PR #5, 2026-06-15; merge commit `d925e2b`). All
+  six APs (AP-0028 … AP-0033) `Done`; **`pytest -q` → 42 passed**; the three benchmarks run end-to-end. Evidence
   (deterministic reference harness, ADR-0009): **C1 supported** (RGR tax 1.5 vs cold-restart 5.0,
   no-regression 1.0 vs 0.0), **C3 supported** (0 duplicate effects with WAL vs 1 without; gate PASS vs
   FAIL), **C5 supported** (ablation locates `plan` as the fidelity cliff), **C2 evidenced**, **C4 mechanism

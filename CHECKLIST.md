@@ -11,7 +11,7 @@
 - [x] **Phase 2 — Architecture & Protocol Design** 🟢 *(complete & merged — PR #2)*
 - [x] **Phase 3 — Minimal Harness** 🟢 *(complete & merged — PR #3; 13 tests passing)*
 - [x] **Phase 4 — Recovery v1 (three pillars)** 🟢 *(complete & merged — PR #4; 33 tests passing)*
-- [x] **Phase 5 — Evaluation & Benchmark** 🟢 *(complete on branch — awaiting merge; 42 tests)*
+- [x] **Phase 5 — Evaluation & Benchmark** 🟢 *(complete & merged — PR #5; 42 tests passing)*
 - [ ] **Phase 6 — Paper & Release**
 
 ## Phase 0 — Action Points

@@ -1,6 +1,6 @@
 # Phase 5 — Evaluation & Benchmark
 
-- **Status:** 🟢 Complete on branch *(2026-06-15 — `pytest` 42 passed; awaiting review + merge)*
+- **Status:** 🟢 Complete & merged *(2026-06-15 — PR #5, merge commit `d925e2b`; `pytest` 42 passed)*
 - **Goal:** Turn the recovery-fidelity *definition* (Phase 1) into a runnable **benchmark** that
   *measures* recovery instead of asserting it: a failure-injection harness, the four baselines
   (B0–B3), the five fidelity axes, an ablation over the Continuation State, a cross-version resume
