@@ -2,12 +2,12 @@
 id: AP-0038
 title: Live LLM ModelProvider adapters (injected, no hardcoding)
 phase: milestone-1-live-llm-validation
-status: Accepted
+status: Done
 owner: maintainers
 created: 2026-06-16
 updated: 2026-06-16
 depends_on: []
-related_docs: [docs/adr/ADR-0007-python-stack-and-no-hardcoded-harness.md, src/cairn/model.py]
+related_docs: [docs/adr/ADR-0010-live-model-provider-integration.md, src/cairn/model.py, src/cairn/model_live.py]
 related_adrs: [ADR-0007, ADR-0010]
 ---
 
@@ -37,12 +37,12 @@ than one provider family if one suffices for the study (additional providers are
 
 ## Acceptance Criteria
 
-- [ ] A real LLM provider runs behind the existing model seam with **provider + model id injected** (no
+- [x] A real LLM provider runs behind the existing model seam with **provider + model id injected** (no
       hardcoded model/key/endpoint in core) — verified by the same no-hardcoded-harness grep used each phase
-- [ ] The adapter satisfies the `ModelProvider` protocol; existing harness/benchmarks accept it via config
-- [ ] API keys are sourced from the environment/secret store, never committed or logged
-- [ ] `ADR-0010` records the integration decision; CI tests pass without live network calls
-- [ ] Docs + trackers updated
+- [x] The adapter satisfies the `ModelProvider` protocol; existing harness/benchmarks accept it via config
+- [x] API keys are sourced from the environment/secret store, never committed or logged
+- [x] `ADR-0010` records the integration decision; CI tests pass without live network calls
+- [x] Docs + trackers updated
 
 ## Dependencies
 
@@ -51,3 +51,9 @@ than one provider family if one suffices for the study (additional providers are
 ## Status / Log
 
 - 2026-06-16 — Proposed → Accepted (refined on Milestone M1 entry).
+- 2026-06-16 — Accepted → Done. Delivered `src/cairn/model_live.py`: `LiveModelProvider` over an injected
+  `Transport` (`prompt -> text`), overridable `render_prompt`/`parse_action` (fenced block → `CODE`,
+  `TASK_COMPLETE` sentinel → `FINISH`, malformed → safe `FINISH`), and `anthropic_transport(*, model, ...)`
+  — `model` injected (no default id), key from `$ANTHROPIC_API_KEY`, SDK lazily imported as the `cairn[live]`
+  extra, fake-`client` injection for offline tests. `ADR-0010` accepted. `tests/test_model_live.py` (10
+  tests, all offline) → **52 passed**; core grep shows no model-id/key literals (ADR-0007 preserved).

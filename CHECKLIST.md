@@ -16,7 +16,7 @@
 
 ## Milestones (post-7-phase)
 
-- [ ] **Milestone M1 — Live-LLM Validation** 🟡 *(in progress — entered 2026-06-16 on branch `milestone-1-live-llm-validation`; 0 / 5 APs)*
+- [ ] **Milestone M1 — Live-LLM Validation** 🟡 *(in progress — entered 2026-06-16 on branch `milestone-1-live-llm-validation`; 1 / 5 APs — AP-0038 done)*
 
 ## Phase 0 — Action Points
 
@@ -136,7 +136,7 @@
 
 ## Milestone M1 — Action Points
 
-- [ ] `AP-0038` Live LLM `ModelProvider` adapters (injected, no hardcoding)
+- [x] `AP-0038` Live LLM `ModelProvider` adapters (injected, no hardcoding)
 - [ ] `AP-0039` Determinism, cost & reproducibility controls for live runs
 - [ ] `AP-0040` Live failure-injection study (Phase 5 matrix, real model)
 - [ ] `AP-0041` Live results analysis & claims update (C1–C5)
@@ -144,7 +144,7 @@
 
 ## Milestone M1 completion criteria
 
-- [ ] ≥1 real LLM provider integrated behind the model seam, injected via config (no hardcoding, ADR-0007/0010)
+- [x] ≥1 real LLM provider integrated behind the model seam, injected via config (no hardcoding, ADR-0007/0010)
 - [ ] Live failure-injection study runs reproducibly (cached transcripts; documented cost/seed controls)
 - [ ] Claims registry carries dated **live-LLM** evidence for C1–C5, distinct from reference-harness notes
 - [ ] Recorded v1.0 go/no-go; on "go", AP-0036/0037 unblocked (outward steps still pending explicit approval)

@@ -142,9 +142,17 @@ updates this file.
   and a v1.0 go/no-go gate that (on "go") unblocks the deferred AP-0036/0037. An integration ADR (ADR-0010)
   is authored when AP-0038 starts.
 
+- `cairn.model_live` (**AP-0038, `Done`**) — `LiveModelProvider` adapts a real LLM to the existing
+  `ModelProvider` seam via an **injected `Transport`** (`prompt -> reply text`): overridable
+  `render_prompt`/`parse_action` (fenced block → `CODE`, `TASK_COMPLETE` → `FINISH`, malformed → safe
+  `FINISH`), and an `anthropic_transport(*, model, ...)` factory — `model` injected (no default id), key from
+  `$ANTHROPIC_API_KEY`, the `anthropic` SDK an optional `cairn[live]` extra imported lazily, fake-`client`
+  injection for offline tests. ADR-0010 records the decision; nothing is hardcoded into the harness (ADR-0007).
+
 ### Status (Milestone M1)
 - **Milestone M1 — Live-LLM Validation: in progress** (entered 2026-06-16). Branch
-  `milestone-1-live-llm-validation` created off `master` (master stays clean, branch-per-phase). APs
-  AP-0038 … AP-0042 `Accepted`; no implementation yet. Goal: re-run the benchmark against real LLMs and
-  re-evaluate C1–C5 under genuine non-determinism; on success, unblock the v1.0 release/announcement (still
-  gated on explicit approval).
+  `milestone-1-live-llm-validation` off `master` (master stays clean, branch-per-phase). **AP-0038 `Done`**
+  (`cairn.model_live` + ADR-0010; `tests/test_model_live.py`, 10 offline tests → **`pytest -q` → 52 passed**;
+  core free of model-id/key literals). AP-0039 … AP-0042 `Accepted`. Goal: re-run the benchmark against real
+  LLMs and re-evaluate C1–C5 under genuine non-determinism; on success, unblock the v1.0 release/announcement
+  (still gated on explicit approval).

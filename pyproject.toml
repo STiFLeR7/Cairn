@@ -13,6 +13,8 @@ dependencies = []
 
 [project.optional-dependencies]
 dev = ["pytest>=7"]
+# Live-LLM validation (Milestone M1) — optional; core + CI never need it.
+live = ["anthropic>=0.40"]
 
 [tool.setuptools.packages.find]
 where = ["src"]
