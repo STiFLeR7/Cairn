@@ -168,6 +168,20 @@ updates this file.
   — the Phase-6 hold is now *confirmed by evidence*. The fix becomes **M2** (a non-batchable sequential task
   + action-granularity-robust metrics + repetitions).
 
+### Added (Milestone M2, on branch `milestone-2-recovery-faithful-benchmark`) — recovery-faithful benchmark (entered)
+- Milestone M2 scaffold + five committed APs (AP-0043 … AP-0047): a **non-batchable sequential task** (step
+  N+1's input is unavailable until step N runs, so a capable model cannot one-shot it and a crash leaves real
+  partial progress), **action-granularity-robust metrics** (progress/work-units, not one-file-per-step), a
+  **repetition + statistics harness** (carrying the M1 injection-fired check), a **live re-run** producing
+  dated C1–C5 evidence with statistics, and a **v1.0 go/no-go take 2** (supersedes the M1 NO-GO, AP-0042).
+  Directly addresses the M1 root cause: the old benchmark task was batchable, so it could not exercise
+  recovery against a real model.
+
+### Status (Milestone M2)
+- **Milestone M2 — Recovery-faithful live benchmark: in progress** (entered 2026-06-16). Branch
+  `milestone-2-recovery-faithful-benchmark` off `master` (M1 merged via PR #7, `0e39b5c`). APs AP-0043 …
+  AP-0047 `Accepted`; no implementation yet. AP-0036/0037 remain `Blocked`, now gated on M2's go/no-go.
+
 ### Fixed (Milestone M1, systematic-debugging pass)
 - **Failure-injection integrity bug.** `run_until_failure` did not verify the injected crash actually fired;
   a batchable task that the model one-shots produced a *vacuous* cell that `run_matrix` **silently scored as

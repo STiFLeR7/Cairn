@@ -2,8 +2,9 @@
 
 > Live rollup of all Action Points. **Phases 0–5** APs (AP-0001 … AP-0033) are committed and `Done`;
 > **Phase 6** (AP-0034 … AP-0037): AP-0034/0035 `Done`, AP-0036/0037 `Blocked` (deferred to M1's go/no-go).
-> **Milestone M1** (AP-0038 … AP-0042) complete 2026-06-16: all five `Done`; **outcome NO-GO** (live run did
-> not validate the claims — see claims registry 2026-06-16); project stays 0.x, AP-0036/0037 stay `Blocked`.
+> **Milestone M1** (AP-0038 … AP-0042) complete & merged (PR #7) 2026-06-16: all five `Done`; **outcome
+> NO-GO**; project stays 0.x, AP-0036/0037 stay `Blocked`. **Milestone M2** (AP-0043 … AP-0047) entered
+> 2026-06-16, all `Accepted`.
 > Last updated: 2026-06-16.
 
 **Status values:** Proposed · Accepted · In Progress · In Review · Done · Blocked · Superseded
@@ -89,3 +90,13 @@
 | [AP-0040](../phases/milestone-1-live-llm-validation/action-points/AP-0040-live-failure-injection-study.md) | Live failure-injection study (Phase 5 matrix, real model) | Done *(ran `owl-alpha`; honest negative)* |
 | [AP-0041](../phases/milestone-1-live-llm-validation/action-points/AP-0041-live-results-claims-update.md) | Live results analysis & claims update (C1–C5) | Done |
 | [AP-0042](../phases/milestone-1-live-llm-validation/action-points/AP-0042-v1-go-no-go.md) | v1.0 go/no-go gate (unblock AP-0036/0037 on success) | Done *(NO-GO)* |
+
+## Milestone M2 — Recovery-faithful live benchmark *(committed — entered 2026-06-16)*
+
+| ID | Title | Status |
+|---|---|---|
+| [AP-0043](../phases/milestone-2-recovery-faithful-benchmark/action-points/AP-0043-nonbatchable-sequential-task.md) | Non-batchable sequential benchmark task | Accepted |
+| [AP-0044](../phases/milestone-2-recovery-faithful-benchmark/action-points/AP-0044-action-granularity-metrics.md) | Action-granularity-robust recovery metrics | Accepted |
+| [AP-0045](../phases/milestone-2-recovery-faithful-benchmark/action-points/AP-0045-repetition-statistics-harness.md) | Repetition + statistics harness (injection-fired enforced) | Accepted |
+| [AP-0046](../phases/milestone-2-recovery-faithful-benchmark/action-points/AP-0046-live-rerun-claims-update.md) | Live re-run + claims update (C1–C5, with statistics) | Accepted |
+| [AP-0047](../phases/milestone-2-recovery-faithful-benchmark/action-points/AP-0047-v1-go-no-go-take2.md) | v1.0 go/no-go, take 2 | Accepted |

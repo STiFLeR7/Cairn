@@ -23,7 +23,7 @@
 | Milestone | Name | Goal | Status | Outcome |
 |---|---|---|---|---|
 | **M1** | Live-LLM Validation | Re-run the benchmark against real LLMs | 🟢 Complete | **NO-GO** — live run didn't validate the claims; stays 0.x |
-| **M2** | Recovery-faithful live benchmark | A non-batchable task + real-model metrics | ⬜ Not started | (M1's input: make the live study actually exercise recovery) |
+| **M2** | Recovery-faithful live benchmark | A non-batchable task + real-model metrics | 🟡 In Progress | Non-batchable sequential task; granularity-robust metrics; repetition + statistics; live re-run; v1.0 go/no-go take 2 |
 
 > **Milestone M1 — Live-LLM Validation (complete 2026-06-16; outcome NO-GO).** M1 added real LLM providers
 > behind the model seam (injected, no hardcoding — ADR-0007/0010: Anthropic + a stdlib OpenRouter factory),
@@ -40,7 +40,7 @@
 
 ## AP distribution
 
-37 planned Action Points span the 7 phases (~4–6 each); **Milestone M1 adds AP-0038 … AP-0042** (5 APs).
-**Phases 0–5 APs (AP-0001 … AP-0033) are `Done`** and merged; Phase 6 APs AP-0034/0035 `Done`, AP-0036/0037
-`Blocked` (deferred to M1's go/no-go); M1 APs (AP-0038 … AP-0042) are committed and `Accepted`.
+37 Action Points span the 7 phases; **M1 added AP-0038 … AP-0042** (5, all `Done`, merged PR #7) and **M2
+adds AP-0043 … AP-0047** (5). **Phases 0–5 (AP-0001 … AP-0033) `Done`** and merged; Phase 6 AP-0034/0035
+`Done`, AP-0036/0037 `Blocked` (now gated on M2's go/no-go, AP-0047); M2 APs committed and `Accepted`.
 Full list: [`project/tracking/ap-index.md`](project/tracking/ap-index.md).

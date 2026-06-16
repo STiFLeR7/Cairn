@@ -12,11 +12,23 @@
 | 4 | Recovery v1 (three pillars) | 🟢 Complete (merged) | 5 / 5 |
 | 5 | Evaluation & Benchmark | 🟢 Complete (merged) | 6 / 6 |
 | 6 | Paper & Release | 🟢 Core done (release deferred to M1) | 2 / 4 |
-| M1 | Live-LLM Validation | 🟢 Complete (outcome: **NO-GO**; stays 0.x) | 5 / 5 |
+| M1 | Live-LLM Validation | 🟢 Complete & merged (outcome: **NO-GO**; stays 0.x) | 5 / 5 |
+| M2 | Recovery-faithful live benchmark | 🟡 In Progress (entered) | 0 / 5 |
 
 **Legend:** ⬜ Not started · 🟡 In Progress · 🟢 Complete · 🔴 Blocked
 
-## Current milestone: M1 — Live-LLM Validation (complete 2026-06-16 — outcome NO-GO)
+## Current milestone: M2 — Recovery-faithful live benchmark (entered 2026-06-16)
+
+Entered on branch `milestone-2-recovery-faithful-benchmark` (master clean; M1 merged via PR #7, commit
+`0e39b5c`). Goal: make the live benchmark **actually exercise recovery** — M1's NO-GO traced to a *batchable*
+task that a real model one-shots before any crash. Five APs (AP-0043 … AP-0047) `Accepted`: a **non-batchable
+sequential task** (step N+1's input unavailable until step N runs), **action-granularity-robust metrics**
+(progress/work-units, not one-file-per-step), a **repetition + statistics harness** (carrying the M1
+injection-fired check), a **live re-run** producing dated C1–C5 evidence with statistics, and a **v1.0
+go/no-go take 2** (supersedes the M1 NO-GO). See
+[`project/phases/milestone-2-recovery-faithful-benchmark/README.md`](../phases/milestone-2-recovery-faithful-benchmark/README.md).
+
+## Prior milestone: M1 — Live-LLM Validation (complete & merged 2026-06-16 — outcome NO-GO)
 
 Ran on branch `milestone-1-live-llm-validation` (master stays clean per branch-per-phase). All five APs
 (AP-0038 … AP-0042) `Done`: `src/cairn/model_live.py` (`LiveModelProvider` + injected `anthropic_transport`
