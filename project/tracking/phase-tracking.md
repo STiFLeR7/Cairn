@@ -1,7 +1,7 @@
 # Phase Tracking
 
 > Live phase status board. Canonical goals/criteria: [ROADMAP.md](../../ROADMAP.md).
-> Last updated: 2026-06-15.
+> Last updated: 2026-06-16.
 
 | Phase | Name | Status | APs (done / total) |
 |---|---|---|---|
@@ -11,11 +11,26 @@
 | 3 | Minimal Harness | 🟢 Complete (merged) | 4 / 4 |
 | 4 | Recovery v1 (three pillars) | 🟢 Complete (merged) | 5 / 5 |
 | 5 | Evaluation & Benchmark | 🟢 Complete (merged) | 6 / 6 |
-| 6 | Paper & Release | 🟢 Core done (release deferred) | 2 / 4 |
+| 6 | Paper & Release | 🟢 Core done (release deferred to M1) | 2 / 4 |
+| M1 | Live-LLM Validation | 🟢 Complete (outcome: **NO-GO**; stays 0.x) | 5 / 5 |
 
 **Legend:** ⬜ Not started · 🟡 In Progress · 🟢 Complete · 🔴 Blocked
 
-## Current phase: 6 — Paper & Release (core done; release deferred)
+## Current milestone: M1 — Live-LLM Validation (complete 2026-06-16 — outcome NO-GO)
+
+Ran on branch `milestone-1-live-llm-validation` (master stays clean per branch-per-phase). All five APs
+(AP-0038 … AP-0042) `Done`: `src/cairn/model_live.py` (`LiveModelProvider` + injected `anthropic_transport`
+/ stdlib `openrouter_transport`), `src/cairn/live_controls.py` (transcript / offline replay / budget),
+`ADR-0010`, and the live-pipeline study runner (`benchmarks/live_study.py`, `make bench-live`). **76 tests**,
+core free of model-id/key literals (ADR-0007). The live study **ran against a real model**
+(`openrouter/owl-alpha` via OpenRouter, user-authorized). **Outcome — NO-GO:** the pipeline works, but the
+model batches the task into one action and finishes before the injected crash, so the Phase-5
+scenario/metrics do not validate C1–C5 — they stay **reference-harness-only** (claims registry, 2026-06-16).
+The project **remains 0.x**; AP-0036/0037 stay `Blocked` (hold now *confirmed by evidence*). **Next-milestone
+input:** a non-batchable sequential task + action-granularity-robust metrics + repetitions. See
+[`project/phases/milestone-1-live-llm-validation/README.md`](../phases/milestone-1-live-llm-validation/README.md).
+
+## Prior phase: 6 — Paper & Release (core done; release deferred to M1)
 
 **AP-0034 (`PAPER.md`) and AP-0035 (`REPRODUCE.md` + `Makefile`) are `Done` and merged** via PR #6
 (merge commit `0e36f25`); 42 tests + demo + benchmarks reproduce. **Decision (2026-06-15): hold the v1.0

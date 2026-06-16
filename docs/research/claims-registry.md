@@ -1,10 +1,10 @@
 ---
 title: Research Claims Registry
 status: active
-last_updated: 2026-06-15
+last_updated: 2026-06-16
 owner: maintainers
-related_aps: [AP-0011]
-related_adrs: [ADR-0001]
+related_aps: [AP-0011, AP-0040, AP-0041]
+related_adrs: [ADR-0001, ADR-0009]
 ---
 
 # Research Claims Registry
@@ -101,3 +101,34 @@ change a claim's *statement*, register a **new** claim that supersedes the old o
 - 2026-06-15 — **Open scope:** all Phase 5 evidence is from the deterministic reference harness. A live-LLM
   empirical study with statistical testing (and faithfully-realized non-crash failure types) is future
   work; negative/insufficient results will be recorded here rather than buried.
+- 2026-06-16 — **First live-LLM run (Milestone M1, AP-0040/0041)** — via OpenRouter `openrouter/owl-alpha`
+  (a free model) through the live pipeline (`cairn.model_live` + `cairn.live_controls`). Recorded honestly:
+  - **Pipeline validated.** A real model drove the harness end-to-end; every prompt/reply was captured to a
+    replayable transcript (`benchmarks/transcripts/openrouter_owl-alpha-recovery-study.jsonl`). The live path
+    (provider → parse → harness → matrix → metrics) works.
+  - **C1 NOT validated live — evidence invalid/insufficient (not supporting).** The Phase-5 multi-file task
+    and its recovery metrics assume the scripted mock's **one-action-per-step** cadence. The live model
+    **batched all files into a single action** and finished *before* the injected crash (k=2) could fire, so
+    the scenario never exercised recovery; across two repetitions the per-baseline `task_success`/`recovery_tax`
+    flipped (genuine non-determinism). A naive C1 check in the runner spuriously printed "SUPPORTED" on a run
+    where B3 had `task_success=0` — corrected to require B3 success.
+  - **Consequence — C1–C5 remain reference-harness-only.** Validating them live requires: (a) a task that
+    forces **non-batchable sequential** steps so a crash genuinely interrupts partial work; (b) metrics robust
+    to a real model's action granularity; (c) repetitions with seeds + statistics. This is the M1 outcome and
+    the input to the next iteration; **v1.0 stays held** (AP-0042 → NO-GO).
+  - **Incidental finding (fixed):** real models don't reliably emit markdown fences — `owl-alpha` mixed
+    fenced, XML tool-call, and bare-code replies across steps. `parse_action` was generalized (tool-call
+    extraction + a `compile()`-gated bare-code path) so the harness stays drivable; this is general, not
+    model-specific.
+- 2026-06-16 — **Root-cause correction (systematic-debugging pass).** The "unstable/ill-defined metrics"
+  above were a *symptom*; the actual defect is a **benchmark-integrity bug**: `run_until_failure` never
+  verified that the injected crash fired. When a model finishes a **batchable** task before step `k`, the
+  crash never triggers, yet `run_matrix` scored the resulting *non-failure* as a valid recovery — a
+  deterministic probe showed it reporting a **perfect** `task_success=True, recovery_tax=0` for a recovery
+  that never happened (a **false-positive** risk, worse than noise). **Fixed at source** (test-first,
+  `tests/test_eval_injection.py`): `run_until_failure` now returns an `Injection(fired, completed)`, and
+  `run_matrix` **skips and reports** cells where the injection did not fire instead of scoring them. Re-run
+  live, the study now correctly reports *"k=2 cells skipped — the model finished before the crash; recovery
+  not exercised; C1 not evaluable on this task."* This **sharpens** the C1-not-validated-live verdict (the
+  task is batchable, so the bench can't exercise recovery against a capable model) and is the concrete M2
+  requirement: a **non-batchable sequential** task.

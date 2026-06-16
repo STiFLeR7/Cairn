@@ -7,7 +7,7 @@ uninterrupted reference run, and aggregates per-baseline summaries.
 from __future__ import annotations
 
 import tempfile
-from typing import Callable
+from typing import Callable, Optional
 
 from .baselines import ALL_BASELINES
 from .metrics import RecoveryReport, score
@@ -20,13 +20,25 @@ def run_matrix(
     baselines=ALL_BASELINES,
     *,
     base_factory: Callable[[], str] = tempfile.mkdtemp,
+    on_skip: Optional[Callable[[int, str], None]] = None,
 ) -> list[RecoveryReport]:
+    """Score each (step k × baseline) cell against the reference run.
+
+    A cell whose **injection did not fire** (the model finished before step k, so no failure
+    occurred) is **skipped, not scored** — scoring a non-failure would fabricate a recovery
+    result. `on_skip(k, baseline_name)` is called for each skipped cell so callers can report
+    it honestly. With a well-behaved model that always reaches step k, nothing is skipped.
+    """
     reference = run_reference(scenario, base_factory())
     reports: list[RecoveryReport] = []
     for k in steps:
         for b in baselines:
             base = base_factory()
-            run_until_failure(scenario, base, k)
+            injection = run_until_failure(scenario, base, k)
+            if not injection.fired:
+                if on_skip is not None:
+                    on_skip(k, b.name)
+                continue
             outcome = b.recover(scenario, base)
             reports.append(score(scenario, k, b.name, outcome, reference))
     return reports

@@ -131,6 +131,58 @@ updates this file.
 - **Phase 6 — Paper & Release: core complete & merged** (PR #6, 2026-06-15; merge commit `0e36f25`).
   AP-0034 (paper) and AP-0035 (reproducibility) `Done` and verified (42 tests, demo, benchmarks reproduce).
   **Decision (2026-06-15): the v1.0 release (AP-0036) and the public announcement (AP-0037) are deferred**
-  to a future **v1.0 milestone**, keeping the project at **0.x** until a live-LLM study validates the
-  claims (current evidence is reference-harness only, ADR-0009). Drafts stay ready. This is a deliberate
+  to **Milestone M1's go/no-go (AP-0042)**, keeping the project at **0.x** until a live-LLM study validates
+  the claims (current evidence is reference-harness only, ADR-0009). Drafts stay ready. This is a deliberate
   hold, not an impediment.
+
+### Added (Milestone M1, on branch `milestone-1-live-llm-validation`) — live-LLM validation (entered)
+- Milestone M1 scaffold + five committed APs (AP-0038 … AP-0042): live `ModelProvider` adapters (injected,
+  no hardcoding — ADR-0007); determinism/cost/reproducibility controls for live runs; the live
+  failure-injection study (Phase 5 matrix against a real model); live results analysis + C1–C5 claims update;
+  and a v1.0 go/no-go gate that (on "go") unblocks the deferred AP-0036/0037. An integration ADR (ADR-0010)
+  is authored when AP-0038 starts.
+
+- `cairn.model_live` (**AP-0038, `Done`**) — `LiveModelProvider` adapts a real LLM to the existing
+  `ModelProvider` seam via an **injected `Transport`** (`prompt -> reply text`): overridable
+  `render_prompt`/`parse_action` (fenced block → `CODE`, `TASK_COMPLETE` → `FINISH`, malformed → safe
+  `FINISH`), and an `anthropic_transport(*, model, ...)` factory — `model` injected (no default id), key from
+  `$ANTHROPIC_API_KEY`, the `anthropic` SDK an optional `cairn[live]` extra imported lazily, fake-`client`
+  injection for offline tests. ADR-0010 records the decision; nothing is hardcoded into the harness (ADR-0007).
+- `cairn.live_controls` (**AP-0039, `Done`**) — composable transport wrappers that make a live run auditable,
+  re-runnable, and bounded: `record_to` (JSONL prompt/reply transcript), `replay_transport` /
+  `replay_from_transcript` (FIFO-by-prompt-key replay, offline and key-free — deterministic independent of the
+  model), and `Budget`/`budgeted` (call/char ceiling → `BudgetExceeded` before overrun). `REPRODUCE.md` gains
+  a "Live runs" section; transcripts carry no secrets.
+- Live-pipeline study runner (**AP-0040, `Done`**) — `benchmarks/live_study.py` + live wiring in
+  `benchmarks/scenarios.py` (`fake_multifile_transport`, `live_multi_file_scenario`, `live_effectful_scenario`,
+  `build_live_transport(model, provider=…)`), plus `make bench-live` and a stdlib `openrouter_transport`
+  (OpenAI-compatible; no new dependency). Offline (fake transport) it reproduces C1/C3 through the live code
+  path; **run live against `openrouter/owl-alpha`** it exposed an honest negative (below). Two real fixes the
+  live run forced: `parse_action` generalized to tolerate XML tool-call and unfenced/`compile()`-checked code
+  (real models don't reliably emit fences), and a C1 verdict that had ignored `task_success`.
+- **Milestone M1 outcome — `NO-GO` (AP-0041/0042).** The first live run validated the *pipeline* but **not**
+  the claims: the real model batches the multi-file task into one action and finishes before the injected
+  crash, so the Phase-5 recovery scenario/metrics (built around the mock's one-action-per-step cadence)
+  cannot exercise recovery. C1–C5 stay **reference-harness-only** (claims registry + `PAPER.md` §9, dated
+  2026-06-16). The project **remains 0.x**; the v1.0 release + announcement (AP-0036/0037) **stay `Blocked`**
+  — the Phase-6 hold is now *confirmed by evidence*. The fix becomes **M2** (a non-batchable sequential task
+  + action-granularity-robust metrics + repetitions).
+
+### Fixed (Milestone M1, systematic-debugging pass)
+- **Failure-injection integrity bug.** `run_until_failure` did not verify the injected crash actually fired;
+  a batchable task that the model one-shots produced a *vacuous* cell that `run_matrix` **silently scored as
+  a perfect recovery** (`task_success=True, recovery_tax=0` — a false positive). Root-caused with a
+  deterministic probe; fixed test-first (`tests/test_eval_injection.py`, 4 tests): `run_until_failure` now
+  returns `Injection(fired, completed)` and `run_matrix(..., on_skip=…)` **skips + reports** non-fired cells
+  instead of scoring them. `benchmarks/live_study.py` reports skipped cells and refuses to emit a verdict
+  from zero valid cells. `pytest -q` → **80 passed**.
+
+### Status (Milestone M1)
+- **Milestone M1 — Live-LLM Validation: complete** (2026-06-16; **outcome NO-GO**). Branch
+  `milestone-1-live-llm-validation` off `master` (master stays clean, branch-per-phase). All five APs
+  (AP-0038 … AP-0042) `Done`: `cairn.model_live` (+ Anthropic & stdlib OpenRouter transports),
+  `cairn.live_controls`, ADR-0010, the live-pipeline study runner, and the live run itself against
+  `openrouter/owl-alpha`. **`pytest -q` → 76 passed** (offline); core free of model-id/key literals. The live
+  run validated the pipeline but **not** the claims (batched-action → crash never fired → metrics invalid),
+  so **C1–C5 stay reference-harness-only**, the project **remains 0.x**, and AP-0036/0037 stay `Blocked`. The
+  next milestone (**M2**) makes the live benchmark actually exercise recovery.

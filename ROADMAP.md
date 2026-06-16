@@ -18,14 +18,29 @@
 
 **Legend:** ⬜ Not started · 🟡 In Progress · 🟢 Complete · 🔴 Blocked
 
-> **Next milestone (post-7-phase): live-LLM study → v1.0.** The 7-phase arc delivered the specification,
-> a recoverable reference harness, and a reproducible benchmark — all validated on a *deterministic*
-> reference harness. The next milestone replaces the scripted mock with real LLM model providers, runs the
-> failure-injection benchmark live, and (on success) cuts the **v1.0** release + announcement (AP-0036/0037,
-> currently deferred). Until then the project stays at **0.x**.
+## Milestones (post-7-phase)
+
+| Milestone | Name | Goal | Status | Outcome |
+|---|---|---|---|---|
+| **M1** | Live-LLM Validation | Re-run the benchmark against real LLMs | 🟢 Complete | **NO-GO** — live run didn't validate the claims; stays 0.x |
+| **M2** | Recovery-faithful live benchmark | A non-batchable task + real-model metrics | ⬜ Not started | (M1's input: make the live study actually exercise recovery) |
+
+> **Milestone M1 — Live-LLM Validation (complete 2026-06-16; outcome NO-GO).** M1 added real LLM providers
+> behind the model seam (injected, no hardcoding — ADR-0007/0010: Anthropic + a stdlib OpenRouter factory),
+> made live runs auditable/replayable/budgeted, and **ran the failure-injection study against a real model**
+> (`openrouter/owl-alpha`). The live pipeline works — but the run **did not validate C1–C5**: the model
+> batches the multi-file task into a single action and finishes before the injected crash, so the Phase-5
+> scenario/metrics (built around the mock's one-action-per-step cadence) don't measure recovery and are
+> unstable across repetitions. **Decision: NO-GO** — the project stays at **0.x**; the v1.0 release +
+> announcement (AP-0036/0037) **stay `Blocked`**, now held *by evidence*. The fix becomes **M2**: a benchmark
+> task that forces **non-batchable sequential** steps, metrics robust to a real model's action granularity,
+> and repetitions with statistics. See the
+> [claims registry](docs/research/claims-registry.md) (2026-06-16), `PAPER.md` §9, and
+> [`project/phases/milestone-1-live-llm-validation/README.md`](project/phases/milestone-1-live-llm-validation/README.md).
 
 ## AP distribution
 
-37 planned Action Points span the 7 phases (~4–6 each). **Phases 0–5 APs (AP-0001 … AP-0033) are
-committed and `Done`**; Phase 6 APs are provisional placeholders refined when their phase is entered.
+37 planned Action Points span the 7 phases (~4–6 each); **Milestone M1 adds AP-0038 … AP-0042** (5 APs).
+**Phases 0–5 APs (AP-0001 … AP-0033) are `Done`** and merged; Phase 6 APs AP-0034/0035 `Done`, AP-0036/0037
+`Blocked` (deferred to M1's go/no-go); M1 APs (AP-0038 … AP-0042) are committed and `Accepted`.
 Full list: [`project/tracking/ap-index.md`](project/tracking/ap-index.md).

@@ -12,7 +12,11 @@
 - [x] **Phase 3 — Minimal Harness** 🟢 *(complete & merged — PR #3; 13 tests passing)*
 - [x] **Phase 4 — Recovery v1 (three pillars)** 🟢 *(complete & merged — PR #4; 33 tests passing)*
 - [x] **Phase 5 — Evaluation & Benchmark** 🟢 *(complete & merged — PR #5; 42 tests passing)*
-- [x] **Phase 6 — Paper & Release** 🟢 *(core done & merged — PR #6: paper + repro; v1.0 release & announcement **deferred** to a future milestone, pending a live-LLM study)*
+- [x] **Phase 6 — Paper & Release** 🟢 *(core done & merged — PR #6: paper + repro; v1.0 release & announcement **deferred** to Milestone M1's go/no-go)*
+
+## Milestones (post-7-phase)
+
+- [x] **Milestone M1 — Live-LLM Validation** 🟢 *(complete 2026-06-16; 5 / 5 APs; **outcome NO-GO** — live run didn't validate the claims, project stays 0.x)*
 
 ## Phase 0 — Action Points
 
@@ -126,6 +130,21 @@
 
 - [ ] `PAPER.md` drafted; consistent with the repo's claims/results and honest scope
 - [ ] Fresh clone reproduces tests + demo + benchmarks via `REPRODUCE.md`
-- [x] v1.0 release artifacts prepared (release notes draft); **tag deferred to the v1.0 milestone (decision)**
-- [x] Public positioning prepared (announcement draft); **posting deferred to the v1.0 milestone (decision)**
+- [x] v1.0 release artifacts prepared (release notes draft); **tag deferred to Milestone M1's go/no-go (decision)**
+- [x] Public positioning prepared (announcement draft); **posting deferred to Milestone M1's go/no-go (decision)**
 - [x] Docs + trackers updated; tests green
+
+## Milestone M1 — Action Points
+
+- [x] `AP-0038` Live LLM `ModelProvider` adapters (injected, no hardcoding)
+- [x] `AP-0039` Determinism, cost & reproducibility controls for live runs
+- [x] `AP-0040` Live failure-injection study (Phase 5 matrix, real model) — *ran `owl-alpha`; honest negative*
+- [x] `AP-0041` Live results analysis & claims update (C1–C5)
+- [x] `AP-0042` v1.0 go/no-go gate — **NO-GO** (project stays 0.x)
+
+## Milestone M1 completion criteria
+
+- [x] ≥1 real LLM provider integrated behind the model seam, injected via config (no hardcoding, ADR-0007/0010)
+- [x] Live failure-injection study ran against a real model, reproducibly (transcript captured + offline-replayable)
+- [x] Claims registry carries dated **live-LLM** evidence — a recorded **negative** (C1 not validated live; C1–C5 stay reference-harness-only)
+- [x] Recorded v1.0 go/no-go — **NO-GO**; AP-0036/0037 stay `Blocked` (the "go" condition was not met)
