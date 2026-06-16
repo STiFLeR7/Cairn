@@ -12,7 +12,7 @@
 | 4 | Recovery v1 (three pillars) | 🟢 Complete (merged) | 5 / 5 |
 | 5 | Evaluation & Benchmark | 🟢 Complete (merged) | 6 / 6 |
 | 6 | Paper & Release | 🟢 Core done (release deferred to M1) | 2 / 4 |
-| M1 | Live-LLM Validation | 🟡 In Progress | 2 / 5 |
+| M1 | Live-LLM Validation | 🟡 In Progress | 2 / 5 (AP-0040 runner offline-validated; live run gated) |
 
 **Legend:** ⬜ Not started · 🟡 In Progress · 🟢 Complete · 🔴 Blocked
 
@@ -23,10 +23,12 @@ the deterministic scripted mock with **real LLM `ModelProvider`s** (injected, no
 re-run the Phase 5 failure-injection benchmark **live**, and re-evaluate C1–C5 under genuine non-determinism.
 Five APs (AP-0038 … AP-0042); **AP-0038 + AP-0039 `Done`** — `src/cairn/model_live.py` (`LiveModelProvider`
 over an injected transport + `anthropic_transport` factory) and `src/cairn/live_controls.py` (transcript
-record / offline replay / budget guard), `ADR-0010` accepted, **64 tests**, core free of model-id/key
-literals (ADR-0007). AP-0040 … AP-0042 `Accepted` — **AP-0040 (the live study) is gated** (spends on a paid
-API). On a "go" decision (AP-0042) this unblocks the deferred v1.0 release + announcement (AP-0036/0037),
-still pending explicit approval. See
+record / offline replay / budget guard), `ADR-0010` accepted. **AP-0040 `In Progress`** — the live-pipeline
+study runner (`benchmarks/live_study.py` + wiring in `benchmarks/scenarios.py`, `make bench-live`) is built
+and **offline-validated** on a fake transport (reproduces C1/C3 through the live code path); the **paid
+real-model run is gated** on explicit approval. **64 → 69 tests**, core free of model-id/key literals
+(ADR-0007). AP-0041/0042 `Accepted`. On a "go" decision (AP-0042) this unblocks the deferred v1.0 release +
+announcement (AP-0036/0037), still pending explicit approval. See
 [`project/phases/milestone-1-live-llm-validation/README.md`](../phases/milestone-1-live-llm-validation/README.md).
 
 ## Prior phase: 6 — Paper & Release (core done; release deferred to M1)

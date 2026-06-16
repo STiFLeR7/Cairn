@@ -33,6 +33,7 @@ python examples/recovery_demo.py          # demo
 python benchmarks/recovery_matrix.py      # bench: baseline × failure-step matrix + effect-safety
 python benchmarks/ablation_study.py       # bench: Continuation-State ablation
 python benchmarks/cross_version_resume.py # bench: cross-version resume
+python benchmarks/live_study.py           # bench: the same matrix through the LIVE pipeline (offline fake transport)
 ```
 
 ## Expected outputs
@@ -91,9 +92,20 @@ injected transport (`prompt -> reply`):
   independent of the model). This is how a published live study stays reproducible by anyone.
 - **`Budget(max_calls=…, max_chars=…)`** — stop a run before it exceeds a cost ceiling.
 
-> The live **study** itself (the failure-injection benchmark against a real model) is **AP-0040**, which is
-> gated on explicit approval because it spends on a paid API. Once run, its transcripts replay offline via
-> the above, and its evidence is recorded — honestly scoped — in the
+`benchmarks/live_study.py` runs the Phase 5 matrix through this **live pipeline** (`LiveModelProvider` +
+the wrappers). By default it uses a deterministic **fake** transport, so `python benchmarks/live_study.py`
+(or `make bench-live`) runs **offline — no key, no spend** — and reproduces the headline contrasts through
+the live code path:
+
+```
+C1 via live pipeline: SUPPORTED — B3 tax=1.50 vs B0 tax=5.00; B3 no-regression=1.00 vs B0=0.00
+C3 via live pipeline: SUPPORTED — B3 duplicates=0 (gate PASS); B0 duplicates=1 (gate FAIL)
+```
+
+> This offline run **validates the pipeline**, not the claims under a real model. The paid live **study**
+> (the failure-injection benchmark against an actual LLM) is **AP-0040**, gated on explicit approval — it
+> swaps the fake for `benchmarks.scenarios.build_live_transport(model=…)` and nothing else. Once run, its
+> transcripts replay offline via the wrappers above, and its evidence is recorded — honestly scoped — in the
 > [claims registry](docs/research/claims-registry.md).
 
 ## Scope

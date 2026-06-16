@@ -1,6 +1,6 @@
 # Milestone M1 — Live-LLM Validation
 
-- **Status:** 🟡 In Progress *(entered 2026-06-16 — branch `milestone-1-live-llm-validation`; AP-0038/0039 `Done`, 64 tests)*
+- **Status:** 🟡 In Progress *(entered 2026-06-16 — branch `milestone-1-live-llm-validation`; AP-0038/0039 `Done`, AP-0040 runner offline-validated (live run gated), 69 tests)*
 - **Goal:** Replace the deterministic scripted-mock model with **real LLM `ModelProvider`s** and re-run the
   Phase 5 failure-injection benchmark **live**, gathering empirical evidence for claims C1–C5 under genuine
   model non-determinism. On success this unblocks the deferred v1.0 release and announcement (AP-0036/0037);
@@ -43,7 +43,7 @@
 |---|---|---|
 | [AP-0038](action-points/AP-0038-live-model-providers.md) | Live LLM `ModelProvider` adapters (injected, no hardcoding) | Done |
 | [AP-0039](action-points/AP-0039-determinism-cost-repro.md) | Determinism, cost & reproducibility controls for live runs | Done |
-| [AP-0040](action-points/AP-0040-live-failure-injection-study.md) | Live failure-injection study (Phase 5 matrix, real model) | Accepted |
+| [AP-0040](action-points/AP-0040-live-failure-injection-study.md) | Live failure-injection study (Phase 5 matrix, real model) | In Progress *(runner offline-validated; live run gated)* |
 | [AP-0041](action-points/AP-0041-live-results-claims-update.md) | Live results analysis & claims update (C1–C5) | Accepted |
 | [AP-0042](action-points/AP-0042-v1-go-no-go.md) | v1.0 go/no-go gate (unblock AP-0036/0037 on success) | Accepted |
 
@@ -62,7 +62,8 @@ AP-0038 (live providers) ──→ AP-0039 (determinism/cost/repro) ──→ AP
 
 - [x] Real-LLM provider(s) run behind `cairn.model` with provider/model injected; no hardcoding (AP-0038, ADR-0007/0010)
 - [x] Live runs are seed/temperature-controlled, cached, transcript-logged, and budget-guarded (AP-0039)
-- [ ] The Phase 5 failure-injection matrix runs end-to-end against a real model (AP-0040)
+- [~] The Phase 5 failure-injection matrix runs through the live pipeline — offline-validated on a fake
+  transport (reproduces C1/C3); **the real-model run is gated** (AP-0040)
 - [ ] C1–C5 re-evaluated with dated, live-scoped evidence; negatives recorded (AP-0041, ADR-0009)
 - [ ] Go/no-go documented; AP-0036/0037 unblocked only on "go" **and** explicit approval (AP-0042)
 - [ ] No hardcoded harness; docs + trackers updated; tests green

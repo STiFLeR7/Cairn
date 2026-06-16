@@ -153,12 +153,21 @@ updates this file.
   `replay_from_transcript` (FIFO-by-prompt-key replay, offline and key-free — deterministic independent of the
   model), and `Budget`/`budgeted` (call/char ceiling → `BudgetExceeded` before overrun). `REPRODUCE.md` gains
   a "Live runs" section; transcripts carry no secrets.
+- Live-pipeline study runner (**AP-0040, `In Progress`**) — `benchmarks/live_study.py` + the live wiring in
+  `benchmarks/scenarios.py` (`fake_multifile_transport`, `live_multi_file_scenario`,
+  `live_effectful_scenario`, and the gated `build_live_transport(model, …)`), plus `make bench-live`. Runs the
+  Phase 5 matrix through the **live code path** (`LiveModelProvider` + `live_controls`); on the deterministic
+  fake transport it reproduces C1 (B3 tax 1.50 vs B0 5.00; no-regression 1.0 vs 0.0) and C3 (B3 dup 0 / gate
+  PASS vs B0 1) **offline — no key, no spend**. This validates the *pipeline*, not the claims under a real
+  model; the paid real-model run is the remaining **gated** step (no claims-registry update from the fake run).
 
 ### Status (Milestone M1)
 - **Milestone M1 — Live-LLM Validation: in progress** (entered 2026-06-16). Branch
   `milestone-1-live-llm-validation` off `master` (master stays clean, branch-per-phase). **AP-0038 + AP-0039
   `Done`** (`cairn.model_live` + `cairn.live_controls` + ADR-0010; `tests/test_model_live.py` +
-  `tests/test_live_controls.py`, 22 offline tests → **`pytest -q` → 64 passed**; core free of model-id/key
-  literals). AP-0040 … AP-0042 `Accepted` — **AP-0040 (the live study) is gated** on explicit approval (paid
-  API). Goal: re-run the benchmark against real LLMs and re-evaluate C1–C5 under genuine non-determinism; on
-  success, unblock the v1.0 release/announcement (still gated on explicit approval).
+  `tests/test_live_controls.py`, 22 offline tests). **AP-0040 `In Progress`** — live-pipeline study runner
+  built and **offline-validated** (reproduces C1/C3 through the live code path on a fake transport); the paid
+  real-model run is **gated** on explicit approval. `tests/test_live_study.py` (5 offline tests) →
+  **`pytest -q` → 69 passed**; core free of model-id/key literals. AP-0041/0042 `Accepted`. Goal: re-run the
+  benchmark against real LLMs and re-evaluate C1–C5 under genuine non-determinism; on success, unblock the
+  v1.0 release/announcement (still gated on explicit approval).

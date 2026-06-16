@@ -7,7 +7,7 @@
 
 PY ?= python
 
-.PHONY: all test demo bench bench-matrix bench-ablation bench-xversion clean
+.PHONY: all test demo bench bench-matrix bench-ablation bench-xversion bench-live clean
 
 all: test demo bench
 
@@ -27,6 +27,11 @@ bench-ablation:
 
 bench-xversion:
 	$(PY) benchmarks/cross_version_resume.py
+
+# Live-pipeline study (Milestone M1) — runs OFFLINE on a deterministic fake transport
+# (no key, no spend). The paid live run is gated; see REPRODUCE.md.
+bench-live:
+	$(PY) benchmarks/live_study.py
 
 clean:
 	$(PY) -c "import shutil,glob; [shutil.rmtree(p,ignore_errors=True) for p in glob.glob('**/__pycache__',recursive=True)]"
