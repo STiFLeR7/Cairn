@@ -18,14 +18,23 @@
 
 **Legend:** ⬜ Not started · 🟡 In Progress · 🟢 Complete · 🔴 Blocked
 
-> **Next milestone (post-7-phase): live-LLM study → v1.0.** The 7-phase arc delivered the specification,
+## Milestones (post-7-phase)
+
+| Milestone | Name | Goal | Status | Completion criteria |
+|---|---|---|---|---|
+| **M1** | Live-LLM Validation | Re-run the benchmark against real LLMs | 🟡 In Progress | Live providers behind the model seam; the failure-injection study runs live; C1–C5 carry dated live-scoped evidence; a recorded v1.0 go/no-go |
+
+> **Milestone M1 — Live-LLM Validation (entered 2026-06-16).** The 7-phase arc delivered the specification,
 > a recoverable reference harness, and a reproducible benchmark — all validated on a *deterministic*
-> reference harness. The next milestone replaces the scripted mock with real LLM model providers, runs the
-> failure-injection benchmark live, and (on success) cuts the **v1.0** release + announcement (AP-0036/0037,
-> currently deferred). Until then the project stays at **0.x**.
+> reference harness. M1 replaces the scripted mock with real LLM model providers (injected, no hardcoding —
+> ADR-0007), runs the failure-injection benchmark live, and re-evaluates C1–C5 under genuine non-determinism.
+> On a "go" decision (AP-0042) it unblocks the deferred **v1.0** release + announcement (AP-0036/0037) — which
+> still require explicit approval for the outward steps. Until then the project stays at **0.x**. Scaffold:
+> [`project/phases/milestone-1-live-llm-validation/README.md`](project/phases/milestone-1-live-llm-validation/README.md).
 
 ## AP distribution
 
-37 planned Action Points span the 7 phases (~4–6 each). **Phases 0–5 APs (AP-0001 … AP-0033) are
-committed and `Done`**; Phase 6 APs are provisional placeholders refined when their phase is entered.
+37 planned Action Points span the 7 phases (~4–6 each); **Milestone M1 adds AP-0038 … AP-0042** (5 APs).
+**Phases 0–5 APs (AP-0001 … AP-0033) are `Done`** and merged; Phase 6 APs AP-0034/0035 `Done`, AP-0036/0037
+`Blocked` (deferred to M1's go/no-go); M1 APs (AP-0038 … AP-0042) are committed and `Accepted`.
 Full list: [`project/tracking/ap-index.md`](project/tracking/ap-index.md).

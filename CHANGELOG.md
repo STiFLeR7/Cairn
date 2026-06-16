@@ -131,6 +131,20 @@ updates this file.
 - **Phase 6 — Paper & Release: core complete & merged** (PR #6, 2026-06-15; merge commit `0e36f25`).
   AP-0034 (paper) and AP-0035 (reproducibility) `Done` and verified (42 tests, demo, benchmarks reproduce).
   **Decision (2026-06-15): the v1.0 release (AP-0036) and the public announcement (AP-0037) are deferred**
-  to a future **v1.0 milestone**, keeping the project at **0.x** until a live-LLM study validates the
-  claims (current evidence is reference-harness only, ADR-0009). Drafts stay ready. This is a deliberate
+  to **Milestone M1's go/no-go (AP-0042)**, keeping the project at **0.x** until a live-LLM study validates
+  the claims (current evidence is reference-harness only, ADR-0009). Drafts stay ready. This is a deliberate
   hold, not an impediment.
+
+### Added (Milestone M1, on branch `milestone-1-live-llm-validation`) — live-LLM validation (entered)
+- Milestone M1 scaffold + five committed APs (AP-0038 … AP-0042): live `ModelProvider` adapters (injected,
+  no hardcoding — ADR-0007); determinism/cost/reproducibility controls for live runs; the live
+  failure-injection study (Phase 5 matrix against a real model); live results analysis + C1–C5 claims update;
+  and a v1.0 go/no-go gate that (on "go") unblocks the deferred AP-0036/0037. An integration ADR (ADR-0010)
+  is authored when AP-0038 starts.
+
+### Status (Milestone M1)
+- **Milestone M1 — Live-LLM Validation: in progress** (entered 2026-06-16). Branch
+  `milestone-1-live-llm-validation` created off `master` (master stays clean, branch-per-phase). APs
+  AP-0038 … AP-0042 `Accepted`; no implementation yet. Goal: re-run the benchmark against real LLMs and
+  re-evaluate C1–C5 under genuine non-determinism; on success, unblock the v1.0 release/announcement (still
+  gated on explicit approval).

@@ -1,7 +1,7 @@
 # Phase Tracking
 
 > Live phase status board. Canonical goals/criteria: [ROADMAP.md](../../ROADMAP.md).
-> Last updated: 2026-06-15.
+> Last updated: 2026-06-16.
 
 | Phase | Name | Status | APs (done / total) |
 |---|---|---|---|
@@ -11,11 +11,22 @@
 | 3 | Minimal Harness | 🟢 Complete (merged) | 4 / 4 |
 | 4 | Recovery v1 (three pillars) | 🟢 Complete (merged) | 5 / 5 |
 | 5 | Evaluation & Benchmark | 🟢 Complete (merged) | 6 / 6 |
-| 6 | Paper & Release | 🟢 Core done (release deferred) | 2 / 4 |
+| 6 | Paper & Release | 🟢 Core done (release deferred to M1) | 2 / 4 |
+| M1 | Live-LLM Validation | 🟡 In Progress (entered) | 0 / 5 |
 
 **Legend:** ⬜ Not started · 🟡 In Progress · 🟢 Complete · 🔴 Blocked
 
-## Current phase: 6 — Paper & Release (core done; release deferred)
+## Current milestone: M1 — Live-LLM Validation (entered 2026-06-16)
+
+Entered on branch `milestone-1-live-llm-validation` (master stays clean per branch-per-phase). Goal: replace
+the deterministic scripted mock with **real LLM `ModelProvider`s** (injected, no hardcoding — ADR-0007),
+re-run the Phase 5 failure-injection benchmark **live**, and re-evaluate C1–C5 under genuine non-determinism.
+Five APs (AP-0038 … AP-0042) committed and `Accepted`; an integration ADR (**ADR-0010**) is authored when
+AP-0038 starts. On a "go" decision (AP-0042) this unblocks the deferred v1.0 release + announcement
+(AP-0036/0037), still pending explicit approval. See
+[`project/phases/milestone-1-live-llm-validation/README.md`](../phases/milestone-1-live-llm-validation/README.md).
+
+## Prior phase: 6 — Paper & Release (core done; release deferred to M1)
 
 **AP-0034 (`PAPER.md`) and AP-0035 (`REPRODUCE.md` + `Makefile`) are `Done` and merged** via PR #6
 (merge commit `0e36f25`); 42 tests + demo + benchmarks reproduce. **Decision (2026-06-15): hold the v1.0

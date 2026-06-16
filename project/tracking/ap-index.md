@@ -1,8 +1,9 @@
 # Action Point Index
 
 > Live rollup of all Action Points. **Phases 0–5** APs (AP-0001 … AP-0033) are committed and `Done`;
-> **Phase 6** (AP-0034 … AP-0037) is committed and in progress (release/announce gated on approval).
-> Last updated: 2026-06-15.
+> **Phase 6** (AP-0034 … AP-0037): AP-0034/0035 `Done`, AP-0036/0037 `Blocked` (deferred to M1's go/no-go).
+> **Milestone M1** (AP-0038 … AP-0042) is committed and `Accepted` (entered 2026-06-16).
+> Last updated: 2026-06-16.
 
 **Status values:** Proposed · Accepted · In Progress · In Review · Done · Blocked · Superseded
 
@@ -75,5 +76,15 @@
 |---|---|---|
 | [AP-0034](../phases/phase-6-paper-release/action-points/AP-0034-paper-draft.md) | Paper draft ("Checkpoints Are Compactions") | Done |
 | [AP-0035](../phases/phase-6-paper-release/action-points/AP-0035-reproducibility-package.md) | Reproducibility package & artifact polish | Done |
-| [AP-0036](../phases/phase-6-paper-release/action-points/AP-0036-v1-release.md) | v1.0 OSS release — *deferred to a future v1.0 milestone (await live-LLM study)* | Blocked |
-| [AP-0037](../phases/phase-6-paper-release/action-points/AP-0037-public-positioning.md) | Public positioning / announcement — *deferred to the v1.0 milestone* | Blocked |
+| [AP-0036](../phases/phase-6-paper-release/action-points/AP-0036-v1-release.md) | v1.0 OSS release — *deferred to Milestone M1's go/no-go (AP-0042)* | Blocked |
+| [AP-0037](../phases/phase-6-paper-release/action-points/AP-0037-public-positioning.md) | Public positioning / announcement — *deferred to Milestone M1's go/no-go (AP-0042)* | Blocked |
+
+## Milestone M1 — Live-LLM Validation *(committed — entered 2026-06-16)*
+
+| ID | Title | Status |
+|---|---|---|
+| [AP-0038](../phases/milestone-1-live-llm-validation/action-points/AP-0038-live-model-providers.md) | Live LLM `ModelProvider` adapters (injected, no hardcoding) | Accepted |
+| [AP-0039](../phases/milestone-1-live-llm-validation/action-points/AP-0039-determinism-cost-repro.md) | Determinism, cost & reproducibility controls for live runs | Accepted |
+| [AP-0040](../phases/milestone-1-live-llm-validation/action-points/AP-0040-live-failure-injection-study.md) | Live failure-injection study (Phase 5 matrix, real model) | Accepted |
+| [AP-0041](../phases/milestone-1-live-llm-validation/action-points/AP-0041-live-results-claims-update.md) | Live results analysis & claims update (C1–C5) | Accepted |
+| [AP-0042](../phases/milestone-1-live-llm-validation/action-points/AP-0042-v1-go-no-go.md) | v1.0 go/no-go gate (unblock AP-0036/0037 on success) | Accepted |

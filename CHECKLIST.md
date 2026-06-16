@@ -12,7 +12,11 @@
 - [x] **Phase 3 — Minimal Harness** 🟢 *(complete & merged — PR #3; 13 tests passing)*
 - [x] **Phase 4 — Recovery v1 (three pillars)** 🟢 *(complete & merged — PR #4; 33 tests passing)*
 - [x] **Phase 5 — Evaluation & Benchmark** 🟢 *(complete & merged — PR #5; 42 tests passing)*
-- [x] **Phase 6 — Paper & Release** 🟢 *(core done & merged — PR #6: paper + repro; v1.0 release & announcement **deferred** to a future milestone, pending a live-LLM study)*
+- [x] **Phase 6 — Paper & Release** 🟢 *(core done & merged — PR #6: paper + repro; v1.0 release & announcement **deferred** to Milestone M1's go/no-go)*
+
+## Milestones (post-7-phase)
+
+- [ ] **Milestone M1 — Live-LLM Validation** 🟡 *(in progress — entered 2026-06-16 on branch `milestone-1-live-llm-validation`; 0 / 5 APs)*
 
 ## Phase 0 — Action Points
 
@@ -126,6 +130,21 @@
 
 - [ ] `PAPER.md` drafted; consistent with the repo's claims/results and honest scope
 - [ ] Fresh clone reproduces tests + demo + benchmarks via `REPRODUCE.md`
-- [x] v1.0 release artifacts prepared (release notes draft); **tag deferred to the v1.0 milestone (decision)**
-- [x] Public positioning prepared (announcement draft); **posting deferred to the v1.0 milestone (decision)**
+- [x] v1.0 release artifacts prepared (release notes draft); **tag deferred to Milestone M1's go/no-go (decision)**
+- [x] Public positioning prepared (announcement draft); **posting deferred to Milestone M1's go/no-go (decision)**
 - [x] Docs + trackers updated; tests green
+
+## Milestone M1 — Action Points
+
+- [ ] `AP-0038` Live LLM `ModelProvider` adapters (injected, no hardcoding)
+- [ ] `AP-0039` Determinism, cost & reproducibility controls for live runs
+- [ ] `AP-0040` Live failure-injection study (Phase 5 matrix, real model)
+- [ ] `AP-0041` Live results analysis & claims update (C1–C5)
+- [ ] `AP-0042` v1.0 go/no-go gate (unblock AP-0036/0037 on success)
+
+## Milestone M1 completion criteria
+
+- [ ] ≥1 real LLM provider integrated behind the model seam, injected via config (no hardcoding, ADR-0007/0010)
+- [ ] Live failure-injection study runs reproducibly (cached transcripts; documented cost/seed controls)
+- [ ] Claims registry carries dated **live-LLM** evidence for C1–C5, distinct from reference-harness notes
+- [ ] Recorded v1.0 go/no-go; on "go", AP-0036/0037 unblocked (outward steps still pending explicit approval)
