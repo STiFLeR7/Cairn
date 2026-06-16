@@ -2,7 +2,7 @@
 id: AP-0036
 title: v1.0 OSS release (docs, examples, citation)
 phase: phase-6-paper-release
-status: Accepted
+status: Blocked
 owner: maintainers
 created: 2026-06-15
 updated: 2026-06-15
@@ -41,3 +41,4 @@ release are cut only after explicit human approval.**
 - 2026-06-15 — Prepared: release notes drafted (`docs/release/RELEASE_NOTES_v1.0.0.md`). **Remaining
   (gated on approval):** bump `pyproject` to 1.0.0, finalize `CITATION.cff` version/date, move CHANGELOG
   `Unreleased` → `v1.0.0`, tag `v1.0.0`, publish GitHub release.
+- 2026-06-15 — **Decision: deferred.** Hold the v1.0 release; keep the project at 0.x until a live-LLM study validates the claims (current evidence is reference-harness only, ADR-0009). Release notes draft stays ready; execution moves to a future v1.0 milestone. Status → Blocked (deliberate hold, not an impediment).

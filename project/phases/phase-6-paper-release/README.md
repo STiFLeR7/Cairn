@@ -1,6 +1,6 @@
 # Phase 6 — Paper & Release
 
-- **Status:** 🟡 In Progress *(2026-06-15 — paper + repro `Done`; release/announce prepared, gated on approval)*
+- **Status:** 🟢 Core complete & merged *(2026-06-15 — PR #6: paper + repro `Done`; v1.0 release & announcement **deferred by decision** to a future milestone, pending a live-LLM study)*
 - **Goal:** Tell the story and ship the artifact. Synthesize Phases 0–5 into a research **paper draft**
   ("Checkpoints Are Compactions"), make the repository **reproducible** by anyone, and prepare the
   **v1.0 release** + public positioning — with the release and announcement gated on explicit approval.
@@ -27,8 +27,8 @@ the release tag and posting the announcement require explicit human go-ahead.
 |---|---|---|
 | [AP-0034](action-points/AP-0034-paper-draft.md) | Paper draft ("Checkpoints Are Compactions") | Done |
 | [AP-0035](action-points/AP-0035-reproducibility-package.md) | Reproducibility package & artifact polish | Done |
-| [AP-0036](action-points/AP-0036-v1-release.md) | v1.0 OSS release (docs, examples, citation) | Accepted *(prepared; gated)* |
-| [AP-0037](action-points/AP-0037-public-positioning.md) | Public positioning (README, announcement) | Accepted *(prepared; gated)* |
+| [AP-0036](action-points/AP-0036-v1-release.md) | v1.0 OSS release (docs, examples, citation) | Blocked *(deferred to v1.0 milestone)* |
+| [AP-0037](action-points/AP-0037-public-positioning.md) | Public positioning (README, announcement) | Blocked *(deferred to v1.0 milestone)* |
 
 ## Dependency order
 

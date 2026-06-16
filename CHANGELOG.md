@@ -128,6 +128,9 @@ updates this file.
 - `docs/release/RELEASE_NOTES_v1.0.0.md` (draft) and `ANNOUNCEMENT.md` (draft) — prepared, **gated**.
 
 ### Status (Phase 6)
-- **Phase 6 — Paper & Release: in progress** on branch `phase-6-paper-release` (2026-06-15). AP-0034
-  (paper) and AP-0035 (reproducibility) `Done` and verified (42 tests, demo, benchmarks reproduce).
-  **AP-0036 (cut v1.0 tag) and AP-0037 (post announcement) are prepared but gated on explicit approval.**
+- **Phase 6 — Paper & Release: core complete & merged** (PR #6, 2026-06-15; merge commit `0e36f25`).
+  AP-0034 (paper) and AP-0035 (reproducibility) `Done` and verified (42 tests, demo, benchmarks reproduce).
+  **Decision (2026-06-15): the v1.0 release (AP-0036) and the public announcement (AP-0037) are deferred**
+  to a future **v1.0 milestone**, keeping the project at **0.x** until a live-LLM study validates the
+  claims (current evidence is reference-harness only, ADR-0009). Drafts stay ready. This is a deliberate
+  hold, not an impediment.

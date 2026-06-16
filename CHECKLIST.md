@@ -12,7 +12,7 @@
 - [x] **Phase 3 — Minimal Harness** 🟢 *(complete & merged — PR #3; 13 tests passing)*
 - [x] **Phase 4 — Recovery v1 (three pillars)** 🟢 *(complete & merged — PR #4; 33 tests passing)*
 - [x] **Phase 5 — Evaluation & Benchmark** 🟢 *(complete & merged — PR #5; 42 tests passing)*
-- [ ] **Phase 6 — Paper & Release** 🟡 *(in progress — entered 2026-06-15; release/announce gated on approval)*
+- [x] **Phase 6 — Paper & Release** 🟢 *(core done & merged — PR #6: paper + repro; v1.0 release & announcement **deferred** to a future milestone, pending a live-LLM study)*
 
 ## Phase 0 — Action Points
 
@@ -119,13 +119,13 @@
 
 - [x] `AP-0034` Paper draft ("Checkpoints Are Compactions")
 - [x] `AP-0035` Reproducibility package & artifact polish
-- [ ] `AP-0036` v1.0 OSS release — *artifacts prepared; tag/version bump gated on approval*
-- [ ] `AP-0037` Public positioning — *README polished + announcement drafted; posting gated on approval*
+- [~] `AP-0036` v1.0 OSS release — *deferred to the v1.0 milestone (release notes ready)*
+- [~] `AP-0037` Public positioning — *deferred to the v1.0 milestone (announcement drafted)*
 
 ## Phase 6 completion criteria
 
 - [ ] `PAPER.md` drafted; consistent with the repo's claims/results and honest scope
 - [ ] Fresh clone reproduces tests + demo + benchmarks via `REPRODUCE.md`
-- [ ] v1.0 release artifacts prepared (notes, CITATION, version); **tag cut only on approval**
-- [ ] Public positioning prepared; **announcement posted only on approval**
-- [ ] Docs + trackers updated; tests green
+- [x] v1.0 release artifacts prepared (release notes draft); **tag deferred to the v1.0 milestone (decision)**
+- [x] Public positioning prepared (announcement draft); **posting deferred to the v1.0 milestone (decision)**
+- [x] Docs + trackers updated; tests green

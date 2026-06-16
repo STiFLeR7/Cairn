@@ -2,7 +2,7 @@
 id: AP-0037
 title: Public positioning (README, announcement)
 phase: phase-6-paper-release
-status: Accepted
+status: Blocked
 owner: maintainers
 created: 2026-06-15
 updated: 2026-06-15
@@ -40,3 +40,4 @@ on explicit approval.**
 - 2026-06-15 — Proposed → Accepted (refined on Phase 6 entry). External posting gated on approval.
 - 2026-06-15 — Prepared: `ANNOUNCEMENT.md` drafted (short + medium form, honest scope); README polished.
   **Remaining (gated on approval):** post the announcement externally.
+- 2026-06-15 — **Decision: deferred.** Do not post the announcement; `ANNOUNCEMENT.md` stays an internal draft until the v1.0 milestone. Status → Blocked (deliberate hold).

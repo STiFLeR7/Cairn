@@ -11,17 +11,18 @@
 | 3 | Minimal Harness | 🟢 Complete (merged) | 4 / 4 |
 | 4 | Recovery v1 (three pillars) | 🟢 Complete (merged) | 5 / 5 |
 | 5 | Evaluation & Benchmark | 🟢 Complete (merged) | 6 / 6 |
-| 6 | Paper & Release | 🟡 In Progress | 2 / 4 |
+| 6 | Paper & Release | 🟢 Core done (release deferred) | 2 / 4 |
 
 **Legend:** ⬜ Not started · 🟡 In Progress · 🟢 Complete · 🔴 Blocked
 
-## Current phase: 6 — Paper & Release (in progress)
+## Current phase: 6 — Paper & Release (core done; release deferred)
 
-Entered 2026-06-15 on branch `phase-6-paper-release`. Four APs (AP-0034 … AP-0037) refined to `Accepted`.
-**AP-0034 (`PAPER.md`) and AP-0035 (`REPRODUCE.md` + `Makefile`) are `Done` and verified** (42 tests,
-demo, all benchmarks reproduce). **AP-0036 and AP-0037 artifacts are prepared** (release notes +
-`ANNOUNCEMENT.md` drafts) but their **outward execution — cutting the v1.0 tag and posting the
-announcement — is gated on explicit human approval.** See
+**AP-0034 (`PAPER.md`) and AP-0035 (`REPRODUCE.md` + `Makefile`) are `Done` and merged** via PR #6
+(merge commit `0e36f25`); 42 tests + demo + benchmarks reproduce. **Decision (2026-06-15): hold the v1.0
+release and the public announcement** — keep the project at **0.x** until a live-LLM study validates the
+claims (current evidence is reference-harness only, ADR-0009). AP-0036/0037 are `Blocked` (a deliberate
+hold, not an impediment); their drafts (`docs/release/RELEASE_NOTES_v1.0.0.md`, `ANNOUNCEMENT.md`) stay
+ready for a future **v1.0 milestone**. See
 [`project/phases/phase-6-paper-release/README.md`](../phases/phase-6-paper-release/README.md).
 Phases 0–5 complete and **merged** (PR #1–#5).
 

@@ -14,9 +14,15 @@
 | **3** | Minimal Harness | Build the substrate (no recovery yet) | 🟢 Complete | Minimal Code Harness + Runtime honoring the boundary contract; baseline tasks complete |
 | **4** | Recovery v1 (three pillars) | Unified distillation + re-grounding + effect-safety | 🟢 Complete | Agent recovers from injected failure end-to-end |
 | **5** | Evaluation & Benchmark | Failure-injection harness, baselines, ablations | 🟢 Complete | Results reproduce the headline claims |
-| **6** | Paper & Release | Write-up + reproducible OSS artifact | 🟡 In Progress | Paper drafted/submitted; `v1.0` released with repro instructions |
+| **6** | Paper & Release | Write-up + reproducible OSS artifact | 🟢 Core done | Paper draft + reproducibility package merged. **v1.0 release & announcement deferred** to a future milestone (await a live-LLM study — current evidence is reference-harness only, ADR-0009). |
 
 **Legend:** ⬜ Not started · 🟡 In Progress · 🟢 Complete · 🔴 Blocked
+
+> **Next milestone (post-7-phase): live-LLM study → v1.0.** The 7-phase arc delivered the specification,
+> a recoverable reference harness, and a reproducible benchmark — all validated on a *deterministic*
+> reference harness. The next milestone replaces the scripted mock with real LLM model providers, runs the
+> failure-injection benchmark live, and (on success) cuts the **v1.0** release + announcement (AP-0036/0037,
+> currently deferred). Until then the project stays at **0.x**.
 
 ## AP distribution
 

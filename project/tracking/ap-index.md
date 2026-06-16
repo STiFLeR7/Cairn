@@ -75,5 +75,5 @@
 |---|---|---|
 | [AP-0034](../phases/phase-6-paper-release/action-points/AP-0034-paper-draft.md) | Paper draft ("Checkpoints Are Compactions") | Done |
 | [AP-0035](../phases/phase-6-paper-release/action-points/AP-0035-reproducibility-package.md) | Reproducibility package & artifact polish | Done |
-| [AP-0036](../phases/phase-6-paper-release/action-points/AP-0036-v1-release.md) | v1.0 OSS release (docs, examples, citation) — *release gated on approval* | Accepted |
-| [AP-0037](../phases/phase-6-paper-release/action-points/AP-0037-public-positioning.md) | Public positioning (README, announcement) — *posting gated on approval* | Accepted |
+| [AP-0036](../phases/phase-6-paper-release/action-points/AP-0036-v1-release.md) | v1.0 OSS release — *deferred to a future v1.0 milestone (await live-LLM study)* | Blocked |
+| [AP-0037](../phases/phase-6-paper-release/action-points/AP-0037-public-positioning.md) | Public positioning / announcement — *deferred to the v1.0 milestone* | Blocked |
