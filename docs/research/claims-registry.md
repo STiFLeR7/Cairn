@@ -120,3 +120,15 @@ change a claim's *statement*, register a **new** claim that supersedes the old o
     fenced, XML tool-call, and bare-code replies across steps. `parse_action` was generalized (tool-call
     extraction + a `compile()`-gated bare-code path) so the harness stays drivable; this is general, not
     model-specific.
+- 2026-06-16 — **Root-cause correction (systematic-debugging pass).** The "unstable/ill-defined metrics"
+  above were a *symptom*; the actual defect is a **benchmark-integrity bug**: `run_until_failure` never
+  verified that the injected crash fired. When a model finishes a **batchable** task before step `k`, the
+  crash never triggers, yet `run_matrix` scored the resulting *non-failure* as a valid recovery — a
+  deterministic probe showed it reporting a **perfect** `task_success=True, recovery_tax=0` for a recovery
+  that never happened (a **false-positive** risk, worse than noise). **Fixed at source** (test-first,
+  `tests/test_eval_injection.py`): `run_until_failure` now returns an `Injection(fired, completed)`, and
+  `run_matrix` **skips and reports** cells where the injection did not fire instead of scoring them. Re-run
+  live, the study now correctly reports *"k=2 cells skipped — the model finished before the crash; recovery
+  not exercised; C1 not evaluable on this task."* This **sharpens** the C1-not-validated-live verdict (the
+  task is batchable, so the bench can't exercise recovery against a capable model) and is the concrete M2
+  requirement: a **non-batchable sequential** task.

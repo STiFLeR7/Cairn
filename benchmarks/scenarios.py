@@ -86,6 +86,24 @@ def fake_multifile_transport(names) -> Transport:
     return transport
 
 
+def batching_multifile_transport(names) -> Transport:
+    """A deterministic model that creates **all** files in a single action, then finishes.
+
+    The dual of :func:`fake_multifile_transport`: it mimics a capable real model that
+    one-shots a batchable task (as `openrouter/owl-alpha` did live), so a crash injected at
+    step `k > 0` never fires. Used to verify the benchmark **detects a non-injected (vacuous)
+    failure** rather than silently scoring it as a recovery.
+    """
+
+    def transport(prompt: str) -> str:
+        if prompt.count("--- step ") == 0:
+            body = "\n".join(f"open({n!r}, 'w').write({n!r})" for n in names)
+            return f"```python\n{body}\n```"
+        return "TASK_COMPLETE"
+
+    return transport
+
+
 def live_multi_file_scenario(
     n: int = 4, transport: Optional[Transport] = None, *, version: str = "live-fake", prefix: str = "step"
 ) -> Scenario:

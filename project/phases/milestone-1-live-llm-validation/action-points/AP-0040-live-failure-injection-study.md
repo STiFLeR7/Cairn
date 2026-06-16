@@ -62,8 +62,14 @@ the Phase 5 matrix — design changes would need their own AP); guaranteeing a p
   stdlib `openrouter_transport` (OpenAI-compatible, no new dependency) and ran `openrouter/owl-alpha` via
   OpenRouter through the full live pipeline. **Outcome (honest, negative for the claims):** the model batches
   the whole multi-file task into a single action and finishes before the injected crash, so the Phase-5
-  recovery scenario/metrics — built around the mock's one-action-per-step cadence — do not validate C1 and
-  are unstable across the two repetitions. Fixed two real issues the run exposed: a non-fence-tolerant parser
-  (`owl-alpha` emits XML tool-call / bare-code) and a C1 verdict that ignored `task_success`. Transcript
-  captured + replayable. **Analysis and claims update → AP-0041; go/no-go → AP-0042.** No hardcoded harness:
-  the model id lives only in `.env`/env, never in core (ADR-0007).
+  recovery scenario/metrics — built around the mock's one-action-per-step cadence — do not validate C1.
+  Fixed two issues the run exposed: a non-fence-tolerant parser (`owl-alpha` emits XML tool-call / bare-code)
+  and a C1 verdict that ignored `task_success`. Transcript captured + replayable.
+- 2026-06-16 — **Follow-up (systematic-debugging pass): benchmark-integrity bug found + fixed.** The
+  "unstable metrics" were a symptom of a real defect — `run_until_failure` never checked that the injected
+  crash *fired*, so a batchable task that the model one-shots produced a **vacuous** cell that `run_matrix`
+  scored as a perfect recovery (`task_success=True, tax=0` — a false positive). Root-caused with a
+  deterministic probe; fixed test-first (`tests/test_eval_injection.py`): `run_until_failure` →
+  `Injection(fired, completed)`; `run_matrix` **skips + reports** non-fired cells. The live study now
+  correctly prints *"k=2 cells skipped — model finished before the crash; recovery not exercised."* No
+  hardcoded harness: the model id lives only in `.env`/env, never in core (ADR-0007).

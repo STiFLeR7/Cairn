@@ -162,11 +162,20 @@ updates this file.
   (real models don't reliably emit fences), and a C1 verdict that had ignored `task_success`.
 - **Milestone M1 outcome — `NO-GO` (AP-0041/0042).** The first live run validated the *pipeline* but **not**
   the claims: the real model batches the multi-file task into one action and finishes before the injected
-  crash, so the Phase-5 recovery scenario/metrics (built around the mock's one-action-per-step cadence) are
-  ill-defined and unstable across repetitions. C1–C5 stay **reference-harness-only** (claims registry +
-  `PAPER.md` §9, dated 2026-06-16). The project **remains 0.x**; the v1.0 release + announcement
-  (AP-0036/0037) **stay `Blocked`** — the Phase-6 hold is now *confirmed by evidence*. The fix becomes **M2**
-  (a non-batchable sequential task + action-granularity-robust metrics + repetitions).
+  crash, so the Phase-5 recovery scenario/metrics (built around the mock's one-action-per-step cadence)
+  cannot exercise recovery. C1–C5 stay **reference-harness-only** (claims registry + `PAPER.md` §9, dated
+  2026-06-16). The project **remains 0.x**; the v1.0 release + announcement (AP-0036/0037) **stay `Blocked`**
+  — the Phase-6 hold is now *confirmed by evidence*. The fix becomes **M2** (a non-batchable sequential task
+  + action-granularity-robust metrics + repetitions).
+
+### Fixed (Milestone M1, systematic-debugging pass)
+- **Failure-injection integrity bug.** `run_until_failure` did not verify the injected crash actually fired;
+  a batchable task that the model one-shots produced a *vacuous* cell that `run_matrix` **silently scored as
+  a perfect recovery** (`task_success=True, recovery_tax=0` — a false positive). Root-caused with a
+  deterministic probe; fixed test-first (`tests/test_eval_injection.py`, 4 tests): `run_until_failure` now
+  returns `Injection(fired, completed)` and `run_matrix(..., on_skip=…)` **skips + reports** non-fired cells
+  instead of scoring them. `benchmarks/live_study.py` reports skipped cells and refuses to emit a verdict
+  from zero valid cells. `pytest -q` → **80 passed**.
 
 ### Status (Milestone M1)
 - **Milestone M1 — Live-LLM Validation: complete** (2026-06-16; **outcome NO-GO**). Branch

@@ -76,7 +76,23 @@ def run_live_study(
           f"k={list(steps)}, B0 (cold restart) vs B3 (RGR) ===")
     print(f"(non-deterministic + metered; transcripts -> {transcript})")
     scenario = live_multi_file_scenario(n, transport)
-    summary = aggregate(run_matrix(scenario, steps=list(steps), baselines=[ColdRestart(), RGR()]))
+    skipped: list = []
+    reports = run_matrix(
+        scenario, steps=list(steps), baselines=[ColdRestart(), RGR()],
+        on_skip=lambda k, name: skipped.append((k, name)),
+    )
+    if skipped:
+        print(f"\n[!] {len(skipped)} cell(s) SKIPPED — the injected crash never fired because the")
+        print(f"    model finished before the crash step: {skipped}")
+        print("    Recovery was NOT exercised in those cells, so they are not scored.")
+    if not reports:
+        print("\nNo scorable cells: the model completed the task before any injected crash, so")
+        print("recovery was never exercised. C1 cannot be evaluated on this task/model — the task")
+        print("is batchable. A non-batchable sequential task is required (claims registry / M2).")
+        print("\nHonest scope (ADR-0009): the live PIPELINE works (transcripts captured); the live")
+        print("EVIDENCE for C1–C5 is not obtainable on this benchmark task. Recorded, not buried.")
+        return
+    summary = aggregate(reports)
     print(format_table(summary))
     b0, b3 = summary.get("B0"), summary.get("B3")
     if b0 and b3:

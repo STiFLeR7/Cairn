@@ -51,6 +51,20 @@ class RunOutcome:
     result: Optional[RunResult] = None
 
 
+@dataclass
+class Injection:
+    """The result of `run_until_failure`: did the injected failure actually fire?
+
+    `fired` is False when the model completed (or stopped) *before* reaching step `k`, so
+    no failure was injected — scoring such a cell would measure a non-failure. `completed`
+    records whether the task finished anyway (the usual reason a crash never fires).
+    """
+
+    rt: object
+    fired: bool
+    completed: bool
+
+
 # --- external-effect model --------------------------------------------------
 def outbox_path(base_dir: str) -> str:
     return os.path.join(base_dir, "outbox.txt")
@@ -137,15 +151,25 @@ def run_reference(scenario: Scenario, base_dir: str) -> RunOutcome:
     )
 
 
-def run_until_failure(scenario: Scenario, base_dir: str, k: int, ftype: FailureType = FailureType.CRASH):
-    """Run with a failure injected at step `k`; leave the durable state on disk."""
+def run_until_failure(
+    scenario: Scenario, base_dir: str, k: int, ftype: FailureType = FailureType.CRASH
+) -> Injection:
+    """Run with a failure injected at step `k`; leave the durable state on disk.
+
+    Returns an `Injection` reporting whether the failure actually `fired`. It does **not**
+    fire if the model finishes before reaching step `k` (e.g. a real model that one-shots a
+    batchable task) — callers must not score such a cell as a recovery (see `run_matrix`).
+    """
     h, rt = harness_for(scenario, base_dir)
     if scenario.effect and scenario.effect.at_step == k:
         hook = _torn_then_crash_hook(scenario, rt, base_dir, k)
     else:
         hook = crash_after(k)
+    fired = False
     try:
         h.run(scenario.task_factory(), step_hook=hook)
     except InjectedFailure:
-        pass
-    return rt
+        fired = True
+    cwd = getattr(rt, "workspace_dir", "")
+    completed = bool(scenario.task_factory().is_complete(cwd)) if cwd else False
+    return Injection(rt=rt, fired=fired, completed=completed)

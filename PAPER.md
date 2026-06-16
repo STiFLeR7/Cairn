@@ -220,11 +220,14 @@ Effectful task, torn `check-before-retry` effect at k=2:
   testing is the primary future work.
 - **First live run (recorded honestly).** A pilot run through the live pipeline (a real model via
   OpenRouter, Milestone M1) validated that an LLM can drive the harness end-to-end, but did **not** validate
-  C1–C5: the multi-file task and its recovery metrics assume the mock's *one-action-per-step* cadence,
-  whereas the real model **batched all files into one action and finished before the injected crash**, so
-  recovery was never exercised and per-baseline outcomes were unstable across repetitions. The lesson — a
-  task must force **non-batchable sequential** steps, with metrics robust to action granularity, before live
-  evidence can speak to the claims — is the concrete next step (see the claims registry, 2026-06-16).
+  C1–C5: the multi-file task is *batchable*, so the real model created all files in one action and **finished
+  before the injected crash could fire** — recovery was never exercised. A systematic-debugging pass then
+  found that the failure-injection harness was **silently scoring these non-failures as valid recoveries**
+  (a deterministic probe showed a fabricated `task_success=True, recovery_tax=0`). This benchmark-integrity
+  bug is now fixed (`run_until_failure` reports whether the failure fired; `run_matrix` skips and reports
+  vacuous cells), so the live run honestly reports *"recovery not exercised"* rather than a misleading
+  number. The concrete next step (M2): a task that forces **non-batchable sequential** steps, with metrics
+  robust to a model's action granularity (see the claims registry, 2026-06-16).
 - **Failure types.** Only `crash` is faithfully realized; context-overflow, tool-timeout, and model-error
   are modeled as a typed stop-at-`k`.
 - **Restore-first resume.** Torn-write detection is reserved for a future crash-in-place mode (§5, ADR-0008 §7).
