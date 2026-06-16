@@ -39,7 +39,7 @@ python benchmarks/cross_version_resume.py # bench: cross-version resume
 
 ### Tests
 ```
-42 passed
+64 passed
 ```
 
 ### Recovery demo (`examples/recovery_demo.py`)
@@ -73,8 +73,31 @@ resumed under:      'model-B'
 resume success:     True
 ```
 
+## Live runs (Milestone M1 — in progress)
+
+The reproductions above use the **deterministic scripted mock** and need no network or key. Milestone M1
+adds the option to run against a **real LLM** behind the same harness ([ADR-0010](docs/adr/ADR-0010-live-model-provider-integration.md)):
+
+```bash
+python -m pip install -e ".[live]"   # optional 'anthropic' extra — not needed for anything above
+export ANTHROPIC_API_KEY=sk-...       # read from the env, never from source
+```
+
+A live run is made **auditable, re-runnable, and bounded** by the `cairn.live_controls` wrappers around the
+injected transport (`prompt -> reply`):
+
+- **`record_to(transport, path)`** — append every prompt/reply to a JSONL transcript.
+- **`replay_from_transcript(path)`** — replay a recorded run with **no network and no key** (deterministic,
+  independent of the model). This is how a published live study stays reproducible by anyone.
+- **`Budget(max_calls=…, max_chars=…)`** — stop a run before it exceeds a cost ceiling.
+
+> The live **study** itself (the failure-injection benchmark against a real model) is **AP-0040**, which is
+> gated on explicit approval because it spends on a paid API. Once run, its transcripts replay offline via
+> the above, and its evidence is recorded — honestly scoped — in the
+> [claims registry](docs/research/claims-registry.md).
+
 ## Scope
 
-These are **reference-harness** results (deterministic scripted mock), establishing that the mechanisms
-behave as designed and are reproducible — **not** a live-LLM study. See `PAPER.md` §9 and the
-[claims registry](docs/research/claims-registry.md) for the honest scope of each claim.
+The numbered reproductions are **reference-harness** results (deterministic scripted mock), establishing
+that the mechanisms behave as designed and are reproducible — **not** a live-LLM study. See `PAPER.md` §9 and
+the [claims registry](docs/research/claims-registry.md) for the honest scope of each claim.

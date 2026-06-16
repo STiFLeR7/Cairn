@@ -148,11 +148,17 @@ updates this file.
   `FINISH`), and an `anthropic_transport(*, model, ...)` factory — `model` injected (no default id), key from
   `$ANTHROPIC_API_KEY`, the `anthropic` SDK an optional `cairn[live]` extra imported lazily, fake-`client`
   injection for offline tests. ADR-0010 records the decision; nothing is hardcoded into the harness (ADR-0007).
+- `cairn.live_controls` (**AP-0039, `Done`**) — composable transport wrappers that make a live run auditable,
+  re-runnable, and bounded: `record_to` (JSONL prompt/reply transcript), `replay_transport` /
+  `replay_from_transcript` (FIFO-by-prompt-key replay, offline and key-free — deterministic independent of the
+  model), and `Budget`/`budgeted` (call/char ceiling → `BudgetExceeded` before overrun). `REPRODUCE.md` gains
+  a "Live runs" section; transcripts carry no secrets.
 
 ### Status (Milestone M1)
 - **Milestone M1 — Live-LLM Validation: in progress** (entered 2026-06-16). Branch
-  `milestone-1-live-llm-validation` off `master` (master stays clean, branch-per-phase). **AP-0038 `Done`**
-  (`cairn.model_live` + ADR-0010; `tests/test_model_live.py`, 10 offline tests → **`pytest -q` → 52 passed**;
-  core free of model-id/key literals). AP-0039 … AP-0042 `Accepted`. Goal: re-run the benchmark against real
-  LLMs and re-evaluate C1–C5 under genuine non-determinism; on success, unblock the v1.0 release/announcement
-  (still gated on explicit approval).
+  `milestone-1-live-llm-validation` off `master` (master stays clean, branch-per-phase). **AP-0038 + AP-0039
+  `Done`** (`cairn.model_live` + `cairn.live_controls` + ADR-0010; `tests/test_model_live.py` +
+  `tests/test_live_controls.py`, 22 offline tests → **`pytest -q` → 64 passed**; core free of model-id/key
+  literals). AP-0040 … AP-0042 `Accepted` — **AP-0040 (the live study) is gated** on explicit approval (paid
+  API). Goal: re-run the benchmark against real LLMs and re-evaluate C1–C5 under genuine non-determinism; on
+  success, unblock the v1.0 release/announcement (still gated on explicit approval).

@@ -2,7 +2,7 @@
 
 > Live rollup of all Action Points. **Phases 0–5** APs (AP-0001 … AP-0033) are committed and `Done`;
 > **Phase 6** (AP-0034 … AP-0037): AP-0034/0035 `Done`, AP-0036/0037 `Blocked` (deferred to M1's go/no-go).
-> **Milestone M1** (AP-0038 … AP-0042) entered 2026-06-16: AP-0038 `Done`, AP-0039 … AP-0042 `Accepted`.
+> **Milestone M1** (AP-0038 … AP-0042) entered 2026-06-16: AP-0038/0039 `Done`, AP-0040 … AP-0042 `Accepted`.
 > Last updated: 2026-06-16.
 
 **Status values:** Proposed · Accepted · In Progress · In Review · Done · Blocked · Superseded
@@ -84,7 +84,7 @@
 | ID | Title | Status |
 |---|---|---|
 | [AP-0038](../phases/milestone-1-live-llm-validation/action-points/AP-0038-live-model-providers.md) | Live LLM `ModelProvider` adapters (injected, no hardcoding) | Done |
-| [AP-0039](../phases/milestone-1-live-llm-validation/action-points/AP-0039-determinism-cost-repro.md) | Determinism, cost & reproducibility controls for live runs | Accepted |
+| [AP-0039](../phases/milestone-1-live-llm-validation/action-points/AP-0039-determinism-cost-repro.md) | Determinism, cost & reproducibility controls for live runs | Done |
 | [AP-0040](../phases/milestone-1-live-llm-validation/action-points/AP-0040-live-failure-injection-study.md) | Live failure-injection study (Phase 5 matrix, real model) | Accepted |
 | [AP-0041](../phases/milestone-1-live-llm-validation/action-points/AP-0041-live-results-claims-update.md) | Live results analysis & claims update (C1–C5) | Accepted |
 | [AP-0042](../phases/milestone-1-live-llm-validation/action-points/AP-0042-v1-go-no-go.md) | v1.0 go/no-go gate (unblock AP-0036/0037 on success) | Accepted |
