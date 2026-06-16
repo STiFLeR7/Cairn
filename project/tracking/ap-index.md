@@ -1,8 +1,8 @@
 # Action Point Index
 
 > Live rollup of all Action Points. **Phases 0–5** APs (AP-0001 … AP-0033) are committed and `Done`;
-> Phase 6 APs are *provisional* placeholders, refined when their phase is entered (see
-> [phase process](../../docs/governance/phase-process.md)). Last updated: 2026-06-15.
+> **Phase 6** (AP-0034 … AP-0037) is committed and in progress (release/announce gated on approval).
+> Last updated: 2026-06-15.
 
 **Status values:** Proposed · Accepted · In Progress · In Review · Done · Blocked · Superseded
 
@@ -69,11 +69,11 @@
 | [AP-0032](../phases/phase-5-evaluation/action-points/AP-0032-cross-version-resume.md) | Cross-version resume experiment | Done |
 | [AP-0033](../phases/phase-5-evaluation/action-points/AP-0033-results-aggregation.md) | Results aggregation & claims update | Done |
 
-## Phase 6 — Paper & Release *(provisional)*
+## Phase 6 — Paper & Release *(committed — entered 2026-06-15)*
 
 | ID | Title | Status |
 |---|---|---|
-| AP-0034 | Paper draft ("Checkpoints Are Compactions") | Proposed |
-| AP-0035 | Reproducibility package & artifact polish | Proposed |
-| AP-0036 | v1.0 OSS release (docs, examples, citation) | Proposed |
-| AP-0037 | Public positioning (README, announcement) | Proposed |
+| [AP-0034](../phases/phase-6-paper-release/action-points/AP-0034-paper-draft.md) | Paper draft ("Checkpoints Are Compactions") | Accepted |
+| [AP-0035](../phases/phase-6-paper-release/action-points/AP-0035-reproducibility-package.md) | Reproducibility package & artifact polish | Accepted |
+| [AP-0036](../phases/phase-6-paper-release/action-points/AP-0036-v1-release.md) | v1.0 OSS release (docs, examples, citation) — *release gated on approval* | Accepted |
+| [AP-0037](../phases/phase-6-paper-release/action-points/AP-0037-public-positioning.md) | Public positioning (README, announcement) — *posting gated on approval* | Accepted |
