@@ -13,8 +13,12 @@ harness → matrix → metrics); only the transport changes for a live run, and 
 replay offline.
 """
 
-import _bootstrap  # noqa: F401  (sys.path + UTF-8 stdout)
+try:
+    import _bootstrap  # noqa: F401  (sys.path + UTF-8 stdout when run as a script)
+except ModuleNotFoundError:
+    pass  # imported as a module (e.g. by tests) — paths already set by conftest/pythonpath
 
+import json
 import os
 
 from benchmarks.scenarios import (
@@ -25,6 +29,7 @@ from benchmarks.scenarios import (
 )
 from cairn.eval.baselines import ColdRestart, RGR
 from cairn.eval.runner import (
+    AxisStat,
     aggregate,
     aggregate_repeated,
     format_repeated_table,
@@ -81,65 +86,95 @@ def run_offline_repeated_study(repeats: int = 5) -> None:
     print(f"\nC1 (repeated, chain): {'SUPPORTED' if v['supported'] else 'NOT SHOWN'} — {v['reason']}")
 
 
+def _axisstat_to_dict(stat) -> dict:
+    return {"mean": stat.mean, "stdev": stat.stdev, "min": stat.min, "max": stat.max, "n": stat.n}
+
+
+def _stats_to_jsonable(stats: dict) -> dict:
+    out: dict = {}
+    for name, row in stats.items():
+        out[name] = {
+            k: (_axisstat_to_dict(v) if isinstance(v, AxisStat) else v) for k, v in row.items()
+        }
+    return out
+
+
 def run_live_study(
     model: str,
     *,
     provider: str = "openrouter",
     api_key_env: str = "OPENROUTER_API",
-    n: int = 4,
-    steps=(2,),
-    max_calls: int = 80,
-) -> None:
-    """The GATED real run (AP-0040): the recovery study against an actual model.
+    n: int = 6,
+    steps=(2, 3),
+    repeats: int = 3,
+    max_calls: int = 400,
+    transport=None,
+) -> dict:
+    """The GATED real run (AP-0046): the **non-batchable chain** recovery study, live + repeated.
 
-    Enabled by ``CAIRN_LIVE_MODEL`` (see ``main``). Wraps the real transport with a
-    transcript recorder (so the run replays offline) and a budget ceiling, then runs the
-    B0-vs-B3 recovery contrast live. Non-deterministic and metered — honest scope applies.
+    This is the run M1 could not produce — the chain task forces sequential steps, so an injected
+    crash genuinely fires and recovery is exercised. The real transport (built when `transport` is
+    None) is wrapped with a transcript recorder (replays offline) and a budget ceiling; for offline
+    validation a fake chain transport is injected directly. Runs the B0-vs-B3 contrast `repeats`
+    times with the AP-0045 harness, writes a manifest, and returns the verdict dict. Non-deterministic
+    and metered against a real model — honest scope (ADR-0009) applies; a negative is recorded.
     """
     os.makedirs("benchmarks/transcripts", exist_ok=True)
-    transcript = f"benchmarks/transcripts/{model.replace('/', '_')}-recovery-study.jsonl"
-    transport = build_live_transport(
-        model, provider=provider, api_key_env=api_key_env,
-        transcript_path=transcript, max_calls=max_calls,
-    )
-    print(f"=== LIVE recovery study — model={model} (provider={provider}) — n={n}, "
-          f"k={list(steps)}, B0 (cold restart) vs B3 (RGR) ===")
-    print(f"(non-deterministic + metered; transcripts -> {transcript})")
-    scenario = live_multi_file_scenario(n, transport)
-    skipped: list = []
-    reports = run_matrix(
-        scenario, steps=list(steps), baselines=[ColdRestart(), RGR()],
-        on_skip=lambda k, name: skipped.append((k, name)),
-    )
-    if skipped:
-        print(f"\n[!] {len(skipped)} cell(s) SKIPPED — the injected crash never fired because the")
-        print(f"    model finished before the crash step: {skipped}")
-        print("    Recovery was NOT exercised in those cells, so they are not scored.")
-    if not reports:
-        print("\nNo scorable cells: the model completed the task before any injected crash, so")
-        print("recovery was never exercised. C1 cannot be evaluated on this task/model — the task")
-        print("is batchable. A non-batchable sequential task is required (claims registry / M2).")
-        print("\nHonest scope (ADR-0009): the live PIPELINE works (transcripts captured); the live")
-        print("EVIDENCE for C1–C5 is not obtainable on this benchmark task. Recorded, not buried.")
-        return
-    summary = aggregate(reports)
-    print(format_table(summary))
-    b0, b3 = summary.get("B0"), summary.get("B3")
-    if b0 and b3:
-        # A verdict must require B3 to actually SUCCEED — lower tax on a failed task is not support.
-        c1 = (
-            b3["task_success"] >= 1.0
-            and b3["task_success"] >= b0["task_success"]
-            and b3["recovery_tax"] < b0["recovery_tax"]
-            and b3["no_regression"] >= b0["no_regression"]
+    slug = model.replace("/", "_")
+    transcript = f"benchmarks/transcripts/{slug}-chain-study.jsonl"
+    manifest_path = f"benchmarks/transcripts/{slug}-chain-study.manifest.json"
+    if transport is None:
+        transport = build_live_transport(
+            model, provider=provider, api_key_env=api_key_env,
+            transcript_path=transcript, max_calls=max_calls,
         )
-        print(f"\nC1 (LIVE, {model}): {'SUPPORTED' if c1 else 'NOT SHOWN'} "
-              f"— B3 success={b3['task_success']:.2f} tax={b3['recovery_tax']:.2f} vs "
-              f"B0 success={b0['task_success']:.2f} tax={b0['recovery_tax']:.2f}")
-        if not c1:
-            print("  (no clean verdict — see the honest-scope note and the claims registry)")
-    print("\nHonest scope (ADR-0009): a single free model, small n, few seeds — a demonstration")
-    print("that the live pipeline produces real evidence, not a powered statistical study.")
+    print(f"=== LIVE chain recovery study — model={model} (provider={provider}) — n={n}, "
+          f"k={list(steps)}, repeats={repeats}, B0 (cold restart) vs B3 (RGR) ===")
+    print(f"(non-batchable task; non-deterministic + metered; transcripts -> {transcript})")
+
+    scenario = live_chain_scenario(n, transport)
+    skipped: list = []
+    run = run_repeated(
+        scenario, steps=list(steps), baselines=[ColdRestart(), RGR()],
+        repeats=repeats, on_skip=lambda k, name: skipped.append((k, name)),
+    )
+    print(f"\nfired cells={run.fired}, skipped (vacuous)={run.skipped}")
+    if run.skipped:
+        print(f"[!] {run.skipped} cell(s) skipped — the model finished before the crash step "
+              f"(unexpected on a non-batchable task; the model may be misusing the oracle).")
+
+    stats = aggregate_repeated(run)
+    if stats:
+        print(format_repeated_table(stats))
+    verdict = verdict_c1(stats)
+    if run.fired == 0:
+        verdict = {"claim": "C1", "supported": False,
+                   "reason": "no cells fired live — the model did not drive the sequential task far "
+                             "enough for an injected crash to interrupt genuine progress"}
+    print(f"\nC1 (LIVE chain, {model}): {'SUPPORTED' if verdict['supported'] else 'NOT SHOWN'} "
+          f"— {verdict['reason']}")
+
+    manifest = {
+        "study": "M2-chain-live",
+        "model": model,
+        "provider": provider,
+        "task": f"non-batchable chain (n={n})",
+        "steps": list(steps),
+        "repeats": repeats,
+        "fired": run.fired,
+        "skipped": run.skipped,
+        "stats": _stats_to_jsonable(stats),
+        "c1_supported": verdict["supported"],
+        "c1_reason": verdict["reason"],
+        "scope": "live-LLM study (M2); single model, small n, few repeats — honest scope (ADR-0009)",
+    }
+    with open(manifest_path, "w", encoding="utf-8") as f:
+        json.dump(manifest, f, indent=2)
+    print(f"\nmanifest -> {manifest_path}")
+    print("Honest scope (ADR-0009): a single model, small n, few repeats — a demonstration that the")
+    print("live pipeline produces real, statistically-summarized evidence on a recovery-faithful task,")
+    print("not a powered study. C2/C4/C5 remain reference-harness; this run targets C1 (and C3 if wired).")
+    return verdict
 
 
 def main() -> None:

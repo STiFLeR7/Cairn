@@ -99,5 +99,5 @@
 | [AP-0043](../phases/milestone-2-recovery-faithful-benchmark/action-points/AP-0043-nonbatchable-sequential-task.md) | Non-batchable sequential benchmark task | Done |
 | [AP-0044](../phases/milestone-2-recovery-faithful-benchmark/action-points/AP-0044-action-granularity-metrics.md) | Action-granularity-robust recovery metrics | Done |
 | [AP-0045](../phases/milestone-2-recovery-faithful-benchmark/action-points/AP-0045-repetition-statistics-harness.md) | Repetition + statistics harness (injection-fired enforced) | Done |
-| [AP-0046](../phases/milestone-2-recovery-faithful-benchmark/action-points/AP-0046-live-rerun-claims-update.md) | Live re-run + claims update (C1–C5, with statistics) | Accepted |
+| [AP-0046](../phases/milestone-2-recovery-faithful-benchmark/action-points/AP-0046-live-rerun-claims-update.md) | Live re-run + claims update (C1–C5, with statistics) | In Progress *(runner wired + offline-validated; gated live run pending approval)* |
 | [AP-0047](../phases/milestone-2-recovery-faithful-benchmark/action-points/AP-0047-v1-go-no-go-take2.md) | v1.0 go/no-go, take 2 | Accepted |

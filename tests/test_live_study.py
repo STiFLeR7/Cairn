@@ -8,14 +8,18 @@ needed to run the paid study; that gated step is not executed here.
 
 from __future__ import annotations
 
+import json
+
 import pytest
 
 from benchmarks.scenarios import (
     build_live_transport,
+    fake_chain_transport,
     fake_multifile_transport,
     live_effectful_scenario,
     live_multi_file_scenario,
 )
+from benchmarks.live_study import run_live_study
 from cairn.eval.baselines import ColdRestart, RGR
 from cairn.eval.runner import aggregate, run_matrix
 from cairn.eval.scenario import run_reference
@@ -56,3 +60,18 @@ def test_build_live_transport_is_inert_without_key(monkeypatch):
     monkeypatch.delenv("ANTHROPIC_API_KEY", raising=False)
     with pytest.raises(LiveModelConfigError):
         build_live_transport("claude-some-model-id")
+
+
+def test_live_study_runs_on_chain_offline(tmp_path, monkeypatch):
+    """AP-0046 pipeline proof: run_live_study on the NON-BATCHABLE chain with an injected fake
+    transport (no key, no network). Crashes fire (nothing skipped), C1 is SUPPORTED with stats,
+    and an auditable manifest is written. The only change for the real run is the transport."""
+    monkeypatch.chdir(tmp_path)
+    verdict = run_live_study(
+        "fake/chain", transport=fake_chain_transport(6), n=6, steps=(2, 3), repeats=2
+    )
+    assert verdict["claim"] == "C1" and verdict["supported"] is True
+    manifest = tmp_path / "benchmarks" / "transcripts" / "fake_chain-chain-study.manifest.json"
+    assert manifest.exists()
+    data = json.loads(manifest.read_text(encoding="utf-8"))
+    assert data["fired"] == 8 and data["skipped"] == 0 and data["c1_supported"] is True
