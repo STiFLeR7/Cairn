@@ -120,13 +120,19 @@ def run_live_study(
     and metered against a real model — honest scope (ADR-0009) applies; a negative is recorded.
     """
     os.makedirs("benchmarks/transcripts", exist_ok=True)
-    slug = model.replace("/", "_")
+    # Sanitize the model id for a filename: '/' and ':' (e.g. "...:free") are illegal on Windows
+    # (':' silently opens an NTFS alternate data stream), so map every non-safe char to '_'.
+    slug = "".join(c if (c.isalnum() or c in "-.") else "_" for c in model)
     transcript = f"benchmarks/transcripts/{slug}-chain-study.jsonl"
     manifest_path = f"benchmarks/transcripts/{slug}-chain-study.manifest.json"
-    if transport is None:
+    # Record to a `.partial` and finalize on success: `record_to` truncates on wrap, so a
+    # crashing re-run (e.g. a rate-limit 429 mid-study) must NOT clobber a prior good transcript.
+    transcript_partial = transcript + ".partial"
+    recording = transport is None  # we only wire a transcript when we build the real transport
+    if recording:
         transport = build_live_transport(
             model, provider=provider, api_key_env=api_key_env,
-            transcript_path=transcript, max_calls=max_calls,
+            transcript_path=transcript_partial, max_calls=max_calls,
         )
     print(f"=== LIVE chain recovery study — model={model} (provider={provider}) — n={n}, "
           f"k={list(steps)}, repeats={repeats}, B0 (cold restart) vs B3 (RGR) ===")
@@ -170,6 +176,8 @@ def run_live_study(
     }
     with open(manifest_path, "w", encoding="utf-8") as f:
         json.dump(manifest, f, indent=2)
+    if recording and os.path.exists(transcript_partial):
+        os.replace(transcript_partial, transcript)  # finalize: only a completed run clobbers
     print(f"\nmanifest -> {manifest_path}")
     print("Honest scope (ADR-0009): a single model, small n, few repeats — a demonstration that the")
     print("live pipeline produces real, statistically-summarized evidence on a recovery-faithful task,")

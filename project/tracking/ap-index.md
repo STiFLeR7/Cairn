@@ -4,8 +4,9 @@
 > **Phase 6** (AP-0034 … AP-0037): AP-0034/0035 `Done`, AP-0036/0037 `Blocked` (deferred to M1's go/no-go).
 > **Milestone M1** (AP-0038 … AP-0042) complete & merged (PR #7) 2026-06-16: all five `Done`; **outcome
 > NO-GO**; project stays 0.x, AP-0036/0037 stay `Blocked`. **Milestone M2** (AP-0043 … AP-0047) entered
-> 2026-06-16: **AP-0043 + AP-0044 + AP-0045 `Done`**
-> (non-batchable chain task + work-unit metrics + repetition/statistics, 2026-06-23), AP-0046 + AP-0047 `Accepted`.
+> 2026-06-16: **AP-0043…AP-0046 `Done`**
+> (non-batchable chain + work-unit metrics + repetition/statistics + live run, 2026-06-23; live C1 **suggestive,
+> not confirmed** at n=2), AP-0047 `Accepted`.
 > Last updated: 2026-06-23.
 
 **Status values:** Proposed · Accepted · In Progress · In Review · Done · Blocked · Superseded
@@ -99,5 +100,5 @@
 | [AP-0043](../phases/milestone-2-recovery-faithful-benchmark/action-points/AP-0043-nonbatchable-sequential-task.md) | Non-batchable sequential benchmark task | Done |
 | [AP-0044](../phases/milestone-2-recovery-faithful-benchmark/action-points/AP-0044-action-granularity-metrics.md) | Action-granularity-robust recovery metrics | Done |
 | [AP-0045](../phases/milestone-2-recovery-faithful-benchmark/action-points/AP-0045-repetition-statistics-harness.md) | Repetition + statistics harness (injection-fired enforced) | Done |
-| [AP-0046](../phases/milestone-2-recovery-faithful-benchmark/action-points/AP-0046-live-rerun-claims-update.md) | Live re-run + claims update (C1–C5, with statistics) | In Progress *(runner wired + offline-validated; gated live run pending approval)* |
+| [AP-0046](../phases/milestone-2-recovery-faithful-benchmark/action-points/AP-0046-live-rerun-claims-update.md) | Live re-run + claims update (C1–C5, with statistics) | Done *(live run fired; C1 suggestive not confirmed at n=2; transcript regen rate-limited)* |
 | [AP-0047](../phases/milestone-2-recovery-faithful-benchmark/action-points/AP-0047-v1-go-no-go-take2.md) | v1.0 go/no-go, take 2 | Accepted |

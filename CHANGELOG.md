@@ -226,10 +226,35 @@ updates this file.
   work-unit means, vacuous-cell skipping, `verdict_c1` supported/not-supported, the `before_repeat` hook,
   and table rendering; plus a chain `solution_quality == 1.0` regression guard. Suite **90 → 98 passed**.
 
+- **AP-0046 — live re-run on the non-batchable task (`Done`, 2026-06-23).** Rewired
+  `benchmarks/live_study.py::run_live_study` onto the chain task (AP-0043) + repetition harness (AP-0045):
+  runs B0-vs-B3 `repeats` times, prints mean±spread + fired/skipped, computes `verdict_c1`, and writes an
+  auditable manifest. Validated offline (injected transport), then **run live (user-approved) against
+  `nvidia/nemotron-3-super-120b-a12b:free`** via OpenRouter. **The injected crash fired in all 4 cells
+  (skipped=0) — the M1 blocker is resolved**; recovery was exercised against a real model for the first time.
+  n=2 result: **B3/RGR 2/2 success, recovery_tax 1.0±0.0**; **B0/cold-restart 1/2, tax 2.5±2.5** — RGR
+  dominates on every axis mean and reliability, but the strict no-overlap verdict is **NOT SHOWN** (B0's
+  failed repeat has tax 0; n=2 underpowered). Recorded honestly as **C1 suggestive, not confirmed live**
+  (claims registry + `PAPER.md §9`, 2026-06-23); C2/C4/C5 stay reference-harness, C3 not wired.
+- **Live-path hardening (AP-0046).** `cairn.live_controls.retrying` — bounded exponential backoff on
+  *transient* failures (429/5xx, a stealth model's intermittent "Provider returned error"); permanent 4xx
+  (401/404) fail fast (`is_transient`). `run_live_study` now uses filesystem-safe model slugs (the `:free`
+  colon was opening an NTFS alternate data stream on Windows) and **records to a `.partial` transcript,
+  finalizing on success only** — a crashing re-run (e.g. a rate-limit 429 mid-study) can no longer clobber a
+  prior good transcript. `world_digest` exclusion (above) and these are general robustness fixes.
+  `tests/test_live_controls.py` +4 (retry recover / fail-fast / give-up / classification);
+  `tests/test_live_study.py::test_live_study_runs_on_chain_offline` proves the chain pipeline offline. Suite
+  **98 → 103 passed**.
+- **Honest limits recorded (ADR-0009).** The live run is **underpowered** (n=2, one crash point, one model);
+  a larger run was **blocked by the OpenRouter free-tier rate limit (HTTP 429)**, and the raw transcript was
+  lost to the truncation footgun *before* it was fixed (the manifest survived as the citable artifact).
+  `nemotron-3-ultra-550b` was unusable (gateway 504). A **powered** live study remains the gate for any
+  C1-confirmed-live claim; **v1.0 stays held**.
+
 ### Status (Milestone M2)
-- **Milestone M2 — Recovery-faithful live benchmark: in progress** (entered 2026-06-16; **AP-0043 + AP-0044
-  + AP-0045 `Done`** 2026-06-23, 3 / 5). Branch `milestone-2-recovery-faithful-benchmark` off `master` (M1
-  merged via PR #7, `0e39b5c`). AP-0046 + AP-0047 `Accepted`. AP-0036/0037 remain `Blocked`, now gated on
+- **Milestone M2 — Recovery-faithful live benchmark: in progress** (entered 2026-06-16; **AP-0043…AP-0046
+  `Done`** 2026-06-23, 4 / 5). Branch `milestone-2-recovery-faithful-benchmark` off `master` (M1 merged via
+  PR #7, `0e39b5c`). AP-0047 `Accepted` (v1.0 go/no-go take 2). AP-0036/0037 remain `Blocked`, now gated on
   M2's go/no-go.
 
 ### Fixed (Milestone M1, systematic-debugging pass)

@@ -13,7 +13,7 @@
 | 5 | Evaluation & Benchmark | 🟢 Complete (merged) | 6 / 6 |
 | 6 | Paper & Release | 🟢 Core done (release deferred to M1) | 2 / 4 |
 | M1 | Live-LLM Validation | 🟢 Complete & merged (outcome: **NO-GO**; stays 0.x) | 5 / 5 |
-| M2 | Recovery-faithful live benchmark | 🟡 In Progress | 3 / 5 |
+| M2 | Recovery-faithful live benchmark | 🟡 In Progress | 4 / 5 |
 
 **Legend:** ⬜ Not started · 🟡 In Progress · 🟢 Complete · 🔴 Blocked
 
@@ -54,7 +54,16 @@ evidence and B3 success in every repeat. Offline repeated study on the non-batch
 into `live_study.py` (the exact machinery AP-0046 runs live). Hygiene fix: `world_digest` now
 excludes Python bytecode caches (a `.pyc` from importing the planted oracle was dropping
 solution_quality to 0.67 and risking spurious torn-write detection). **98 tests** (90 → 98).
-Next: AP-0046 (live re-run + claims update) — the gated, metered live run.
+
+**AP-0046 `Done` (2026-06-23):** the gated live run, **executed** against
+`nvidia/nemotron-3-super-120b-a12b:free` (OpenRouter). **The injected crash fired in all 4 cells
+(skipped=0) — the M1 blocker is resolved**; recovery was exercised against a real model for the first
+time. At n=2: **B3/RGR 2/2 success, tax 1.0±0.0**; **B0/cold-restart 1/2, tax 2.5±2.5**. RGR dominates on
+means + reliability, but the strict verdict is **NOT SHOWN** (B0's failed run has tax 0; n=2 underpowered)
+→ recorded honestly as **C1 suggestive, not confirmed live**. Claims registry + PAPER §9 updated. Live-path
+hardening: `retrying` control (backoff on transient 429/5xx), filesystem-safe slugs, record-to-`.partial`-then-
+finalize. Partial deliverable: raw transcript lost to the (now-fixed) truncation footgun; manifest persisted;
+a powered re-run is **rate-limited (HTTP 429)**. **103 tests** (98 → 103). Next: AP-0047 (v1.0 go/no-go take 2).
 
 ## Prior milestone: M1 — Live-LLM Validation (complete & merged 2026-06-16 — outcome NO-GO)
 

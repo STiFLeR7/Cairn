@@ -12,7 +12,7 @@ from typing import Optional
 
 from cairn.eval.chain import Chain, render_oracle_module
 from cairn.eval.scenario import EffectSpec, Scenario
-from cairn.live_controls import Budget, record_to
+from cairn.live_controls import Budget, record_to, retrying
 from cairn.model import CODE, Action
 from cairn.model_live import LiveModelProvider, Transport, anthropic_transport, openrouter_transport
 from cairn.model_mock import ScriptableMockModel
@@ -275,6 +275,7 @@ def build_live_transport(
         transport = openrouter_transport(model=model, **kw)
     else:
         raise ValueError(f"unknown provider {provider!r} (expected 'anthropic' or 'openrouter')")
+    transport = retrying(transport)  # innermost: tolerate transient provider 429/5xx/"error" hiccups
     if transcript_path:
         transport = record_to(transport, transcript_path, model_version=model)
     if max_calls is not None or max_chars is not None:
