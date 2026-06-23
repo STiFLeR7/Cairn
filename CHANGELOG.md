@@ -207,10 +207,30 @@ updates this file.
   end-to-end `recovery_tax == W - work_at_crash` assertion added on the chain. `recovery-fidelity.md` §2a
   documents the definitions and traces them to M1. Suite **88 → 90 passed**.
 
+- **AP-0045 — repetition + statistics harness (`Done`, 2026-06-23).** `run_repeated(scenario, steps,
+  baselines, *, repeats, base_factory, on_skip, before_repeat)` runs the matrix `N` times (each a full
+  `run_matrix` pass, so the reference is re-run per repeat and the M1 injection-fired skip is enforced),
+  returning `RepeatedRun(reports, fired, skipped, repeats, …)`. `aggregate_repeated` → per-baseline
+  `AxisStat(mean, stdev, min, max, n)` per axis (population stdev, 0 for a deterministic model) +
+  `effect_duplicates_total` + `gate_pass_rate`; vacuous cells are excluded (all-skipped → `{}`).
+  `verdict_c1(summary)` reports "supported" only with consistent evidence: both B0/B3 fired, B3 completes
+  the task in *every* repetition, B3 recovery tax strictly lower with no overlap (`B3.tax.max < B0.tax.min`),
+  and B3 ≥ B0 on mean no-regression. `before_repeat(i)` is the live-reseed seam; `format_repeated_table`
+  renders mean±spread. An offline repeated study on the **non-batchable chain** is wired into
+  `benchmarks/live_study.py` (`run_offline_repeated_study`) — the exact machinery AP-0046 runs live.
+- **Benchmark-hygiene fix (`world_digest`).** Python bytecode caches (`__pycache__`, `.pyc`/`.pyo`) are now
+  excluded from the workspace digest. Importing a planted workspace module (the chain `oracle`) creates a
+  `.pyc` with a non-reproducible header that dropped `solution_quality` to 0.67 and could trigger spurious
+  torn-write detection on resume; excluded, the recovered chain matches the reference exactly (1.0).
+- `tests/test_eval_repetition.py` (8): N-per-cell repetition, zero spread on the deterministic chain,
+  work-unit means, vacuous-cell skipping, `verdict_c1` supported/not-supported, the `before_repeat` hook,
+  and table rendering; plus a chain `solution_quality == 1.0` regression guard. Suite **90 → 98 passed**.
+
 ### Status (Milestone M2)
 - **Milestone M2 — Recovery-faithful live benchmark: in progress** (entered 2026-06-16; **AP-0043 + AP-0044
-  `Done`** 2026-06-23, 2 / 5). Branch `milestone-2-recovery-faithful-benchmark` off `master` (M1 merged via
-  PR #7, `0e39b5c`). AP-0045 … AP-0047 `Accepted`. AP-0036/0037 remain `Blocked`, now gated on M2's go/no-go.
+  + AP-0045 `Done`** 2026-06-23, 3 / 5). Branch `milestone-2-recovery-faithful-benchmark` off `master` (M1
+  merged via PR #7, `0e39b5c`). AP-0046 + AP-0047 `Accepted`. AP-0036/0037 remain `Blocked`, now gated on
+  M2's go/no-go.
 
 ### Fixed (Milestone M1, systematic-debugging pass)
 - **Failure-injection integrity bug.** `run_until_failure` did not verify the injected crash actually fired;

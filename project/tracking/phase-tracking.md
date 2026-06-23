@@ -13,7 +13,7 @@
 | 5 | Evaluation & Benchmark | 🟢 Complete (merged) | 6 / 6 |
 | 6 | Paper & Release | 🟢 Core done (release deferred to M1) | 2 / 4 |
 | M1 | Live-LLM Validation | 🟢 Complete & merged (outcome: **NO-GO**; stays 0.x) | 5 / 5 |
-| M2 | Recovery-faithful live benchmark | 🟡 In Progress | 2 / 5 |
+| M2 | Recovery-faithful live benchmark | 🟡 In Progress | 3 / 5 |
 
 **Legend:** ⬜ Not started · 🟡 In Progress · 🟢 Complete · 🔴 Blocked
 
@@ -45,7 +45,16 @@ A `Task.progress(workspace)` oracle (chain `pos` / file count) feeds `no_regress
 `Injection.work_at_crash`; unitless tasks fall back to the old action/`k` form. The chain pins one
 unit per action, so deterministic C1/C5 numbers are unchanged while the definition is now
 granularity-robust (traced to the M1 finding in `recovery-fidelity.md` §2a). **90 tests** (88 → 90).
-Next: AP-0045 (repetition + statistics harness).
+
+**AP-0045 `Done` (2026-06-23):** repetition + statistics. `run_repeated(..., repeats=N, before_repeat=)`
+runs the matrix N times (each a full `run_matrix`, so the M1 injection-fired skip holds);
+`aggregate_repeated` → per-baseline `AxisStat(mean, stdev, min, max, n)` + fired/skipped counts
+(vacuous cells excluded → `{}`). `verdict_c1` is "supported" only with consistent, no-overlap
+evidence and B3 success in every repeat. Offline repeated study on the non-batchable chain wired
+into `live_study.py` (the exact machinery AP-0046 runs live). Hygiene fix: `world_digest` now
+excludes Python bytecode caches (a `.pyc` from importing the planted oracle was dropping
+solution_quality to 0.67 and risking spurious torn-write detection). **98 tests** (90 → 98).
+Next: AP-0046 (live re-run + claims update) — the gated, metered live run.
 
 ## Prior milestone: M1 — Live-LLM Validation (complete & merged 2026-06-16 — outcome NO-GO)
 

@@ -6,7 +6,9 @@ uninterrupted reference run, and aggregates per-baseline summaries.
 
 from __future__ import annotations
 
+import statistics
 import tempfile
+from dataclasses import dataclass
 from typing import Callable, Optional
 
 from .baselines import ALL_BASELINES
@@ -62,6 +64,160 @@ def aggregate(reports: list[RecoveryReport]) -> dict:
             "gate_pass_rate": sum(1 for x in rs if x.passes_gate) / n,
         }
     return summary
+
+
+# --- repetition + statistics (AP-0045) --------------------------------------
+# A non-deterministic real model yields a *distribution* per cell, not one number. Repeat each
+# cell N times and report mean +/- spread, carrying forward the M1 integrity fix: vacuous cells
+# (the injected crash never fired) are skipped and counted, never averaged into the signal.
+
+
+@dataclass
+class AxisStat:
+    """Summary of one fidelity axis across repetitions."""
+
+    mean: float
+    stdev: float       # population stdev (0.0 for a deterministic model / single sample)
+    min: float
+    max: float
+    n: int
+
+    def __str__(self) -> str:
+        return f"{self.mean:.2f}+/-{self.stdev:.2f}"
+
+
+def _axis_stat(values: list[float]) -> AxisStat:
+    n = len(values)
+    if n == 0:
+        return AxisStat(0.0, 0.0, 0.0, 0.0, 0)
+    return AxisStat(
+        mean=sum(values) / n,
+        stdev=statistics.pstdev(values) if n > 1 else 0.0,
+        min=min(values),
+        max=max(values),
+        n=n,
+    )
+
+
+@dataclass
+class RepeatedRun:
+    """The raw result of repeating the matrix: every *fired* report, plus fired/skipped counts."""
+
+    reports: list[RecoveryReport]
+    fired: int
+    skipped: int
+    repeats: int
+    steps: list[int]
+    baselines: list[str]
+
+
+def run_repeated(
+    scenario,
+    steps,
+    baselines=ALL_BASELINES,
+    *,
+    repeats: int = 5,
+    base_factory: Callable[[], str] = tempfile.mkdtemp,
+    on_skip: Optional[Callable[[int, str], None]] = None,
+    before_repeat: Optional[Callable[[int], None]] = None,
+) -> RepeatedRun:
+    """Run the (step x baseline) matrix `repeats` times and collect all fired reports.
+
+    Each repeat is a full `run_matrix` pass (so the reference is re-run per repeat — correct for
+    a non-deterministic model — and the injection-fired skip is enforced). `before_repeat(i)` is
+    an optional seam for a live runner to vary a seed / temperature between repeats; deterministic
+    scenarios ignore it and simply reproduce identical results (spread 0). Skipped (vacuous) cells
+    are counted and reported via `on_skip`, never scored.
+    """
+    all_reports: list[RecoveryReport] = []
+    skipped = 0
+
+    def _count_skip(k: int, name: str) -> None:
+        nonlocal skipped
+        skipped += 1
+        if on_skip is not None:
+            on_skip(k, name)
+
+    for i in range(repeats):
+        if before_repeat is not None:
+            before_repeat(i)
+        all_reports.extend(
+            run_matrix(scenario, steps, baselines, base_factory=base_factory, on_skip=_count_skip)
+        )
+
+    return RepeatedRun(
+        reports=all_reports,
+        fired=len(all_reports),
+        skipped=skipped,
+        repeats=repeats,
+        steps=list(steps),
+        baselines=[b.name for b in baselines],
+    )
+
+
+def aggregate_repeated(run: RepeatedRun) -> dict:
+    """Per-baseline mean +/- spread over all fired repetitions (vacuous cells already excluded)."""
+    by: dict[str, list[RecoveryReport]] = {}
+    for r in run.reports:
+        by.setdefault(r.baseline, []).append(r)
+    summary: dict[str, dict] = {}
+    for name, rs in by.items():
+        summary[name] = {
+            "n": len(rs),
+            "task_success": _axis_stat([float(x.task_success) for x in rs]),
+            "solution_quality": _axis_stat([x.solution_quality for x in rs]),
+            "no_regression": _axis_stat([x.no_regression for x in rs]),
+            "recovery_tax": _axis_stat([float(x.recovery_tax) for x in rs]),
+            "effect_duplicates_total": sum(x.effect_duplicates for x in rs),
+            "gate_pass_rate": sum(1 for x in rs if x.passes_gate) / len(rs),
+        }
+    return summary
+
+
+def verdict_c1(summary: dict) -> dict:
+    """C1 (RGR beats cold restart) — `supported` only with *consistent* evidence across repeats.
+
+    Requires: both B0 and B3 have fired cells; B3 completes the task in **every** repetition
+    (`task_success.min == 1.0`); B3's recovery tax is strictly lower than B0's with **no overlap**
+    across repetitions (`B3.tax.max < B0.tax.min`); and B3 preserves at least as much pre-failure
+    work on average (`B3.no_regression.mean >= B0.no_regression.mean`). A lower tax on a *failed*
+    task is never support. Returns a structured verdict (claim, supported, reason, key numbers).
+    """
+    b0, b3 = summary.get("B0"), summary.get("B3")
+    if not b0 or not b3 or b3["n"] == 0 or b0["n"] == 0:
+        return {"claim": "C1", "supported": False,
+                "reason": "no fired B0/B3 cells to compare (task may be batchable for this model)"}
+    if b3["task_success"].min < 1.0:
+        return {"claim": "C1", "supported": False,
+                "reason": f"B3 did not complete the task in every repetition "
+                          f"(success min={b3['task_success'].min:.2f})"}
+    tax_consistent = b3["recovery_tax"].max < b0["recovery_tax"].min
+    reg_ok = b3["no_regression"].mean >= b0["no_regression"].mean
+    supported = bool(tax_consistent and reg_ok)
+    reason = (
+        f"B3 tax {b3['recovery_tax']} (max {b3['recovery_tax'].max:.2f}) "
+        f"{'<' if tax_consistent else '!<'} B0 tax {b0['recovery_tax']} (min {b0['recovery_tax'].min:.2f}); "
+        f"B3 no-regression {b3['no_regression']} {'>=' if reg_ok else '<'} B0 {b0['no_regression']}; "
+        f"B3 success {b3['task_success']}"
+    )
+    return {"claim": "C1", "supported": supported, "reason": reason,
+            "b3_tax": b3["recovery_tax"], "b0_tax": b0["recovery_tax"]}
+
+
+def format_repeated_table(summary: dict) -> str:
+    """Render the per-baseline mean+/-spread summary (the repeated counterpart of `format_table`)."""
+    cols = ["n", "task_success", "solution_quality", "no_regression", "recovery_tax",
+            "effect_duplicates_total", "gate_pass_rate"]
+    head = "baseline | " + " | ".join(cols)
+    lines = [head, "-" * len(head)]
+    for name in sorted(summary):
+        row = summary[name]
+        cells = []
+        for c in cols:
+            v = row[c]
+            cells.append(f"{v:.2f}" if isinstance(v, float) else str(v))
+        lines.append(f"{name:>8} | " + " | ".join(cells))
+    return "\n".join(lines)
 
 
 def format_table(summary: dict) -> str:

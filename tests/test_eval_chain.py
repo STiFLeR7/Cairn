@@ -129,3 +129,6 @@ def test_recovery_tax_is_measured_in_work_units():
     by = {r.baseline: r for r in reports}
     assert by["B3"].recovery_tax == 2 and by["B3"].no_regression == 1.0  # W - work_at_crash = 6 - 4
     assert by["B0"].recovery_tax == 6 and by["B0"].no_regression == 0.0  # full redo
+    # Bytecode caches (__pycache__/*.pyc from importing the planted oracle) are excluded from the
+    # digest, so the recovered chain artifacts match the reference exactly.
+    assert by["B3"].solution_quality == 1.0 and by["B0"].solution_quality == 1.0

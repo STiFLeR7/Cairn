@@ -19,11 +19,20 @@ import os
 
 from benchmarks.scenarios import (
     build_live_transport,
+    live_chain_scenario,
     live_effectful_scenario,
     live_multi_file_scenario,
 )
 from cairn.eval.baselines import ColdRestart, RGR
-from cairn.eval.runner import aggregate, format_table, run_matrix
+from cairn.eval.runner import (
+    aggregate,
+    aggregate_repeated,
+    format_repeated_table,
+    format_table,
+    run_matrix,
+    run_repeated,
+    verdict_c1,
+)
 
 
 def run_offline_study() -> None:
@@ -49,6 +58,27 @@ def run_offline_study() -> None:
         f"— B3 duplicates={by['B3'].effect_duplicates} (gate {'PASS' if by['B3'].passes_gate else 'FAIL'}); "
         f"B0 duplicates={by['B0'].effect_duplicates} (gate {'PASS' if by['B0'].passes_gate else 'FAIL'})"
     )
+
+    run_offline_repeated_study()
+
+
+def run_offline_repeated_study(repeats: int = 5) -> None:
+    """AP-0045 demonstration: the **non-batchable chain** task (AP-0043) run with repetitions and
+    statistics. Offline the model is deterministic, so the spread is 0 and the verdict is clean —
+    this is the exact machinery AP-0046 uses live (only the transport changes), where repeats
+    capture the real model's non-determinism."""
+    print(f"\n=== Repeated recovery study on the NON-BATCHABLE chain (OFFLINE) — "
+          f"n=6, k=2,3, repeats={repeats} ===")
+    skipped: list = []
+    run = run_repeated(
+        live_chain_scenario(6), steps=[2, 3], baselines=[ColdRestart(), RGR()],
+        repeats=repeats, on_skip=lambda k, name: skipped.append((k, name)),
+    )
+    print(f"fired cells={run.fired}, skipped (vacuous)={run.skipped}")
+    stats = aggregate_repeated(run)
+    print(format_repeated_table(stats))
+    v = verdict_c1(stats)
+    print(f"\nC1 (repeated, chain): {'SUPPORTED' if v['supported'] else 'NOT SHOWN'} — {v['reason']}")
 
 
 def run_live_study(
