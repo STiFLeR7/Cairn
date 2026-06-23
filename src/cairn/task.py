@@ -6,6 +6,7 @@ Tasks are injected; the harness knows nothing about any concrete task.
 from __future__ import annotations
 
 from abc import ABC, abstractmethod
+from typing import Optional
 
 
 class Task(ABC):
@@ -17,6 +18,16 @@ class Task(ABC):
     @abstractmethod
     def is_complete(self, workspace: str) -> bool:
         """Success oracle: inspect the workspace and report whether the task is done."""
+
+    def progress(self, workspace: str) -> Optional[int]:
+        """Completed **work units** in `workspace`, or `None` if the task has no unit notion.
+
+        A work unit is a task-defined increment of genuine progress (e.g. a committed chain
+        link, a produced artifact) — *not* a model action. Recovery metrics use this so they
+        measure recovery in progress, robust to how coarsely or finely a model chunks its
+        actions (AP-0044). `None` falls back to action-count-based scoring.
+        """
+        return None
 
     def setup(self, workspace: str) -> None:
         """Prepare the task environment in `workspace` before the agent runs (default: no-op).

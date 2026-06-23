@@ -15,11 +15,23 @@ def test_solution_quality_full_and_partial():
     assert solution_quality(half, _Ref()) == 0.5
 
 
-def test_no_regression_cold_restart_vs_rgr():
-    # task of 4 steps, failure after k=2 → 2 steps genuinely remain.
-    assert no_regression(executed=4, n_steps=4, k=2) == 0.0   # B0 redid both pre-failure steps
-    assert no_regression(executed=2, n_steps=4, k=2) == 1.0   # B3 redid none
-    assert no_regression(executed=3, n_steps=4, k=2) == 0.5   # redid one
+def test_no_regression_in_work_units():
+    # AP-0044: no_regression is defined in WORK UNITS, not actions. 4-unit task, 2 units done
+    # at the crash → 2 units genuinely remain.
+    assert no_regression(recovery_units=4, work_at_crash=2, total_units=4) == 0.0  # B0 redid both
+    assert no_regression(recovery_units=2, work_at_crash=2, total_units=4) == 1.0  # B3 redid none
+    assert no_regression(recovery_units=3, work_at_crash=2, total_units=4) == 0.5  # redid one
+
+
+def test_no_regression_is_action_granularity_robust():
+    # The score depends only on work units, so a clean recovery (does exactly the genuinely
+    # remaining units, redoes none) is 1.0 at any unit scale — independent of how many model
+    # actions those units took. This is the property M1 lacked.
+    assert no_regression(recovery_units=2, work_at_crash=2, total_units=4) == 1.0  # 2 remain, did 2
+    assert no_regression(recovery_units=3, work_at_crash=3, total_units=6) == 1.0  # 3 remain, did 3
+    # A from-scratch redo is full regression (0.0) at any unit scale.
+    assert no_regression(recovery_units=4, work_at_crash=2, total_units=4) == 0.0  # redid the 2
+    assert no_regression(recovery_units=5, work_at_crash=5, total_units=5) == 0.0  # redid all 5
 
 
 def test_effect_safety_is_a_hard_gate():

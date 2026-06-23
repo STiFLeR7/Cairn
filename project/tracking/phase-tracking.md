@@ -13,7 +13,7 @@
 | 5 | Evaluation & Benchmark | 🟢 Complete (merged) | 6 / 6 |
 | 6 | Paper & Release | 🟢 Core done (release deferred to M1) | 2 / 4 |
 | M1 | Live-LLM Validation | 🟢 Complete & merged (outcome: **NO-GO**; stays 0.x) | 5 / 5 |
-| M2 | Recovery-faithful live benchmark | 🟡 In Progress | 1 / 5 |
+| M2 | Recovery-faithful live benchmark | 🟡 In Progress | 2 / 5 |
 
 **Legend:** ⬜ Not started · 🟡 In Progress · 🟢 Complete · 🔴 Blocked
 
@@ -36,7 +36,16 @@ default-no-op `Task.setup(workspace)` hook lets a task re-plant its environment 
 recovery (the agent's progress stays what RGR restores). `ChainTask` + `chain_scenario` +
 live-fake/batching transports wired in `benchmarks/scenarios.py`; `tests/test_eval_chain.py`
 (8) prove batching-impossible and that B3/RGR recovers cheaper than B0/cold-restart. **88
-tests** (80 → 88). Next: AP-0044 (action-granularity-robust metrics).
+tests** (80 → 88).
+
+**AP-0044 `Done` (2026-06-23):** recovery metrics now measured in **work units**, not actions.
+A `Task.progress(workspace)` oracle (chain `pos` / file count) feeds `no_regression` and
+`recovery_tax`: `redone = max(0, recovery_units - (W - work_at_crash))`,
+`no_regression = 1 - redone/work_at_crash`. Plumbed via `RunOutcome.work_units` +
+`Injection.work_at_crash`; unitless tasks fall back to the old action/`k` form. The chain pins one
+unit per action, so deterministic C1/C5 numbers are unchanged while the definition is now
+granularity-robust (traced to the M1 finding in `recovery-fidelity.md` §2a). **90 tests** (88 → 90).
+Next: AP-0045 (repetition + statistics harness).
 
 ## Prior milestone: M1 — Live-LLM Validation (complete & merged 2026-06-16 — outcome NO-GO)
 

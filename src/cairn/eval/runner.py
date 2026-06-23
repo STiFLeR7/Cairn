@@ -40,7 +40,9 @@ def run_matrix(
                     on_skip(k, b.name)
                 continue
             outcome = b.recover(scenario, base)
-            reports.append(score(scenario, k, b.name, outcome, reference))
+            reports.append(
+                score(scenario, k, b.name, outcome, reference, work_at_crash=injection.work_at_crash)
+            )
     return reports
 
 

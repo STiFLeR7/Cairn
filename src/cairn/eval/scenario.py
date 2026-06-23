@@ -49,6 +49,7 @@ class RunOutcome:
     final_digest: dict
     outbox_count: int
     result: Optional[RunResult] = None
+    work_units: Optional[int] = None  # completed work units (task.progress), None if unitless
 
 
 @dataclass
@@ -63,6 +64,7 @@ class Injection:
     rt: object
     fired: bool
     completed: bool
+    work_at_crash: Optional[int] = None  # work units completed when the failure hit (task.progress)
 
 
 # --- external-effect model --------------------------------------------------
@@ -148,6 +150,7 @@ def run_reference(scenario: Scenario, base_dir: str) -> RunOutcome:
         final_digest=world_digest(rt.workspace_dir),
         outbox_count=outbox_count(base_dir),
         result=res,
+        work_units=scenario.task_factory().progress(rt.workspace_dir),  # W: total work units
     )
 
 
@@ -171,5 +174,7 @@ def run_until_failure(
     except InjectedFailure:
         fired = True
     cwd = getattr(rt, "workspace_dir", "")
-    completed = bool(scenario.task_factory().is_complete(cwd)) if cwd else False
-    return Injection(rt=rt, fired=fired, completed=completed)
+    task = scenario.task_factory()
+    completed = bool(task.is_complete(cwd)) if cwd else False
+    work_at_crash = task.progress(cwd) if cwd else None
+    return Injection(rt=rt, fired=fired, completed=completed, work_at_crash=work_at_crash)

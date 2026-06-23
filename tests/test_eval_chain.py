@@ -119,3 +119,13 @@ def test_rgr_recovers_cheaper_than_cold_restart():
     assert by["B3"].task_success and by["B0"].task_success
     assert by["B3"].recovery_tax < by["B0"].recovery_tax
     assert by["B3"].no_regression > by["B0"].no_regression
+
+
+def test_recovery_tax_is_measured_in_work_units():
+    """AP-0044: the chain pins one work unit (link) per action, so recovery_tax is exactly the
+    work units (re)done. Crash at step 3 commits 4 links (pos==4) of a 6-link chain, so RGR
+    must redo only the 2 genuinely-remaining links, while cold restart redoes all 6."""
+    reports = run_matrix(chain_scenario(6), steps=[3], baselines=[ColdRestart(), RGR()])
+    by = {r.baseline: r for r in reports}
+    assert by["B3"].recovery_tax == 2 and by["B3"].no_regression == 1.0  # W - work_at_crash = 6 - 4
+    assert by["B0"].recovery_tax == 6 and by["B0"].no_regression == 0.0  # full redo

@@ -193,11 +193,24 @@ updates this file.
 - `tests/test_eval_chain.py` (8): per-process guard, batching-impossible vs. completing step-by-step run,
   fired crash leaving genuine partial progress, and B3 (RGR) recovering with lower `recovery_tax` + higher
   `no_regression` than B0 (cold restart). Suite **80 → 88 passed**.
+- **AP-0044 — action-granularity-robust recovery metrics (`Done`, 2026-06-23).** `no_regression` and
+  `recovery_tax` are now defined in **work units** (a task-defined progress increment), not model actions —
+  the M1 finding showed action-count metrics are meaningless when a real model chunks work differently than
+  the scripted mock. New `Task.progress(workspace) -> Optional[int]` oracle (default `None`; `ChainTask` →
+  chain `pos`, `MultiFileTask` → file count). `no_regression(recovery_units, work_at_crash, total_units)`
+  scores genuinely-remaining vs. redone units; `recovery_tax` is the work-unit count. Measurements plumbed
+  via `RunOutcome.work_units` (reference `W` + each baseline's final units) and `Injection.work_at_crash`
+  (progress when the crash fired); `score(...)` threads `work_at_crash` through `runner` and `ablation`. The
+  non-batchable chain pins one unit per action, so the deterministic C1 matrix and C5 ablation numbers are
+  unchanged; a unitless task falls back to the original action/`k` form. `tests/test_eval_metrics.py`
+  rewritten to the work-unit signature (with rationale) + a granularity-robustness test; an exact
+  end-to-end `recovery_tax == W - work_at_crash` assertion added on the chain. `recovery-fidelity.md` §2a
+  documents the definitions and traces them to M1. Suite **88 → 90 passed**.
 
 ### Status (Milestone M2)
-- **Milestone M2 — Recovery-faithful live benchmark: in progress** (entered 2026-06-16; **AP-0043 `Done`**
-  2026-06-23, 1 / 5). Branch `milestone-2-recovery-faithful-benchmark` off `master` (M1 merged via PR #7,
-  `0e39b5c`). AP-0044 … AP-0047 `Accepted`. AP-0036/0037 remain `Blocked`, now gated on M2's go/no-go.
+- **Milestone M2 — Recovery-faithful live benchmark: in progress** (entered 2026-06-16; **AP-0043 + AP-0044
+  `Done`** 2026-06-23, 2 / 5). Branch `milestone-2-recovery-faithful-benchmark` off `master` (M1 merged via
+  PR #7, `0e39b5c`). AP-0045 … AP-0047 `Accepted`. AP-0036/0037 remain `Blocked`, now gated on M2's go/no-go.
 
 ### Fixed (Milestone M1, systematic-debugging pass)
 - **Failure-injection integrity bug.** `run_until_failure` did not verify the injected crash actually fired;

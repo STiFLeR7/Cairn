@@ -30,6 +30,10 @@ class MultiFileTask(Task):
     def is_complete(self, workspace):
         return all(os.path.isfile(os.path.join(workspace, n)) for n in self.names)
 
+    def progress(self, workspace):
+        # Work unit = one produced file (independent of how the model batches the writes).
+        return sum(1 for n in self.names if os.path.isfile(os.path.join(workspace, n)))
+
 
 # --- non-batchable sequential task (Milestone M2, AP-0043) ------------------
 # A hash-chain task: step N+1's required input (the next token) only exists after step N
@@ -63,6 +67,11 @@ class ChainTask(Task):
 
     def is_complete(self, workspace):
         return Chain(self.salt, os.path.join(workspace, "chain_state.json")).is_complete(self.n)
+
+    def progress(self, workspace):
+        # Work unit = one committed chain link. The per-process guard pins one link per agent
+        # action, so here work units and actions coincide exactly (the point of AP-0043/0044).
+        return Chain(self.salt, os.path.join(workspace, "chain_state.json")).pos()
 
 
 # The single, step-agnostic action a correct solver repeats: advance from the current token.

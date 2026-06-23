@@ -34,6 +34,7 @@ def _outcome(scenario, rt, base_dir, *, success, executed, result=None) -> RunOu
         final_digest=world_digest(rt.workspace_dir),
         outbox_count=outbox_count(base_dir),
         result=result,
+        work_units=scenario.task_factory().progress(rt.workspace_dir),
     )
 
 
