@@ -1,7 +1,7 @@
 # Phase Tracking
 
 > Live phase status board. Canonical goals/criteria: [ROADMAP.md](../../ROADMAP.md).
-> Last updated: 2026-06-16.
+> Last updated: 2026-06-23.
 
 | Phase | Name | Status | APs (done / total) |
 |---|---|---|---|
@@ -13,7 +13,7 @@
 | 5 | Evaluation & Benchmark | 🟢 Complete (merged) | 6 / 6 |
 | 6 | Paper & Release | 🟢 Core done (release deferred to M1) | 2 / 4 |
 | M1 | Live-LLM Validation | 🟢 Complete & merged (outcome: **NO-GO**; stays 0.x) | 5 / 5 |
-| M2 | Recovery-faithful live benchmark | 🟡 In Progress (entered) | 0 / 5 |
+| M2 | Recovery-faithful live benchmark | 🟡 In Progress | 1 / 5 |
 
 **Legend:** ⬜ Not started · 🟡 In Progress · 🟢 Complete · 🔴 Blocked
 
@@ -27,6 +27,16 @@ sequential task** (step N+1's input unavailable until step N runs), **action-gra
 injection-fired check), a **live re-run** producing dated C1–C5 evidence with statistics, and a **v1.0
 go/no-go take 2** (supersedes the M1 NO-GO). See
 [`project/phases/milestone-2-recovery-faithful-benchmark/README.md`](../phases/milestone-2-recovery-faithful-benchmark/README.md).
+
+**AP-0043 `Done` (2026-06-23):** the non-batchable task exists. A salted **chain oracle**
+(`src/cairn/eval/chain.py`) advances at most once per fresh `python -c` step, so a length-`n`
+chain needs `n` separate actions — a batched one-shot leaves `pos == 1` and stays incomplete,
+while a step-by-step run completes and a crash at `k` leaves genuine partial progress. A
+default-no-op `Task.setup(workspace)` hook lets a task re-plant its environment on each
+recovery (the agent's progress stays what RGR restores). `ChainTask` + `chain_scenario` +
+live-fake/batching transports wired in `benchmarks/scenarios.py`; `tests/test_eval_chain.py`
+(8) prove batching-impossible and that B3/RGR recovers cheaper than B0/cold-restart. **88
+tests** (80 → 88). Next: AP-0044 (action-granularity-robust metrics).
 
 ## Prior milestone: M1 — Live-LLM Validation (complete & merged 2026-06-16 — outcome NO-GO)
 

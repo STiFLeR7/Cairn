@@ -57,6 +57,7 @@ class LogReplay:
         h, rt = harness_for(scenario, base_dir)
         loaded = rt.load_latest()
         wipe_workspace(rt)
+        scenario.task_factory().setup(rt.workspace_dir)  # re-establish task env before replay
         history: list[StepRecord] = []
         if loaded:
             state, _snap, _off = loaded

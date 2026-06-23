@@ -17,7 +17,7 @@
 ## Milestones (post-7-phase)
 
 - [x] **Milestone M1 — Live-LLM Validation** 🟢 *(complete & merged PR #7, 2026-06-16; 5 / 5 APs; **outcome NO-GO** — live run didn't validate the claims, project stays 0.x)*
-- [ ] **Milestone M2 — Recovery-faithful live benchmark** 🟡 *(in progress — entered 2026-06-16 on branch `milestone-2-recovery-faithful-benchmark`; 0 / 5 APs)*
+- [ ] **Milestone M2 — Recovery-faithful live benchmark** 🟡 *(in progress — entered 2026-06-16 on branch `milestone-2-recovery-faithful-benchmark`; 1 / 5 APs — AP-0043 Done)*
 
 ## Phase 0 — Action Points
 
@@ -152,7 +152,7 @@
 
 ## Milestone M2 — Action Points
 
-- [ ] `AP-0043` Non-batchable sequential benchmark task
+- [x] `AP-0043` Non-batchable sequential benchmark task
 - [ ] `AP-0044` Action-granularity-robust recovery metrics
 - [ ] `AP-0045` Repetition + statistics harness (injection-fired enforced)
 - [ ] `AP-0046` Live re-run + claims update (C1–C5, with statistics)

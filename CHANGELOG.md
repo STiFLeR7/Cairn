@@ -176,11 +176,28 @@ updates this file.
   dated C1–C5 evidence with statistics, and a **v1.0 go/no-go take 2** (supersedes the M1 NO-GO, AP-0042).
   Directly addresses the M1 root cause: the old benchmark task was batchable, so it could not exercise
   recovery against a real model.
+- **AP-0043 — non-batchable sequential task (`Done`, 2026-06-23).** New chain-oracle primitive
+  `src/cairn/eval/chain.py` (`Chain` + `render_oracle_module`): a salted hash-chain advanced **at most once
+  per process**. Since the harness runs each agent step in a fresh `python -c` subprocess, completing a
+  length-`n` chain requires `n` separate steps — a single batched action cannot finish it (it commits one
+  token then trips the guard, leaving `pos == 1`), and a crash at step `k` leaves a genuine partial chain
+  (`pos == k`). The planted `oracle` module is self-contained (stdlib + ASCII only, since the subprocess has
+  no `cairn` on its path) and mirrors `Chain`'s transform exactly, so a completing run is the agreement check.
+- New generic `Task.setup(workspace)` hook (default no-op) called by the harness on every
+  run/resume/continue (and by the B1 baseline after its wipe): lets a task re-establish its *environment*
+  (here, the oracle module) on each recovery attempt while the agent's *progress* stays the thing RGR
+  restores. Existing tasks unaffected (duck-typed, `getattr`-guarded).
+- `ChainTask`, `chain_scenario`, and live wiring (`fake_chain_transport`, `batching_chain_transport`,
+  `live_chain_scenario`) added to `benchmarks/scenarios.py` — usable behind both the scripted mock and
+  `LiveModelProvider`; salt is deterministic and no model is hardcoded (ADR-0007/0009).
+- `tests/test_eval_chain.py` (8): per-process guard, batching-impossible vs. completing step-by-step run,
+  fired crash leaving genuine partial progress, and B3 (RGR) recovering with lower `recovery_tax` + higher
+  `no_regression` than B0 (cold restart). Suite **80 → 88 passed**.
 
 ### Status (Milestone M2)
-- **Milestone M2 — Recovery-faithful live benchmark: in progress** (entered 2026-06-16). Branch
-  `milestone-2-recovery-faithful-benchmark` off `master` (M1 merged via PR #7, `0e39b5c`). APs AP-0043 …
-  AP-0047 `Accepted`; no implementation yet. AP-0036/0037 remain `Blocked`, now gated on M2's go/no-go.
+- **Milestone M2 — Recovery-faithful live benchmark: in progress** (entered 2026-06-16; **AP-0043 `Done`**
+  2026-06-23, 1 / 5). Branch `milestone-2-recovery-faithful-benchmark` off `master` (M1 merged via PR #7,
+  `0e39b5c`). AP-0044 … AP-0047 `Accepted`. AP-0036/0037 remain `Blocked`, now gated on M2's go/no-go.
 
 ### Fixed (Milestone M1, systematic-debugging pass)
 - **Failure-injection integrity bug.** `run_until_failure` did not verify the injected crash actually fired;
