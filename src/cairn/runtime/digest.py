@@ -16,12 +16,20 @@ def world_digest(workspace_dir: str) -> dict[str, str]:
 
     Deterministic and order-stable (sorted keys). Directories are implied by their
     files; empty directories are not recorded. Missing dir → empty digest.
+
+    Python bytecode caches (``__pycache__`` dirs, ``.pyc``/``.pyo`` files) are excluded:
+    they are *derived* artifacts (created when the harness imports a workspace module like a
+    planted tool) with non-reproducible headers, never task output — counting them would
+    corrupt solution-quality and trigger spurious torn-write detection on resume.
     """
     out: dict[str, str] = {}
     if not os.path.isdir(workspace_dir):
         return out
-    for root, _dirs, files in os.walk(workspace_dir):
+    for root, dirs, files in os.walk(workspace_dir):
+        dirs[:] = [d for d in dirs if d != "__pycache__"]  # prune bytecode caches
         for name in files:
+            if name.endswith((".pyc", ".pyo")):
+                continue
             full = os.path.join(root, name)
             rel = os.path.relpath(full, workspace_dir).replace(os.sep, "/")
             out[rel] = _hash_file(full)

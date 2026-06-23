@@ -1,7 +1,7 @@
 # Phase Tracking
 
 > Live phase status board. Canonical goals/criteria: [ROADMAP.md](../../ROADMAP.md).
-> Last updated: 2026-06-16.
+> Last updated: 2026-06-23.
 
 | Phase | Name | Status | APs (done / total) |
 |---|---|---|---|
@@ -12,11 +12,68 @@
 | 4 | Recovery v1 (three pillars) | 🟢 Complete (merged) | 5 / 5 |
 | 5 | Evaluation & Benchmark | 🟢 Complete (merged) | 6 / 6 |
 | 6 | Paper & Release | 🟢 Core done (release deferred to M1) | 2 / 4 |
-| M1 | Live-LLM Validation | 🟢 Complete (outcome: **NO-GO**; stays 0.x) | 5 / 5 |
+| M1 | Live-LLM Validation | 🟢 Complete & merged (outcome: **NO-GO**; stays 0.x) | 5 / 5 |
+| M2 | Recovery-faithful live benchmark | 🟢 Complete (shipped v0.2.0; **NO-GO** for v1.0, stays 0.x) | 5 / 5 |
 
 **Legend:** ⬜ Not started · 🟡 In Progress · 🟢 Complete · 🔴 Blocked
 
-## Current milestone: M1 — Live-LLM Validation (complete 2026-06-16 — outcome NO-GO)
+## Current milestone: M2 — Recovery-faithful live benchmark (entered 2026-06-16)
+
+Entered on branch `milestone-2-recovery-faithful-benchmark` (master clean; M1 merged via PR #7, commit
+`0e39b5c`). Goal: make the live benchmark **actually exercise recovery** — M1's NO-GO traced to a *batchable*
+task that a real model one-shots before any crash. Five APs (AP-0043 … AP-0047) `Accepted`: a **non-batchable
+sequential task** (step N+1's input unavailable until step N runs), **action-granularity-robust metrics**
+(progress/work-units, not one-file-per-step), a **repetition + statistics harness** (carrying the M1
+injection-fired check), a **live re-run** producing dated C1–C5 evidence with statistics, and a **v1.0
+go/no-go take 2** (supersedes the M1 NO-GO). See
+[`project/phases/milestone-2-recovery-faithful-benchmark/README.md`](../phases/milestone-2-recovery-faithful-benchmark/README.md).
+
+**AP-0043 `Done` (2026-06-23):** the non-batchable task exists. A salted **chain oracle**
+(`src/cairn/eval/chain.py`) advances at most once per fresh `python -c` step, so a length-`n`
+chain needs `n` separate actions — a batched one-shot leaves `pos == 1` and stays incomplete,
+while a step-by-step run completes and a crash at `k` leaves genuine partial progress. A
+default-no-op `Task.setup(workspace)` hook lets a task re-plant its environment on each
+recovery (the agent's progress stays what RGR restores). `ChainTask` + `chain_scenario` +
+live-fake/batching transports wired in `benchmarks/scenarios.py`; `tests/test_eval_chain.py`
+(8) prove batching-impossible and that B3/RGR recovers cheaper than B0/cold-restart. **88
+tests** (80 → 88).
+
+**AP-0044 `Done` (2026-06-23):** recovery metrics now measured in **work units**, not actions.
+A `Task.progress(workspace)` oracle (chain `pos` / file count) feeds `no_regression` and
+`recovery_tax`: `redone = max(0, recovery_units - (W - work_at_crash))`,
+`no_regression = 1 - redone/work_at_crash`. Plumbed via `RunOutcome.work_units` +
+`Injection.work_at_crash`; unitless tasks fall back to the old action/`k` form. The chain pins one
+unit per action, so deterministic C1/C5 numbers are unchanged while the definition is now
+granularity-robust (traced to the M1 finding in `recovery-fidelity.md` §2a). **90 tests** (88 → 90).
+
+**AP-0045 `Done` (2026-06-23):** repetition + statistics. `run_repeated(..., repeats=N, before_repeat=)`
+runs the matrix N times (each a full `run_matrix`, so the M1 injection-fired skip holds);
+`aggregate_repeated` → per-baseline `AxisStat(mean, stdev, min, max, n)` + fired/skipped counts
+(vacuous cells excluded → `{}`). `verdict_c1` is "supported" only with consistent, no-overlap
+evidence and B3 success in every repeat. Offline repeated study on the non-batchable chain wired
+into `live_study.py` (the exact machinery AP-0046 runs live). Hygiene fix: `world_digest` now
+excludes Python bytecode caches (a `.pyc` from importing the planted oracle was dropping
+solution_quality to 0.67 and risking spurious torn-write detection). **98 tests** (90 → 98).
+
+**AP-0046 `Done` (2026-06-23):** the gated live run, **executed** against
+`nvidia/nemotron-3-super-120b-a12b:free` (OpenRouter). **The injected crash fired in all 4 cells
+(skipped=0) — the M1 blocker is resolved**; recovery was exercised against a real model for the first
+time. At n=2: **B3/RGR 2/2 success, tax 1.0±0.0**; **B0/cold-restart 1/2, tax 2.5±2.5**. RGR dominates on
+means + reliability, but the strict verdict is **NOT SHOWN** (B0's failed run has tax 0; n=2 underpowered)
+→ recorded honestly as **C1 suggestive, not confirmed live**. Claims registry + PAPER §9 updated. Live-path
+hardening: `retrying` control (backoff on transient 429/5xx), filesystem-safe slugs, record-to-`.partial`-then-
+finalize. Partial deliverable: raw transcript lost to the (now-fixed) truncation footgun; manifest persisted;
+a powered re-run is **rate-limited (HTTP 429)**. **103 tests** (98 → 103).
+
+**AP-0047 `Done` (2026-06-23) — M2 COMPLETE.** v1.0 go/no-go take 2: **NO-GO**. The live evidence resolved the
+M1 blocker (crash fires; recovery exercised) and *leans* toward C1, but it is **suggestive, not confirmed**
+(n=2 underpowered; strict verdict NOT SHOWN; C2/C4/C5 reference-only, C3 unwired; powered run rate-limited).
+Calling v1.0 would overclaim → project **stays 0.x**; AP-0036/0037 stay `Blocked`. M2 is shipped as **v0.2.0**
+(a 0.x milestone tag, not the held v1.0 release). Supersedes the M1 NO-GO with materially stronger evidence.
+The v1.0 gate is now a **powered** live study (non-free model, more repeats/crash points, wire C3, success-
+conditioned tax verdict).
+
+## Prior milestone: M1 — Live-LLM Validation (complete & merged 2026-06-16 — outcome NO-GO)
 
 Ran on branch `milestone-1-live-llm-validation` (master stays clean per branch-per-phase). All five APs
 (AP-0038 … AP-0042) `Done`: `src/cairn/model_live.py` (`LiveModelProvider` + injected `anthropic_transport`

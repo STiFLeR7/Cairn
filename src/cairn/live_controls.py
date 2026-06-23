@@ -23,6 +23,7 @@ from __future__ import annotations
 import hashlib
 import json
 import os
+import time
 from collections import defaultdict, deque
 from typing import Callable, Optional, Sequence
 
@@ -169,3 +170,56 @@ def budgeted(
 ) -> Transport:
     """Convenience wrapper returning a budget-guarded transport (state discarded)."""
     return Budget(max_calls=max_calls, max_chars=max_chars).wrap(transport)
+
+
+# --- transient-failure retry -----------------------------------------------------
+
+_TRANSIENT_MARKERS = (
+    "429", "500", "502", "503", "504",
+    "provider returned error", "timed out", "timeout",
+    "temporarily", "overloaded", "rate limit", "rate-limit",
+)
+
+
+def is_transient(exc: Exception) -> bool:
+    """Heuristic: does this look like a *retryable* live-API failure?
+
+    Matches rate limits (429), 5xx, a stealth/free model's intermittent "Provider returned
+    error", and timeouts. Permanent errors — 401/403 auth, 404 unknown model, a malformed
+    request — are deliberately NOT matched, so they fail fast instead of burning retries.
+    """
+    s = str(exc).lower()
+    return any(m in s for m in _TRANSIENT_MARKERS)
+
+
+def retrying(
+    transport: Transport,
+    *,
+    max_retries: int = 4,
+    base_delay: float = 1.0,
+    max_delay: float = 20.0,
+    sleep: Callable[[float], None] = time.sleep,
+    transient: Callable[[Exception], bool] = is_transient,
+) -> Transport:
+    """Wrap a transport to retry *transient* failures with exponential backoff.
+
+    A live study makes many calls; a free/stealth model intermittently returns 429s or
+    "Provider returned error" 400s (owl-alpha did, mid-study). Without this, one hiccup aborts
+    the whole run. Only transient-looking errors are retried (see :func:`is_transient`);
+    permanent ones re-raise immediately. After ``max_retries`` transient failures the last
+    error propagates. ``sleep`` is injected for testing. Wrap this *innermost* (closest to the
+    real transport) so a recorded transcript captures only the successful reply per call.
+    """
+
+    def wrapped(prompt: str) -> str:
+        attempt = 0
+        while True:
+            try:
+                return transport(prompt)
+            except Exception as exc:  # noqa: BLE001 — re-raised unless transient with budget left
+                if attempt >= max_retries or not transient(exc):
+                    raise
+                sleep(min(max_delay, base_delay * (2 ** attempt)))
+                attempt += 1
+
+    return wrapped

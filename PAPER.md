@@ -228,6 +228,18 @@ Effectful task, torn `check-before-retry` effect at k=2:
   vacuous cells), so the live run honestly reports *"recovery not exercised"* rather than a misleading
   number. The concrete next step (M2): a task that forces **non-batchable sequential** steps, with metrics
   robust to a model's action granularity (see the claims registry, 2026-06-16).
+- **Second live run on a non-batchable task (M2, recorded honestly).** Milestone M2 built a non-batchable
+  **chain task** (a salted hash-chain whose oracle advances at most once per process, so the model cannot
+  one-shot it), work-unit metrics (robust to action granularity), and a repetition+statistics harness. Run
+  live against `nvidia/nemotron-3-super-120b-a12b:free` (2026-06-23), the injected crash **actually fired in
+  every cell** — recovery was exercised against a real model for the first time. At n=2 repetitions, **RGR
+  (B3) completed the task in 2/2 runs with a consistent recovery tax (1.0 ± 0.0)** while **cold restart (B0)
+  completed only 1/2 with an erratic tax (2.5 ± 2.5)** — RGR dominates on every axis mean and is markedly more
+  reliable (its shorter recovery path exposes a flaky model to fewer failure points). We nonetheless report
+  **C1 as suggestive, not confirmed**: the strict no-overlap verdict is not met (B0's failed run has tax 0, a
+  non-recovery), n=2 is underpowered, and a larger run was blocked by the free tier's rate limit (HTTP 429).
+  This is a genuine step past M1 — the benchmark is now recovery-faithful and yields real live evidence — but
+  a **powered** live study remains the gate for any C1-confirmed-live claim; **v1.0 stays held**.
 - **Failure types.** Only `crash` is faithfully realized; context-overflow, tool-timeout, and model-error
   are modeled as a typed stop-at-`k`.
 - **Restore-first resume.** Torn-write detection is reserved for a future crash-in-place mode (§5, ADR-0008 §7).

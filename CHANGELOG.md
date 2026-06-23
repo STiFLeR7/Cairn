@@ -7,6 +7,24 @@ All notable changes to Cairn are recorded here. Format follows
 Per the [documentation policy](docs/governance/documentation-policy.md), every meaningful change
 updates this file.
 
+## [0.2.0] — 2026-06-23 — Milestone M2: recovery-faithful live benchmark
+
+First release to **actually exercise recovery against a real model**. M2 fixed the M1 root cause (a
+*batchable* task that a model one-shots before any crash) by building a **non-batchable chain task**,
+**work-unit / action-granularity-robust metrics**, and a **repetition + statistics** harness, then **ran it
+live** (`nvidia/nemotron-3-super-120b-a12b:free`): the injected crash **fired in every cell** and RGR (B3)
+recovered reliably (2/2) and cheaply (tax 1.0±0.0) while cold restart (B0) completed only 1/2. **Outcome:
+NO-GO for v1.0** — the live evidence is **suggestive, not confirmed** (n=2 underpowered; a powered run was
+rate-limited), so the project **stays 0.x**, released as **v0.2.0** (not the held v1.0). See AP-0043…AP-0047
+below, the [claims registry](docs/research/claims-registry.md) (2026-06-23), and `PAPER.md` §9.
+
+- **AP-0047 — v1.0 go/no-go take 2 (`Done`, 2026-06-23): NO-GO.** The M2 live run resolved the M1 blocker and
+  the evidence *leans* toward C1, but it is suggestive not confirmed (n=2; strict `verdict_c1` NOT SHOWN;
+  C2/C4/C5 reference-only; C3 unwired; powered run rate-limited). Calling v1.0 would overclaim → project stays
+  **0.x**; AP-0036 (v1.0 release) and AP-0037 (announcement) stay `Blocked`. M2 shipped as the 0.x tag
+  **v0.2.0**. The v1.0 gate is now a **powered** live study (non-free model, more repeats/crash points, wire
+  C3, success-conditioned tax verdict). Version bumped `0.1.0 → 0.2.0`.
+
 ## [Unreleased]
 
 ### Added
@@ -167,6 +185,95 @@ updates this file.
   2026-06-16). The project **remains 0.x**; the v1.0 release + announcement (AP-0036/0037) **stay `Blocked`**
   — the Phase-6 hold is now *confirmed by evidence*. The fix becomes **M2** (a non-batchable sequential task
   + action-granularity-robust metrics + repetitions).
+
+### Added (Milestone M2, on branch `milestone-2-recovery-faithful-benchmark`) — recovery-faithful benchmark (entered)
+- Milestone M2 scaffold + five committed APs (AP-0043 … AP-0047): a **non-batchable sequential task** (step
+  N+1's input is unavailable until step N runs, so a capable model cannot one-shot it and a crash leaves real
+  partial progress), **action-granularity-robust metrics** (progress/work-units, not one-file-per-step), a
+  **repetition + statistics harness** (carrying the M1 injection-fired check), a **live re-run** producing
+  dated C1–C5 evidence with statistics, and a **v1.0 go/no-go take 2** (supersedes the M1 NO-GO, AP-0042).
+  Directly addresses the M1 root cause: the old benchmark task was batchable, so it could not exercise
+  recovery against a real model.
+- **AP-0043 — non-batchable sequential task (`Done`, 2026-06-23).** New chain-oracle primitive
+  `src/cairn/eval/chain.py` (`Chain` + `render_oracle_module`): a salted hash-chain advanced **at most once
+  per process**. Since the harness runs each agent step in a fresh `python -c` subprocess, completing a
+  length-`n` chain requires `n` separate steps — a single batched action cannot finish it (it commits one
+  token then trips the guard, leaving `pos == 1`), and a crash at step `k` leaves a genuine partial chain
+  (`pos == k`). The planted `oracle` module is self-contained (stdlib + ASCII only, since the subprocess has
+  no `cairn` on its path) and mirrors `Chain`'s transform exactly, so a completing run is the agreement check.
+- New generic `Task.setup(workspace)` hook (default no-op) called by the harness on every
+  run/resume/continue (and by the B1 baseline after its wipe): lets a task re-establish its *environment*
+  (here, the oracle module) on each recovery attempt while the agent's *progress* stays the thing RGR
+  restores. Existing tasks unaffected (duck-typed, `getattr`-guarded).
+- `ChainTask`, `chain_scenario`, and live wiring (`fake_chain_transport`, `batching_chain_transport`,
+  `live_chain_scenario`) added to `benchmarks/scenarios.py` — usable behind both the scripted mock and
+  `LiveModelProvider`; salt is deterministic and no model is hardcoded (ADR-0007/0009).
+- `tests/test_eval_chain.py` (8): per-process guard, batching-impossible vs. completing step-by-step run,
+  fired crash leaving genuine partial progress, and B3 (RGR) recovering with lower `recovery_tax` + higher
+  `no_regression` than B0 (cold restart). Suite **80 → 88 passed**.
+- **AP-0044 — action-granularity-robust recovery metrics (`Done`, 2026-06-23).** `no_regression` and
+  `recovery_tax` are now defined in **work units** (a task-defined progress increment), not model actions —
+  the M1 finding showed action-count metrics are meaningless when a real model chunks work differently than
+  the scripted mock. New `Task.progress(workspace) -> Optional[int]` oracle (default `None`; `ChainTask` →
+  chain `pos`, `MultiFileTask` → file count). `no_regression(recovery_units, work_at_crash, total_units)`
+  scores genuinely-remaining vs. redone units; `recovery_tax` is the work-unit count. Measurements plumbed
+  via `RunOutcome.work_units` (reference `W` + each baseline's final units) and `Injection.work_at_crash`
+  (progress when the crash fired); `score(...)` threads `work_at_crash` through `runner` and `ablation`. The
+  non-batchable chain pins one unit per action, so the deterministic C1 matrix and C5 ablation numbers are
+  unchanged; a unitless task falls back to the original action/`k` form. `tests/test_eval_metrics.py`
+  rewritten to the work-unit signature (with rationale) + a granularity-robustness test; an exact
+  end-to-end `recovery_tax == W - work_at_crash` assertion added on the chain. `recovery-fidelity.md` §2a
+  documents the definitions and traces them to M1. Suite **88 → 90 passed**.
+
+- **AP-0045 — repetition + statistics harness (`Done`, 2026-06-23).** `run_repeated(scenario, steps,
+  baselines, *, repeats, base_factory, on_skip, before_repeat)` runs the matrix `N` times (each a full
+  `run_matrix` pass, so the reference is re-run per repeat and the M1 injection-fired skip is enforced),
+  returning `RepeatedRun(reports, fired, skipped, repeats, …)`. `aggregate_repeated` → per-baseline
+  `AxisStat(mean, stdev, min, max, n)` per axis (population stdev, 0 for a deterministic model) +
+  `effect_duplicates_total` + `gate_pass_rate`; vacuous cells are excluded (all-skipped → `{}`).
+  `verdict_c1(summary)` reports "supported" only with consistent evidence: both B0/B3 fired, B3 completes
+  the task in *every* repetition, B3 recovery tax strictly lower with no overlap (`B3.tax.max < B0.tax.min`),
+  and B3 ≥ B0 on mean no-regression. `before_repeat(i)` is the live-reseed seam; `format_repeated_table`
+  renders mean±spread. An offline repeated study on the **non-batchable chain** is wired into
+  `benchmarks/live_study.py` (`run_offline_repeated_study`) — the exact machinery AP-0046 runs live.
+- **Benchmark-hygiene fix (`world_digest`).** Python bytecode caches (`__pycache__`, `.pyc`/`.pyo`) are now
+  excluded from the workspace digest. Importing a planted workspace module (the chain `oracle`) creates a
+  `.pyc` with a non-reproducible header that dropped `solution_quality` to 0.67 and could trigger spurious
+  torn-write detection on resume; excluded, the recovered chain matches the reference exactly (1.0).
+- `tests/test_eval_repetition.py` (8): N-per-cell repetition, zero spread on the deterministic chain,
+  work-unit means, vacuous-cell skipping, `verdict_c1` supported/not-supported, the `before_repeat` hook,
+  and table rendering; plus a chain `solution_quality == 1.0` regression guard. Suite **90 → 98 passed**.
+
+- **AP-0046 — live re-run on the non-batchable task (`Done`, 2026-06-23).** Rewired
+  `benchmarks/live_study.py::run_live_study` onto the chain task (AP-0043) + repetition harness (AP-0045):
+  runs B0-vs-B3 `repeats` times, prints mean±spread + fired/skipped, computes `verdict_c1`, and writes an
+  auditable manifest. Validated offline (injected transport), then **run live (user-approved) against
+  `nvidia/nemotron-3-super-120b-a12b:free`** via OpenRouter. **The injected crash fired in all 4 cells
+  (skipped=0) — the M1 blocker is resolved**; recovery was exercised against a real model for the first time.
+  n=2 result: **B3/RGR 2/2 success, recovery_tax 1.0±0.0**; **B0/cold-restart 1/2, tax 2.5±2.5** — RGR
+  dominates on every axis mean and reliability, but the strict no-overlap verdict is **NOT SHOWN** (B0's
+  failed repeat has tax 0; n=2 underpowered). Recorded honestly as **C1 suggestive, not confirmed live**
+  (claims registry + `PAPER.md §9`, 2026-06-23); C2/C4/C5 stay reference-harness, C3 not wired.
+- **Live-path hardening (AP-0046).** `cairn.live_controls.retrying` — bounded exponential backoff on
+  *transient* failures (429/5xx, a stealth model's intermittent "Provider returned error"); permanent 4xx
+  (401/404) fail fast (`is_transient`). `run_live_study` now uses filesystem-safe model slugs (the `:free`
+  colon was opening an NTFS alternate data stream on Windows) and **records to a `.partial` transcript,
+  finalizing on success only** — a crashing re-run (e.g. a rate-limit 429 mid-study) can no longer clobber a
+  prior good transcript. `world_digest` exclusion (above) and these are general robustness fixes.
+  `tests/test_live_controls.py` +4 (retry recover / fail-fast / give-up / classification);
+  `tests/test_live_study.py::test_live_study_runs_on_chain_offline` proves the chain pipeline offline. Suite
+  **98 → 103 passed**.
+- **Honest limits recorded (ADR-0009).** The live run is **underpowered** (n=2, one crash point, one model);
+  a larger run was **blocked by the OpenRouter free-tier rate limit (HTTP 429)**, and the raw transcript was
+  lost to the truncation footgun *before* it was fixed (the manifest survived as the citable artifact).
+  `nemotron-3-ultra-550b` was unusable (gateway 504). A **powered** live study remains the gate for any
+  C1-confirmed-live claim; **v1.0 stays held**.
+
+### Status (Milestone M2)
+- **Milestone M2 — Recovery-faithful live benchmark: complete** (2026-06-16 → 2026-06-23; **AP-0043…AP-0047
+  all `Done`**, 5 / 5; shipped **v0.2.0**). Branch `milestone-2-recovery-faithful-benchmark` off `master`
+  (M1 merged via PR #7, `0e39b5c`). **Outcome: NO-GO for v1.0** — project stays 0.x; AP-0036/0037 remain
+  `Blocked`, now gated on a *powered* live study.
 
 ### Fixed (Milestone M1, systematic-debugging pass)
 - **Failure-injection integrity bug.** `run_until_failure` did not verify the injected crash actually fired;

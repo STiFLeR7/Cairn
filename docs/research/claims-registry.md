@@ -1,9 +1,9 @@
 ---
 title: Research Claims Registry
 status: active
-last_updated: 2026-06-16
+last_updated: 2026-06-23
 owner: maintainers
-related_aps: [AP-0011, AP-0040, AP-0041]
+related_aps: [AP-0011, AP-0040, AP-0041, AP-0043, AP-0044, AP-0045, AP-0046]
 related_adrs: [ADR-0001, ADR-0009]
 ---
 
@@ -38,7 +38,8 @@ change a claim's *statement*, register a **new** claim that supersedes the old o
 - **Rationale:** RGR preserves completed work, intent, and ruled-out dead-ends; cold restart discards all
   of it.
 - **Evaluated by:** task success, solution quality, no-regression, recovery tax; B3 vs B0; `AP-0029`/`AP-0030`.
-- **Status:** supported *(reference harness, 2026-06-15)* — see status log.
+- **Status:** supported *(reference harness, 2026-06-15)*; **suggestive but not confirmed live**
+  *(live-LLM study M2, 2026-06-23 — crash fired, RGR reliably recovered, but underpowered at n=2)* — see status log.
 
 ### C2 — Unified distillation does not degrade checkpoint fidelity
 - **Statement:** A Continuation State produced by the **unified** distillation mechanism (durable core +
@@ -132,3 +133,32 @@ change a claim's *statement*, register a **new** claim that supersedes the old o
   not exercised; C1 not evaluable on this task."* This **sharpens** the C1-not-validated-live verdict (the
   task is batchable, so the bench can't exercise recovery against a capable model) and is the concrete M2
   requirement: a **non-batchable sequential** task.
+- 2026-06-23 — **Milestone M2 live-LLM run on the non-batchable task (AP-0043…AP-0046)** — model
+  `nvidia/nemotron-3-super-120b-a12b:free` via OpenRouter, through the same live pipeline. This is the run
+  M1 could not produce. Recorded honestly (manifest:
+  `benchmarks/transcripts/nvidia_nemotron-3-super-120b-a12b_free-chain-study.manifest.json`):
+  - **The injected crash actually fired (the M1 blocker is resolved).** On the non-batchable chain task
+    (`cairn.eval.chain`, AP-0043), **fired cells = 4, skipped = 0** — the model could not one-shot the task,
+    so the crash at `k=2` genuinely interrupted partial progress and recovery was exercised against a real
+    model for the first time. The model drove the chain correctly (clean per-step `oracle.advance(...)`).
+  - **C1 → suggestive, NOT confirmed live (n=2 repeats, work-unit metrics AP-0044, stats AP-0045).**
+    **B3 (RGR):** task_success **1.00** (2/2), recovery_tax **1.0 ± 0.0**, no_regression 0.83 ± 0.17,
+    solution_quality 1.0, 0 effect duplicates. **B0 (cold restart):** task_success **0.50** (1/2 — one
+    cold restart the model failed to redo the task), recovery_tax 2.5 ± 2.5, no_regression 0.50 ± 0.50.
+    RGR dominates cold restart on **every axis mean** and is far more **reliable** (a plausible mechanism:
+    RGR's shorter recovery path gives a flaky model fewer steps to fail). But the **strict, no-overlap
+    verdict is NOT SHOWN**: B0's failed repeat has recovery_tax 0 (a *non-recovery*, not a cheap recovery),
+    which overlaps B3, and **n=2 is underpowered**. A naive "B3 mean < B0 mean" read would call this
+    supported — we deliberately do not, per the consistency rule (`verdict_c1`).
+  - **Honest limits (ADR-0009).** (a) **Underpowered:** n=2, a single crash point, one model. A larger run
+    (more repeats, both crash points) **could not be completed** — the OpenRouter free tier returned a
+    persistent **HTTP 429** after the first study. (b) **Transcript not persisted:** the raw prompt/reply
+    transcript was lost to a record-truncation footgun when the rate-limited larger run wrapped a fresh
+    recorder over it (footgun **fixed**: live runs now record to a `.partial` and finalize on success only);
+    the **manifest** (aggregate stats + verdict) survived and is the citable artifact. (c) `nemotron-3-ultra-550b`
+    was unusable (gateway 504); `owl-alpha` works but is format-unreliable.
+  - **Net.** A real **step-forward over M1**: the benchmark is now recovery-faithful and produces real,
+    statistically-summarized **live** evidence that *leans* in favor of C1 — but it is **not** a powered
+    confirmation. C1 stays **supported (reference harness) + suggestive (live)**; **C2/C4/C5 remain
+    reference-harness-only** and C3 (effect-safety) was not wired into this chain run. **v1.0 stays held**
+    pending a powered live run; this is the input to the AP-0047 go/no-go.

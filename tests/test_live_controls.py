@@ -12,11 +12,13 @@ from cairn.live_controls import (
     BudgetExceeded,
     ReplayMiss,
     budgeted,
+    is_transient,
     load_transcript,
     prompt_key,
     record_to,
     replay_from_transcript,
     replay_transport,
+    retrying,
 )
 
 
@@ -142,3 +144,52 @@ def test_controls_compose():
         assert load_transcript(path)[0]["reply"] == "ra"
     finally:
         os.remove(path)
+
+
+# --- transient-failure retry (AP-0046) -------------------------------------------
+
+
+def test_retrying_recovers_after_transient_failures():
+    slept: list = []
+    calls = {"i": 0}
+
+    def flaky(prompt: str) -> str:
+        calls["i"] += 1
+        if calls["i"] < 3:
+            raise RuntimeError("chat API error: {'message': 'Provider returned error', 'code': 400}")
+        return "ok"
+
+    transport = retrying(flaky, base_delay=0.1, sleep=slept.append)
+    assert transport("p") == "ok"
+    assert calls["i"] == 3            # failed twice, succeeded on the third
+    assert len(slept) == 2           # one backoff per retry
+    assert slept[1] > slept[0]       # exponential
+
+
+def test_retrying_fails_fast_on_permanent_error():
+    slept: list = []
+
+    def auth_error(prompt: str) -> str:
+        raise RuntimeError("HTTP Error 401: Unauthorized")
+
+    transport = retrying(auth_error, sleep=slept.append)
+    with pytest.raises(RuntimeError, match="401"):
+        transport("p")
+    assert slept == []               # not a transient error → no retries
+
+
+def test_retrying_gives_up_after_max_retries():
+    def always_429(prompt: str) -> str:
+        raise RuntimeError("HTTP Error 429: Too Many Requests")
+
+    transport = retrying(always_429, max_retries=2, sleep=lambda d: None)
+    with pytest.raises(RuntimeError, match="429"):
+        transport("p")
+
+
+def test_is_transient_classification():
+    assert is_transient(RuntimeError("HTTP Error 429: Too Many Requests"))
+    assert is_transient(RuntimeError("Provider returned error code 400"))
+    assert is_transient(RuntimeError("HTTP Error 503"))
+    assert not is_transient(RuntimeError("HTTP Error 404: Not Found"))
+    assert not is_transient(RuntimeError("HTTP Error 401: Unauthorized"))

@@ -29,6 +29,18 @@ from .reconcile import ResumePlan, reconcile
 StepHook = Callable[[int], None]
 
 
+def _setup_task_env(task: Task, cwd: Optional[str]) -> None:
+    """Let a task (re)establish its workspace environment before running (Task.setup).
+
+    Guarded by `getattr` so duck-typed tasks without `setup` still work. Runs on every
+    run/resume/continue, so a task that plants fixtures has them present even after a
+    cold-restart wipe — while the agent's own progress remains what recovery restores.
+    """
+    setup = getattr(task, "setup", None)
+    if callable(setup) and cwd:
+        setup(cwd)
+
+
 @dataclass
 class RunResult:
     success: bool
@@ -86,6 +98,7 @@ class CodeHarness:
         self, task: Task, workspace: Optional[str] = None, *, step_hook: Optional[StepHook] = None
     ) -> RunResult:
         cwd = workspace or getattr(self.runtime, "workspace_dir", None)
+        _setup_task_env(task, cwd)
         steps, checkpoints, final_state = self._loop(task, [], cwd, start=0, step_hook=step_hook)
         return RunResult(
             success=bool(task.is_complete(cwd)) if cwd else False,
@@ -106,6 +119,7 @@ class CodeHarness:
             return self.run(task, workspace, step_hook=step_hook)  # nothing to resume from
         state, snap_id, offset = loaded
         self.runtime.restore_workspace(snap_id)
+        _setup_task_env(task, cwd)  # restore brings the env back; re-establish defensively
 
         # 2. RE-OBSERVE (Code Harness) — look before acting.
         observed = observe_world(self.runtime, offset, cwd or "")
@@ -147,6 +161,7 @@ class CodeHarness:
         and then want the normal decide-act-checkpoint loop to finish the task.
         """
         cwd = workspace or getattr(self.runtime, "workspace_dir", None)
+        _setup_task_env(task, cwd)
         executed, checkpoints, final_state = self._loop(
             task, history, cwd, start=len(history), step_hook=step_hook
         )

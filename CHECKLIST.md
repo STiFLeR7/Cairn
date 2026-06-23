@@ -16,7 +16,8 @@
 
 ## Milestones (post-7-phase)
 
-- [x] **Milestone M1 — Live-LLM Validation** 🟢 *(complete 2026-06-16; 5 / 5 APs; **outcome NO-GO** — live run didn't validate the claims, project stays 0.x)*
+- [x] **Milestone M1 — Live-LLM Validation** 🟢 *(complete & merged PR #7, 2026-06-16; 5 / 5 APs; **outcome NO-GO** — live run didn't validate the claims, project stays 0.x)*
+- [x] **Milestone M2 — Recovery-faithful live benchmark** 🟢 *(complete 2026-06-23; 5 / 5 APs; shipped as **v0.2.0**; **v1.0 go/no-go take 2 → NO-GO** — live C1 suggestive not confirmed, project stays 0.x)*
 
 ## Phase 0 — Action Points
 
@@ -148,3 +149,19 @@
 - [x] Live failure-injection study ran against a real model, reproducibly (transcript captured + offline-replayable)
 - [x] Claims registry carries dated **live-LLM** evidence — a recorded **negative** (C1 not validated live; C1–C5 stay reference-harness-only)
 - [x] Recorded v1.0 go/no-go — **NO-GO**; AP-0036/0037 stay `Blocked` (the "go" condition was not met)
+
+## Milestone M2 — Action Points
+
+- [x] `AP-0043` Non-batchable sequential benchmark task
+- [x] `AP-0044` Action-granularity-robust recovery metrics
+- [x] `AP-0045` Repetition + statistics harness (injection-fired enforced)
+- [x] `AP-0046` Live re-run + claims update (C1–C5, with statistics)
+- [x] `AP-0047` v1.0 go/no-go, take 2 — **NO-GO** (stays 0.x; M2 shipped as v0.2.0)
+
+## Milestone M2 completion criteria
+
+- [x] A task a capable model cannot one-shot; a crash at step k leaves genuine partial progress (verified by test)
+- [x] Recovery metrics measured in progress/work-units, robust to action granularity
+- [x] Each cell run N times with seeds; mean ± spread reported; vacuous cells skipped (M1 fix carried forward)
+- [x] Live re-run produces dated C1–C5 evidence with statistics, honestly scoped *(crash fired; C1 suggestive not confirmed at n=2)*
+- [x] Recorded v1.0 go/no-go take 2; version status reflects the evidence *(NO-GO; shipped as v0.2.0, stays 0.x)*

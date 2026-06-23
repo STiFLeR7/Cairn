@@ -44,7 +44,7 @@ def run_ablation(
 ) -> RecoveryReport:
     reference = run_reference(scenario, base_factory())
     base = base_factory()
-    run_until_failure(scenario, base, k)
+    injection = run_until_failure(scenario, base, k)
 
     # Replace the latest checkpoint with the ablated cairn, then resume from it.
     _h, rt = harness_for(scenario, base)
@@ -55,7 +55,7 @@ def run_ablation(
 
     outcome = RGR().recover(scenario, base)
     label = "full-cairn" if drop is None else f"drop:{drop}"
-    return score(scenario, k, f"RGR/{label}", outcome, reference)
+    return score(scenario, k, f"RGR/{label}", outcome, reference, work_at_crash=injection.work_at_crash)
 
 
 def run_ablation_suite(scenario, k: int, *, base_factory=tempfile.mkdtemp) -> list[RecoveryReport]:
