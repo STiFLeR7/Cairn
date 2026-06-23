@@ -7,6 +7,24 @@ All notable changes to Cairn are recorded here. Format follows
 Per the [documentation policy](docs/governance/documentation-policy.md), every meaningful change
 updates this file.
 
+## [0.2.0] — 2026-06-23 — Milestone M2: recovery-faithful live benchmark
+
+First release to **actually exercise recovery against a real model**. M2 fixed the M1 root cause (a
+*batchable* task that a model one-shots before any crash) by building a **non-batchable chain task**,
+**work-unit / action-granularity-robust metrics**, and a **repetition + statistics** harness, then **ran it
+live** (`nvidia/nemotron-3-super-120b-a12b:free`): the injected crash **fired in every cell** and RGR (B3)
+recovered reliably (2/2) and cheaply (tax 1.0±0.0) while cold restart (B0) completed only 1/2. **Outcome:
+NO-GO for v1.0** — the live evidence is **suggestive, not confirmed** (n=2 underpowered; a powered run was
+rate-limited), so the project **stays 0.x**, released as **v0.2.0** (not the held v1.0). See AP-0043…AP-0047
+below, the [claims registry](docs/research/claims-registry.md) (2026-06-23), and `PAPER.md` §9.
+
+- **AP-0047 — v1.0 go/no-go take 2 (`Done`, 2026-06-23): NO-GO.** The M2 live run resolved the M1 blocker and
+  the evidence *leans* toward C1, but it is suggestive not confirmed (n=2; strict `verdict_c1` NOT SHOWN;
+  C2/C4/C5 reference-only; C3 unwired; powered run rate-limited). Calling v1.0 would overclaim → project stays
+  **0.x**; AP-0036 (v1.0 release) and AP-0037 (announcement) stay `Blocked`. M2 shipped as the 0.x tag
+  **v0.2.0**. The v1.0 gate is now a **powered** live study (non-free model, more repeats/crash points, wire
+  C3, success-conditioned tax verdict). Version bumped `0.1.0 → 0.2.0`.
+
 ## [Unreleased]
 
 ### Added
@@ -252,10 +270,10 @@ updates this file.
   C1-confirmed-live claim; **v1.0 stays held**.
 
 ### Status (Milestone M2)
-- **Milestone M2 — Recovery-faithful live benchmark: in progress** (entered 2026-06-16; **AP-0043…AP-0046
-  `Done`** 2026-06-23, 4 / 5). Branch `milestone-2-recovery-faithful-benchmark` off `master` (M1 merged via
-  PR #7, `0e39b5c`). AP-0047 `Accepted` (v1.0 go/no-go take 2). AP-0036/0037 remain `Blocked`, now gated on
-  M2's go/no-go.
+- **Milestone M2 — Recovery-faithful live benchmark: complete** (2026-06-16 → 2026-06-23; **AP-0043…AP-0047
+  all `Done`**, 5 / 5; shipped **v0.2.0**). Branch `milestone-2-recovery-faithful-benchmark` off `master`
+  (M1 merged via PR #7, `0e39b5c`). **Outcome: NO-GO for v1.0** — project stays 0.x; AP-0036/0037 remain
+  `Blocked`, now gated on a *powered* live study.
 
 ### Fixed (Milestone M1, systematic-debugging pass)
 - **Failure-injection integrity bug.** `run_until_failure` did not verify the injected crash actually fired;

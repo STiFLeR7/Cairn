@@ -17,7 +17,7 @@
 ## Milestones (post-7-phase)
 
 - [x] **Milestone M1 — Live-LLM Validation** 🟢 *(complete & merged PR #7, 2026-06-16; 5 / 5 APs; **outcome NO-GO** — live run didn't validate the claims, project stays 0.x)*
-- [ ] **Milestone M2 — Recovery-faithful live benchmark** 🟡 *(in progress — entered 2026-06-16 on branch `milestone-2-recovery-faithful-benchmark`; 4 / 5 APs — AP-0043…AP-0046 Done; live C1 suggestive not confirmed)*
+- [x] **Milestone M2 — Recovery-faithful live benchmark** 🟢 *(complete 2026-06-23; 5 / 5 APs; shipped as **v0.2.0**; **v1.0 go/no-go take 2 → NO-GO** — live C1 suggestive not confirmed, project stays 0.x)*
 
 ## Phase 0 — Action Points
 
@@ -156,12 +156,12 @@
 - [x] `AP-0044` Action-granularity-robust recovery metrics
 - [x] `AP-0045` Repetition + statistics harness (injection-fired enforced)
 - [x] `AP-0046` Live re-run + claims update (C1–C5, with statistics)
-- [ ] `AP-0047` v1.0 go/no-go, take 2
+- [x] `AP-0047` v1.0 go/no-go, take 2 — **NO-GO** (stays 0.x; M2 shipped as v0.2.0)
 
 ## Milestone M2 completion criteria
 
-- [ ] A task a capable model cannot one-shot; a crash at step k leaves genuine partial progress (verified by test)
-- [ ] Recovery metrics measured in progress/work-units, robust to action granularity
-- [ ] Each cell run N times with seeds; mean ± spread reported; vacuous cells skipped (M1 fix carried forward)
-- [ ] Live re-run produces dated C1–C5 evidence with statistics, honestly scoped
-- [ ] Recorded v1.0 go/no-go take 2; version status reflects the evidence
+- [x] A task a capable model cannot one-shot; a crash at step k leaves genuine partial progress (verified by test)
+- [x] Recovery metrics measured in progress/work-units, robust to action granularity
+- [x] Each cell run N times with seeds; mean ± spread reported; vacuous cells skipped (M1 fix carried forward)
+- [x] Live re-run produces dated C1–C5 evidence with statistics, honestly scoped *(crash fired; C1 suggestive not confirmed at n=2)*
+- [x] Recorded v1.0 go/no-go take 2; version status reflects the evidence *(NO-GO; shipped as v0.2.0, stays 0.x)*

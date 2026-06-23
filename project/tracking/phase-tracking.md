@@ -13,7 +13,7 @@
 | 5 | Evaluation & Benchmark | 🟢 Complete (merged) | 6 / 6 |
 | 6 | Paper & Release | 🟢 Core done (release deferred to M1) | 2 / 4 |
 | M1 | Live-LLM Validation | 🟢 Complete & merged (outcome: **NO-GO**; stays 0.x) | 5 / 5 |
-| M2 | Recovery-faithful live benchmark | 🟡 In Progress | 4 / 5 |
+| M2 | Recovery-faithful live benchmark | 🟢 Complete (shipped v0.2.0; **NO-GO** for v1.0, stays 0.x) | 5 / 5 |
 
 **Legend:** ⬜ Not started · 🟡 In Progress · 🟢 Complete · 🔴 Blocked
 
@@ -63,7 +63,15 @@ means + reliability, but the strict verdict is **NOT SHOWN** (B0's failed run ha
 → recorded honestly as **C1 suggestive, not confirmed live**. Claims registry + PAPER §9 updated. Live-path
 hardening: `retrying` control (backoff on transient 429/5xx), filesystem-safe slugs, record-to-`.partial`-then-
 finalize. Partial deliverable: raw transcript lost to the (now-fixed) truncation footgun; manifest persisted;
-a powered re-run is **rate-limited (HTTP 429)**. **103 tests** (98 → 103). Next: AP-0047 (v1.0 go/no-go take 2).
+a powered re-run is **rate-limited (HTTP 429)**. **103 tests** (98 → 103).
+
+**AP-0047 `Done` (2026-06-23) — M2 COMPLETE.** v1.0 go/no-go take 2: **NO-GO**. The live evidence resolved the
+M1 blocker (crash fires; recovery exercised) and *leans* toward C1, but it is **suggestive, not confirmed**
+(n=2 underpowered; strict verdict NOT SHOWN; C2/C4/C5 reference-only, C3 unwired; powered run rate-limited).
+Calling v1.0 would overclaim → project **stays 0.x**; AP-0036/0037 stay `Blocked`. M2 is shipped as **v0.2.0**
+(a 0.x milestone tag, not the held v1.0 release). Supersedes the M1 NO-GO with materially stronger evidence.
+The v1.0 gate is now a **powered** live study (non-free model, more repeats/crash points, wire C3, success-
+conditioned tax verdict).
 
 ## Prior milestone: M1 — Live-LLM Validation (complete & merged 2026-06-16 — outcome NO-GO)
 

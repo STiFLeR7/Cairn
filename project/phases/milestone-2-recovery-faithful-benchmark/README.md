@@ -1,6 +1,12 @@
 # Milestone M2 — Recovery-faithful live benchmark
 
-- **Status:** 🟡 In Progress *(entered 2026-06-16 — branch `milestone-2-recovery-faithful-benchmark`)*
+- **Status:** 🟢 Complete *(2026-06-16 → 2026-06-23; branch `milestone-2-recovery-faithful-benchmark`;
+  shipped **v0.2.0**; outcome **NO-GO for v1.0** — live C1 suggestive not confirmed, project stays 0.x)*
+- **Outcome:** all five APs (AP-0043…AP-0047) `Done`. The live run on the non-batchable chain
+  (`nvidia/nemotron-3-super-120b-a12b:free`) **fired the crash in every cell** — recovery was exercised
+  against a real model for the first time. RGR (B3) recovered 2/2 with low tax (1.0±0.0); cold restart (B0)
+  only 1/2. **v1.0 go/no-go take 2 → NO-GO**: the evidence *leans* toward C1 but is suggestive, not confirmed
+  (n=2 underpowered; a powered run was rate-limited). v1.0 stays held; the gate is now a *powered* live study.
 - **Goal:** Make the live benchmark **actually exercise recovery** against a capable real model. M1 proved
   the live pipeline works but could not validate C1–C5, because the multi-file task is *batchable* — a real
   model one-shots it and finishes before any injected crash, so recovery never happens (and, until the M1
