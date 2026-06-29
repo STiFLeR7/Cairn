@@ -1,6 +1,13 @@
 # Milestone M3 — Powered live study (the v1.0 gate)
 
-- **Status:** 🟡 In progress *(started 2026-06-29; branch `milestone-3-powered-live-study`)*
+- **Status:** 🟢 Complete *(2026-06-29; branch `milestone-3-powered-live-study`; outcome **NO-GO take 3** —
+  strongest live signal yet; project stays 0.x)*
+- **Outcome:** all four APs `Done`. The first **powered** run (`gpt-oss-120b`, Groq, 8 repeats → **28 fired
+  cells**) shows RGR **≈ halves recovery tax with no overlap**, with a higher success rate and less
+  regression than cold restart — directionally strong C1, corroborated by Nemotron's tax pattern. The strict
+  `verdict_c1` is **NOT SHOWN** because free models fail the *task itself* unpredictably (a model-competence
+  confound, not an RGR failure) and free tiers can't sustain the run (2 of 4 models 0-cell). **NO-GO for
+  v1.0**; the gate for the next milestone is a paid/reliable model + a capability-matched C1 verdict + C3 live.
 - **Goal:** Turn M2's *suggestive* live C1 evidence into a **powered, confirmable** result, and close the
   remaining fairness gap the M2 go/no-go flagged. M2 ran the non-batchable chain live for the first time and
   the crash fired in every cell, but the evidence was underpowered (n=2, single free model, rate-limited
@@ -40,8 +47,8 @@
 |---|---|---|
 | [AP-0048](action-points/AP-0048-success-conditioned-tax.md) | Success-conditioned recovery tax (fairness fix) | Done |
 | [AP-0049](action-points/AP-0049-multi-provider-transports.md) | Multi-provider OpenAI-compatible transports (Groq, ZenMux) | Done |
-| [AP-0050](action-points/AP-0050-powered-live-study.md) | Powered live study + claims update | In progress |
-| [AP-0051](action-points/AP-0051-v1-go-no-go-take3.md) | v1.0 go/no-go, take 3 | Blocked (on AP-0050) |
+| [AP-0050](action-points/AP-0050-powered-live-study.md) | Powered live study + claims update | Done |
+| [AP-0051](action-points/AP-0051-v1-go-no-go-take3.md) | v1.0 go/no-go, take 3 | Done *(NO-GO)* |
 
 ## Dependency order
 
@@ -55,5 +62,5 @@ AP-0049 (providers)─┘
 
 - [x] `recovery_tax` is success-conditioned; a failed run cannot register a cheap tax (AP-0048, tested)
 - [x] Groq + ZenMux selectable as providers via config; inert without a key; unknown provider rejected (AP-0049)
-- [ ] A powered live run (more repeats, both crash points, ≥1 provider) with dated C1 evidence + statistics (AP-0050)
-- [ ] A recorded v1.0 go/no-go take 3; version status reflects the evidence (AP-0051)
+- [x] A powered live run (8 repeats, both crash points, gpt-oss-120b → 28 cells) with dated C1 evidence + statistics (AP-0050)
+- [x] A recorded v1.0 go/no-go take 3 (**NO-GO**); project stays 0.x; AP-0036/0037 remain Blocked (AP-0051)

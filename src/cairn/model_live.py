@@ -280,9 +280,15 @@ def openrouter_transport(
 
 
 def _urllib_json_poster(
-    url: str, key: str, *, referer: str, title: str, timeout: float
+    url: str, key: str, *, referer: str, title: str, timeout: float,
+    user_agent: str = "Cairn/0.x (+https://github.com/STiFLeR7/Cairn)",
 ) -> Callable[[dict], dict]:
-    """A stdlib JSON POST-er (payload dict -> response dict) for OpenAI-compatible APIs."""
+    """A stdlib JSON POST-er (payload dict -> response dict) for OpenAI-compatible APIs.
+
+    A real ``User-Agent`` is sent because some providers front their API with a CDN
+    (e.g. Groq behind Cloudflare) that **403s** the default ``Python-urllib`` agent. This is
+    generic transport hygiene, not a vendor special-case.
+    """
     import json
     import urllib.request
 
@@ -291,6 +297,7 @@ def _urllib_json_poster(
         req = urllib.request.Request(url, data=body, method="POST")
         req.add_header("Authorization", f"Bearer {key}")
         req.add_header("Content-Type", "application/json")
+        req.add_header("User-Agent", user_agent)
         if referer:
             req.add_header("HTTP-Referer", referer)  # OpenRouter attribution headers
         if title:

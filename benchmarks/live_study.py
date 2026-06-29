@@ -140,14 +140,20 @@ def run_live_study(
 
     scenario = live_chain_scenario(n, transport)
     skipped: list = []
+    errors: list = []
     run = run_repeated(
         scenario, steps=list(steps), baselines=[ColdRestart(), RGR()],
         repeats=repeats, on_skip=lambda k, name: skipped.append((k, name)),
+        on_error=lambda i, exc: errors.append((i, f"{type(exc).__name__}: {exc}")),
     )
-    print(f"\nfired cells={run.fired}, skipped (vacuous)={run.skipped}")
+    print(f"\nfired cells={run.fired}, skipped (vacuous)={run.skipped}, errored repeats={run.errored}")
     if run.skipped:
         print(f"[!] {run.skipped} cell(s) skipped — the model finished before the crash step "
               f"(unexpected on a non-batchable task; the model may be misusing the oracle).")
+    if run.errored:
+        print(f"[!] {run.errored} repeat(s) aborted by a transport error (isolated, not fatal) — e.g.:")
+        for i, msg in errors[:3]:
+            print(f"    repeat {i}: {msg[:120]}")
 
     stats = aggregate_repeated(run)
     if stats:
@@ -169,6 +175,8 @@ def run_live_study(
         "repeats": repeats,
         "fired": run.fired,
         "skipped": run.skipped,
+        "errored": run.errored,
+        "errors": [msg for _, msg in errors[:5]],
         "stats": _stats_to_jsonable(stats),
         "c1_supported": verdict["supported"],
         "c1_reason": verdict["reason"],

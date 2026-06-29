@@ -1,0 +1,25 @@
+{
+  "study": "M2-chain-live",
+  "model": "llama-3.3-70b-versatile",
+  "provider": "groq",
+  "task": "non-batchable chain (n=6)",
+  "steps": [
+    2,
+    3
+  ],
+  "repeats": 8,
+  "fired": 0,
+  "skipped": 0,
+  "errored": 8,
+  "errors": [
+    "HTTPError: HTTP Error 429: Too Many Requests",
+    "HTTPError: HTTP Error 429: Too Many Requests",
+    "HTTPError: HTTP Error 429: Too Many Requests",
+    "HTTPError: HTTP Error 429: Too Many Requests",
+    "HTTPError: HTTP Error 429: Too Many Requests"
+  ],
+  "stats": {},
+  "c1_supported": false,
+  "c1_reason": "no cells fired live \u2014 the model did not drive the sequential task far enough for an injected crash to interrupt genuine progress",
+  "scope": "live-LLM study (M2); single model, small n, few repeats \u2014 honest scope (ADR-0009)"
+}

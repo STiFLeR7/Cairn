@@ -109,5 +109,5 @@
 |---|---|---|
 | [AP-0048](../phases/milestone-3-powered-live-study/action-points/AP-0048-success-conditioned-tax.md) | Success-conditioned recovery tax (fairness fix) | Done |
 | [AP-0049](../phases/milestone-3-powered-live-study/action-points/AP-0049-multi-provider-transports.md) | Multi-provider OpenAI-compatible transports (Groq, ZenMux) | Done |
-| [AP-0050](../phases/milestone-3-powered-live-study/action-points/AP-0050-powered-live-study.md) | Powered live study + claims update | In progress |
-| [AP-0051](../phases/milestone-3-powered-live-study/action-points/AP-0051-v1-go-no-go-take3.md) | v1.0 go/no-go, take 3 | Blocked *(on AP-0050)* |
+| [AP-0050](../phases/milestone-3-powered-live-study/action-points/AP-0050-powered-live-study.md) | Powered live study + claims update | Done *(gpt-oss-120b: 28 cells; RGR ≈ halves tax; strict verdict NOT SHOWN)* |
+| [AP-0051](../phases/milestone-3-powered-live-study/action-points/AP-0051-v1-go-no-go-take3.md) | v1.0 go/no-go, take 3 | Done *(NO-GO; stays 0.x; AP-0036/0037 stay Blocked)* |

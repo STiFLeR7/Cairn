@@ -101,7 +101,7 @@ def _axis_stat(values: list[float]) -> AxisStat:
 
 @dataclass
 class RepeatedRun:
-    """The raw result of repeating the matrix: every *fired* report, plus fired/skipped counts."""
+    """The raw result of repeating the matrix: every *fired* report, plus fired/skipped/errored counts."""
 
     reports: list[RecoveryReport]
     fired: int
@@ -109,6 +109,7 @@ class RepeatedRun:
     repeats: int
     steps: list[int]
     baselines: list[str]
+    errored: int = 0  # repeats aborted by a transport error (e.g. exhausted rate-limit retries)
 
 
 def run_repeated(
@@ -120,6 +121,8 @@ def run_repeated(
     base_factory: Callable[[], str] = tempfile.mkdtemp,
     on_skip: Optional[Callable[[int, str], None]] = None,
     before_repeat: Optional[Callable[[int], None]] = None,
+    on_error: Optional[Callable[[int, Exception], None]] = None,
+    resilient: bool = True,
 ) -> RepeatedRun:
     """Run the (step x baseline) matrix `repeats` times and collect all fired reports.
 
@@ -128,9 +131,16 @@ def run_repeated(
     an optional seam for a live runner to vary a seed / temperature between repeats; deterministic
     scenarios ignore it and simply reproduce identical results (spread 0). Skipped (vacuous) cells
     are counted and reported via `on_skip`, never scored.
+
+    **Per-repeat resilience (AP-0050).** When `resilient` (default), a repeat that raises — e.g. a
+    live provider exhausts its rate-limit retries — is *isolated*: it is counted in `errored`,
+    reported via `on_error`, and the surviving repeats still yield a verdict, instead of one
+    transient failure discarding the entire study (the M2/free-tier fragility). A deterministic
+    scenario never raises, so this is invisible there. Set `resilient=False` to fail fast.
     """
     all_reports: list[RecoveryReport] = []
     skipped = 0
+    errored = 0
 
     def _count_skip(k: int, name: str) -> None:
         nonlocal skipped
@@ -141,9 +151,16 @@ def run_repeated(
     for i in range(repeats):
         if before_repeat is not None:
             before_repeat(i)
-        all_reports.extend(
-            run_matrix(scenario, steps, baselines, base_factory=base_factory, on_skip=_count_skip)
-        )
+        try:
+            all_reports.extend(
+                run_matrix(scenario, steps, baselines, base_factory=base_factory, on_skip=_count_skip)
+            )
+        except Exception as exc:  # noqa: BLE001 — isolate a flaky repeat, record it honestly
+            if not resilient:
+                raise
+            errored += 1
+            if on_error is not None:
+                on_error(i, exc)
 
     return RepeatedRun(
         reports=all_reports,
@@ -152,6 +169,7 @@ def run_repeated(
         repeats=repeats,
         steps=list(steps),
         baselines=[b.name for b in baselines],
+        errored=errored,
     )
 
 
