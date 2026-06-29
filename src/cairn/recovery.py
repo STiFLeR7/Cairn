@@ -13,7 +13,7 @@ from dataclasses import dataclass, field
 from typing import Optional
 
 from .harness.distill import CHECKPOINT, distill
-from .harness.effects import EffectfulTool, Resolution, resolve_danger_window
+from .harness.effects import EffectfulTool, EscalationRequired, Resolution, resolve_danger_window
 from .harness.observe import observe
 from .harness.reconcile import ResumePlan, reconcile
 from .model import CODE, Action, StepRecord
@@ -27,8 +27,8 @@ Checkpoint = ContinuationState
 class Regrounded:
     """The result of `recover`: the re-grounded history + what recovery did."""
 
-    history: list = field(default_factory=list)
-    resolutions: list = field(default_factory=list)
+    history: list[StepRecord] = field(default_factory=list)
+    resolutions: list[Resolution] = field(default_factory=list)
     plan: Optional[ResumePlan] = None
 
 
@@ -55,12 +55,13 @@ def checkpoint(
     return state
 
 
-def recover(goal: str, world, store, ledger, *, effect_tools=None, escalate: bool = True) -> Regrounded:
+def recover(world, store, ledger, *, effect_tools=None, escalate: bool = True) -> Regrounded:
     """The RGR protocol as a primitive. Returns a `Regrounded` to continue your loop from.
 
     No durable checkpoint -> empty history (start fresh). Otherwise: restore the world, re-observe
     via the World's digest, reconcile the torn step, resolve any effect danger window (exactly-once,
-    ADR-0006), and re-ground a minimal history from the cairn's done steps.
+    ADR-0006), and re-ground a minimal history from the cairn's done steps. The goal is not a
+    parameter — it is carried in the loaded cairn (`state.durable_core.intent`).
     """
     loaded = store.load_latest()
     if loaded is None:
@@ -73,6 +74,7 @@ def recover(goal: str, world, store, ledger, *, effect_tools=None, escalate: boo
     return Regrounded(history=regrounded_history(plan.plan), resolutions=resolutions, plan=plan)
 
 
+# NOTE: harness/agent_loop.py has a private copy (_history_from_plan); unified onto this in AP-3.
 def regrounded_history(plan_steps: list[PlanStep]) -> list[StepRecord]:
     """Re-ground a minimal history from the cairn's *done* steps (re-grounding, not replay)."""
     out: list[StepRecord] = []

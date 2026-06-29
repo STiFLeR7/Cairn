@@ -26,7 +26,7 @@ def test_checkpoint_persists_a_loadable_state(tmp_path):
 
 def test_recover_with_no_checkpoint_starts_fresh(tmp_path):
     _, world, store, ledger = _fixture(tmp_path)
-    out = recover("goal", world, store, ledger)
+    out = recover(world, store, ledger)
     assert isinstance(out, Regrounded) and out.history == [] and out.plan is None
 
 
@@ -35,7 +35,7 @@ def test_recover_regrounds_history_from_checkpoint(tmp_path):
     (ws_dir / "a.txt").write_text("done", encoding="utf-8")
     history = [StepRecord(step=0, action=Action(kind=CODE, code="write a.txt"), returncode=0)]
     checkpoint("goal", history, world, store, ledger, step=0)
-    out = recover("goal", world, store, ledger)
+    out = recover(world, store, ledger)
     assert len(out.history) == 1                      # the one done step is re-grounded
     assert out.history[0].action.code == "write a.txt"
     assert out.plan is not None and out.plan.clean    # nothing diverged (restore matched)
@@ -76,7 +76,7 @@ def test_recovery_works_for_a_non_workspace_world(tmp_path):
 
     # Simulate a crash that corrupts in-memory state, then recover.
     world.state = {"x": "CORRUPT"}
-    out = recover("goal", world, store, ledger)
+    out = recover(world, store, ledger)
 
     assert world.state == {"x": "1", "y": "2"}        # world restored from the snapshot
     assert [s.action.code for s in out.history] == ["set x", "set y"]  # both steps re-grounded
@@ -85,6 +85,5 @@ def test_recovery_works_for_a_non_workspace_world(tmp_path):
 
 def test_public_api_is_importable_from_cairn():
     import cairn
-    for name in ("checkpoint", "recover", "Regrounded", "Checkpoint",
-                 "World", "Workspace", "Action", "StepRecord"):
+    for name in cairn.__all__:
         assert hasattr(cairn, name), f"cairn.{name} missing from public API"
