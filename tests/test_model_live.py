@@ -14,6 +14,7 @@ from cairn.model_live import (
     LiveModelConfigError,
     LiveModelProvider,
     anthropic_transport,
+    openai_chat_transport,
     openrouter_transport,
     parse_action,
     render_prompt,
@@ -192,3 +193,47 @@ def test_openrouter_transport_surfaces_api_error():
 def test_openrouter_transport_missing_key_raises():
     with pytest.raises(LiveModelConfigError):
         openrouter_transport(model="m", api_key=None, api_key_env="CAIRN_DEFINITELY_UNSET_KEY")
+
+
+# --- generic OpenAI-compatible transport: any router is the same factory (AP-0049) -----
+
+
+def test_openai_chat_transport_is_endpoint_agnostic():
+    captured = {}
+
+    def fake_request(payload: dict) -> dict:
+        captured["payload"] = payload
+        return {"choices": [{"message": {"content": "TASK_COMPLETE"}}]}
+
+    # Groq / ZenMux / OpenRouter are all THIS factory with a different url + key env.
+    transport = openai_chat_transport(
+        model="llama-3.3-70b-versatile",
+        url="https://api.groq.com/openai/v1/chat/completions",
+        api_key_env="GROQ_API_KEY",
+        request=fake_request,
+    )
+    assert transport("p").strip() == "TASK_COMPLETE"
+    assert captured["payload"]["model"] == "llama-3.3-70b-versatile"  # injected, not hardcoded
+    assert captured["payload"]["temperature"] == 0.0
+
+
+def test_openai_chat_transport_missing_key_raises():
+    with pytest.raises(LiveModelConfigError):
+        openai_chat_transport(
+            model="m", url="https://example/api/v1/chat/completions",
+            api_key_env="CAIRN_DEFINITELY_UNSET_KEY",
+        )
+
+
+def test_build_live_transport_routes_known_providers_and_rejects_unknown(monkeypatch):
+    from benchmarks.scenarios import OPENAI_COMPATIBLE_PROVIDERS, build_live_transport
+
+    assert {"openrouter", "groq", "zenmux"} <= set(OPENAI_COMPATIBLE_PROVIDERS)
+    # Inert without a key: each OpenAI-compatible provider raises on its own key env.
+    for provider, cfg in OPENAI_COMPATIBLE_PROVIDERS.items():
+        monkeypatch.delenv(cfg["key_env"], raising=False)
+        with pytest.raises(LiveModelConfigError):
+            build_live_transport("some/model", provider=provider)
+    # An unknown provider is a clear configuration error, not a silent default.
+    with pytest.raises(ValueError, match="unknown provider"):
+        build_live_transport("m", provider="not-a-provider")

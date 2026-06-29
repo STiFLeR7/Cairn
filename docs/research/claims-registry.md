@@ -1,7 +1,7 @@
 ---
 title: Research Claims Registry
 status: active
-last_updated: 2026-06-23
+last_updated: 2026-06-29
 owner: maintainers
 related_aps: [AP-0011, AP-0040, AP-0041, AP-0043, AP-0044, AP-0045, AP-0046]
 related_adrs: [ADR-0001, ADR-0009]
@@ -38,8 +38,10 @@ change a claim's *statement*, register a **new** claim that supersedes the old o
 - **Rationale:** RGR preserves completed work, intent, and ruled-out dead-ends; cold restart discards all
   of it.
 - **Evaluated by:** task success, solution quality, no-regression, recovery tax; B3 vs B0; `AP-0029`/`AP-0030`.
-- **Status:** supported *(reference harness, 2026-06-15)*; **suggestive but not confirmed live**
-  *(live-LLM study M2, 2026-06-23 — crash fired, RGR reliably recovered, but underpowered at n=2)* — see status log.
+- **Status:** supported *(reference harness, 2026-06-15)*; **strongly suggestive but not strictly confirmed
+  live** *(powered live-LLM study M3, 2026-06-29 — 28 fired cells on `gpt-oss-120b`: RGR roughly **halves**
+  recovery tax with no overlap and regresses less, but the strict every-repeat verdict is NOT SHOWN because
+  real free models fail the task itself unpredictably; a paid/reliable tier is still needed)* — see status log.
 
 ### C2 — Unified distillation does not degrade checkpoint fidelity
 - **Statement:** A Continuation State produced by the **unified** distillation mechanism (durable core +
@@ -162,3 +164,32 @@ change a claim's *statement*, register a **new** claim that supersedes the old o
     confirmation. C1 stays **supported (reference harness) + suggestive (live)**; **C2/C4/C5 remain
     reference-harness-only** and C3 (effect-safety) was not wired into this chain run. **v1.0 stays held**
     pending a powered live run; this is the input to the AP-0047 go/no-go.
+- 2026-06-29 — **Milestone M3 powered live study (AP-0048…AP-0050)** — the chain study run with up to **8
+  repetitions** and **both crash points** across four free-tier models on three providers (OpenRouter / Groq
+  / ZenMux), with the success-conditioned tax (AP-0048) and per-repeat resilience. Manifests committed under
+  `benchmarks/transcripts/*-chain-study.manifest.json`. The headline result is the first genuinely **powered**
+  cell count:
+  - **`openai/gpt-oss-120b` (Groq, 8 repeats): 28 fired cells, 0 errored.** **B3 (RGR):** success **0.73**,
+    recovery_tax **3.64 ± 0.77** (min 2.0 / **max 5.0**), no_regression **0.44**. **B0 (cold restart):**
+    success **0.46**, recovery_tax **6.33 ± 0.47** (**min 6.0** / max 7.0), no_regression **0.23**. RGR
+    **roughly halves recovery tax with no overlap** (B3 max 5.0 < B0 min 6.0, success-conditioned), and has a
+    **higher success rate** and **less regression** — directionally strong support for C1 on a powered run.
+  - **`nvidia/nemotron-3-super-120b-a12b:free` (OpenRouter, 3 repeats): 4 fired, 2 repeats lost to HTTP 429.**
+    **B3:** success 0.50, tax **3.0 ± 0.0**; **B0:** success 1.00, tax **6.5 ± 0.5**. Same tax pattern (RGR
+    ≈ half), tiny n.
+  - **`llama-3.3-70b-versatile` (Groq) and `openai/gpt-4o-mini` (ZenMux): 0 fired** — fully rate-limited
+    (Groq daily quota exhausted) / payment-required (ZenMux 402). Recorded as honest negatives, not buried;
+    the per-repeat resilience (AP-0050) turned these from study-aborting crashes into clean `errored`/`NOT
+    SHOWN` manifests.
+  - **Strict verdict: NOT SHOWN on every model.** Cause is **not** an RGR failure — it is that real free
+    models fail the *task itself* unpredictably (`gpt-oss` ~27%, `nemotron` 50% at n=2), so B3 never succeeds
+    in **every** repetition (`verdict_c1` requires `success.min == 1.0`). This exposes a **methodology gap**:
+    the strict every-repeat gate conflates *model competence* (does the model complete the task at all) with
+    *recovery quality* (given the model acts, does RGR recover cheaper). By a capability-matched read
+    (success-rate delta + success-conditioned tax), `gpt-oss-120b` **supports C1**; the strict gate does not.
+    We **do not** loosen the gate to manufacture a GO (ADR-0009) — instead this is the explicit input to the
+    AP-0051 go/no-go and the next milestone's verdict design.
+  - **Honest limits.** Free/credit-less tiers cannot sustain a powered run (2 of 4 models fully blocked;
+    Nemotron lost 2/3 repeats to 429). A **paid / higher-rate-limit, instruction-reliable model** is required
+    to remove the rate-limit and model-competence confounds. C3/C2/C4/C5 still not wired live. **v1.0 stays
+    held** — strongest live signal yet, still not a clean confirmation. Input to AP-0051 (go/no-go take 3).

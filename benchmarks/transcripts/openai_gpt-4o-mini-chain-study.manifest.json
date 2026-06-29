@@ -1,0 +1,23 @@
+{
+  "study": "M2-chain-live",
+  "model": "openai/gpt-4o-mini",
+  "provider": "zenmux",
+  "task": "non-batchable chain (n=6)",
+  "steps": [
+    2,
+    3
+  ],
+  "repeats": 3,
+  "fired": 0,
+  "skipped": 0,
+  "errored": 3,
+  "errors": [
+    "HTTPError: HTTP Error 402: Payment Required",
+    "HTTPError: HTTP Error 402: Payment Required",
+    "HTTPError: HTTP Error 402: Payment Required"
+  ],
+  "stats": {},
+  "c1_supported": false,
+  "c1_reason": "no cells fired live \u2014 the model did not drive the sequential task far enough for an injected crash to interrupt genuine progress",
+  "scope": "live-LLM study (M2); single model, small n, few repeats \u2014 honest scope (ADR-0009)"
+}

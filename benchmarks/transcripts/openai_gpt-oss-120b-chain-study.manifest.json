@@ -1,0 +1,102 @@
+{
+  "study": "M2-chain-live",
+  "model": "openai/gpt-oss-120b",
+  "provider": "groq",
+  "task": "non-batchable chain (n=6)",
+  "steps": [
+    2,
+    3
+  ],
+  "repeats": 8,
+  "fired": 28,
+  "skipped": 4,
+  "errored": 0,
+  "errors": [],
+  "stats": {
+    "B0": {
+      "n": 13,
+      "n_success": 6,
+      "task_success": {
+        "mean": 0.46153846153846156,
+        "stdev": 0.4985185152621431,
+        "min": 0.0,
+        "max": 1.0,
+        "n": 13
+      },
+      "solution_quality": {
+        "mean": 0.6153846153846154,
+        "stdev": 0.21066252211737158,
+        "min": 0.5,
+        "max": 1.0,
+        "n": 13
+      },
+      "no_regression": {
+        "mean": 0.23076923076923078,
+        "stdev": 0.37858520667265133,
+        "min": 0.0,
+        "max": 1.0,
+        "n": 13
+      },
+      "recovery_tax": {
+        "mean": 6.333333333333333,
+        "stdev": 0.4714045207910317,
+        "min": 6.0,
+        "max": 7.0,
+        "n": 6
+      },
+      "recovery_tax_all": {
+        "mean": 5.538461538461538,
+        "stdev": 2.5903781908434977,
+        "min": 1.0,
+        "max": 8.0,
+        "n": 13
+      },
+      "effect_duplicates_total": 0,
+      "gate_pass_rate": 1.0
+    },
+    "B3": {
+      "n": 15,
+      "n_success": 11,
+      "task_success": {
+        "mean": 0.7333333333333333,
+        "stdev": 0.4422166387140533,
+        "min": 0.0,
+        "max": 1.0,
+        "n": 15
+      },
+      "solution_quality": {
+        "mean": 0.7,
+        "stdev": 0.2449489742783178,
+        "min": 0.5,
+        "max": 1.0,
+        "n": 15
+      },
+      "no_regression": {
+        "mean": 0.43888888888888894,
+        "stdev": 0.28781852993308044,
+        "min": 0.0,
+        "max": 1.0,
+        "n": 15
+      },
+      "recovery_tax": {
+        "mean": 3.6363636363636362,
+        "stdev": 0.7713892158398701,
+        "min": 2.0,
+        "max": 5.0,
+        "n": 11
+      },
+      "recovery_tax_all": {
+        "mean": 3.933333333333333,
+        "stdev": 0.8537498983243799,
+        "min": 2.0,
+        "max": 5.0,
+        "n": 15
+      },
+      "effect_duplicates_total": 0,
+      "gate_pass_rate": 1.0
+    }
+  },
+  "c1_supported": false,
+  "c1_reason": "B3 did not complete the task in every repetition (success min=0.00)",
+  "scope": "live-LLM study (M2); single model, small n, few repeats \u2014 honest scope (ADR-0009)"
+}

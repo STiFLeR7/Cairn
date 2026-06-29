@@ -86,6 +86,46 @@ def test_before_repeat_hook_is_called_per_repeat():
     assert seen == [0, 1, 2]
 
 
+def test_resilient_run_isolates_a_flaky_repeat():
+    # A baseline that raises on its first recovery (e.g. an exhausted rate-limit retry) must not
+    # discard the whole study: that repeat is counted in `errored`, the rest still produce reports.
+    class FlakyRGR:
+        name = "B3"
+
+        def __init__(self):
+            self.calls = 0
+            self._real = RGR()
+
+        def recover(self, scenario, base):
+            self.calls += 1
+            if self.calls == 1:
+                raise RuntimeError("HTTP Error 429: Too Many Requests")
+            return self._real.recover(scenario, base)
+
+    errors: list = []
+    run = run_repeated(
+        chain_scenario(6), steps=[3], baselines=[ColdRestart(), FlakyRGR()], repeats=3,
+        on_error=lambda i, exc: errors.append((i, str(exc))),
+    )
+    assert run.errored == 1 and len(errors) == 1   # exactly the first repeat aborted
+    # 3 repeats - 1 errored = 2 good repeats x 2 baselines = 4 fired reports.
+    assert run.fired == 4
+    stats = aggregate_repeated(run)
+    assert stats["B3"]["n"] == 2 and stats["B0"]["n"] == 2
+
+
+def test_resilient_false_fails_fast():
+    class Boom:
+        name = "B3"
+
+        def recover(self, scenario, base):
+            raise RuntimeError("boom")
+
+    import pytest
+    with pytest.raises(RuntimeError, match="boom"):
+        run_repeated(chain_scenario(4), steps=[2], baselines=[Boom()], repeats=2, resilient=False)
+
+
 def test_format_repeated_table_renders():
     run = run_repeated(chain_scenario(4), steps=[2], baselines=BASELINES, repeats=2)
     table = format_repeated_table(aggregate_repeated(run))

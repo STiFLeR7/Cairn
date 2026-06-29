@@ -25,6 +25,36 @@ below, the [claims registry](docs/research/claims-registry.md) (2026-06-23), and
   **v0.2.0**. The v1.0 gate is now a **powered** live study (non-free model, more repeats/crash points, wire
   C3, success-conditioned tax verdict). Version bumped `0.1.0 → 0.2.0`.
 
+## Milestone M3 — Powered live study (complete — **NO-GO** take 3, branch `milestone-3-powered-live-study`)
+
+The v1.0 gate: turn M2's *suggestive* live C1 into a powered, confirmable result, and close the fairness gap.
+**Outcome: the strongest live signal yet (RGR ≈ halves recovery tax on a powered 28-cell run) but the strict
+verdict is NOT SHOWN** — model-competence + rate-limit confounds. v1.0 stays held; project stays 0.x.
+
+- **AP-0048 — success-conditioned recovery tax (`Done`, 2026-06-29).** `recovery_tax` is now the cost of a
+  *successful* recovery — aggregated over successful repetitions only — so a run that fails cheaply cannot
+  register a misleadingly low tax or "win" by failing. `aggregate_repeated` exposes `n_success` and
+  `recovery_tax_all`; `verdict_c1` compares cost-of-success to cost-of-success and declines when the
+  competitor (B0) never actually recovers. New `tests/test_eval_tax_fairness.py`.
+- **AP-0049 — multi-provider OpenAI-compatible transports (`Done`, 2026-06-29).** Generalized
+  `openrouter_transport` into one `openai_chat_transport` (endpoint + key-env injected) and added a provider
+  registry (`openrouter` / `groq` / `zenmux`) so the powered run is not hostage to a single rate-limited free
+  tier — a vendor is config, not bespoke code (ADR-0010). Keys read from env only (`OPENROUTER_API`,
+  `GROQ_API_KEY`, `ZENMUX_API`); inert without a key; unknown provider rejected.
+- **AP-0050 — powered live study (`Done`, 2026-06-29).** Ran the chain study with up to 8 repetitions and both
+  crash points across four free-tier models / three providers. Added per-repeat resilience to `run_repeated`
+  (`resilient`, `errored`, `on_error`) so a rate-limited repeat is isolated and recorded, not study-aborting;
+  and a `User-Agent` header to the stdlib poster (Groq is behind Cloudflare). **Headline:** `gpt-oss-120b`
+  (Groq, 8 repeats) → **28 fired cells, 0 errored**; RGR (B3) success 0.73 / tax **3.64±0.77** (max 5.0) vs
+  cold restart (B0) success 0.46 / tax **6.33±0.47** (min 6.0) — RGR **≈ halves recovery tax with no overlap**,
+  higher success, less regression. Nemotron corroborates (tax 3.0 vs 6.5). Two models 0-cell (Groq quota
+  exhausted / ZenMux 402). Manifests + the two substantive transcripts committed (secret-scanned clean).
+- **AP-0051 — v1.0 go/no-go take 3 (`Done`, 2026-06-29): NO-GO.** Strongest live signal yet, but the strict
+  `verdict_c1` is **NOT SHOWN** — free models fail the *task itself* unpredictably (a model-competence
+  confound, not an RGR failure) and free tiers can't sustain a powered run. v1.0 stays **held**; project
+  stays **0.x**; AP-0036/0037 stay `Blocked`. Next gate: a paid/reliable model + a capability-matched C1
+  verdict + C3 wired live. The strict gate was **not** loosened to manufacture a GO (ADR-0009).
+
 ## [Unreleased]
 
 ### Added
