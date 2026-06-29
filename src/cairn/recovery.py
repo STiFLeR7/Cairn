@@ -19,7 +19,8 @@ from .harness.reconcile import ResumePlan, reconcile
 from .model import CODE, Action, StepRecord
 from .state import ContinuationState, PlanStep
 
-#: A durable checkpoint (the "cairn"). Public alias of the internal state type.
+#: A durable checkpoint (the "cairn"). Transparent alias of the internal state type, so
+#: ``isinstance(c, cairn.Checkpoint)`` is exactly ``isinstance(c, ContinuationState)``.
 Checkpoint = ContinuationState
 
 

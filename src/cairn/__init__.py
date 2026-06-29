@@ -13,7 +13,8 @@ confirmed — see docs/research/claims-registry.md).
 __version__ = "0.2.0"
 
 from .contract import CheckpointStore, EffectLedger, World
-from .harness.effects import EffectfulTool, EscalationRequired
+from .harness.effects import EffectfulTool, EscalationRequired, Resolution
+from .harness.reconcile import ResumePlan
 from .model import Action, StepRecord
 from .recovery import Checkpoint, Regrounded, checkpoint, recover, regrounded_history
 from .worlds import Workspace
@@ -24,6 +25,7 @@ __all__ = [
     "World", "CheckpointStore", "EffectLedger",
     # types
     "Action", "StepRecord", "Checkpoint", "Regrounded",
+    "Resolution", "ResumePlan",
     # primitives
     "checkpoint", "recover", "regrounded_history",
     # effect-safety
