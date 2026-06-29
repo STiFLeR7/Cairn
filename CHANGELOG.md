@@ -25,6 +25,23 @@ below, the [claims registry](docs/research/claims-registry.md) (2026-06-23), and
   **v0.2.0**. The v1.0 gate is now a **powered** live study (non-free model, more repeats/crash points, wire
   C3, success-conditioned tax verdict). Version bumped `0.1.0 → 0.2.0`.
 
+## Milestone M3 — Powered live study (in progress, branch `milestone-3-powered-live-study`)
+
+The v1.0 gate: turn M2's *suggestive* live C1 into a powered, confirmable result, and close the fairness gap.
+
+- **AP-0048 — success-conditioned recovery tax (`Done`, 2026-06-29).** `recovery_tax` is now the cost of a
+  *successful* recovery — aggregated over successful repetitions only — so a run that fails cheaply cannot
+  register a misleadingly low tax or "win" by failing. `aggregate_repeated` exposes `n_success` and
+  `recovery_tax_all`; `verdict_c1` compares cost-of-success to cost-of-success and declines when the
+  competitor (B0) never actually recovers. New `tests/test_eval_tax_fairness.py`.
+- **AP-0049 — multi-provider OpenAI-compatible transports (`Done`, 2026-06-29).** Generalized
+  `openrouter_transport` into one `openai_chat_transport` (endpoint + key-env injected) and added a provider
+  registry (`openrouter` / `groq` / `zenmux`) so the powered run is not hostage to a single rate-limited free
+  tier — a vendor is config, not bespoke code (ADR-0010). Keys read from env only (`OPENROUTER_API`,
+  `GROQ_API_KEY`, `ZENMUX_API`); inert without a key; unknown provider rejected.
+- **AP-0050 — powered live study (`In progress`).** Running the chain study with more repetitions and both
+  crash points across the available providers; dated live C1 evidence + statistics to follow (ADR-0009).
+
 ## [Unreleased]
 
 ### Added

@@ -14,7 +14,12 @@ from cairn.eval.chain import Chain, render_oracle_module
 from cairn.eval.scenario import EffectSpec, Scenario
 from cairn.live_controls import Budget, record_to, retrying
 from cairn.model import CODE, Action
-from cairn.model_live import LiveModelProvider, Transport, anthropic_transport, openrouter_transport
+from cairn.model_live import (
+    LiveModelProvider,
+    Transport,
+    anthropic_transport,
+    openai_chat_transport,
+)
 from cairn.model_mock import ScriptableMockModel
 from cairn.task import Task
 
@@ -250,6 +255,27 @@ def live_effectful_scenario(
     )
 
 
+# OpenAI-compatible providers are pure config — endpoint + default key env — routed through the
+# single generic `openai_chat_transport` factory (ADR-0010: a vendor is config, not bespoke code).
+# Adding a provider is one row here, no new transport function.
+OPENAI_COMPATIBLE_PROVIDERS: dict[str, dict] = {
+    "openrouter": {
+        "url": "https://openrouter.ai/api/v1/chat/completions",
+        "key_env": "OPENROUTER_API",
+        "referer": "https://github.com/STiFLeR7/Cairn",
+        "title": "Cairn",
+    },
+    "groq": {
+        "url": "https://api.groq.com/openai/v1/chat/completions",
+        "key_env": "GROQ_API_KEY",
+    },
+    "zenmux": {
+        "url": "https://zenmux.ai/api/v1/chat/completions",
+        "key_env": "ZENMUX_API",
+    },
+}
+
+
 def build_live_transport(
     model: str,
     *,
@@ -259,22 +285,32 @@ def build_live_transport(
     max_calls: Optional[int] = None,
     max_chars: Optional[int] = None,
 ) -> Transport:
-    """Construct the REAL transport for a live run (AP-0040, **GATED**).
+    """Construct the REAL transport for a live run (AP-0040/AP-0049, **GATED**).
 
-    ``provider`` selects a bundled factory: ``"anthropic"`` (needs ``ANTHROPIC_API_KEY`` +
-    the ``cairn[live]`` extra) or ``"openrouter"`` (OpenAI-compatible, stdlib-only; needs an
-    OpenRouter key). The base transport is wrapped with a transcript recorder (so the run
-    replays offline afterwards) and a :class:`Budget` ceiling (so it cannot run away on
-    cost). Calling this without a key raises ``LiveModelConfigError`` — the live path is
-    wired but **inert** until explicitly enabled with a key and an approved spend.
+    ``provider`` selects a bundled factory: ``"anthropic"`` (needs ``ANTHROPIC_API_KEY`` + the
+    ``cairn[live]`` extra) or any OpenAI-compatible router in :data:`OPENAI_COMPATIBLE_PROVIDERS`
+    (``"openrouter"``, ``"groq"``, ``"zenmux"`` — stdlib-only, each just an endpoint + key env).
+    ``api_key_env`` overrides the provider's default key env. The base transport is wrapped with
+    transient-error retry, a transcript recorder (so the run replays offline afterwards), and a
+    :class:`Budget` ceiling (so it cannot run away on cost). Calling this without a key raises
+    ``LiveModelConfigError`` — the live path is wired but **inert** until explicitly enabled with a
+    key and an approved spend.
     """
-    kw = {"api_key_env": api_key_env} if api_key_env else {}
     if provider == "anthropic":
+        kw = {"api_key_env": api_key_env} if api_key_env else {}
         transport = anthropic_transport(model=model, **kw)
-    elif provider == "openrouter":
-        transport = openrouter_transport(model=model, **kw)
+    elif provider in OPENAI_COMPATIBLE_PROVIDERS:
+        cfg = OPENAI_COMPATIBLE_PROVIDERS[provider]
+        transport = openai_chat_transport(
+            model=model,
+            url=cfg["url"],
+            api_key_env=api_key_env or cfg["key_env"],
+            referer=cfg.get("referer", ""),
+            title=cfg.get("title", ""),
+        )
     else:
-        raise ValueError(f"unknown provider {provider!r} (expected 'anthropic' or 'openrouter')")
+        known = ", ".join(["anthropic", *OPENAI_COMPATIBLE_PROVIDERS])
+        raise ValueError(f"unknown provider {provider!r} (expected one of: {known})")
     transport = retrying(transport)  # innermost: tolerate transient provider 429/5xx/"error" hiccups
     if transcript_path:
         transport = record_to(transport, transcript_path, model_version=model)

@@ -1,7 +1,7 @@
 # Phase Tracking
 
 > Live phase status board. Canonical goals/criteria: [ROADMAP.md](../../ROADMAP.md).
-> Last updated: 2026-06-23.
+> Last updated: 2026-06-29.
 
 | Phase | Name | Status | APs (done / total) |
 |---|---|---|---|
@@ -14,8 +14,20 @@
 | 6 | Paper & Release | 🟢 Core done (release deferred to M1) | 2 / 4 |
 | M1 | Live-LLM Validation | 🟢 Complete & merged (outcome: **NO-GO**; stays 0.x) | 5 / 5 |
 | M2 | Recovery-faithful live benchmark | 🟢 Complete (shipped v0.2.0; **NO-GO** for v1.0, stays 0.x) | 5 / 5 |
+| M3 | Powered live study (v1.0 gate) | 🟡 In Progress (tax fix + multi-provider done; powered run next) | 2 / 4 |
 
 **Legend:** ⬜ Not started · 🟡 In Progress · 🟢 Complete · 🔴 Blocked
+
+## Current milestone: M3 — Powered live study (entered 2026-06-29)
+
+Entered on branch `milestone-3-powered-live-study` (master clean; M2 merged via PR #8, commit `1027a39`,
+shipped v0.2.0). Goal: turn M2's *suggestive* live C1 into a **powered, confirmable** result and close the
+fairness gap the M2 go/no-go flagged. Four APs: **success-conditioned recovery tax** (AP-0048, Done — a
+failed run can't register a cheap tax), **multi-provider OpenAI-compatible transports** (AP-0049, Done —
+Groq + ZenMux as config, no bespoke code per vendor, so the powered run isn't hostage to one rate-limited
+free tier), **powered live study + claims update** (AP-0050, In progress — more repeats, both crash points,
+multiple providers), and **v1.0 go/no-go take 3** (AP-0051, Blocked on AP-0050). See
+[`project/phases/milestone-3-powered-live-study/README.md`](../phases/milestone-3-powered-live-study/README.md).
 
 ## Current milestone: M2 — Recovery-faithful live benchmark (entered 2026-06-16)
 

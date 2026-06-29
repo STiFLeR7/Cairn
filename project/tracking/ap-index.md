@@ -102,3 +102,12 @@
 | [AP-0045](../phases/milestone-2-recovery-faithful-benchmark/action-points/AP-0045-repetition-statistics-harness.md) | Repetition + statistics harness (injection-fired enforced) | Done |
 | [AP-0046](../phases/milestone-2-recovery-faithful-benchmark/action-points/AP-0046-live-rerun-claims-update.md) | Live re-run + claims update (C1–C5, with statistics) | Done *(live run fired; C1 suggestive not confirmed at n=2; transcript regen rate-limited)* |
 | [AP-0047](../phases/milestone-2-recovery-faithful-benchmark/action-points/AP-0047-v1-go-no-go-take2.md) | v1.0 go/no-go, take 2 | Done *(NO-GO for v1.0; M2 shipped as v0.2.0)* |
+
+## Milestone M3 — Powered live study (v1.0 gate) *(committed — entered 2026-06-29)*
+
+| ID | Title | Status |
+|---|---|---|
+| [AP-0048](../phases/milestone-3-powered-live-study/action-points/AP-0048-success-conditioned-tax.md) | Success-conditioned recovery tax (fairness fix) | Done |
+| [AP-0049](../phases/milestone-3-powered-live-study/action-points/AP-0049-multi-provider-transports.md) | Multi-provider OpenAI-compatible transports (Groq, ZenMux) | Done |
+| [AP-0050](../phases/milestone-3-powered-live-study/action-points/AP-0050-powered-live-study.md) | Powered live study + claims update | In progress |
+| [AP-0051](../phases/milestone-3-powered-live-study/action-points/AP-0051-v1-go-no-go-take3.md) | v1.0 go/no-go, take 3 | Blocked *(on AP-0050)* |

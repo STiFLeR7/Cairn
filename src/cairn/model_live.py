@@ -204,34 +204,36 @@ def _text_from_message(message: object) -> str:
     return "".join(parts)
 
 
-def openrouter_transport(
+def openai_chat_transport(
     *,
     model: str,
+    url: str,
+    api_key_env: str,
     system: str = DEFAULT_SYSTEM,
     max_tokens: int = 2048,
     temperature: float = 0.0,
     api_key: Optional[str] = None,
-    api_key_env: str = "OPENROUTER_API_KEY",
-    url: str = "https://openrouter.ai/api/v1/chat/completions",
-    referer: str = "https://github.com/STiFLeR7/Cairn",
-    title: str = "Cairn",
+    referer: str = "",
+    title: str = "",
     timeout: float = 120.0,
     request: Optional[Callable[[dict], dict]] = None,
 ) -> Transport:
-    """Build a :data:`Transport` over OpenRouter's OpenAI-compatible chat API.
+    """Build a :data:`Transport` over **any** OpenAI-compatible ``/chat/completions`` API.
 
-    ``model`` is required and injected (a provider/model slug) — no model id is hardcoded.
-    The key comes from ``api_key`` or ``$api_key_env``, never from source. The
-    HTTP call uses only the standard library (no SDK / no new dependency); pass ``request``
-    (a callable ``payload_dict -> response_dict``) to inject a fake in tests — so this
-    factory is exercisable offline. This is a second instance of the ADR-0010 pattern
-    (a vendor is just another ``*_transport`` factory; the harness is unchanged).
+    This is the generic ADR-0010 vendor seam: a provider is fully described by its ``url`` and
+    ``api_key_env`` (both injected — no endpoint or key hardcoded), so OpenRouter, Groq, ZenMux,
+    and any other OpenAI-compatible router are the *same* factory with different config rather
+    than bespoke code. ``model`` is required and injected. The key comes from ``api_key`` or
+    ``$api_key_env``, never from source. The HTTP call uses only the standard library (no SDK);
+    pass ``request`` (``payload_dict -> response_dict``) to inject a fake in tests, so this
+    factory is exercisable offline. ``referer``/``title`` are optional attribution headers some
+    routers (OpenRouter) read and others ignore.
     """
     if request is None:
         key = api_key or os.environ.get(api_key_env)
         if not key:
             raise LiveModelConfigError(
-                f"no API key: set ${api_key_env} or pass api_key= for openrouter_transport"
+                f"no API key: set ${api_key_env} or pass api_key= for {url}"
             )
         request = _urllib_json_poster(url, key, referer=referer, title=title, timeout=timeout)
 
@@ -248,6 +250,33 @@ def openrouter_transport(
         return _content_from_chat(request(payload))
 
     return complete
+
+
+def openrouter_transport(
+    *,
+    model: str,
+    system: str = DEFAULT_SYSTEM,
+    max_tokens: int = 2048,
+    temperature: float = 0.0,
+    api_key: Optional[str] = None,
+    api_key_env: str = "OPENROUTER_API_KEY",
+    url: str = "https://openrouter.ai/api/v1/chat/completions",
+    referer: str = "https://github.com/STiFLeR7/Cairn",
+    title: str = "Cairn",
+    timeout: float = 120.0,
+    request: Optional[Callable[[dict], dict]] = None,
+) -> Transport:
+    """OpenRouter specialization of :func:`openai_chat_transport` (kept for back-compat).
+
+    Identical behavior, with OpenRouter's endpoint, key env, and attribution headers as
+    defaults. New providers do not need their own wrapper — :func:`build_live_transport`
+    routes them through :func:`openai_chat_transport` via a provider registry.
+    """
+    return openai_chat_transport(
+        model=model, url=url, api_key_env=api_key_env, system=system, max_tokens=max_tokens,
+        temperature=temperature, api_key=api_key, referer=referer, title=title, timeout=timeout,
+        request=request,
+    )
 
 
 def _urllib_json_poster(
