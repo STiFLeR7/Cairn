@@ -17,14 +17,15 @@ from dataclasses import dataclass, field
 from typing import Callable, Mapping, Optional
 
 from ..contract import Runtime
-from ..model import CODE, FINISH, Action, ModelProvider, StepRecord
-from ..state import ContinuationState, PlanStep
+from ..model import FINISH, ModelProvider, StepRecord
+from ..state import ContinuationState
 from ..task import Task
 from ..tools import ToolRegistry
 from .distill import CHECKPOINT, distill
 from .effects import EffectfulTool, Resolution, resolve_danger_window
 from .observe import observe_world
 from .reconcile import ResumePlan, reconcile
+from ..recovery import regrounded_history
 
 StepHook = Callable[[int], None]
 
@@ -135,7 +136,7 @@ class CodeHarness:
 
         # 4 & 5. RE-PLAN + CONTINUE — re-ground history from the cairn so the model
         # continues from where it left off rather than restarting from scratch.
-        history = _history_from_plan(plan.plan)
+        history = regrounded_history(plan.plan)
         executed, checkpoints, final_state = self._loop(
             task, history, cwd, start=len(history), step_hook=step_hook
         )
@@ -214,19 +215,3 @@ class CodeHarness:
                 step_hook(step)  # lifecycle seam (e.g. injected failure) — after checkpoint
 
         return executed, checkpoints, final_state
-
-
-def _history_from_plan(plan: list[PlanStep]) -> list[StepRecord]:
-    """Re-ground a minimal history from the cairn's *done* steps.
-
-    Length is what an injected (mock) model uses to continue at the next un-done step; a
-    reopened (torn) step is excluded so it gets redone. This is re-grounding from the cairn,
-    not a token-level replay of the original trajectory.
-    """
-    out: list[StepRecord] = []
-    i = 0
-    for p in plan:
-        if p.status == "done":
-            out.append(StepRecord(step=i, action=Action(kind=CODE, code=p.description), returncode=0))
-            i += 1
-    return out

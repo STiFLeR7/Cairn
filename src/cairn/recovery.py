@@ -75,7 +75,7 @@ def recover(world, store, ledger, *, effect_tools=None, escalate: bool = True) -
     return Regrounded(history=regrounded_history(plan.plan), resolutions=resolutions, plan=plan)
 
 
-# NOTE: harness/agent_loop.py has a private copy (_history_from_plan); unified onto this in AP-3.
+# NOTE: harness/agent_loop.py imports this directly (the single source of re-grounding logic).
 def regrounded_history(plan_steps: list[PlanStep]) -> list[StepRecord]:
     """Re-ground a minimal history from the cairn's *done* steps (re-grounding, not replay)."""
     out: list[StepRecord] = []

@@ -87,3 +87,12 @@ def test_public_api_is_importable_from_cairn():
     import cairn
     for name in cairn.__all__:
         assert hasattr(cairn, name), f"cairn.{name} missing from public API"
+
+
+def test_agent_loop_reuses_the_public_regrounded_history():
+    # The harness must not keep its own copy of the re-grounding logic; it uses the primitive.
+    from cairn.harness import agent_loop
+    from cairn import recovery
+
+    assert not hasattr(agent_loop, "_history_from_plan"), "duplicate logic still present"
+    assert agent_loop.regrounded_history is recovery.regrounded_history
