@@ -63,3 +63,25 @@ def test_workspace_world_snapshot_restore_digest(tmp_path):
     w.restore(snap)                                          # restore the snapshot
     assert w.digest() == d1
     assert isinstance(w, WorldProto)
+
+
+from cairn.runtime.local_runtime import LocalRuntime
+
+
+def test_local_runtime_satisfies_the_byom_protocols(tmp_path):
+    rt = LocalRuntime(str(tmp_path / "rt"))
+    assert isinstance(rt, WorldProto)
+    assert isinstance(rt, CheckpointStoreProto)
+    assert isinstance(rt, EffectLedgerProto)
+
+
+def test_local_runtime_world_aliases_round_trip(tmp_path):
+    rt = LocalRuntime(str(tmp_path / "rt"))
+    from pathlib import Path
+    Path(rt.workspace_dir, "a.txt").write_text("one", encoding="utf-8")
+    snap = rt.snapshot()                       # alias of snapshot_workspace
+    d1 = rt.digest(); assert "a.txt" in d1      # alias of world_digest(workspace_dir)
+    Path(rt.workspace_dir, "a.txt").write_text("two", encoding="utf-8")
+    rt.restore(snap)                            # alias of restore_workspace
+    assert rt.digest() == d1
+    assert rt.current_offset() == rt.current_effect_offset()  # ledger alias
