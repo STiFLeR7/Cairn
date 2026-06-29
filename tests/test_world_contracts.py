@@ -48,3 +48,20 @@ def test_concrete_impls_satisfy_protocols(tmp_path):
     assert isinstance(ckpt, CheckpointStoreProto)
     assert isinstance(ledger, EffectLedgerProto)
     assert isinstance(_DigestWorld({}), WorldProto)  # a duck-typed World qualifies
+
+
+from cairn.worlds import Workspace
+
+
+def test_workspace_world_snapshot_restore_digest(tmp_path):
+    ws_dir = tmp_path / "ws"; ws_dir.mkdir()
+    snaps = tmp_path / "snaps"
+    w = Workspace(str(ws_dir), str(snaps))
+    (ws_dir / "a.txt").write_text("one", encoding="utf-8")
+    snap = w.snapshot()
+    d1 = w.digest(); assert "a.txt" in d1
+    (ws_dir / "a.txt").write_text("two", encoding="utf-8")   # diverge
+    assert w.digest() != d1
+    w.restore(snap)                                          # restore the snapshot
+    assert w.digest() == d1
+    assert isinstance(w, WorldProto)
