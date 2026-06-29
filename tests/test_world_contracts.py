@@ -85,3 +85,11 @@ def test_local_runtime_world_aliases_round_trip(tmp_path):
     rt.restore(snap)                            # alias of restore_workspace
     assert rt.digest() == d1
     assert rt.current_offset() == rt.current_effect_offset()  # ledger alias
+
+
+def test_workspace_executes_code_in_its_dir(tmp_path):
+    ws_dir = tmp_path / "ws"; ws_dir.mkdir()
+    w = Workspace(str(ws_dir), str(tmp_path / "snaps"))
+    res = w.execute("open('made.txt', 'w').write('hi')")
+    assert res.returncode == 0
+    assert (ws_dir / "made.txt").read_text(encoding="utf-8") == "hi"
