@@ -29,3 +29,16 @@ def observe_world(runtime, since_offset: int, workspace_dir: str = "") -> Observ
         effects_since=list(runtime.list_effects_since(since_offset)),
         workspace_dir=wd,
     )
+
+
+def observe(world, ledger, since_offset: int) -> ObservedWorld:
+    """Re-observe via the World's own digest + the effect ledger (the generic, BYOM form).
+
+    Unlike `observe_world` (which hashes a filesystem workspace), this asks the World for its
+    digest, so a non-filesystem World re-grounds the same way.
+    """
+    return ObservedWorld(
+        digest=world.digest(),
+        effects_since=list(ledger.list_effects_since(since_offset)),
+        workspace_dir=getattr(world, "workspace_dir", ""),
+    )
