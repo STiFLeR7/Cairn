@@ -11,6 +11,8 @@ from ..runtime.workspace import WorkspaceManager
 
 
 class Workspace:
+    """Filesystem-backed World: wraps WorkspaceManager + world_digest behind the World seam."""
+
     def __init__(self, workspace_dir: str, snapshots_dir: str) -> None:
         self.workspace_dir = workspace_dir
         self._wm = WorkspaceManager(workspace_dir, snapshots_dir)

@@ -85,7 +85,12 @@ class CheckpointStore(Protocol):
 
 @runtime_checkable
 class EffectLedger(Protocol):
-    """Append-only write-ahead effect log (bundled; dev does not implement). I1/I3."""
+    """Append-only write-ahead effect log (bundled; dev does not implement). I1/I3.
+
+    Note: the bundled `LocalRuntime` exposes this offset method as `current_effect_offset`
+    (its `Runtime`-protocol name); pass a standalone `EffectLedger` (e.g.
+    `cairn.runtime.effect_ledger.EffectLedger`) when you need this contract directly.
+    """
 
     def append_effect(
         self, intent: str, idempotency_key: str, tool_class: str = "never-retry", step: int = 0

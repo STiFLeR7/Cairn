@@ -1,5 +1,11 @@
-from cairn.harness.distill import distill, CHECKPOINT
+from cairn.contract import CheckpointStore as CheckpointStoreProto
+from cairn.contract import EffectLedger as EffectLedgerProto
+from cairn.contract import World as WorldProto
+from cairn.harness.distill import CHECKPOINT, distill
 from cairn.harness.observe import observe
+from cairn.runtime.checkpoint_store import CheckpointStore as ConcreteCkpt
+from cairn.runtime.effect_ledger import EffectLedger as ConcreteLedger
+from cairn.worlds import Workspace
 
 
 class _DigestWorld:
@@ -35,13 +41,6 @@ def test_observe_reads_world_digest_and_ledger():
     assert obs.effects_since == [{"seq": 3, "type": "INTENT"}]
 
 
-from cairn.contract import World as WorldProto
-from cairn.contract import CheckpointStore as CheckpointStoreProto
-from cairn.contract import EffectLedger as EffectLedgerProto
-from cairn.runtime.checkpoint_store import CheckpointStore as ConcreteCkpt
-from cairn.runtime.effect_ledger import EffectLedger as ConcreteLedger
-
-
 def test_concrete_impls_satisfy_protocols(tmp_path):
     ckpt = ConcreteCkpt(str(tmp_path / "ck"))
     ledger = ConcreteLedger(str(tmp_path / "e.jsonl"), "run")
@@ -50,16 +49,15 @@ def test_concrete_impls_satisfy_protocols(tmp_path):
     assert isinstance(_DigestWorld({}), WorldProto)  # a duck-typed World qualifies
 
 
-from cairn.worlds import Workspace
-
-
 def test_workspace_world_snapshot_restore_digest(tmp_path):
-    ws_dir = tmp_path / "ws"; ws_dir.mkdir()
+    ws_dir = tmp_path / "ws"
+    ws_dir.mkdir()
     snaps = tmp_path / "snaps"
     w = Workspace(str(ws_dir), str(snaps))
     (ws_dir / "a.txt").write_text("one", encoding="utf-8")
     snap = w.snapshot()
-    d1 = w.digest(); assert "a.txt" in d1
+    d1 = w.digest()
+    assert "a.txt" in d1
     (ws_dir / "a.txt").write_text("two", encoding="utf-8")   # diverge
     assert w.digest() != d1
     w.restore(snap)                                          # restore the snapshot
