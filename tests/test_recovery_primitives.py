@@ -81,3 +81,10 @@ def test_recovery_works_for_a_non_workspace_world(tmp_path):
     assert world.state == {"x": "1", "y": "2"}        # world restored from the snapshot
     assert [s.action.code for s in out.history] == ["set x", "set y"]  # both steps re-grounded
     assert out.plan is not None and out.plan.clean
+
+
+def test_public_api_is_importable_from_cairn():
+    import cairn
+    for name in ("checkpoint", "recover", "Regrounded", "Checkpoint",
+                 "World", "Workspace", "Action", "StepRecord"):
+        assert hasattr(cairn, name), f"cairn.{name} missing from public API"

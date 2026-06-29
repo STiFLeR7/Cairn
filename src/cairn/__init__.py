@@ -11,3 +11,20 @@ confirmed — see docs/research/claims-registry.md).
 """
 
 __version__ = "0.2.0"
+
+from .contract import CheckpointStore, EffectLedger, World
+from .model import Action, StepRecord
+from .recovery import Checkpoint, Regrounded, checkpoint, recover, regrounded_history
+from .worlds import Workspace
+
+__all__ = [
+    "__version__",
+    # contracts
+    "World", "CheckpointStore", "EffectLedger",
+    # types
+    "Action", "StepRecord", "Checkpoint", "Regrounded",
+    # primitives
+    "checkpoint", "recover", "regrounded_history",
+    # reference world
+    "Workspace",
+]
