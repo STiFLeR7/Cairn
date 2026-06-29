@@ -33,3 +33,18 @@ def test_observe_reads_world_digest_and_ledger():
     obs = observe(_DigestWorld({"f": "h"}), _Ledger(), since_offset=3)
     assert obs.digest == {"f": "h"}
     assert obs.effects_since == [{"seq": 3, "type": "INTENT"}]
+
+
+from cairn.contract import World as WorldProto
+from cairn.contract import CheckpointStore as CheckpointStoreProto
+from cairn.contract import EffectLedger as EffectLedgerProto
+from cairn.runtime.checkpoint_store import CheckpointStore as ConcreteCkpt
+from cairn.runtime.effect_ledger import EffectLedger as ConcreteLedger
+
+
+def test_concrete_impls_satisfy_protocols(tmp_path):
+    ckpt = ConcreteCkpt(str(tmp_path / "ck"))
+    ledger = ConcreteLedger(str(tmp_path / "e.jsonl"), "run")
+    assert isinstance(ckpt, CheckpointStoreProto)
+    assert isinstance(ledger, EffectLedgerProto)
+    assert isinstance(_DigestWorld({}), WorldProto)  # a duck-typed World qualifies
