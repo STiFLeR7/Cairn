@@ -31,11 +31,11 @@ class AgentRun:
     finished: bool                                  # model emitted FINISH (vs hit max_steps)
     steps: int                                      # steps executed in THIS call
     checkpoints: int                                # checkpoints written in THIS call
-    history: list = field(default_factory=list)     # full StepRecord history (re-grounded + new)
+    history: list[StepRecord] = field(default_factory=list)  # full StepRecord history (re-grounded + new)
     final_state: Optional[Checkpoint] = None
     resumed: bool = False
     recovery_tax: Optional[int] = None              # steps executed after resume (None for run)
-    resolutions: list = field(default_factory=list)
+    resolutions: list[Resolution] = field(default_factory=list)
 
 
 class Agent:
@@ -82,7 +82,7 @@ class Agent:
             resumed=True, resolutions=rg.resolutions,
         )
 
-    def _loop(self, goal, history, *, start, resumed, resolutions) -> AgentRun:
+    def _loop(self, goal: str, history: list[StepRecord], *, start: int, resumed: bool, resolutions: list[Resolution]) -> AgentRun:
         executed = 0
         checkpoints = 0
         final_state: Optional[Checkpoint] = None
