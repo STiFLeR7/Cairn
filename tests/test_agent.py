@@ -63,7 +63,8 @@ def test_agent_resume_regrounds_and_continues_after_a_crash(tmp_path):
                store=CheckpointStore(ck), ledger=EffectLedger(ej, "run"), max_steps=10)
     r2 = a2.resume("make a then b")
     assert r2.resumed is True
-    assert len(r2.history) >= 2                     # step 0 re-grounded + step 1 executed
+    assert len(r2.history) == 2                     # step 0 re-grounded + step 1 executed
+    assert r2.history[0].action.code == "open('a.txt','w').write('1')"   # step 0 re-grounded from the cairn
     assert r2.recovery_tax == 1                     # only ONE new step needed (not a full restart)
     assert (ws_dir / "b.txt").exists()              # the task got finished
     assert r2.finished is True
