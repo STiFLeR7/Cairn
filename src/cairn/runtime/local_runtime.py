@@ -13,6 +13,7 @@ from typing import Optional, Sequence, Tuple
 from ..sandbox import ExecResult, Sandbox
 from ..state import ContinuationState
 from .checkpoint_store import CheckpointStore
+from .digest import world_digest
 from .effect_ledger import EffectLedger
 from .sandbox_local import LocalSubprocessSandbox
 from .workspace import WorkspaceManager
@@ -47,6 +48,18 @@ class LocalRuntime:
     def restore_workspace(self, snap_id: str) -> None:
         self._wm.restore(snap_id)
 
+    # --- World protocol aliases (cairn.contract.World) -----------------------
+    # The Runtime IS a World: these forward to the workspace methods so a LocalRuntime
+    # can be passed straight into the BYOM primitives (checkpoint/recover) and the Agent.
+    def snapshot(self) -> str:
+        return self.snapshot_workspace()
+
+    def restore(self, snap_id: str) -> None:
+        self.restore_workspace(snap_id)
+
+    def digest(self) -> dict:
+        return world_digest(self.workspace_dir)
+
     # --- checkpoint store ----------------------------------------------------
     def checkpoint(self, state: ContinuationState, snap_id: str, effect_offset: int) -> str:
         return self._ckpt.checkpoint(state, snap_id, effect_offset)
@@ -68,3 +81,7 @@ class LocalRuntime:
 
     def current_effect_offset(self) -> int:
         return self._ledger.current_offset()
+
+    # --- EffectLedger protocol alias (cairn.contract.EffectLedger) -----------
+    def current_offset(self) -> int:
+        return self.current_effect_offset()

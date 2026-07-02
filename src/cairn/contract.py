@@ -60,3 +60,41 @@ class CodeHarness(Protocol):
     def reconcile(self, state: ContinuationState, observed: "object") -> "object":
         """On resume, compare the cairn against the re-observed world and produce a
         ResumePlan (the next action / repaired plan). Implemented in Phase 4 (AP-0025)."""
+
+
+@runtime_checkable
+class World(Protocol):
+    """The observable, snapshottable world an agent acts on (the BYOM seam).
+
+    A dev implements these three methods; `cairn.worlds.Workspace` is the bundled filesystem
+    reference. `digest()` is the World's own content fingerprint used for re-grounding.
+    """
+
+    def snapshot(self) -> str: ...
+    def restore(self, snap_id: str) -> None: ...
+    def digest(self) -> dict: ...
+
+
+@runtime_checkable
+class CheckpointStore(Protocol):
+    """Durable checkpoint persistence (bundled; dev does not implement). I2 atomic."""
+
+    def checkpoint(self, state: ContinuationState, snap_id: str, effect_offset: int) -> str: ...
+    def load_latest(self) -> Optional[Tuple[ContinuationState, str, int]]: ...
+
+
+@runtime_checkable
+class EffectLedger(Protocol):
+    """Append-only write-ahead effect log (bundled; dev does not implement). I1/I3.
+
+    Note: the bundled `LocalRuntime` satisfies this protocol directly — it provides
+    `current_offset` as an alias of its `Runtime`-protocol name `current_effect_offset`.
+    A standalone `cairn.runtime.effect_ledger.EffectLedger` also satisfies it.
+    """
+
+    def append_effect(
+        self, intent: str, idempotency_key: str, tool_class: str = "never-retry", step: int = 0
+    ) -> int: ...
+    def complete_effect(self, idempotency_key: str) -> None: ...
+    def list_effects_since(self, offset: int) -> list[dict]: ...
+    def current_offset(self) -> int: ...

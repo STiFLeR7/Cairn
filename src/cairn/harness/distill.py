@@ -15,6 +15,8 @@ decisions; the plan is derived from executed steps. Real summarization plugs in 
 
 from __future__ import annotations
 
+from typing import Optional
+
 from ..model import StepRecord
 from ..runtime.digest import world_digest
 from ..state import (
@@ -47,6 +49,7 @@ def distill(
     effect_offset: int = 0,
     snap_id: str = "",
     workspace_dir: str = "",
+    digest: Optional[dict] = None,
 ) -> ContinuationState:
     """Distill the trajectory into a cairn. ``mode`` selects only the tail policy."""
     if mode not in (COMPACT, CHECKPOINT):
@@ -61,6 +64,7 @@ def distill(
         effect_offset=effect_offset,
         snap_id=snap_id,
         workspace_dir=workspace_dir,
+        digest=digest,
     )
     tail = _elastic_tail(history, mode=mode)
     return ContinuationState(durable_core=core, elastic_tail=tail)
@@ -76,6 +80,7 @@ def _durable_core(
     effect_offset: int,
     snap_id: str,
     workspace_dir: str,
+    digest: Optional[dict] = None,
 ) -> DurableCore:
     """The sufficient statistic S — independent of write path (mode)."""
     plan = [
@@ -108,7 +113,10 @@ def _durable_core(
     )
     core.effects_ref.offset = effect_offset
     core.world.snapshot_id = snap_id
-    core.world.digest = world_digest(workspace_dir) if workspace_dir else {}
+    if digest is not None:
+        core.world.digest = digest
+    else:
+        core.world.digest = world_digest(workspace_dir) if workspace_dir else {}
     return core
 
 
