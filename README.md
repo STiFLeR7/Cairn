@@ -62,8 +62,13 @@ the [Master Checklist](CHECKLIST.md), and the [claims registry](docs/research/cl
 ```bash
 python -m pytest -q                  # 42 passing
 python examples/recovery_demo.py     # crash mid-task, then recover via re-grounding
+python examples/byom_recovery.py     # BYOM: add crash-recovery to YOUR agent (mock model, offline)
 python benchmarks/recovery_matrix.py # the baseline×failure-step benchmark (C1, C3)
 ```
+
+**Adding recovery to your own agent?** See the BYOM guide —
+[docs/guide/recovery-in-your-agent.md](docs/guide/recovery-in-your-agent.md) — for the
+primitives path, the `Agent` loop, exactly-once effects, and a local-model (Ollama) run.
 
 The harness is **never hardcoded** (ADR-0007): model provider, tools, tasks, sandbox, storage, and
 policies are all injected through [`cairn.app.build_harness`](src/cairn/app.py). The concrete task and
