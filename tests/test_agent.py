@@ -68,3 +68,63 @@ def test_agent_resume_regrounds_and_continues_after_a_crash(tmp_path):
     assert r2.recovery_tax == 1                     # only ONE new step needed (not a full restart)
     assert (ws_dir / "b.txt").exists()              # the task got finished
     assert r2.finished is True
+
+
+class _ExecResult:
+    def __init__(self, returncode=0, stdout="", stderr=""):
+        self.returncode = returncode; self.stdout = stdout; self.stderr = stderr
+
+
+class ExecFakeWorld:
+    """An in-memory, NON-filesystem executable World — proves the Agent isn't workspace-bound.
+
+    `execute` interprets a tiny 'k=v' command language by mutating in-memory state.
+    """
+
+    def __init__(self):
+        self.state: dict[str, str] = {}
+        self._snaps: dict[str, dict] = {}
+        self._n = 0
+
+    def snapshot(self) -> str:
+        sid = f"s{self._n}"; self._n += 1
+        self._snaps[sid] = dict(self.state)
+        return sid
+
+    def restore(self, snap_id: str) -> None:
+        self.state = dict(self._snaps[snap_id])
+
+    def digest(self) -> dict:
+        return {k: self.state[k] for k in sorted(self.state)}
+
+    def execute(self, code: str, cwd=None) -> _ExecResult:
+        k, _, v = code.partition("=")
+        self.state[k.strip()] = v.strip()
+        return _ExecResult()
+
+
+def test_agent_recovers_on_a_non_workspace_world(tmp_path):
+    world = ExecFakeWorld()
+    store = CheckpointStore(str(tmp_path / "ck"))
+    ledger = EffectLedger(str(tmp_path / "e.jsonl"), "run")
+    script = [
+        Action(kind=CODE, code="x=1"),
+        Action(kind=CODE, code="y=2"),
+        Action(kind=FINISH),
+    ]
+    # Run step 0 then "crash".
+    a1 = Agent(ScriptableMockModel(script), world,
+               store=store, ledger=ledger, max_steps=1)
+    a1.run("set x then y")
+    assert world.state == {"x": "1"}
+
+    # Corrupt in-memory state, then recover + continue with a fresh Agent on the SAME world+dirs.
+    world.state = {"x": "CORRUPT"}
+    a2 = Agent(ScriptableMockModel(script), world,
+               store=CheckpointStore(str(tmp_path / "ck")),
+               ledger=EffectLedger(str(tmp_path / "e.jsonl"), "run"), max_steps=10)
+    run = a2.resume("set x then y")
+
+    assert world.state == {"x": "1", "y": "2"}      # restored from snapshot, then y set
+    assert run.recovery_tax == 1                    # only the un-done step was redone
+    assert run.finished is True
