@@ -33,10 +33,17 @@ And it's *measured*: a failure-injection benchmark scores recovery fidelity agai
 reference harness, re-grounding beats cold restart on cost and preserved work, and the write-ahead ledger
 eliminates duplicate effects for queryable tools.
 
-**Honest scope:** v1 results are from a deterministic reference harness (scripted mock model), not a
-live-LLM study — that's the next step. Cairn *complements* agent frameworks rather than replacing them.
+**Bring your own model.** Cairn ships the recovery mechanism as a library — public `checkpoint`/`recover`
+primitives and an opt-in `Agent` loop over a pluggable `World` — so you can add crash-recovery to *your*
+agent with *your* model and keys, and reproduce the recovery-vs-restart result yourself.
 
-Spec + reference implementation + benchmark, Apache-2.0: **github.com/STiFLeR7/Cairn**
+**Honest scope:** the in-harness results establish mechanism correctness and reproducibility. Live runs
+against real models (Milestones M1–M3) look promising — re-grounding roughly halves recovery tax — but the
+headline live claim is **suggestive, not yet confirmed** (a powered study on a paid/reliable API is the
+remaining gate), so the project deliberately stays 0.x. Cairn *complements* agent frameworks rather than
+replacing them.
+
+Library + spec + reference implementation + benchmark, Apache-2.0: **github.com/STiFLeR7/Cairn**
 
 ## Notes for the poster
 
