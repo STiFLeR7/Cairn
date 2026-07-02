@@ -1,8 +1,8 @@
 # Checkpoints Are Compactions: Re-grounding Recovery for Long-Horizon Agents
 
 *Cairn — a framework-agnostic reference implementation and benchmark for recoverable long-horizon AI
-agents. Draft (v1), 2026-06-15. This is the Markdown working draft (AP-0034); a typeset version is later
-work.*
+agents. Draft (v1), 2026-06-15; §9 live-run history and availability maintained through Milestone M4
+(2026-07-02). This is the Markdown working draft (AP-0034); a typeset version is later work.*
 
 > **Honest-scope notice.** All empirical results in this draft come from a **deterministic reference
 > harness with a scripted mock model** (see [ADR-0009](docs/adr/ADR-0009-evaluation-framework.md)). They
@@ -240,6 +240,20 @@ Effectful task, torn `check-before-retry` effect at k=2:
   non-recovery), n=2 is underpowered, and a larger run was blocked by the free tier's rate limit (HTTP 429).
   This is a genuine step past M1 — the benchmark is now recovery-faithful and yields real live evidence — but
   a **powered** live study remains the gate for any C1-confirmed-live claim; **v1.0 stays held**.
+- **Powered live study (M3, recorded honestly).** Milestone M3 added a success-conditioned recovery tax (a
+  failed run can no longer register a cheap tax), multi-provider OpenAI-compatible transports (Groq, ZenMux —
+  so the run is not hostage to one rate-limited free tier), and ran the study against `gpt-oss-120b`. Across
+  **28 fired cells** the mechanism was at its strongest live: RGR **≈ halves recovery tax with no overlap**,
+  with higher success and less regression than cold restart. Even so, the *strict* C1 verdict is **NOT
+  SHOWN** — confounded by model competence and residual rate-limits — so the go/no-go was again **NO-GO** and
+  the project **stays 0.x**. The remaining gate is a paid/reliable model with a capability-matched C1 verdict
+  and C3 wired live (see the claims registry, 2026-06-29).
+- **Availability as a BYOM library (M4).** Rather than block on paid-API access, the recovery mechanism is
+  now packaged as a **bring-your-own-model library**: public `checkpoint`/`recover` primitives, an opt-in
+  `Agent` loop, and a `World` abstraction that de-couples recovery from the filesystem. This makes C1
+  **reproducible by any reader on their own model** — the mechanism ships independently of us proving it on a
+  paid model. It changes distribution, not the evidence: the honest scope above is unchanged and v1.0 stays
+  held (see `docs/guide/recovery-in-your-agent.md`).
 - **Failure types.** Only `crash` is faithfully realized; context-overflow, tool-timeout, and model-error
   are modeled as a typed stop-at-`k`.
 - **Restore-first resume.** Torn-write detection is reserved for a future crash-in-place mode (§5, ADR-0008 §7).
@@ -272,4 +286,4 @@ not just assert.
 - Effect-safety protocol — `docs/design/effect-safety-protocol.md`
 - Related work — `docs/research/related-work.md`
 - Claims registry (C1–C5, with status) — `docs/research/claims-registry.md`
-- Decision records — `docs/adr/` (ADR-0001 … ADR-0009)
+- Decision records — `docs/adr/` (ADR-0001 … ADR-0010)

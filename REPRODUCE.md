@@ -29,7 +29,8 @@ Without `make` (any platform), run the same commands directly:
 
 ```bash
 python -m pytest -q                       # test
-python examples/recovery_demo.py          # demo
+python examples/byom_recovery.py          # BYOM: primitives + Agent loop + exactly-once effect (offline)
+python examples/recovery_demo.py          # demo: crash mid-task, then recover
 python benchmarks/recovery_matrix.py      # bench: baseline × failure-step matrix + effect-safety
 python benchmarks/ablation_study.py       # bench: Continuation-State ablation
 python benchmarks/cross_version_resume.py # bench: cross-version resume
@@ -40,7 +41,14 @@ python benchmarks/live_study.py           # bench: the same matrix through the L
 
 ### Tests
 ```
-64 passed
+141 passed
+```
+
+### BYOM example (`examples/byom_recovery.py`)
+```
+[primitives] regrounded=1 new_steps=1 files=['a.txt', 'b.txt']
+[agent]      resumed=True recovery_tax=1 finished=True files=['a.txt', 'b.txt']
+[effect]     resolutions=[('send-1', 'skip')] outbox_before=1 outbox_after=1 (exactly once)
 ```
 
 ### Recovery demo (`examples/recovery_demo.py`)
@@ -74,10 +82,16 @@ resumed under:      'model-B'
 resume success:     True
 ```
 
-## Live runs (Milestone M1 — in progress)
+## Live runs (Milestones M1–M3 — complete; outcome NO-GO)
 
-The reproductions above use the **deterministic scripted mock** and need no network or key. Milestone M1
-adds the option to run against a **real LLM** behind the same harness ([ADR-0010](docs/adr/ADR-0010-live-model-provider-integration.md)):
+The reproductions above use the **deterministic scripted mock** and need no network or key. Milestones
+M1–M3 added the option to run against a **real LLM** behind the same harness
+([ADR-0010](docs/adr/ADR-0010-live-model-provider-integration.md)) and executed live studies (M1 `owl-alpha`,
+M2 `nemotron`, M3 `gpt-oss-120b`). The mechanism looks strong live — in M3, RGR ≈ halves recovery tax — but
+each go/no-go was **NO-GO**: the evidence is *suggestive, not confirmed* (free-tier rate limits + underpowered
+runs). The project stays **0.x** and a **powered** study on a paid/reliable API remains the v1.0 gate. Since
+M4, the recommended way to gather *your own* live evidence is the **BYOM library** — bring your own model and
+reproduce C1 in your own agent (see [`docs/guide/recovery-in-your-agent.md`](docs/guide/recovery-in-your-agent.md)).
 
 ```bash
 python -m pip install -e ".[live]"   # optional 'anthropic' extra — not needed for anything above
@@ -102,10 +116,10 @@ C1 via live pipeline: SUPPORTED — B3 tax=1.50 vs B0 tax=5.00; B3 no-regression
 C3 via live pipeline: SUPPORTED — B3 duplicates=0 (gate PASS); B0 duplicates=1 (gate FAIL)
 ```
 
-> This offline run **validates the pipeline**, not the claims under a real model. The paid live **study**
-> (the failure-injection benchmark against an actual LLM) is **AP-0040**, gated on explicit approval — it
-> swaps the fake for `benchmarks.scenarios.build_live_transport(model=…)` and nothing else. Once run, its
-> transcripts replay offline via the wrappers above, and its evidence is recorded — honestly scoped — in the
+> This offline run **validates the pipeline**, not the claims under a real model. The live **study**
+> (the failure-injection benchmark against an actual LLM) ran across Milestones M1–M3 — it swaps the fake for
+> `benchmarks.scenarios.build_live_transport(model=…)` and nothing else. Its transcripts replay offline via
+> the wrappers above, and its evidence is recorded — honestly scoped, outcome **NO-GO** — in the
 > [claims registry](docs/research/claims-registry.md).
 
 ## Scope

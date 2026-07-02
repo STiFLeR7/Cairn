@@ -18,6 +18,8 @@
 
 - [x] **Milestone M1 — Live-LLM Validation** 🟢 *(complete & merged PR #7, 2026-06-16; 5 / 5 APs; **outcome NO-GO** — live run didn't validate the claims, project stays 0.x)*
 - [x] **Milestone M2 — Recovery-faithful live benchmark** 🟢 *(complete 2026-06-23; 5 / 5 APs; shipped as **v0.2.0**; **v1.0 go/no-go take 2 → NO-GO** — live C1 suggestive not confirmed, project stays 0.x)*
+- [x] **Milestone M3 — Powered live study (v1.0 gate)** 🟢 *(complete 2026-06-29; 4 / 4 APs; **v1.0 go/no-go take 3 → NO-GO** — strongest live signal yet (`gpt-oss-120b`, RGR ≈ halves recovery tax) but strict verdict confounded; project stays 0.x)*
+- [x] **Milestone M4 — BYOM Recovery Library** 🟢 *(complete & merged 2026-07-02, PRs #10/#11/#12; 5 / 5 slices AP-1…AP-5; recovery mechanism shipped as a bring-your-own-model library; in-repo, 0.x — ships nothing outward)*
 
 ## Phase 0 — Action Points
 
@@ -165,3 +167,33 @@
 - [x] Each cell run N times with seeds; mean ± spread reported; vacuous cells skipped (M1 fix carried forward)
 - [x] Live re-run produces dated C1–C5 evidence with statistics, honestly scoped *(crash fired; C1 suggestive not confirmed at n=2)*
 - [x] Recorded v1.0 go/no-go take 2; version status reflects the evidence *(NO-GO; shipped as v0.2.0, stays 0.x)*
+
+## Milestone M3 — Action Points
+
+- [x] `AP-0048` Success-conditioned recovery tax (a failed run can't register a cheap tax)
+- [x] `AP-0049` Multi-provider OpenAI-compatible transports (Groq, ZenMux) — config, not per-vendor code
+- [x] `AP-0050` Powered live study + claims update — *`gpt-oss-120b`, 28 fired cells; RGR ≈ halves tax; strict verdict NOT SHOWN*
+- [x] `AP-0051` v1.0 go/no-go, take 3 — **NO-GO** (stays 0.x; AP-0036/0037 stay `Blocked`)
+
+## Milestone M3 completion criteria
+
+- [x] Recovery tax is success-conditioned (fairness fix); a non-recovery cannot look cheap
+- [x] ≥2 OpenAI-compatible providers usable by config so the run isn't hostage to one rate-limited free tier
+- [x] Powered live run executed and analyzed; dated C1–C5 evidence, honestly scoped *(RGR ≈ halves tax, higher success; strict verdict confounded)*
+- [x] Recorded v1.0 go/no-go take 3 — **NO-GO**; next gate = paid/reliable model + capability-matched C1 + C3 live
+
+## Milestone M4 — Action Points *(superpowers spec→plan→execute slices)*
+
+- [x] `AP-1` Split contracts (`World`/`CheckpointStore`/`EffectLedger` Protocols; `LocalRuntime` satisfies) — PR #10
+- [x] `AP-2` Recovery primitives (`checkpoint`/`recover`) + fake-World abstraction proof — PR #10
+- [x] `AP-3` Opt-in `Agent` loop on the primitives + `regrounded_history` de-dup — PR #10
+- [x] `AP-4` BYOM example + guide + public API reference + CI smoke test — PR #11
+- [x] `AP-5` Public-API contract lock + design-spec reconciliation (§12) + trackers/CHANGELOG — PR #12
+
+## Milestone M4 completion criteria
+
+- [x] A clean public API an outside dev can use to add recovery to their own agent (primitives + `Agent`)
+- [x] `World` abstraction so recovery isn't married to the filesystem (proven by in-memory fake Worlds)
+- [x] The existing benchmark/eval runs unchanged on the new public API (regression guard green)
+- [x] A runnable, offline, deterministic example + guide + public API reference; example smoke-tested in CI
+- [x] Public surface locked by a contract test; `__version__` guarded at 0.x; ships nothing outward (v1.0 hold intact)
