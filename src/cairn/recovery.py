@@ -13,7 +13,7 @@ from dataclasses import dataclass, field
 from typing import Optional
 
 from .harness.distill import CHECKPOINT, distill
-from .harness.effects import EffectfulTool, EscalationRequired, Resolution, resolve_danger_window
+from .harness.effects import Resolution, resolve_danger_window
 from .harness.observe import observe
 from .harness.reconcile import ResumePlan, reconcile
 from .model import CODE, Action, StepRecord
@@ -77,7 +77,12 @@ def recover(world, store, ledger, *, effect_tools=None, escalate: bool = True) -
 
 # NOTE: harness/agent_loop.py imports this directly (the single source of re-grounding logic).
 def regrounded_history(plan_steps: list[PlanStep]) -> list[StepRecord]:
-    """Re-ground a minimal history from the cairn's *done* steps (re-grounding, not replay)."""
+    """Re-ground a minimal history from the cairn's *done* steps (re-grounding, not replay).
+
+    Each step's action text comes from the checkpoint's PlanStep.description, which distillation
+    summarizes (truncated ~80 chars) — so this reconstructs a faithful *summary* of prior steps
+    for the model to continue from, not a byte-exact replay of the original code.
+    """
     out: list[StepRecord] = []
     i = 0
     for p in plan_steps:
