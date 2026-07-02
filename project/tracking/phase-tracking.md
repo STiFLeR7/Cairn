@@ -1,7 +1,7 @@
 # Phase Tracking
 
 > Live phase status board. Canonical goals/criteria: [ROADMAP.md](../../ROADMAP.md).
-> Last updated: 2026-06-29.
+> Last updated: 2026-07-02.
 
 | Phase | Name | Status | APs (done / total) |
 |---|---|---|---|
@@ -15,8 +15,22 @@
 | M1 | Live-LLM Validation | 🟢 Complete & merged (outcome: **NO-GO**; stays 0.x) | 5 / 5 |
 | M2 | Recovery-faithful live benchmark | 🟢 Complete (shipped v0.2.0; **NO-GO** for v1.0, stays 0.x) | 5 / 5 |
 | M3 | Powered live study (v1.0 gate) | 🟢 Complete (**NO-GO** take 3; strongest live signal yet; stays 0.x) | 4 / 4 |
+| M4 | BYOM Recovery Library | 🟢 Complete (merged; in-repo 0.x — ships nothing outward) | 5 / 5 |
 
 **Legend:** ⬜ Not started · 🟡 In Progress · 🟢 Complete · 🔴 Blocked
+
+## Current milestone: M4 — BYOM Recovery Library (entered 2026-06-29)
+
+Pivot to Cairn's strength — the recovery **mechanism** — packaged as a **bring-your-own-model**
+library an outside dev drops into their own agent with their own model/keys. Five slices, all merged
+(AP-1–AP-3 via PR #10 `93e03e5`; AP-4 via PR #11 `0e2ad54`; AP-5 via this PR): **contracts split**
+(`World`/`CheckpointStore`/`EffectLedger` Protocols; `LocalRuntime` satisfies all three so the
+benchmark stays green), **public primitives** (`checkpoint`/`recover`, fake-World proof), **opt-in
+`Agent` loop** (+ `regrounded_history` de-dup), **example + guide + API reference + CI smoke**, and
+**public-API contract lock + spec reconciliation + trackers**. Ships **nothing outward** — 0.x, v1.0
+hold intact; C1 **not** confirmed (the library lets a user reproduce it on their own model). As-built
+deviations recorded in design §12 (notably `recover()` has no `goal`; harness not force-migrated).
+See [`project/phases/milestone-4-byom-library/README.md`](../phases/milestone-4-byom-library/README.md).
 
 ## Current milestone: M3 — Powered live study (entered 2026-06-29)
 
