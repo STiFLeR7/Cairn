@@ -18,6 +18,8 @@ from .harness.reconcile import ResumePlan
 from .model import Action, StepRecord
 from .recovery import Checkpoint, Regrounded, checkpoint, recover, regrounded_history
 from .worlds import Workspace
+from .runtime.checkpoint_store import CheckpointStore as FileCheckpointStore
+from .runtime.effect_ledger import EffectLedger as FileEffectLedger
 from .agent import Agent, AgentRun
 
 __all__ = [
@@ -33,6 +35,8 @@ __all__ = [
     "EffectfulTool", "EscalationRequired",
     # reference world
     "Workspace",
+    # reference recovery infra (bundled; a dev does not implement these)
+    "FileCheckpointStore", "FileEffectLedger",
     # opt-in loop
     "Agent", "AgentRun",
 ]
