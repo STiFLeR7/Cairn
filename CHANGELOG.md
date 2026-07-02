@@ -7,6 +7,41 @@ All notable changes to Cairn are recorded here. Format follows
 Per the [documentation policy](docs/governance/documentation-policy.md), every meaningful change
 updates this file.
 
+## [Unreleased] — Milestone M4: BYOM recovery library (in-repo, 0.x — ships nothing outward)
+
+Cairn's recovery **mechanism**, repackaged as a **bring-your-own-model (BYOM) library**: a clean,
+documented public API an outside developer drops into *their own* agent with *their own* model and
+keys. No new recovery science — it extracts and exposes the validated RGR core. **No tag, no PyPI
+publish, no release, no announcement**: the v1.0 hold stands and this milestone ships nothing outward
+(hence `[Unreleased]`, not a version bump). C1 is **not** confirmed by M4; the library lets a user
+reproduce the evidence on their own model (see the [claims registry](docs/research/claims-registry.md)).
+
+### Added
+- **Recovery primitives** (`cairn.checkpoint`, `cairn.recover`) — the full Re-grounding Recovery
+  protocol as public functions over `World` / `CheckpointStore` / `EffectLedger` seams; bring your
+  own loop. Plus `regrounded_history` (the re-grounding helper) and `Regrounded`/`Resolution`/
+  `ResumePlan` result types.
+- **Contracts (Protocols):** `World` (`snapshot`/`restore`/`digest`; executable Worlds also
+  `execute`), `CheckpointStore`, `EffectLedger`. `LocalRuntime` satisfies all three, so the M1–M3
+  benchmark/eval paths run unchanged (regression guard).
+- **Opt-in `Agent` loop** (`cairn.Agent`, `cairn.AgentRun`) — batteries-included `run()`/`resume()`
+  on the primitives; proven world-agnostic by an in-memory `ExecFakeWorld`.
+- **Reference implementations:** `Workspace` (executable filesystem `World`), `FileCheckpointStore`,
+  `FileEffectLedger`.
+- **Developer materials:** `examples/byom_recovery.py` (offline, deterministic — primitives + Agent +
+  exactly-once effect), `docs/guide/recovery-in-your-agent.md`, `docs/guide/public-api-reference.md`,
+  and an opt-in local-model (Ollama) path (never run in CI).
+- **CI:** minimal GitHub Actions workflow running the test suite (incl. the example smoke test) on
+  Python 3.10/3.12 — tests only, no publish steps.
+- **Public-API contract test** (`tests/test_public_api_contract.py`) locking the exact `cairn.__all__`
+  surface and guarding `__version__` at 0.x.
+
+### Notes (as-built)
+- `recover()` takes **no `goal`** (carried in the checkpoint); the Agent outcome type is `AgentRun`
+  (not the brainstorm's `RunResult`); `CodeHarness.resume`/`observe_world` were **not** force-migrated
+  onto `recover()` (the harness interleaves Task-specific env setup — churning the validated benchmark
+  was rejected). Full reconciliation: design doc §12.
+
 ## [0.2.0] — 2026-06-23 — Milestone M2: recovery-faithful live benchmark
 
 First release to **actually exercise recovery against a real model**. M2 fixed the M1 root cause (a

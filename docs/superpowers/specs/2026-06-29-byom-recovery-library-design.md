@@ -180,3 +180,61 @@ A new milestone **M4 — BYOM recovery library**, on branch `milestone-4-byom-li
 None blocking. Public names (`Checkpoint` vs `ContinuationState`, `Workspace` vs current class name) are
 finalized against the code during AP-1, preferring the existing names unless a clearer public name aids
 readability.
+
+## 12. Implementation reconciliation (as-built, 2026-07-02)
+
+M4 shipped across five slices (AP-1…AP-5) using the superpowers spec→plan→execute workflow, all
+merged to `master` (AP-1–AP-3 via PR #10 `93e03e5`; AP-4 via PR #11 `0e2ad54`; AP-5 via this PR).
+This section records where the delivered code deliberately diverged from §5/§9 above. The sections
+1–11 are preserved as the original approved brainstorm; §12 is authoritative for the as-built API.
+
+### 12.1 Final public surface (locked by `tests/test_public_api_contract.py`)
+
+`cairn.__all__` (20 names): `Action, StepRecord, Checkpoint, Regrounded, Resolution, ResumePlan,
+AgentRun` (types); `World, CheckpointStore, EffectLedger` (Protocols); `EffectfulTool,
+EscalationRequired` (effect safety); `Workspace, FileCheckpointStore, FileEffectLedger` (reference
+implementations); `checkpoint, recover, regrounded_history` (primitives); `Agent` (opt-in loop);
+plus `__version__`.
+
+### 12.2 Deviations from §5 (documented, not silent)
+
+- **`recover()` takes no `goal`.** As-built: `recover(world, store, ledger, *, effect_tools=None,
+  escalate=True) -> Regrounded`. The goal is carried inside the loaded checkpoint
+  (`state.durable_core.intent`), so passing it again would be redundant and could contradict the
+  cairn. (§5/§6 showed `recover(goal, ...)`.)
+- **`RunResult` → `AgentRun`.** The opt-in loop's outcome type shipped as `AgentRun` (with
+  `finished, steps, checkpoints, history, final_state, resumed, recovery_tax, resolutions`).
+- **`Observation` and `Model` are not exported.** `Observation` is internal to `harness.observe`.
+  The model seam is the existing `ModelProvider` (duck-typed `propose(goal, history) -> Action`);
+  it is documented as "bring any object with `propose`", not re-exported as a `Model` name.
+- **`MockModel` → `ScriptableMockModel`** in `cairn.model_mock` — an example/test helper, not a
+  top-level export (kept out of the public contract deliberately; examples import it directly).
+- **`Agent` constructor:** `Agent(model, world, *, store, ledger, effect_tools=None, max_steps=20,
+  escalate=True, model_version="byom", harness_version="")`. `ledger` is required and explicit;
+  effect tools are `effect_tools` (not `tools`); there is no hidden default store/ledger wiring.
+- **Additional exports finalized:** `regrounded_history` (the re-grounding helper), `Resolution`,
+  `ResumePlan`, `EscalationRequired`.
+
+### 12.3 Scope deviation — the benchmark harness was not force-migrated (AP-3)
+
+`recover()` is the public RGR primitive, but `CodeHarness.resume` (the benchmark's validated path)
+was **not** re-pointed onto it, and `observe_world` was **retained**. Reason: `CodeHarness`
+interleaves `_setup_task_env(task, cwd)` between world-restore and re-observe — a *Task* concern the
+task-agnostic `recover()` primitive must not reorder. Forcing the migration risked the green
+benchmark (the regression guard) for no user-facing gain. The primitives and the `Agent` loop are
+proven world-agnostic independently (in-memory `FakeWorld`/`ExecFakeWorld` tests); the harness stays
+as the regression guard. Honest-scope (ADR-0009): reuse where proven, do not churn validated paths.
+
+### 12.4 §9 milestone decomposition — as-run
+
+§9 estimated "~4–5 Action Points"; M4 ran **five slices**: AP-1 contracts split; AP-2 recovery
+primitives (`checkpoint`/`recover` + fake-World proof); AP-3 opt-in `Agent` loop + de-dup;
+AP-4 example + guide + API reference + CI smoke; AP-5 public-API contract lock + this reconciliation
++ trackers/CHANGELOG. The detailed per-slice record lives in `docs/superpowers/plans/`.
+
+### 12.5 Governance (unchanged)
+
+Still **0.x**; **no PyPI publish, no release, no announcement** — M4 ships nothing outward. The v1.0
+hold and the outward-action-needs-approval rule remain in force; the surface lock guards the version
+at 0.x. C1 is **not** confirmed by M4 — the library lets a user reproduce the evidence on their own
+model (see `docs/research/claims-registry.md`).

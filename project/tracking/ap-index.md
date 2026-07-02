@@ -7,7 +7,11 @@
 > 2026-06-16: **AP-0043…AP-0047 `Done` (M2 complete,
 > shipped as v0.2.0)** — non-batchable chain + work-unit metrics + repetition/statistics + live run; live C1
 > **suggestive, not confirmed** at n=2; **v1.0 go/no-go take 2 → NO-GO** (stays 0.x). 2026-06-23.
-> Last updated: 2026-06-23.
+> **Milestone M3** (AP-0048 … AP-0051) complete & merged 2026-06-29: **NO-GO** take 3 (stays 0.x).
+> **Milestone M4** (BYOM recovery library) complete & merged 2026-07-02 as **five superpowers slices
+> (AP-1 … AP-5)**, in-repo 0.x — ships nothing outward; the recovery mechanism as a bring-your-own-model
+> library; C1 **not** confirmed (user-reproducible).
+> Last updated: 2026-07-02.
 
 **Status values:** Proposed · Accepted · In Progress · In Review · Done · Blocked · Superseded
 
@@ -111,3 +115,17 @@
 | [AP-0049](../phases/milestone-3-powered-live-study/action-points/AP-0049-multi-provider-transports.md) | Multi-provider OpenAI-compatible transports (Groq, ZenMux) | Done |
 | [AP-0050](../phases/milestone-3-powered-live-study/action-points/AP-0050-powered-live-study.md) | Powered live study + claims update | Done *(gpt-oss-120b: 28 cells; RGR ≈ halves tax; strict verdict NOT SHOWN)* |
 | [AP-0051](../phases/milestone-3-powered-live-study/action-points/AP-0051-v1-go-no-go-take3.md) | v1.0 go/no-go, take 3 | Done *(NO-GO; stays 0.x; AP-0036/0037 stay Blocked)* |
+
+## Milestone M4 — BYOM Recovery Library *(merged 2026-07-02; superpowers slice workflow)*
+
+> M4 used the superpowers spec→plan→execute workflow, so its units are **slices AP-1…AP-5** (not
+> the legacy `AP-00XX` files). Detailed record: [`docs/superpowers/`](../../docs/superpowers/) and
+> [`project/phases/milestone-4-byom-library/README.md`](../phases/milestone-4-byom-library/README.md).
+
+| Slice | Title | Status |
+|---|---|---|
+| AP-1 | Split contracts (`World`/`CheckpointStore`/`EffectLedger` Protocols; `LocalRuntime` satisfies) | Done *(PR #10)* |
+| AP-2 | Recovery primitives (`checkpoint`/`recover`) + fake-World abstraction proof | Done *(PR #10)* |
+| AP-3 | Opt-in `Agent` loop on the primitives + `regrounded_history` de-dup | Done *(PR #10)* |
+| AP-4 | BYOM example + guide + public API reference + CI smoke test | Done *(PR #11)* |
+| AP-5 | Public-API contract lock + design-spec reconciliation (§12) + trackers/CHANGELOG | Done *(this PR)* |
