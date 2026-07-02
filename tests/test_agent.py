@@ -129,3 +129,12 @@ def test_agent_recovers_on_a_non_workspace_world(tmp_path):
     assert run.resumed is True   # took the recover() path, not a silent fresh-run fallback
     assert run.recovery_tax == 1                    # only the un-done step was redone
     assert run.finished is True
+
+
+def test_agent_is_public_api():
+    import cairn
+    assert hasattr(cairn, "Agent") and hasattr(cairn, "AgentRun")
+    assert "Agent" in cairn.__all__ and "AgentRun" in cairn.__all__
+    # the whole public surface still imports cleanly
+    for name in cairn.__all__:
+        assert hasattr(cairn, name), f"cairn.{name} declared in __all__ but missing"

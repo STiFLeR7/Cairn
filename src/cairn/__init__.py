@@ -18,6 +18,7 @@ from .harness.reconcile import ResumePlan
 from .model import Action, StepRecord
 from .recovery import Checkpoint, Regrounded, checkpoint, recover, regrounded_history
 from .worlds import Workspace
+from .agent import Agent, AgentRun
 
 __all__ = [
     "__version__",
@@ -32,4 +33,6 @@ __all__ = [
     "EffectfulTool", "EscalationRequired",
     # reference world
     "Workspace",
+    # opt-in loop
+    "Agent", "AgentRun",
 ]
