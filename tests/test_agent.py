@@ -126,5 +126,6 @@ def test_agent_recovers_on_a_non_workspace_world(tmp_path):
     run = a2.resume("set x then y")
 
     assert world.state == {"x": "1", "y": "2"}      # restored from snapshot, then y set
+    assert run.resumed is True   # took the recover() path, not a silent fresh-run fallback
     assert run.recovery_tax == 1                    # only the un-done step was redone
     assert run.finished is True
