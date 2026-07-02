@@ -7,11 +7,11 @@
 > 2026-06-16: **AP-0043…AP-0047 `Done` (M2 complete,
 > shipped as v0.2.0)** — non-batchable chain + work-unit metrics + repetition/statistics + live run; live C1
 > **suggestive, not confirmed** at n=2; **v1.0 go/no-go take 2 → NO-GO** (stays 0.x). 2026-06-23.
-> Last updated: 2026-07-02.
 > **Milestone M3** (AP-0048 … AP-0051) complete & merged 2026-06-29: **NO-GO** take 3 (stays 0.x).
 > **Milestone M4** (BYOM recovery library) complete & merged 2026-07-02 as **five superpowers slices
 > (AP-1 … AP-5)**, in-repo 0.x — ships nothing outward; the recovery mechanism as a bring-your-own-model
 > library; C1 **not** confirmed (user-reproducible).
+> Last updated: 2026-07-02.
 
 **Status values:** Proposed · Accepted · In Progress · In Review · Done · Blocked · Superseded
 
