@@ -10,7 +10,7 @@ live-LLM study confirms the claims (current live evidence is suggestive, not
 confirmed — see docs/research/claims-registry.md).
 """
 
-__version__ = "0.2.0"
+__version__ = "0.3.0"
 
 from .contract import CheckpointStore, EffectLedger, World
 from .harness.effects import EffectfulTool, EscalationRequired, Resolution

@@ -7,7 +7,7 @@ All notable changes to Cairn are recorded here. Format follows
 Per the [documentation policy](docs/governance/documentation-policy.md), every meaningful change
 updates this file.
 
-## [Unreleased] — Milestone M4: BYOM recovery library (in-repo, 0.x — ships nothing outward)
+## [0.3.0] — 2026-07-02 — Milestone M4: BYOM recovery library (in-repo, 0.x — ships nothing outward)
 
 Cairn's recovery **mechanism**, repackaged as a **bring-your-own-model (BYOM) library**: a clean,
 documented public API an outside developer drops into *their own* agent with *their own* model and
