@@ -1,0 +1,69 @@
+{
+  "schema_version": "cairn.phase-2-powered-continuity.v0.12",
+  "status": "live-tranche-pinned",
+  "purpose": "Powered checkpoint-ready replication after the terminal v0.11 acquisition finding.",
+  "does_not_replace": "matrix-protocol-v11-neutral-tranche.json",
+  "pinned_inputs": {
+    "phase1_control_freeze": {
+      "path": "results/phase-2/control-freeze-recheck.json",
+      "sha256": "7f969a9c861ad8e85a8103e3b421c78d3a1f2ddb8a37b3d2316e0e8c80bbcc56"
+    },
+    "recoverybench_harness": {
+      "path": "src/cairn/eval/recoverybench.py",
+      "sha256": "86819b8938cd803ad2ddb1acc260fd85d1dc25d74d59f275bc5c3207687772c6"
+    },
+    "urc_runner": {
+      "path": "src/cairn/eval/phase2.py",
+      "sha256": "91a66602810f1a2caecfab4e60964bf7c9c0c7b62813643f44fe8f10746f0a32"
+    },
+    "matrix_executor": {
+      "path": "benchmarks/phase2_matrix.py",
+      "sha256": "b5e5f27c217be08bf4c79d7435bbef70f6e36fd893ea6f4f6d4b5db37171fc6f"
+    },
+    "analyzer": {
+      "path": "benchmarks/phase2_acquisition_continuity.py",
+      "sha256": "89379ea13c8910d3d367d28cc93f04ca4d0fdff6fddace4206a0d44cc45fbe06"
+    }
+  },
+  "power_basis": {
+    "prior_complete_triplets": 99,
+    "prior_attempts": 176,
+    "one_sided_95_percent_wilson_lower": 0.500507,
+    "probability_at_least_100_at_lower_bound": 0.997334
+  },
+  "matrix": {
+    "models": [
+      {"provider": "claude_code", "model": "opus"},
+      {"provider": "claude_code", "model": "sonnet"}
+    ],
+    "fixtures": ["bugfix", "config", "tests", "followup"],
+    "split_steps": "all_nonterminal",
+    "branches": ["U", "R", "C"],
+    "prefix_mode": "control",
+    "prompt_composition": "legacy",
+    "verification_mode": "empty",
+    "repetitions_per_model_fixture_split": 11,
+    "expected_attempts": 242,
+    "output_directory": "matrix-v12-powered-control-prefix"
+  },
+  "gate": {
+    "complete_matrix": true,
+    "minimum_eligible_checkpoints": 100,
+    "minimum_conditional_recovery_successes": 100,
+    "minimum_conditional_compaction_successes": 100,
+    "minimum_complete_triplets": 100,
+    "causal_replay_every_eligible_divergence": true,
+    "phase1_parity_required": true
+  },
+  "forbidden": [
+    "v0.11 extension",
+    "prompt changes",
+    "fixture changes",
+    "verifier changes",
+    "schema changes",
+    "RGR changes without causal replay",
+    "framework integrations",
+    "effect semantics",
+    "threshold changes"
+  ]
+}

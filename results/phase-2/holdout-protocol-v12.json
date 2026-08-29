@@ -1,0 +1,37 @@
+{
+  "schema_version": "cairn.phase-2-holdout.v0.12",
+  "status": "sealed-unconsumed",
+  "entry": "All matrix-protocol-v12-powered-control-prefix.json gates pass.",
+  "holdout": {
+    "task": "phase2_holdout",
+    "consume": false,
+    "task_sources": {
+      "benchmarks/recoverybench_fixtures/phase2_holdout/README.md": "0a36bab771d6bf539994235a93c4f90a9d03f2f9aaa4acde91251a753d862a15",
+      "benchmarks/recoverybench_fixtures/phase2_holdout/project.py": "2ac983a16fdac2c6089f87d05c367138b89603bf1e24ddabbd93d9ba52bdc475"
+    }
+  },
+  "matrix": {
+    "models": [
+      {"provider": "claude_code", "model": "opus"},
+      {"provider": "claude_code", "model": "sonnet"}
+    ],
+    "fixtures": ["phase2_holdout"],
+    "split_steps": "all_nonterminal",
+    "branches": ["U", "R", "C"],
+    "prefix_mode": "control",
+    "prompt_composition": "legacy",
+    "verification_mode": "empty",
+    "repetitions_per_model_fixture_split": 10,
+    "output_directory": "matrix-v12-holdout"
+  },
+  "gate": {
+    "complete_matrix": true,
+    "minimum_eligible_checkpoints": 10,
+    "minimum_conditional_recovery_successes": 10,
+    "minimum_conditional_compaction_successes": 10,
+    "minimum_complete_triplets": 10,
+    "causal_replay_every_eligible_divergence": true,
+    "zero_causal_system_defects": true
+  },
+  "on_failure": "Do not publish Continuation Contract v0 and never reuse this holdout after tuning."
+}
