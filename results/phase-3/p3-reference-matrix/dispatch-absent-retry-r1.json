@@ -1,0 +1,60 @@
+{
+  "cell": {
+    "boundary": "dispatch",
+    "expected_decision": "retry",
+    "expected_intended_effect": true,
+    "id": "dispatch-absent-retry-r1",
+    "repetition": 1,
+    "row": "dispatch-absent-retry",
+    "tool_class": "check-before-retry"
+  },
+  "crash": {
+    "boundary": "dispatch",
+    "fired": true,
+    "pid": 23332
+  },
+  "intent": {
+    "effect_id": "dispatch-absent-retry-r1",
+    "idempotency_key": "key-dispatch-absent-retry-r1",
+    "request_fingerprint": "request-dispatch-absent-retry-r1",
+    "tool_class": "check-before-retry"
+  },
+  "ledger": {
+    "closed": true
+  },
+  "outcome": {
+    "intended_effect_exists": true,
+    "successful_recovery": true
+  },
+  "processes": {
+    "crash_pid": 23332,
+    "parent_pid": 22936,
+    "recovery_pid": 24832
+  },
+  "provider": {
+    "call_count": 3,
+    "commit_count": 1,
+    "duplicate_count": 0
+  },
+  "recovery": {
+    "first_operation": "observe",
+    "observation": {
+      "request_fingerprint": "",
+      "resource_id": "",
+      "state": "absent"
+    },
+    "restore_attempts": 0
+  },
+  "resolution": {
+    "decision": "retry",
+    "receipt": {
+      "effect_id": "dispatch-absent-retry-r1",
+      "idempotency_key": "key-dispatch-absent-retry-r1",
+      "observed_from": "commit",
+      "request_fingerprint": "request-dispatch-absent-retry-r1",
+      "resource_id": "resource-b445fbd30ecf"
+    }
+  },
+  "run_dir": "results\\phase-3\\p3-reference-matrix\\runs\\p3-c91383420feb4ee9b6aa616a0e326174",
+  "schema_version": "cairn.p3-effect-cell.v0.1"
+}

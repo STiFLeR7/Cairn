@@ -1,0 +1,55 @@
+{
+  "cell": {
+    "boundary": "commit",
+    "expected_decision": "escalate",
+    "expected_intended_effect": true,
+    "holdout": true,
+    "id": "holdout-case-5-r3",
+    "repetition": 3,
+    "row": "holdout-case-5",
+    "tool_class": "never-retry"
+  },
+  "crash": {
+    "boundary": "commit",
+    "fired": true,
+    "pid": 12056
+  },
+  "intent": {
+    "effect_id": "holdout-case-5-r3",
+    "idempotency_key": "key-holdout-case-5-r3",
+    "request_fingerprint": "request-holdout-case-5-r3",
+    "tool_class": "never-retry"
+  },
+  "ledger": {
+    "closed": false
+  },
+  "outcome": {
+    "intended_effect_exists": true,
+    "successful_recovery": false
+  },
+  "processes": {
+    "crash_pid": 12056,
+    "parent_pid": 26816,
+    "recovery_pid": 15192
+  },
+  "provider": {
+    "call_count": 2,
+    "commit_count": 1,
+    "duplicate_count": 0
+  },
+  "recovery": {
+    "first_operation": "observe",
+    "observation": {
+      "request_fingerprint": "request-holdout-case-5-r3",
+      "resource_id": "resource-840b31e72999",
+      "state": "present"
+    },
+    "restore_attempts": 0
+  },
+  "resolution": {
+    "decision": "escalate",
+    "receipt": null
+  },
+  "run_dir": "results\\phase-3\\p3-holdout-matrix\\runs\\p3-32a66869762f4569be091deb25a716d9",
+  "schema_version": "cairn.p3-effect-cell.v0.1"
+}

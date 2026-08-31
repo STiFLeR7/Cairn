@@ -1,0 +1,60 @@
+{
+  "cell": {
+    "boundary": "dispatch",
+    "expected_decision": "retry",
+    "expected_intended_effect": true,
+    "id": "safe-retry-convergent-r1",
+    "repetition": 1,
+    "row": "safe-retry-convergent",
+    "tool_class": "safe-to-retry"
+  },
+  "crash": {
+    "boundary": "dispatch",
+    "fired": true,
+    "pid": 7200
+  },
+  "intent": {
+    "effect_id": "safe-retry-convergent-r1",
+    "idempotency_key": "key-safe-retry-convergent-r1",
+    "request_fingerprint": "request-safe-retry-convergent-r1",
+    "tool_class": "safe-to-retry"
+  },
+  "ledger": {
+    "closed": true
+  },
+  "outcome": {
+    "intended_effect_exists": true,
+    "successful_recovery": true
+  },
+  "processes": {
+    "crash_pid": 7200,
+    "parent_pid": 22936,
+    "recovery_pid": 23000
+  },
+  "provider": {
+    "call_count": 3,
+    "commit_count": 1,
+    "duplicate_count": 0
+  },
+  "recovery": {
+    "first_operation": "observe",
+    "observation": {
+      "request_fingerprint": "",
+      "resource_id": "",
+      "state": "absent"
+    },
+    "restore_attempts": 0
+  },
+  "resolution": {
+    "decision": "retry",
+    "receipt": {
+      "effect_id": "safe-retry-convergent-r1",
+      "idempotency_key": "key-safe-retry-convergent-r1",
+      "observed_from": "commit",
+      "request_fingerprint": "request-safe-retry-convergent-r1",
+      "resource_id": "resource-d13a9b555a8f"
+    }
+  },
+  "run_dir": "results\\phase-3\\p3-reference-matrix\\runs\\p3-3efa95ca30d1412bb2eae3c61c80c4cc",
+  "schema_version": "cairn.p3-effect-cell.v0.1"
+}

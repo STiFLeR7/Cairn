@@ -1,0 +1,16 @@
+{
+  "schema_version": "cairn.p3-analysis.v0.1",
+  "protocol": "results/phase-3/p3-reference-protocol.json",
+  "selection": {"expected_primary_records": 36, "selected_primary_records": 36, "retries": 0},
+  "analysis": {
+    "attempts": 36,
+    "structural_failures": 0,
+    "correct_decisions": 36,
+    "duplicate_free": 36,
+    "successful_recoveries": 27,
+    "silent_losses": 0,
+    "semantic_failures": 0
+  },
+  "interpretation": "Nine deliberately conservative escalation cells do not count as successful recovery. They passed because their observed state or tool class prohibited an automatic external retry.",
+  "reference_gate": "PASS"
+}

@@ -1,0 +1,61 @@
+{
+  "cell": {
+    "boundary": "dispatch",
+    "expected_decision": "retry",
+    "expected_intended_effect": true,
+    "holdout": true,
+    "id": "holdout-case-1-r3",
+    "repetition": 3,
+    "row": "holdout-case-1",
+    "tool_class": "check-before-retry"
+  },
+  "crash": {
+    "boundary": "dispatch",
+    "fired": true,
+    "pid": 21968
+  },
+  "intent": {
+    "effect_id": "holdout-case-1-r3",
+    "idempotency_key": "key-holdout-case-1-r3",
+    "request_fingerprint": "request-holdout-case-1-r3",
+    "tool_class": "check-before-retry"
+  },
+  "ledger": {
+    "closed": true
+  },
+  "outcome": {
+    "intended_effect_exists": true,
+    "successful_recovery": true
+  },
+  "processes": {
+    "crash_pid": 21968,
+    "parent_pid": 26816,
+    "recovery_pid": 27988
+  },
+  "provider": {
+    "call_count": 3,
+    "commit_count": 1,
+    "duplicate_count": 0
+  },
+  "recovery": {
+    "first_operation": "observe",
+    "observation": {
+      "request_fingerprint": "",
+      "resource_id": "",
+      "state": "absent"
+    },
+    "restore_attempts": 0
+  },
+  "resolution": {
+    "decision": "retry",
+    "receipt": {
+      "effect_id": "holdout-case-1-r3",
+      "idempotency_key": "key-holdout-case-1-r3",
+      "observed_from": "commit",
+      "request_fingerprint": "request-holdout-case-1-r3",
+      "resource_id": "resource-ffb2e7c8c9ef"
+    }
+  },
+  "run_dir": "results\\phase-3\\p3-holdout-matrix\\runs\\p3-ecead671c1ad4c74871b73d2d2a763b1",
+  "schema_version": "cairn.p3-effect-cell.v0.1"
+}

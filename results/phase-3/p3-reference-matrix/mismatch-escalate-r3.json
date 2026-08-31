@@ -1,0 +1,55 @@
+{
+  "cell": {
+    "boundary": "commit",
+    "expected_decision": "escalate",
+    "expected_intended_effect": false,
+    "id": "mismatch-escalate-r3",
+    "repetition": 3,
+    "row": "mismatch-escalate",
+    "seed_mismatch": true,
+    "tool_class": "check-before-retry"
+  },
+  "crash": {
+    "boundary": "commit",
+    "fired": true,
+    "pid": 26776
+  },
+  "intent": {
+    "effect_id": "mismatch-escalate-r3",
+    "idempotency_key": "key-mismatch-escalate-r3",
+    "request_fingerprint": "request-mismatch-escalate-r3",
+    "tool_class": "check-before-retry"
+  },
+  "ledger": {
+    "closed": false
+  },
+  "outcome": {
+    "intended_effect_exists": false,
+    "successful_recovery": false
+  },
+  "processes": {
+    "crash_pid": 26776,
+    "parent_pid": 22936,
+    "recovery_pid": 24284
+  },
+  "provider": {
+    "call_count": 3,
+    "commit_count": 1,
+    "duplicate_count": 0
+  },
+  "recovery": {
+    "first_operation": "observe",
+    "observation": {
+      "request_fingerprint": "conflicting-request",
+      "resource_id": "resource-53bde9955176",
+      "state": "mismatch"
+    },
+    "restore_attempts": 0
+  },
+  "resolution": {
+    "decision": "escalate",
+    "receipt": null
+  },
+  "run_dir": "results\\phase-3\\p3-reference-matrix\\runs\\p3-c949bc9a303543819137ca7a150937dc",
+  "schema_version": "cairn.p3-effect-cell.v0.1"
+}

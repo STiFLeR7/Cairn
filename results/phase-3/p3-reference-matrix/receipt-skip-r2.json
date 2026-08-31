@@ -1,0 +1,60 @@
+{
+  "cell": {
+    "boundary": "receipt",
+    "expected_decision": "skip",
+    "expected_intended_effect": true,
+    "id": "receipt-skip-r2",
+    "repetition": 2,
+    "row": "receipt-skip",
+    "tool_class": "check-before-retry"
+  },
+  "crash": {
+    "boundary": "receipt",
+    "fired": true,
+    "pid": 1104
+  },
+  "intent": {
+    "effect_id": "receipt-skip-r2",
+    "idempotency_key": "key-receipt-skip-r2",
+    "request_fingerprint": "request-receipt-skip-r2",
+    "tool_class": "check-before-retry"
+  },
+  "ledger": {
+    "closed": true
+  },
+  "outcome": {
+    "intended_effect_exists": true,
+    "successful_recovery": true
+  },
+  "processes": {
+    "crash_pid": 1104,
+    "parent_pid": 22936,
+    "recovery_pid": 25928
+  },
+  "provider": {
+    "call_count": 2,
+    "commit_count": 1,
+    "duplicate_count": 0
+  },
+  "recovery": {
+    "first_operation": "observe",
+    "observation": {
+      "request_fingerprint": "request-receipt-skip-r2",
+      "resource_id": "resource-2304b40d16ce",
+      "state": "present"
+    },
+    "restore_attempts": 0
+  },
+  "resolution": {
+    "decision": "skip",
+    "receipt": {
+      "effect_id": "receipt-skip-r2",
+      "idempotency_key": "key-receipt-skip-r2",
+      "observed_from": "reobserve",
+      "request_fingerprint": "request-receipt-skip-r2",
+      "resource_id": "resource-2304b40d16ce"
+    }
+  },
+  "run_dir": "results\\phase-3\\p3-reference-matrix\\runs\\p3-5d56d153ac5f435ca3fb732027690072",
+  "schema_version": "cairn.p3-effect-cell.v0.1"
+}
