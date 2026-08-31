@@ -1,0 +1,19 @@
+{
+  "schema_version": "cairn.p3-freeze.v0.1",
+  "metadata": {
+    "phase": "P3.0",
+    "source_worktree": "D:\\project-unknown-phase1",
+    "purpose": "freeze established Phase 1 control parity and Phase 2 Continuation Contract evidence before effect-recovery work"
+  },
+  "entries": [
+    {"path": "D:\\project-unknown-phase1\\docs\\design\\continuation-contract-v0.md", "bytes": 1956, "sha256": "339ec146534fedfbfe7a03a40f35fdf915c9138d3ed8dc8d37b619c1e52cbaf3"},
+    {"path": "D:\\project-unknown-phase1\\results\\phase-2\\REPORT.md", "bytes": 35512, "sha256": "11f5c7e4790a8e69603be12f125cb30eb3f5c3dfb5f558efa62083d0809df6d9"},
+    {"path": "D:\\project-unknown-phase1\\results\\phase-2\\control-freeze.json", "bytes": 1181, "sha256": "7f969a9c861ad8e85a8103e3b421c78d3a1f2ddb8a37b3d2316e0e8c80bbcc56"},
+    {"path": "D:\\project-unknown-phase1\\results\\phase-2\\control-freeze-recheck-v12.json", "bytes": 1181, "sha256": "7f969a9c861ad8e85a8103e3b421c78d3a1f2ddb8a37b3d2316e0e8c80bbcc56"},
+    {"path": "D:\\project-unknown-phase1\\results\\phase-2\\p24-freeze.json", "bytes": 2951, "sha256": "a398528bc8dacc1c8ac599ed741a6780fbb35f58a8a64ce6ef50364340f62fdb"},
+    {"path": "D:\\project-unknown-phase1\\results\\phase-2\\p24-holdout-protocol.json", "bytes": 2577, "sha256": "7de0ad2aadcd93aad9a0ba133b957ebb133d438b529f208f14db68e4b17817e7"},
+    {"path": "D:\\project-unknown-phase1\\results\\phase-2\\p24-holdout-admission.json", "bytes": 333, "sha256": "2712fc19650ec0c76d013fb1a83b5efb98c5807c06129685ef3ce3a941eb968c"},
+    {"path": "D:\\project-unknown-phase1\\results\\phase-2\\p24-analysis.json", "bytes": 1770, "sha256": "d135bf0b70d95d00a2ff99a85faf1c5e8fcb64542c17c27620652232cfdf01c6"},
+    {"path": "D:\\project-unknown-phase1\\results\\phase-2\\p24-verdict.json", "bytes": 1004, "sha256": "6642584c2f7185fefa0d4f911ad96070b6a1c1981ac550475eeb29f5a0912a2a"}
+  ]
+}
