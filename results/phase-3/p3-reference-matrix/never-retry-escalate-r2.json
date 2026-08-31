@@ -1,0 +1,54 @@
+{
+  "cell": {
+    "boundary": "commit",
+    "expected_decision": "escalate",
+    "expected_intended_effect": true,
+    "id": "never-retry-escalate-r2",
+    "repetition": 2,
+    "row": "never-retry-escalate",
+    "tool_class": "never-retry"
+  },
+  "crash": {
+    "boundary": "commit",
+    "fired": true,
+    "pid": 26248
+  },
+  "intent": {
+    "effect_id": "never-retry-escalate-r2",
+    "idempotency_key": "key-never-retry-escalate-r2",
+    "request_fingerprint": "request-never-retry-escalate-r2",
+    "tool_class": "never-retry"
+  },
+  "ledger": {
+    "closed": false
+  },
+  "outcome": {
+    "intended_effect_exists": true,
+    "successful_recovery": false
+  },
+  "processes": {
+    "crash_pid": 26248,
+    "parent_pid": 22936,
+    "recovery_pid": 26932
+  },
+  "provider": {
+    "call_count": 2,
+    "commit_count": 1,
+    "duplicate_count": 0
+  },
+  "recovery": {
+    "first_operation": "observe",
+    "observation": {
+      "request_fingerprint": "request-never-retry-escalate-r2",
+      "resource_id": "resource-215eb8b2f9bd",
+      "state": "present"
+    },
+    "restore_attempts": 0
+  },
+  "resolution": {
+    "decision": "escalate",
+    "receipt": null
+  },
+  "run_dir": "results\\phase-3\\p3-reference-matrix\\runs\\p3-847368229e7c499daaca2942cbbbf827",
+  "schema_version": "cairn.p3-effect-cell.v0.1"
+}

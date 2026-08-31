@@ -1,0 +1,57 @@
+{
+  "cell": {
+    "boundary": "normal",
+    "expected_decision": "complete",
+    "expected_intended_effect": true,
+    "id": "normal-safe-to-retry-r3",
+    "normal": true,
+    "repetition": 3,
+    "row": "normal-safe-to-retry",
+    "tool_class": "safe-to-retry"
+  },
+  "crash": {
+    "boundary": "normal",
+    "fired": false,
+    "pid": 22936
+  },
+  "intent": {
+    "effect_id": "normal-safe-to-retry-r3",
+    "idempotency_key": "key-normal-safe-to-retry-r3",
+    "request_fingerprint": "request-normal-safe-to-retry-r3",
+    "tool_class": "safe-to-retry"
+  },
+  "ledger": {
+    "closed": true
+  },
+  "outcome": {
+    "intended_effect_exists": true,
+    "successful_recovery": true
+  },
+  "processes": {
+    "crash_pid": null,
+    "parent_pid": 22936,
+    "recovery_pid": null
+  },
+  "provider": {
+    "call_count": 2,
+    "commit_count": 1,
+    "duplicate_count": 0
+  },
+  "recovery": {
+    "first_operation": "not-applicable",
+    "observation": null,
+    "restore_attempts": 0
+  },
+  "resolution": {
+    "decision": "complete",
+    "receipt": {
+      "effect_id": "normal-safe-to-retry-r3",
+      "idempotency_key": "key-normal-safe-to-retry-r3",
+      "observed_from": "commit",
+      "request_fingerprint": "request-normal-safe-to-retry-r3",
+      "resource_id": "resource-2fa851113f7e"
+    }
+  },
+  "run_dir": "results\\phase-3\\p3-reference-matrix\\runs\\p3-46186df00aa540f2a2dbe3270e81c2e2",
+  "schema_version": "cairn.p3-effect-cell.v0.1"
+}

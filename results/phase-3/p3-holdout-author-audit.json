@@ -1,0 +1,14 @@
+{
+  "schema_version": "cairn.p3-holdout-author-audit.v0.1",
+  "accepted": {
+    "model": "opencode/mimo-v2.5-free",
+    "clean_room": "C:\\Users\\stifl\\AppData\\Local\\Temp\\cairn-p3-author-ab54053cb9904ed2a3da7b91579aac21",
+    "output": "results/phase-3/p3-holdout-author-output.json",
+    "output_sha256": "3dbb2e27cf9f3aaaea95ab8edc8066e4485e1998f976f1a3f53c617743bbbc62",
+    "audit": {"admitted": true, "reasons": []}
+  },
+  "rejected_preseal_candidates": [
+    {"clean_room": "C:\\Users\\stifl\\AppData\\Local\\Temp\\cairn-p3-author-58a480635af84441bc8e23a0a7f0e43a", "reason": "published create/return/reject action labels rather than the required retry/skip/escalate recovery decisions"},
+    {"clean_room": "C:\\Users\\stifl\\AppData\\Local\\Temp\\cairn-p3-author-d75148a0fcbe47ccbc5a9b2eea42f96c", "reason": "acceptance cases used an operation name where declared check-before-retry and never-retry tool classes were required"}
+  ]
+}

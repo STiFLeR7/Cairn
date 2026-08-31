@@ -1,0 +1,20 @@
+{
+  "title": "Provision TLS Certificate for Domain",
+  "operation": "tls_cert_provision",
+  "request_schema": {"idempotency_key": "string", "request_fingerprint": "string"},
+  "observation_states": ["absent", "present", "unknown", "mismatch"],
+  "resolution_rules": {
+    "absent": "retry",
+    "present": "skip",
+    "unknown": "escalate",
+    "mismatch": "escalate",
+    "never-retry": "escalate"
+  },
+  "acceptance_cases": [
+    {"tool_class": "check-before-retry", "observation": "absent", "decision": "retry"},
+    {"tool_class": "check-before-retry", "observation": "present", "decision": "skip"},
+    {"tool_class": "check-before-retry", "observation": "unknown", "decision": "escalate"},
+    {"tool_class": "check-before-retry", "observation": "mismatch", "decision": "escalate"},
+    {"tool_class": "never-retry", "observation": "present", "decision": "escalate"}
+  ]
+}

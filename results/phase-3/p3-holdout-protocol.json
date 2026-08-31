@@ -1,0 +1,35 @@
+{
+  "schema_version": "cairn.p3-holdout.v0.1",
+  "status": "sealed-unconsumed",
+  "purpose": "Independent clean-room public TLS certificate provision holdout for Receipt/Reconciliation Contract v0.",
+  "author_output": "results/phase-3/p3-holdout-author-output.json",
+  "repetitions": 3,
+  "expected_attempts": 15,
+  "output_directory": "results/phase-3/p3-holdout-matrix",
+  "required_gates": {
+    "fresh_process_crash": true,
+    "first_operation_reobserve": true,
+    "published_decisions_match": true,
+    "zero_duplicate_commits": true,
+    "zero_silent_losses": true,
+    "phase_1_2_freeze_unchanged": true
+  },
+  "forbidden_after_seal": [
+    "Modify Phase 1 or Phase 2 inputs",
+    "Modify continuation state or RGR behavior",
+    "Modify the author output or audit",
+    "Modify the holdout runner, provider, harness, analysis, fixture, receipt representation, or thresholds",
+    "Add framework integrations or generic durable-effects infrastructure"
+  ],
+  "pinned_inputs": {
+    "author": {"path": "results/phase-3/p3-holdout-author-output.json", "sha256": "3dbb2e27cf9f3aaaea95ab8edc8066e4485e1998f976f1a3f53c617743bbbc62"},
+    "author_audit": {"path": "results/phase-3/p3-holdout-author-audit.json", "sha256": "bd1784115cde550962cad0a4f1793a9fc9f1e0a8f40949163b41485647c7e774"},
+    "author_auditor": {"path": "benchmarks/p3_holdout_author.py", "sha256": "988caae8353216e2cf31a4b92eecf86be2cf2f55d0927705d4fac1ec9745f6e4"},
+    "holdout_runner": {"path": "benchmarks/p3_holdout.py", "sha256": "9f2d5cf51b3aa164126adb4cd531a108ce28953d4fc6807655b972c9a68bf78e"},
+    "provider": {"path": "benchmarks/p3_effect_service.py", "sha256": "12af8c570f96c498897895490789fed6fdeb7835f25aad7068ffa1b6414bb820"},
+    "harness": {"path": "benchmarks/p3_harness.py", "sha256": "f110dafbd26dddc7e74a81fdaa073eacb4a5ad34721ef0d09fc577da0668b8ef"},
+    "analysis": {"path": "benchmarks/p3_analysis.py", "sha256": "f1856e2c5d8e3ea9c75cac23de5089feeecdad33c5ca9d117317059871d32b31"},
+    "freeze": {"path": "results/phase-3/p3-freeze.json", "sha256": "95d67229c784a72de74d2ba861ab99f47680bd0541a4826b810d83cdf97724bf"},
+    "reference_analysis": {"path": "results/phase-3/p3-reference-analysis.json", "sha256": "6bf3e989ffd316bd768278a1affa88f9aef9e7e5d1dd5a45789c5d00c393220e"}
+  }
+}

@@ -1,0 +1,60 @@
+{
+  "cell": {
+    "boundary": "commit",
+    "expected_decision": "skip",
+    "expected_intended_effect": true,
+    "id": "commit-skip-r2",
+    "repetition": 2,
+    "row": "commit-skip",
+    "tool_class": "check-before-retry"
+  },
+  "crash": {
+    "boundary": "commit",
+    "fired": true,
+    "pid": 16268
+  },
+  "intent": {
+    "effect_id": "commit-skip-r2",
+    "idempotency_key": "key-commit-skip-r2",
+    "request_fingerprint": "request-commit-skip-r2",
+    "tool_class": "check-before-retry"
+  },
+  "ledger": {
+    "closed": true
+  },
+  "outcome": {
+    "intended_effect_exists": true,
+    "successful_recovery": true
+  },
+  "processes": {
+    "crash_pid": 16268,
+    "parent_pid": 22936,
+    "recovery_pid": 7248
+  },
+  "provider": {
+    "call_count": 2,
+    "commit_count": 1,
+    "duplicate_count": 0
+  },
+  "recovery": {
+    "first_operation": "observe",
+    "observation": {
+      "request_fingerprint": "request-commit-skip-r2",
+      "resource_id": "resource-94ec52284a68",
+      "state": "present"
+    },
+    "restore_attempts": 0
+  },
+  "resolution": {
+    "decision": "skip",
+    "receipt": {
+      "effect_id": "commit-skip-r2",
+      "idempotency_key": "key-commit-skip-r2",
+      "observed_from": "reobserve",
+      "request_fingerprint": "request-commit-skip-r2",
+      "resource_id": "resource-94ec52284a68"
+    }
+  },
+  "run_dir": "results\\phase-3\\p3-reference-matrix\\runs\\p3-127f85e9d4284c7b9ba9003f82b6cbab",
+  "schema_version": "cairn.p3-effect-cell.v0.1"
+}

@@ -1,0 +1,55 @@
+{
+  "cell": {
+    "boundary": "dispatch",
+    "expected_decision": "escalate",
+    "expected_intended_effect": false,
+    "id": "unknown-escalate-r1",
+    "repetition": 1,
+    "row": "unknown-escalate",
+    "tool_class": "check-before-retry",
+    "unknown_on_recovery": true
+  },
+  "crash": {
+    "boundary": "dispatch",
+    "fired": true,
+    "pid": 13840
+  },
+  "intent": {
+    "effect_id": "unknown-escalate-r1",
+    "idempotency_key": "key-unknown-escalate-r1",
+    "request_fingerprint": "request-unknown-escalate-r1",
+    "tool_class": "check-before-retry"
+  },
+  "ledger": {
+    "closed": false
+  },
+  "outcome": {
+    "intended_effect_exists": false,
+    "successful_recovery": false
+  },
+  "processes": {
+    "crash_pid": 13840,
+    "parent_pid": 22936,
+    "recovery_pid": 16536
+  },
+  "provider": {
+    "call_count": 1,
+    "commit_count": 0,
+    "duplicate_count": 0
+  },
+  "recovery": {
+    "first_operation": "observe",
+    "observation": {
+      "request_fingerprint": "",
+      "resource_id": "",
+      "state": "unknown"
+    },
+    "restore_attempts": 0
+  },
+  "resolution": {
+    "decision": "escalate",
+    "receipt": null
+  },
+  "run_dir": "results\\phase-3\\p3-reference-matrix\\runs\\p3-05d723d660f642d2932deeb9df4134a9",
+  "schema_version": "cairn.p3-effect-cell.v0.1"
+}
