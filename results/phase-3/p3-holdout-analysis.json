@@ -1,0 +1,11 @@
+{
+  "attempts": 15,
+  "correct_decisions": 15,
+  "duplicate_free": 15,
+  "freeze_matches": true,
+  "semantic_failures": 0,
+  "silent_losses": 0,
+  "structural_failures": 0,
+  "successful_recoveries": 6,
+  "verdict": "PASS"
+}

@@ -1,0 +1,27 @@
+{
+  "schema_version": "cairn.p3-verdict.v0.1",
+  "verdict": "PASS — Receipt/Reconciliation Contract v0 admitted",
+  "freeze_matches": true,
+  "reference": {
+    "protocol": "results/phase-3/p3-reference-protocol.json",
+    "attempts": 36,
+    "structural_failures": 0,
+    "correct_decisions": 36,
+    "duplicate_free": 36,
+    "successful_recoveries": 27,
+    "silent_losses": 0,
+    "semantic_failures": 0
+  },
+  "sealed_holdout": {
+    "protocol": "results/phase-3/p3-holdout-protocol.json",
+    "attempts": 15,
+    "structural_failures": 0,
+    "correct_decisions": 15,
+    "duplicate_free": 15,
+    "successful_recoveries": 6,
+    "silent_losses": 0,
+    "semantic_failures": 0
+  },
+  "semantic_claim": "For the one deterministic create-once effect, a fresh process re-observed before retry and selected retry only for absent state; matching present state skipped; unknown, mismatch, and never-retry state escalated. This is not an exactly-once claim.",
+  "known_boundary": "The holdout independently authored and sealed task semantics, but reused the frozen reference provider and harness. It is not an independent provider implementation."
+}
