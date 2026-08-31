@@ -156,6 +156,38 @@ def run_p3_cell(cell: dict, output_dir: Path) -> dict:
     return record
 
 
+def run_uninterrupted_cell(cell: dict, output_dir: Path) -> dict:
+    """Control path for a normal intent -> effect -> receipt -> closure trace."""
+    run_dir = Path(output_dir) / "runs" / f"p3-{uuid.uuid4().hex}"
+    run_dir.mkdir(parents=True, exist_ok=True)
+    intent = _intent(cell)
+    _write_json(run_dir / "intent.json", asdict(intent))
+    ledger = EffectLedger(str(run_dir / "effects.jsonl"), "p3")
+    ledger.append_effect("create-once", intent.idempotency_key, intent.tool_class)
+    _append_trace(run_dir, {"operation": "intent", **asdict(intent), "pid": os.getpid()})
+    provider = CreateOnceProvider(run_dir / "remote")
+    provider.dispatch(intent)
+    receipt = provider.commit(intent)
+    _append_trace(run_dir, {"operation": "receipt", **asdict(receipt), "pid": os.getpid()})
+    ledger.complete_effect(intent.idempotency_key)
+    _append_trace(run_dir, {"operation": "resolution", "decision": "complete", "effect_id": intent.effect_id, "pid": os.getpid()})
+    record = {
+        "schema_version": "cairn.p3-effect-cell.v0.1",
+        "cell": cell | {"normal": True},
+        "run_dir": str(run_dir),
+        "crash": {"fired": False, "boundary": "normal", "pid": os.getpid()},
+        "processes": {"parent_pid": os.getpid(), "crash_pid": None, "recovery_pid": None},
+        "intent": asdict(intent),
+        "recovery": {"first_operation": "not-applicable", "restore_attempts": 0, "observation": None},
+        "resolution": {"decision": "complete", "receipt": asdict(receipt)},
+        "provider": {"call_count": provider.call_count, "commit_count": provider.commit_count, "duplicate_count": 0},
+        "ledger": {"closed": True},
+        "outcome": {"intended_effect_exists": True, "successful_recovery": True},
+    }
+    _write_json(run_dir / "record.json", record)
+    return record
+
+
 def main() -> int:
     parser = argparse.ArgumentParser()
     parser.add_argument("--crash-worker", action="store_true")

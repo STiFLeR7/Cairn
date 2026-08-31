@@ -1,0 +1,10 @@
+{
+  "schema_version": "cairn.p3-admission.v0.1",
+  "status": "admitted",
+  "protocol": "results/phase-3/p3-reference-protocol.json",
+  "pins_match": true,
+  "phase12_freeze_match": true,
+  "registered_cells": 36,
+  "existing_primary_records_before_execution": 0,
+  "deterministic_tests": "12 passed"
+}
