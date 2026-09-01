@@ -1,0 +1,9 @@
+{
+  "schema_version": "cairn.evidence-manifest.v1",
+  "files": [
+    {"path": "README.md", "bytes": 1343, "sha256": "fdf363839e5731728c3c52c6b5c46f5f33398036accffebdb78866748ca1bb29"},
+    {"path": "stable-1.18.25.json", "bytes": 1179, "sha256": "669e2e063bac33ee86963976fff2b9d7fd66e412b049fb6d4843bedebac18c2f"},
+    {"path": "beta-0.0.0-beta-202608110357.json", "bytes": 1224, "sha256": "b09d3f3bba37bc738798a697bac4a969e9081fcf4fc2caaac4609713c2b201de"},
+    {"path": "dev-0.0.0-dev-202609010712.json", "bytes": 1223, "sha256": "6ade6f3745ad3e0d2dd4d5b25894a5e700e635c70b5d8ea91a57d8fa42a0f8d8"}
+  ]
+}

@@ -1,0 +1,28 @@
+{
+  "schema_version": "cairn.p5.opencode-capability-reassessment.v1",
+  "host": {
+    "package": "opencode-ai",
+    "version": "0.0.0-beta-202608110357",
+    "server": "http://127.0.0.1:4098",
+    "model": {"providerID": "opencode", "id": "big-pickle"},
+    "experimental_capabilities": {"backgroundSubagents": false}
+  },
+  "session_id": "ses_fa366162cffeabUNDmTrkegwPP",
+  "request": "POST /api/session/ses_fa366162cffeabUNDmTrkegwPP/compact",
+  "precondition": {
+    "native_terminal_event": "session.next.step.ended",
+    "durable_sequence": 8,
+    "active_context_messages_before_compact": 2,
+    "model_catalog_context_limit": 200000
+  },
+  "raw_terminal_event": {
+    "type": "session.next.step.ended",
+    "durable": {"aggregateID": "ses_fa366162cffeabUNDmTrkegwPP", "seq": 8, "version": 2},
+    "data": {"finish": "stop", "assistantMessageID": "msg_05c99f97b001AnzcksQEvW7002", "tokens": {"input": 531, "output": 48, "cache": {"read": 3072, "write": 0}}}
+  },
+  "raw_compact_response": {
+    "status": 503,
+    "body": {"_tag": "ServiceUnavailableError", "message": "Session compact is not available yet", "service": "session.compact"}
+  },
+  "result": "failed required native capability after direct idle proof"
+}

@@ -39,6 +39,12 @@ updates this file.
   active context and no completion event. Cairn did not simulate compaction, build an adapter, or claim
   two-host portability; the raw responses and unblocking condition are recorded in
   `docs/design/phase-5-opencode-portability.md`.
+- **P5 OpenCode target stopped after reassessment:** its stable 1.18.25, current beta
+  `0.0.0-beta-202608110357`, and current dev `0.0.0-dev-202609010712` all served a compact endpoint with
+  no request body and returned `503` after the host's own terminal event established idleness. The selected
+  model had a 200000-token catalog context limit. This rules out the prior API-body, model-limit, and
+  in-flight-step hypotheses; it does not change a Cairn contract or admit portability. Raw evidence is in
+  `results/phase-5/capability-acquisition-reassessment-2026-09-01/`.
 - Restored `benchmarks/p4_forked_checkpoint.py`, whose exact SHA-256 was already pinned by P4 V5/V6 freeze
   manifests but was absent from the published tree, so the frozen Phase 4 control can import and run again.
 

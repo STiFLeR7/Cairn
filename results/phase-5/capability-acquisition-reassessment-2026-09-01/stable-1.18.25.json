@@ -1,0 +1,30 @@
+{
+  "schema_version": "cairn.p5.opencode-capability-reassessment.v1",
+  "host": {
+    "package": "opencode-ai",
+    "version": "1.18.25",
+    "server": "http://127.0.0.1:4097",
+    "model": {"providerID": "opencode", "id": "big-pickle"}
+  },
+  "openapi_compact_request": {
+    "method": "POST",
+    "path": "/api/session/{sessionID}/compact",
+    "declared_parameters": ["sessionID:path"],
+    "declared_request_body": false,
+    "declared_success": 204,
+    "declared_unavailable": 503
+  },
+  "selected_model_catalog": {
+    "status": "active",
+    "enabled": true,
+    "context_limit": 200000
+  },
+  "prior_direct_probe": {
+    "evidence_directory": "../capability-acquisition-retest-1.18.25",
+    "request": "POST /api/session/ses_fa3a7b6fcffeF60AfFMKfuOcdb/compact",
+    "raw_response_file": "../capability-acquisition-retest-1.18.25/compact-response.http",
+    "response_status": 503,
+    "response_body": "{\"_tag\":\"ServiceUnavailableError\",\"message\":\"Session compact is not available yet\",\"service\":\"session.compact\"}",
+    "classification_after_reassessment": "native endpoint remains unavailable; the released route has no model request body to supply"
+  }
+}

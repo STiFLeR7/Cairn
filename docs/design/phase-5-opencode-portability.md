@@ -49,8 +49,33 @@ The installed host was then updated to the latest available npm release, OpenCod
 same direct probe was repeated in a fresh server/session. It reproduced the same `503` response; the
 active context remained at two messages and no completion event appeared. The raw retest is preserved
 in [`results/phase-5/capability-acquisition-retest-1.18.25/`](../../results/phase-5/capability-acquisition-retest-1.18.25/).
-This rules out the currently available minor-release update as an unblocking change; it does not make
-any claim about future OpenCode releases or configurations.
+### Reassessment and target decision — 2026-09-01
+
+The initial classification was deliberately revisited before a target change. Current OpenCode
+development UI source calls `session.compact` with a selected model, but the *live* OpenAPI documents
+served by all tested host builds declare only `sessionID` and no request body. The selected
+`opencode/big-pickle` model was active and advertised a 200000-token context limit. The beta and dev
+probes additionally waited for the host's durable `session.next.step.ended` event before invoking
+`compact`; both still returned the same `503`.
+
+The reassessment rules out the API-body, selected-model-context-limit, and in-flight-step hypotheses.
+OpenCode native compaction is unavailable through this boundary in every tested pinned build: stable
+`1.18.25`, beta `0.0.0-beta-202608110357`, and dev `0.0.0-dev-202609010712`. Full negative evidence
+and its manifest are preserved in
+[`results/phase-5/capability-acquisition-reassessment-2026-09-01/`](../../results/phase-5/capability-acquisition-reassessment-2026-09-01/).
+
+**Decision:** stop the OpenCode P5 path. This is a host capability limitation, not an OpenCode
+configuration/provider/model failure and not a Cairn contract deficiency. Do not retry this target
+unless a future pinned build directly demonstrates the three unblocking facts below.
+
+OpenHands is the approved fallback candidate, not an admitted replacement yet. Its public SDK has an
+event-driven state model, emits a `Condensation` event from host-owned condensation, and documents
+atomic interruptible agent steps. Those make a thin host-owned OpenHands driver capable in principle
+of satisfying the same semantic profile. It must first pass a separate P5.1 capability acquisition:
+direct condensation-completion event, changed host active view, fresh-process/session control,
+durable-workspace observation, and event ordering. The current machine has no `openhands` command and
+its Docker engine is not running, so no OpenHands conformance workload, adapter, or Cairn change has
+begun.
 
 After that failure, Cairn did not inject a process death, test tool ordering, author a workload,
 write an adapter, or execute a reference/holdout matrix. Those actions would not repair the missing
@@ -58,15 +83,16 @@ native capability and would contaminate the portability proof.
 
 ## Unblocking condition
 
-Restart P5.1 only with a pinned OpenCode release/configuration in which the host directly produces:
+Restart OpenCode P5.1 only with a future pinned OpenCode release/configuration in which the host directly produces:
 
 1. a successful native `compact` request;
 2. a durable host compaction-completed event; and
 3. an active-context observation demonstrably after that boundary.
 
-Then restart at P5.1 and repeat the untouched P5.2–P5.5 sequence with new sealed workloads. Do not
-reuse this probe as a workload, modify an admitted Cairn contract, or treat the endpoint declaration
-as a substitute for the three observations above.
+Until then, the smallest next implementation state is **OpenHands P5.1 capability acquisition**. It
+must prove the same three native facts plus the existing host-control prerequisites before any P5.2
+workload is authored. Do not reuse an OpenCode probe as a workload, modify an admitted Cairn contract,
+or treat an endpoint declaration as a substitute for the three observations above.
 
 ## Scope
 
