@@ -1,0 +1,24 @@
+{
+  "boundary": "Cumulative V5/V6 evidence for one host/provider; no adapter, exactly-once, or interoperability claim.",
+  "independent_holdout_generic_urc": {
+    "artifact_equivalence": true,
+    "compacted_reobserves_and_verifies": true,
+    "compacted_same_session": true,
+    "fresh_crash": true,
+    "fresh_prompt_generic": true,
+    "fresh_reobserves_and_verifies": true,
+    "native_compaction": true,
+    "uninterrupted_baseline": true
+  },
+  "passed": true,
+  "post_compaction_causal_negative": {
+    "escalates_without_stage_action": true,
+    "native_compaction": true,
+    "same_host_session_resumed": true
+  },
+  "schema_version": "cairn.p4-native-compaction-v6-verdict.v0.1",
+  "v5_reference_effect_evidence_manifest_matches": true,
+  "v6_evidence_manifest_matches": true,
+  "v6_pre_run_control_freeze_matches": true,
+  "verdict": "PASS \u2014 Phase 4 admission evidence"
+}

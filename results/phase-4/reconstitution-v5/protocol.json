@@ -1,0 +1,6 @@
+{
+  "control": "shared checkpoint; generic fresh RGR; real Claude Code manual compaction",
+  "negative_control": "unmapped next_action must escalate without task mutation",
+  "schema_version": "cairn.p4-native-compaction.v0.1",
+  "status": "sealed-before-execution"
+}

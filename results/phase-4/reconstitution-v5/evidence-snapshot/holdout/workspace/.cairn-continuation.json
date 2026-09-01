@@ -1,0 +1,19 @@
+{
+  "intent": "Complete the sealed integration holdout v2 task: implement join_segments, then run the external-effect create-once flow via effect_tool.py.",
+  "active_subgoal": "Run effect_tool.py init, create, and receipt in order, then stop.",
+  "accepted_decisions": [
+    "join_segments strips each input string, discards empty values, and joins retained values with '/'.",
+    "verify.py must pass before proceeding to the effect_tool.py sequence.",
+    "Follow EFFECT_TASK.md exactly: use only init, create, and receipt for the normal path; do not invent a retry policy; only use observe/close-skip during recovery."
+  ],
+  "verified_work": [
+    "segments.py implements join_segments(values) as specified.",
+    "python verify.py ran and printed 'verified'."
+  ],
+  "verification_state": "join_segments implementation verified via verify.py; effect_tool.py sequence not yet executed.",
+  "world_digest": "Workspace contains segments.py (implemented), verify.py (passing), effect_tool.py, and EFFECT_TASK.md describing the create-once external effect protocol.",
+  "checkpoint_provenance": "Written after verify.py passed, per TASK.md step 2, before running effect_tool.py commands.",
+  "stop_condition": "Stop after python effect_tool.py receipt completes successfully.",
+  "next_action": "Run python effect_tool.py init, then python effect_tool.py create, then python effect_tool.py receipt.",
+  "first_recovery_operation": "reobserve"
+}

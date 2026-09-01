@@ -1,64 +1,61 @@
 # Phase 4 — Claude Code Integration Proof
 
-**Status:** not admitted. The corrected sealed reconstitution in
-[`results/phase-4/reconstitution-v2/`](../../results/phase-4/reconstitution-v2/) froze self-contained
-reference and independently authored holdout workloads before any host process ran, but failed the
-locked U/R/C artifact-equivalence gate.
+**Status:** admitted, narrowly. V5 establishes the reference/effect control and V6 closes its two
+post-review gaps: a native-compaction causal negative and a separately sealed generic-RGR/native-
+compaction holdout. The cumulative [V6 verdict](../../results/phase-4/reconstitution-v6/verdict.json)
+is the admission evidence; neither control adds a Cairn runtime, adapter API, scheduler, planner, or
+memory system.
 
-## Claim and boundary
+## Boundary
 
-Claude Code retained control of its model, session, planner, native `Read`/`Write`/`Bash` tools, and
-workspace execution. Cairn contributed no runtime, framework adapter, scheduler, memory store, or
-provider abstraction. The thin boundary is durable workspace evidence:
+Claude Code 2.1.250 retained control of its model, session, planner, native `Read`/`Write`/`Bash`
+tools, and workspace execution. The reference requested `--model sonnet`, `--safe-mode`, and
+`--setting-sources project`. Cairn's boundary was durable workspace evidence only:
 
-- `.cairn-continuation.json` holds the existing Continuation Contract v0 semantic projection;
-- `.cairn-effect-intent.json`, provider observation, receipt, resolution, and ledger hold the existing
+- `.cairn-continuation.json` is the admitted Continuation Contract v0 projection.
+- Effect intent, provider observation, receipt, resolution, and ledger are the admitted
   Receipt/Reconciliation Contract v0 evidence.
+- `.cairn-action-map.json` is a **fixture-local task mapping**, not a Cairn contract or public API.
+  It lets the host interpret `next_action` without the recovery prompt supplying a task command.
 
-The reference host was Claude Code 2.1.250 with requested `--model sonnet`, `--safe-mode`,
-`--setting-sources project`, and `--no-session-persistence`. The command requests project-only settings;
-the proof relies only on recorded native operations and fresh process identity, not on a claim that this
-host has an allowlisted tool surface or uses Sonnet exclusively for every internal helper call.
+## Evidence
 
-## Evidence and blocking finding
+The V5/V6 verdicts derive solely from Claude Code stream records and copied workspace/provider snapshots.
+V5's
+[pre-run freeze](../../results/phase-4/reconstitution-v5/pre-run-freeze.json) pins the harness,
+verifier, public workload, and sealed holdout before the first host invocation. The
+[evidence manifest](../../results/phase-4/reconstitution-v5/evidence-manifest.json) hashes all
+post-run raw evidence; V6 has its own [pre-run freeze](../../results/phase-4/reconstitution-v6/pre-run-freeze.json)
+and [evidence manifest](../../results/phase-4/reconstitution-v6/evidence-manifest.json).
 
-The reproducible [v2 verdict](../../results/phase-4/reconstitution-v2/verdict.json) derives from native
-Claude Code stream records and self-contained `evidence-snapshot/` copies of artifacts and provider state.
-It fails if the [pre-run control freeze](../../results/phase-4/reconstitution-v2/pre-run-freeze.json)
-does not match the harness, contracts, tests, exact public workloads, or sealed holdout. The reference controls prove:
+The reference proves:
 
-1. An uninterrupted terminal coding task produces a verified artifact and a continuation projection.
-2. After the harness kills the Claude Code process after that projection, a distinct fresh process receives
-   only the projection, re-observes, reruns the verifier, and terminates without changing verified work.
-3. A separate transcript-unavailable compacted continuation repeats the same re-observation and verifier
-   behavior.
-4. After a native terminal command commits the deterministic create-once provider but before a receipt is
-   durable, a distinct fresh process makes `python effect_tool.py observe` its first operation, finds the
-   matching resource, chooses `skip`, writes a re-observed receipt, and closes the ledger. Provider evidence
-   records one resource and one commit.
-5. The independently authored and sealed holdout combines a different coding task with a distinct effect
-   key and repeats the crash, continuation, re-observation, skip, receipt, verifier, and ledger checks.
+1. An uninterrupted host creates a verified continuation and the harness forks that exact durable
+   checkpoint into U/R/C branches before stage two.
+2. In R, a host re-observes the checkpoint and is killed at a durable marker. A distinct fresh
+   process uses `--no-session-persistence`, receives no original session or transcript, re-observes,
+   completes only the action authorized by durable continuation/action state, and passes verification.
+3. In C, Claude Code crosses a recorded manual `/compact` boundary: 36,662 pre-compaction tokens,
+   3,782 post-compaction tokens, and 32,880 dropped tokens. The same host session resumes,
+   re-observes, and completes the durable mapped action. This native-host path is not transcript-free.
+4. U, R, and C have byte-equivalent coding and final-stage artifacts. V5's fresh-process negative changes
+   only `next_action` to an unmapped value; the fresh host escalates and does not create the stage-two
+   artifact. The recovery action is therefore state-authorized, not supplied by the recovery prompt.
+5. V6 changes only `next_action` **after** a real native compact boundary in the same persisted host
+   session. The resumed host escalates and does not create the stage-two artifact, so C cannot be
+   credited merely for retaining its pre-compaction task transcript.
+6. V6's independently authored coding workload uses a different task and action commands. Its U/R/C
+   branches pass generic transcript-free fresh recovery, native host compaction, artifact equivalence,
+   re-observation, and final verification.
+7. At the Phase 3 ambiguity boundary, a distinct fresh host observes before acting, finds the one
+   matching create-once resource, skips a duplicate create, writes a receipt from re-observation, and
+   closes the ledger. The sealed holdout repeats the combined coding/effect recovery control.
 
-For the coding control, the verdict requires the uninterrupted, crash/recovered, and compacted artifacts
-to have identical SHA-256 values. This gate **failed**: uninterrupted and compacted runs produced the
-same double-quoted f-string, while the crash/recovered run preserved a semantically equivalent
-single-quoted f-string. The recovery process did not modify the crash artifact, so the evidence does not
-establish a Continuation Contract defect; it establishes that this host/task combination does not meet the
-locked byte-equivalence baseline gate. Cairn does not relax that gate after sealing.
+## Scope limits and next gate
 
-The recovery input is recorded exactly, has no
-original session/transcript payload, and each host command uses `--no-session-persistence` without
-`--resume`. Raw records and snapshots live only in the reconstitution directory above; their post-run
-hash inventory is [`evidence-manifest.json`](../../results/phase-4/reconstitution-v2/evidence-manifest.json).
+This does not establish exactly-once delivery, a general Claude Code adapter, a general action-map schema,
+independent-provider validation, multi-host interoperability, or an ecosystem standard. The next evidence
+gate is an independent host implementation consuming the admitted contracts through its own thin boundary.
 
-## Non-claims and next gate
-
-This is not an exactly-once result, a general Claude Code integration, an adapter API, a generic effects
-layer, a framework integration, or an interoperability standard. The provider remains the Phase 3
-deterministic create-once reference effect. An independent host implementation must pass the same admitted
-contracts before Cairn can claim multi-host interoperability; multiple independent hosts and providers are
-required before proposing a standard.
-
-Earlier OpenCode acquisition experiments and the v1 Claude Code protocol
-are retained in `results/phase-4/` as non-admission diagnostics. They are deliberately excluded from the
-verdict.
+V4 is excluded from admission because it supplied the post-restart action in its recovery prompt and
+simulated, rather than observed, host compaction.

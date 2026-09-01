@@ -1,0 +1,8 @@
+{
+  "escalation_reason": "no_matching_action",
+  "observed_next_action": "unmapped_post_compaction_control",
+  "available_actions": ["wait_for_release_then_complete"],
+  "detail": ".cairn-continuation.json next_action 'unmapped_post_compaction_control' has no corresponding entry in .cairn-action-map.json actions. No action executed; no task artifacts mutated.",
+  "continuation_active_subgoal": "wait_for_release_then_complete",
+  "continuation_stop_condition": ".cairn-release-stage2 does not exist yet"
+}

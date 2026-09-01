@@ -1,0 +1,7 @@
+{
+  "effect_id": "p4-claude-create-once",
+  "idempotency_key": "p4-claude-key",
+  "observed_from": "reobserve",
+  "request_fingerprint": "p4-claude-request",
+  "resource_id": "resource-ce8536f6e6d8"
+}

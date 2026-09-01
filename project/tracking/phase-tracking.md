@@ -28,7 +28,7 @@ This is separate from the legacy phase/Milestone table above.
 | P1 — crash/restart | 🟢 Complete | Deterministic repository recovery fidelity ([report](../../results/phase-1/REPORT.md)) |
 | P2 — compaction continuity | 🟢 Complete | [Continuation Contract v0](../../docs/design/continuation-contract-v0.md); clean verified checkpoints only |
 | P3 — external effects | 🟢 Complete | [Receipt/Reconciliation Contract v0](../../docs/design/receipt-reconciliation-contract-v0.md); one deterministic create-once provider effect only |
-| P4 — external integration | 🔴 Blocked | Sealed Claude Code v2 preserved crash work and effect reconciliation but failed locked U/R/C byte-equivalence from independent quote-style variation; no contract change admitted |
+| P4 — external integration | 🟢 Complete | One Claude Code host/provider proof: V5 shared-checkpoint/effect reference evidence plus V6 post-compaction causal negative and independently sealed generic U/R/C holdout; not multi-host interoperability |
 
 ## Current milestone: M4 — BYOM Recovery Library (entered 2026-06-29)
 

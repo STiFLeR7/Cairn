@@ -1,0 +1,17 @@
+{
+  "intent": "Implement normalize_label in labels.py, verify it, and stage the release action map for the sealed V6 holdout task.",
+  "active_subgoal": "Await creation of .cairn-release-stage2, then execute the release_to_finalize action from .cairn-action-map.json.",
+  "accepted_decisions": [
+    "normalize_label strips leading/trailing whitespace, collapses internal whitespace runs to a single hyphen, and lowercases the result.",
+    "release.txt must not be created before .cairn-release-stage2 exists."
+  ],
+  "verified_work": [
+    "python verify.py passed, confirming normalize_label('  Blue   Sky ') == 'blue-sky' and normalize_label('One') == 'one'."
+  ],
+  "verification_state": "labels.py implemented and verified via verify.py; release action not yet triggered because .cairn-release-stage2 does not exist.",
+  "world_digest": "Files present: TASK.md, labels.py, verify.py, advance.py, verify_final.py, .cairn-action-map.json, .cairn-continuation.json. release.txt and .cairn-release-stage2 do not exist.",
+  "checkpoint_provenance": "Created after python verify.py succeeded and .cairn-action-map.json was written, prior to any release trigger.",
+  "stop_condition": "Stop after verify_final.py passes following execution of the release_to_finalize action.",
+  "next_action": "release_to_finalize",
+  "first_recovery_operation": "reobserve"
+}

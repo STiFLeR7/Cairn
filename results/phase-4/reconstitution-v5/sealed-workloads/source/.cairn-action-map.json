@@ -1,0 +1,1 @@
+{"schema_version":"cairn.p4-action-map.v1","actions":{"wait_for_release_then_complete":{"required_file":".cairn-release-stage2","preflight":["python verify.py"],"commands":["python stage2.py","python verify_final.py"],"success_file":"stage2.txt"}}}

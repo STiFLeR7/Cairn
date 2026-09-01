@@ -1,0 +1,106 @@
+{
+  "boundary": "One Claude Code host/provider only; native compaction is host-owned. No framework adapter, exactly-once, or interoperability claim.",
+  "evidence_manifest_matches": true,
+  "passed": true,
+  "pre_run_control_freeze_matches": true,
+  "reference": {
+    "effect_crash_recovery": {
+      "coding_verifier_passes": true,
+      "decision_skip": true,
+      "first_operation_observes": true,
+      "fresh_process": true,
+      "injected_crash": true,
+      "ledger_closed": true,
+      "projection_valid": true,
+      "receipt_absent_at_crash": true,
+      "receipt_from_reobserve": true,
+      "receipt_matches_intent_and_observation": true,
+      "recovery_returncode": true,
+      "single_commit": true,
+      "single_resource": true,
+      "snapshot_bound": true,
+      "tools": [
+        {
+          "command": "python effect_tool.py observe",
+          "name": "Bash"
+        },
+        {
+          "command": "python effect_tool.py close-skip",
+          "name": "Bash"
+        }
+      ],
+      "transcript_free_input": true
+    },
+    "effect_uninterrupted_baseline": {
+      "receipt_persisted": true,
+      "returncode": true,
+      "single_commit": true,
+      "single_resource": true
+    },
+    "shared_checkpoint_urc": {
+      "action_map_binds_next_action": true,
+      "artifact_equivalence": true,
+      "causal_negative_escalates": true,
+      "checkpoint_fork_matches": true,
+      "compacted_host_reobserves_before_action": true,
+      "compacted_host_verified": true,
+      "fresh_process_recovery": true,
+      "fresh_recovery_reobserves_before_action": true,
+      "fresh_recovery_transcript_free": true,
+      "fresh_recovery_verified": true,
+      "injected_crash_after_reobserve": true,
+      "native_compaction_manual": true,
+      "native_compaction_reduces_context": true,
+      "native_compaction_same_host_session": true,
+      "shared_projection": true,
+      "uninterrupted_baseline": true
+    }
+  },
+  "schema_version": "cairn.p4-native-compaction-verdict.v0.1",
+  "sealed_holdout": {
+    "combined_crash_recovery": {
+      "coding_verifier_passes": true,
+      "decision_skip": true,
+      "first_operation_observes": true,
+      "fresh_process": true,
+      "injected_crash": true,
+      "ledger_closed": true,
+      "projection_valid": true,
+      "receipt_absent_at_crash": true,
+      "receipt_from_reobserve": true,
+      "receipt_matches_intent_and_observation": true,
+      "recovery_returncode": true,
+      "single_commit": true,
+      "single_resource": true,
+      "snapshot_bound": true,
+      "tools": [
+        {
+          "command": "python effect_tool.py observe",
+          "name": "Bash"
+        },
+        {
+          "command": "python effect_tool.py close-skip",
+          "name": "Bash"
+        },
+        {
+          "command": "ls",
+          "name": "Bash"
+        },
+        {
+          "command": "",
+          "name": "Read"
+        },
+        {
+          "command": "python verify.py",
+          "name": "Bash"
+        },
+        {
+          "command": "ls -la .cairn-continuation.json 2>&1; echo \"---\"; cat .cairn-continuation.json 2>&1",
+          "name": "Bash"
+        }
+      ],
+      "transcript_free_input": true
+    }
+  },
+  "verdict": "PASS \u2014 thin Claude Code integration proof"
+}

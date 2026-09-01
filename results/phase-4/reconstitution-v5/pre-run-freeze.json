@@ -1,0 +1,109 @@
+{
+  "entries": [
+    {
+      "bytes": 596,
+      "path": "D:\\project-unknown-phase4\\results\\phase-4\\reconstitution-v5\\sealed-workloads\\effect-r\\workspace\\EFFECT_TASK.md",
+      "sha256": "da62e69b6774bd59a9c1499958aca2478be98bdaaf54ff96bd1945e28f07be62"
+    },
+    {
+      "bytes": 2824,
+      "path": "D:\\project-unknown-phase4\\results\\phase-4\\reconstitution-v5\\sealed-workloads\\effect-r\\workspace\\effect_tool.py",
+      "sha256": "f22c2a581c469b079e7fcc252d08f613d3da20347d4ffa88742f652ef216f7f2"
+    },
+    {
+      "bytes": 596,
+      "path": "D:\\project-unknown-phase4\\results\\phase-4\\reconstitution-v5\\sealed-workloads\\effect-u\\workspace\\EFFECT_TASK.md",
+      "sha256": "da62e69b6774bd59a9c1499958aca2478be98bdaaf54ff96bd1945e28f07be62"
+    },
+    {
+      "bytes": 2824,
+      "path": "D:\\project-unknown-phase4\\results\\phase-4\\reconstitution-v5\\sealed-workloads\\effect-u\\workspace\\effect_tool.py",
+      "sha256": "07a735073c00a4eeca9247d1aae1d7c13d83ecab02ae7e79f068f423f7fa01aa"
+    },
+    {
+      "bytes": 596,
+      "path": "D:\\project-unknown-phase4\\results\\phase-4\\reconstitution-v5\\sealed-workloads\\holdout\\workspace\\EFFECT_TASK.md",
+      "sha256": "da62e69b6774bd59a9c1499958aca2478be98bdaaf54ff96bd1945e28f07be62"
+    },
+    {
+      "bytes": 2856,
+      "path": "D:\\project-unknown-phase4\\results\\phase-4\\reconstitution-v5\\sealed-workloads\\holdout\\workspace\\effect_tool.py",
+      "sha256": "eb690176960078546ee26adeb708e28e2a2d84c485bf44c1a31d84fa7acb0208"
+    },
+    {
+      "bytes": 689,
+      "path": "D:\\project-unknown-phase4\\results\\phase-4\\reconstitution-v5\\sealed-workloads\\holdout\\workspace\\TASK.md",
+      "sha256": "c433701a5ad9273bb7a18d2f3ef9131faae97e308b6f351b3c19fd57b78f4d0e"
+    },
+    {
+      "bytes": 124,
+      "path": "D:\\project-unknown-phase4\\results\\phase-4\\reconstitution-v5\\sealed-workloads\\holdout\\workspace\\verify.py",
+      "sha256": "8fd9356f7993eab3a055c080239322d9272f12c8cb35178cbbb12ff08cef02b8"
+    },
+    {
+      "bytes": 179,
+      "path": "D:\\project-unknown-phase4\\results\\phase-4\\reconstitution-v5\\sealed-workloads\\source\\stage2.py",
+      "sha256": "f574c44c0f8e4961c45210420cab8ecd1130a95aa25e19be07bf8ffd4516da64"
+    },
+    {
+      "bytes": 1064,
+      "path": "D:\\project-unknown-phase4\\results\\phase-4\\reconstitution-v5\\sealed-workloads\\source\\TASK.md",
+      "sha256": "d0f28e11546b439b8ff9a519e4925d3a0b0891a1fbe9c3fdceca8f281ea5e13b"
+    },
+    {
+      "bytes": 87,
+      "path": "D:\\project-unknown-phase4\\results\\phase-4\\reconstitution-v5\\sealed-workloads\\source\\verify.py",
+      "sha256": "7f2b572a13edc36ae41228bd853c1e373c35aa566367fe5d5fbae6b2336af178"
+    },
+    {
+      "bytes": 204,
+      "path": "D:\\project-unknown-phase4\\results\\phase-4\\reconstitution-v5\\sealed-workloads\\source\\verify_final.py",
+      "sha256": "83cbd437349d00470f11bec835db61decd73edde16faca37c3ec8a854226c64b"
+    },
+    {
+      "bytes": 13587,
+      "path": "D:\\project-unknown-phase4\\benchmarks\\p4_native_compaction_v5.py",
+      "sha256": "d6c7000e8730c4859067e86effc3345a2e155f23ee94ec47b00e9700af8b7d01"
+    },
+    {
+      "bytes": 8244,
+      "path": "D:\\project-unknown-phase4\\benchmarks\\p4_native_compaction_verdict_v5.py",
+      "sha256": "9f1c6e4c9b1931b1f48106090626d7942bfe5150dbaf1bae1c843fc7b1e37c17"
+    },
+    {
+      "bytes": 8717,
+      "path": "D:\\project-unknown-phase4\\benchmarks\\p4_claude_code.py",
+      "sha256": "7d6c0adc034e0ff443d072550b7ad9e04e391c86efcc8d0ab99876b713e8c755"
+    },
+    {
+      "bytes": 6544,
+      "path": "D:\\project-unknown-phase4\\benchmarks\\p4_claude_protocol.py",
+      "sha256": "218c072a586966b0ac1a793a72b197524f60baadaa93c83147fdbade84cfd6eb"
+    },
+    {
+      "bytes": 2535,
+      "path": "D:\\project-unknown-phase4\\benchmarks\\p4_claude_holdout_v2.py",
+      "sha256": "5c3d2833a537d499ea0fd102805a8b05adfcd9f4b8902278053d0a36f18e95e0"
+    },
+    {
+      "bytes": 13320,
+      "path": "D:\\project-unknown-phase4\\benchmarks\\p4_claude_verdict.py",
+      "sha256": "d1354b096b6df0400f167c1e4feaa44d783b307e8b6f0433c9aeba806492d92d"
+    },
+    {
+      "bytes": 1088,
+      "path": "D:\\project-unknown-phase4\\benchmarks\\p4_freeze.py",
+      "sha256": "be2ebf34345c5aabad394a5515a810312c18a2153f17e6de2583e449896bf70f"
+    },
+    {
+      "bytes": 5138,
+      "path": "D:\\project-unknown-phase4\\benchmarks\\p4_forked_checkpoint.py",
+      "sha256": "5fef73ca3884fcf840cb5c88a2837feaa812a1dc73153d5e26796a23eaef6e16"
+    }
+  ],
+  "metadata": {
+    "phase": "P4",
+    "purpose": "seal V5 generic-authority and native-compaction inputs before execution"
+  },
+  "schema_version": "cairn.p4-freeze.v0.1"
+}

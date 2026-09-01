@@ -1,0 +1,6 @@
+{
+  "effect_id": "p4-claude-create-once",
+  "idempotency_key": "p4-claude-key",
+  "request_fingerprint": "p4-claude-request",
+  "tool_class": "create-once"
+}

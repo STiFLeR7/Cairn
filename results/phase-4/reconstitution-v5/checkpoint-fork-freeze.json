@@ -1,0 +1,49 @@
+{
+  "entries": [
+    {
+      "bytes": 249,
+      "path": "D:\\project-unknown-phase4\\results\\phase-4\\reconstitution-v5\\checkpoint-fork\\workspace\\.cairn-action-map.json",
+      "sha256": "93c71f677fb4d07632b4ab5bc4acbe410bf805dfb1af4c8493ff2b13974149b9"
+    },
+    {
+      "bytes": 1349,
+      "path": "D:\\project-unknown-phase4\\results\\phase-4\\reconstitution-v5\\checkpoint-fork\\workspace\\.cairn-continuation.json",
+      "sha256": "73c9ff72bde54c7714c7fcf4d9ef0fea62ea3b23f0cf0de9fe36671795003d8f"
+    },
+    {
+      "bytes": 46,
+      "path": "D:\\project-unknown-phase4\\results\\phase-4\\reconstitution-v5\\checkpoint-fork\\workspace\\greeting.py",
+      "sha256": "a55c14346b5c0e11da873793db175efd28d4840a330a5edba18d03d7d7310626"
+    },
+    {
+      "bytes": 179,
+      "path": "D:\\project-unknown-phase4\\results\\phase-4\\reconstitution-v5\\checkpoint-fork\\workspace\\stage2.py",
+      "sha256": "f574c44c0f8e4961c45210420cab8ecd1130a95aa25e19be07bf8ffd4516da64"
+    },
+    {
+      "bytes": 1064,
+      "path": "D:\\project-unknown-phase4\\results\\phase-4\\reconstitution-v5\\checkpoint-fork\\workspace\\TASK.md",
+      "sha256": "d0f28e11546b439b8ff9a519e4925d3a0b0891a1fbe9c3fdceca8f281ea5e13b"
+    },
+    {
+      "bytes": 87,
+      "path": "D:\\project-unknown-phase4\\results\\phase-4\\reconstitution-v5\\checkpoint-fork\\workspace\\verify.py",
+      "sha256": "7f2b572a13edc36ae41228bd853c1e373c35aa566367fe5d5fbae6b2336af178"
+    },
+    {
+      "bytes": 204,
+      "path": "D:\\project-unknown-phase4\\results\\phase-4\\reconstitution-v5\\checkpoint-fork\\workspace\\verify_final.py",
+      "sha256": "83cbd437349d00470f11bec835db61decd73edde16faca37c3ec8a854226c64b"
+    },
+    {
+      "bytes": 327,
+      "path": "D:\\project-unknown-phase4\\results\\phase-4\\reconstitution-v5\\checkpoint-fork\\workspace\\__pycache__\\greeting.cpython-312.pyc",
+      "sha256": "4780bea98d516e503fd4e75c03bc2af54ce3be1d85908c8c65afcda765e93e8f"
+    }
+  ],
+  "metadata": {
+    "phase": "P4",
+    "purpose": "shared host checkpoint before U/R/C"
+  },
+  "schema_version": "cairn.p4-freeze.v0.1"
+}

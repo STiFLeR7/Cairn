@@ -8,7 +8,7 @@
 checking what actually happened, and continuing — not by starting over.*
 
 [![License](https://img.shields.io/badge/license-Apache--2.0-blue.svg)](LICENSE)
-[![Status](https://img.shields.io/badge/status-P1--P3%20admitted%20%7C%20P4%20blocked-yellow.svg)](ROADMAP.md)
+[![Status](https://img.shields.io/badge/status-P1--P4%20evidence%20current-brightgreen.svg)](ROADMAP.md)
 [![Tests](https://img.shields.io/badge/tests-P4%20controls%20verified-brightgreen.svg)](tests/)
 [![Version](https://img.shields.io/badge/version-0.x%20(v1.0%20held)-orange.svg)](CHANGELOG.md)
 
@@ -77,7 +77,7 @@ Cairn **complements** agent frameworks (OpenHands, LangGraph, custom harnesses) 
 
 ## Project status
 
-**Recovery proof ladder P1–P3: complete; P4 is blocked by its locked external-host artifact-equivalence gate.** The existing BYOM library
+**Recovery proof ladder P1–P4: complete.** The existing BYOM library
 remains 0.x and experimental. The evidence-backed claims are the three narrow contracts below, not a
 claim that Cairn makes arbitrary agents reliable or provides exactly-once external effects.
 
@@ -86,25 +86,26 @@ claim that Cairn makes arbitrary agents reliable or provides exactly-once extern
 | **P1 — crash/restart** | Repository recovery fidelity in the deterministic reference harness | [RecoveryBench report](results/phase-1/REPORT.md) |
 | **P2 — compaction continuity** | [Continuation Contract v0](docs/design/continuation-contract-v0.md) | P2.4: 40 eligible U/R/C cells across Claude Code Opus/Sonnet; 20 pre-continuation Sonnet acquisition failures are retained, not counted as recovery successes ([verdict](results/phase-2/p24-verdict.json)) |
 | **P3 — external effects** | [Receipt/Reconciliation Contract v0](docs/design/receipt-reconciliation-contract-v0.md) | One deterministic create-once provider effect: 36 reference and 15 sealed-holdout cells; no duplicate or silent-loss cells. The holdout reused the provider/harness, so this is not independent-provider validation ([verdict](results/phase-3/p3-verdict.json)) |
-| **P4 — external host** | [Claude Code integration proof](docs/design/phase-4-claude-code-integration.md) | **Not admitted.** Sealed Claude Code v2 preserved recovered work and effect safety but failed strict U/R/C byte-equivalence: independent uninterrupted and crash paths emitted equivalent code with different quote styles ([verdict](results/phase-4/reconstitution-v2/verdict.json)). |
+| **P4 — external host** | [Claude Code integration proof](docs/design/phase-4-claude-code-integration.md) | One Claude Code host/provider proof. V5 gives the shared-checkpoint/effect reference control; V6 adds a post-compaction causal negative and independently sealed generic U/R/C holdout ([admission verdict](results/phase-4/reconstitution-v6/verdict.json)). |
 
 P2 requires a fresh process without the original transcript and is conditioned on acquiring a clean,
 verified checkpoint. P3 requires re-observation before a retry and admits only the decision semantics
 proven for its reference effect: absent → retry; matching present → skip; unknown, mismatch, and
 never-retry → escalate. Neither contract establishes broad live-model performance, a framework API,
-or general external-effect delivery. P4 has not admitted a host integration and does not expand either
-v0 contract or establish multi-host compatibility.
+or general external-effect delivery. P4 admits one host integration only; it does not expand either v0
+contract or establish multi-host compatibility.
 
 The journey so far:
 
 | Stage | What happened | Outcome |
 |---|---|---|
-| **Legacy phases 0–6** | Specify, build, and *measure* recovery in a deterministic reference harness | 🟢 Historical mechanism and benchmark work; see the proof ladder above for the currently admitted P1–P3 boundaries |
+| **Legacy phases 0–6** | Specify, build, and *measure* recovery in a deterministic reference harness | 🟢 Historical mechanism and benchmark work; see the proof ladder above for the currently admitted P1–P4 boundaries |
 | **M1–M3** | Run the benchmark against **real LLMs** to confirm the headline claim (C1) | 🟢 Live pipeline works; RGR looks strong — but **NO-GO** for v1.0: evidence is *suggestive, not confirmed* (free-tier rate limits + underpowered runs) |
 | **M4** | Ship the recovery mechanism as a **BYOM library** so anyone can reproduce C1 on their own model | 🟢 **Complete** — mechanism shipped; stays 0.x |
 
 **Honest scope ([ADR-0009](docs/adr/ADR-0009-evaluation-framework.md)).** The legacy live C1 claim remains
-suggestive rather than confirmed. P1–P3 establish narrowly scoped recovery semantics in the recorded
+suggestive rather than confirmed. P1–P4 establish narrowly scoped recovery semantics and one external-host
+integration proof in the recorded
 reference and sealed-holdout experiments; they do not change the v1.0 or broad live-performance gate.
 See the [Roadmap](ROADMAP.md), [Master Checklist](CHECKLIST.md), and
 [claims registry](docs/research/claims-registry.md).

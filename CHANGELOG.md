@@ -10,10 +10,15 @@ updates this file.
 ## [Unreleased]
 
 ### Added
-- **Phase 4 Claude Code evidence:** two sealed reconstitutions and raw manifests are retained. Corrected v2
-  passed its input, recovery, and effect-safety checks but failed the locked U/R/C byte-equivalence gate:
-  independent uninterrupted and crash paths emitted equivalent code with different quote styles. P4 remains
-  blocked; no host-integration, exactly-once, or interoperability claim is admitted.
+- **Phase 4 Claude Code integration proof:** V5 seals a shared host-created checkpoint before branching
+  into uninterrupted, crash/restart, and native-host-compaction paths. Generic fresh RGR is authorized
+  by durable continuation/action state rather than a task-specific recovery prompt; an unmapped-action
+  negative control escalates without task mutation. One external host retained control while the admitted
+  continuation and receipt/reconciliation semantics preserved artifacts, reconciled one deterministic
+  create-once effect, and passed a sealed holdout. This is not exactly-once or multi-host interoperability
+  evidence. Post-execution review found the sealed holdout did not exercise the new generic-RGR/native-
+  compaction control and C lacked a post-compaction causal negative; V6 separately seals and passes both
+  missing controls, making the cumulative V5/V6 evidence the narrow admission basis.
 - **Phase 1 RecoveryBench evidence:** a deterministic terminal coding-agent reference harness for
   crash/restart recovery, with raw artifacts and a published report in `results/phase-1/`.
 - **Continuation Contract v0:** an admitted, evidence-scoped contract for fresh-process repository
@@ -25,7 +30,7 @@ updates this file.
   decisions. The 36-cell reference matrix and 15-cell sealed holdout had no duplicate or silent-loss cells.
 
 ### Changed
-- Public documentation now distinguishes the legacy implementation design from the P1–P3 admitted proof
+- Public documentation now distinguishes the legacy implementation design from the P1–P4 admitted proof
   ladder. Cairn makes no general exactly-once, universal model-reliability, framework-integration, or
   independent-provider claim from these results.
 

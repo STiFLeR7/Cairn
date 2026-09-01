@@ -1,0 +1,11 @@
+{
+  "schema_version": "cairn.p4-escalation.v1",
+  "reason": "next_action 'unmapped_negative_control' in .cairn-continuation.json has no matching entry in .cairn-action-map.json (which defines only 'wait_for_release_then_complete'). No mapped action to execute.",
+  "observed": {
+    "continuation_next_action": "unmapped_negative_control",
+    "action_map_defined_actions": ["wait_for_release_then_complete"],
+    "required_file_for_defined_action": ".cairn-release-stage2",
+    "required_file_present": true
+  },
+  "action_taken": "none; no task artifacts mutated"
+}

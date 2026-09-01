@@ -1,0 +1,19 @@
+{
+  "accepted_decisions": [
+    "greet(name) returns the exact string 'Hello, <name>!'",
+    "stage2.py and verify_final.py must not run until .cairn-release-stage2 exists",
+    "stage2.txt must not be created before .cairn-release-stage2 exists"
+  ],
+  "active_subgoal": "wait_for_release_then_complete",
+  "checkpoint_provenance": "created after verify.py passed and .cairn-action-map.json was written, prior to release of .cairn-release-stage2",
+  "first_recovery_operation": "reobserve",
+  "intent": "Implement greet(name) in greeting.py, verify it, then wait for the stage2 release signal before running stage2.py and verify_final.py to complete the task.",
+  "next_action": "unmapped_post_compaction_control",
+  "stop_condition": ".cairn-release-stage2 does not exist yet",
+  "verification_state": "greeting.py verified via verify.py; stage2 completion and final verification are pending release",
+  "verified_work": [
+    "greeting.py implements greet(name) returning 'Hello, <name>!'",
+    "python verify.py passed and printed 'verified'"
+  ],
+  "world_digest": "greeting.py, verify.py, stage2.py, verify_final.py, .cairn-action-map.json present; .cairn-release-stage2 not yet present; stage2.txt not yet created"
+}

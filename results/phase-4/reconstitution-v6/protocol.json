@@ -1,0 +1,5 @@
+{
+  "purpose": "V6: post-compaction causal negative plus independent generic U/R/C holdout",
+  "schema_version": "cairn.p4-native-compaction.v0.2",
+  "status": "sealed-before-execution"
+}

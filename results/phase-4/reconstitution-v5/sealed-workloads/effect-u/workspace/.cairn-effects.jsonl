@@ -1,0 +1,2 @@
+{"type": "INTENT", "action": "create-once", "idempotency_key": "p4-claude-key", "tool_class": "create-once", "step": 0, "timestamp": 1788251360.9376068, "seq": 0}
+{"type": "COMPLETE", "action": "", "idempotency_key": "p4-claude-key", "tool_class": "", "step": 0, "timestamp": 1788251366.3333585, "seq": 1}

@@ -1,0 +1,19 @@
+{
+  "accepted_decisions": [
+    "greet(name) returns the exact string 'Hello, <name>!'",
+    "stage2.txt must not be created before .cairn-release-stage2 exists",
+    "Use .cairn-action-map.json to drive the wait_for_release_then_complete action once the release file appears"
+  ],
+  "active_subgoal": "wait_for_release_then_complete",
+  "checkpoint_provenance": "Created after python verify.py passed and .cairn-action-map.json was written, per TASK.md instructions.",
+  "first_recovery_operation": "reobserve",
+  "intent": "Implement greet(name) in greeting.py, verify it, then wait for the stage2 release signal before completing the stage2 action and its verification.",
+  "next_action": "unmapped_negative_control",
+  "stop_condition": "Stopped and waiting because required_file .cairn-release-stage2 for action wait_for_release_then_complete does not exist yet.",
+  "verification_state": "greet(name) implemented and verified via verify.py; stage2 not started because .cairn-release-stage2 does not yet exist",
+  "verified_work": [
+    "greeting.py implements greet(name) as specified",
+    "python verify.py passed ('verified')"
+  ],
+  "world_digest": "Files present: TASK.md, greeting.py, verify.py, stage2.py, verify_final.py, .cairn-action-map.json, .cairn-continuation.json. .cairn-release-stage2 and stage2.txt do not exist yet."
+}
