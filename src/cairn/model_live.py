@@ -19,6 +19,8 @@ from __future__ import annotations
 
 import os
 import re
+import json
+import subprocess
 from typing import Callable, Optional
 
 from .model import CODE, FINISH, Action, StepRecord
@@ -37,6 +39,18 @@ DEFAULT_SYSTEM = (
     "outside the code block. When the goal is fully achieved, reply with exactly "
     f"{DEFAULT_FINISH_SENTINEL} and nothing else."
 )
+
+CLAUDE_CODE_SYSTEM = (
+    "You are a coding-agent response engine. Return exactly one JSON object matching the "
+    "provided schema. Its code must be one Python terminal action that advances the goal. "
+    "The action runs in a sandboxed working directory; do not explain or use tools."
+)
+CLAUDE_CODE_SCHEMA = json.dumps({
+    "type": "object",
+    "properties": {"action": {"const": "python"}, "code": {"type": "string"}},
+    "required": ["action", "code"],
+    "additionalProperties": False,
+})
 
 _CODE_FENCE = re.compile(r"```(?:[a-zA-Z0-9_+-]+)?\s*\n(.*?)```", re.DOTALL)
 # Fallback for models that emit an XML-style tool call instead of a markdown fence
@@ -74,14 +88,14 @@ def parse_action(text: str, *, finish_sentinel: str = DEFAULT_FINISH_SENTINEL) -
 
       1. a fenced code block -> ``CODE``;
       2. an XML-style tool-call arg value -> ``CODE`` (some models emit tool calls);
-      3. the finish sentinel -> ``FINISH``;
-      4. an *unfenced* reply that nonetheless **compiles as Python** -> ``CODE`` (some
+      3. a JSON terminal-action envelope with a string ``code`` field -> ``CODE``;
+      4. the finish sentinel -> ``FINISH``;
+      5. an *unfenced* reply that nonetheless **compiles as Python** -> ``CODE`` (some
          models omit fences entirely — `compile()` distinguishes bare code from prose);
       5. otherwise ``FINISH`` flagged as unparseable — so a malformed reply ends the run
          rather than looping forever, recorded honestly in ``Action.result``.
 
-    Steps 2 and 4 were added from live observations (a stealth model mixed fenced, XML
-    tool-call, and bare-code outputs across steps); none of them is model-specific.
+    The alternate action forms were added from live observations; none is model-specific.
     """
     if not text:
         return Action(kind=FINISH, result="empty model reply")
@@ -91,11 +105,23 @@ def parse_action(text: str, *, finish_sentinel: str = DEFAULT_FINISH_SENTINEL) -
             code = match.group(1).strip()
             if code:
                 return Action(kind=CODE, code=code)
+    try:
+        import json
+
+        envelope = json.loads(text)
+    except (TypeError, ValueError):
+        envelope = None
+    code = _json_terminal_action(envelope)
+    if code:
+        return Action(kind=CODE, code=code)
     # Unfenced reply. A model may bundle bare code with a trailing completion signal in the
     # same turn; prefer doing the action (completion then lands on the next turn). `compile()`
     # separates code from prose; the sentinel is stripped before the check.
     has_finish = bool(finish_sentinel) and finish_sentinel in text
     candidate = text.replace(finish_sentinel, "").strip() if has_finish else text.strip()
+    if "</think>" in candidate:
+        candidate = candidate.rsplit("</think>", 1)[-1].strip()
+    candidate = candidate.split("\nreturncode:", 1)[0].rstrip()
     if candidate and _looks_like_python(candidate):
         return Action(kind=CODE, code=candidate)
     if has_finish:
@@ -110,6 +136,33 @@ def _looks_like_python(text: str) -> bool:
         return True
     except (SyntaxError, ValueError):
         return False
+
+
+def _json_terminal_action(envelope: object) -> str:
+    """Translate the small terminal-tool JSON shapes observed from live coding models."""
+    if not isinstance(envelope, dict):
+        return ""
+    code = envelope.get("code")
+    if envelope.get("action", "python") == "python" and isinstance(code, str) and code.strip():
+        return code.strip()
+    action = envelope.get("action")
+    if action == "read_file" and isinstance(envelope.get("path"), str):
+        return f"from pathlib import Path\nprint(Path({envelope['path']!r}).read_text())"
+    if action == "edit_file" and all(
+        isinstance(envelope.get(key), str) for key in ("file_path", "from", "to")
+    ):
+        return (
+            "from pathlib import Path\n"
+            f"path = Path({envelope['file_path']!r})\nsource = path.read_text()\n"
+            f"old = {envelope['from']!r}\nnew = {envelope['to']!r}\n"
+            "if old not in source:\n    raise ValueError('edit source not found')\n"
+            "path.write_text(source.replace(old, new, 1))"
+        )
+    if isinstance(action, dict) and action.get("name") == "write_file":
+        args = action.get("args")
+        if isinstance(args, dict) and isinstance(args.get("path"), str) and isinstance(args.get("content"), str):
+            return f"from pathlib import Path\nPath({args['path']!r}).write_text({args['content']!r})"
+    return ""
 
 
 class LiveModelProvider:
@@ -141,6 +194,55 @@ class LiveModelProvider:
 
 class LiveModelConfigError(RuntimeError):
     """Raised when a live transport cannot be configured (missing key or SDK)."""
+
+
+def claude_code_transport(
+    *,
+    model: str,
+    command: str = "claude",
+    timeout: float = 90.0,
+    run: Optional[Callable[..., object]] = None,
+) -> Transport:
+    """Use an authenticated local Claude Code CLI as a no-tools response transport.
+
+    Claude Code receives only the rendered prompt. ``--safe-mode``, low effort, and an empty tool list
+    prevent it from inspecting or changing the benchmark checkout; Cairn executes the parsed
+    action in ``TerminalWorld`` exactly as it does for every other live transport.
+    """
+    runner = run or subprocess.run
+
+    def complete(prompt: str) -> str:
+        try:
+            result = runner(
+                [
+                    command, "-p", "--safe-mode", "--no-session-persistence", "--tools", "",
+                    "--system-prompt", CLAUDE_CODE_SYSTEM, "--effort", "low",
+                    "--model", model, "--output-format", "json", "--json-schema",
+                    CLAUDE_CODE_SCHEMA, prompt,
+                ],
+                capture_output=True,
+                text=True,
+                timeout=timeout,
+                check=False,
+            )
+        except FileNotFoundError as exc:
+            raise LiveModelConfigError(f"Claude Code command not found: {command}") from exc
+        except subprocess.TimeoutExpired as exc:
+            raise LiveModelConfigError(f"Claude Code request timed out after {timeout:g}s") from exc
+        if getattr(result, "returncode", 1):
+            raise LiveModelConfigError(
+                f"Claude Code exited {result.returncode}: {getattr(result, 'stderr', '').strip()}"
+            )
+        try:
+            response = json.loads(getattr(result, "stdout", ""))
+        except (TypeError, ValueError) as exc:
+            raise LiveModelConfigError("Claude Code returned invalid JSON") from exc
+        reply = response.get("result") if isinstance(response, dict) else None
+        if response.get("is_error") or not isinstance(reply, str):
+            raise LiveModelConfigError(f"Claude Code error: {reply or response}")
+        return reply
+
+    return complete
 
 
 def anthropic_transport(
@@ -215,6 +317,7 @@ def openai_chat_transport(
     api_key: Optional[str] = None,
     referer: str = "",
     title: str = "",
+    extra_body: Optional[dict] = None,
     timeout: float = 120.0,
     request: Optional[Callable[[dict], dict]] = None,
 ) -> Transport:
@@ -247,9 +350,36 @@ def openai_chat_transport(
                 {"role": "user", "content": prompt},
             ],
         }
-        return _content_from_chat(request(payload))
+        if extra_body:
+            payload.update(extra_body)
+        return _content_from_chat(_request_with_deadline(request, payload, timeout))
 
     return complete
+
+
+def _request_with_deadline(
+    request: Callable[[dict], dict], payload: dict, timeout: float,
+) -> dict:
+    """Run a blocking request with a total deadline, not just a socket idle timeout."""
+    import threading
+
+    result: list[dict] = []
+    error: list[Exception] = []
+
+    def call() -> None:
+        try:
+            result.append(request(payload))
+        except Exception as exc:  # preserve provider errors from the request seam
+            error.append(exc)
+
+    thread = threading.Thread(target=call, daemon=True)
+    thread.start()
+    thread.join(timeout)
+    if thread.is_alive():
+        raise LiveModelConfigError(f"chat request timed out after {timeout:g}s")
+    if error:
+        raise error[0]
+    return result[0]
 
 
 def openrouter_transport(

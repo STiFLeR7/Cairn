@@ -1,0 +1,60 @@
+{
+  "schema_version": "cairn.phase-2-replay-control.v0.1",
+  "source_branch": "R",
+  "records": [
+    {
+      "run_id": "urc-5f1abb3fa9b4481fb800c094df3c541a",
+      "fixture": "bugfix",
+      "split_step": 0,
+      "replayed_replies": 4,
+      "workspace": "results\\phase-2\\v11-c-replay-nim-partial-runs\\urc-5f1abb3fa9b4481fb800c094df3c541a\\bugfix",
+      "verified": true,
+      "success": true,
+      "final_digest": {
+        "README.md": "75da6ed0d985734324ab79d01ec1571293aeaaaefbba7c558f9be4c903364022",
+        "project.py": "ee132415425c8ad34593aae3b85a447deebabc01d19e9ff5a8d1a2df49675398"
+      }
+    },
+    {
+      "run_id": "urc-843e4b57c86b4bba9eb32d5c46d80f3e",
+      "fixture": "config",
+      "split_step": 0,
+      "replayed_replies": 3,
+      "workspace": "results\\phase-2\\v11-c-replay-nim-partial-runs\\urc-843e4b57c86b4bba9eb32d5c46d80f3e\\config",
+      "verified": true,
+      "success": true,
+      "final_digest": {
+        "README.md": "28e575cd8d82644a5f524347821acdbc0f7eb7f4c1d04b436c93ba44e774e6a0",
+        "project.py": "74f02d00833cc1134ca11086c3318520a466709caf99697eed1f7edc83f29977"
+      }
+    },
+    {
+      "run_id": "urc-49d032ffc1d64ce98e6e31e86483a70a",
+      "fixture": "config",
+      "split_step": 0,
+      "replayed_replies": 3,
+      "workspace": "results\\phase-2\\v11-c-replay-nim-partial-runs\\urc-49d032ffc1d64ce98e6e31e86483a70a\\config",
+      "verified": true,
+      "success": true,
+      "final_digest": {
+        "README.md": "28e575cd8d82644a5f524347821acdbc0f7eb7f4c1d04b436c93ba44e774e6a0",
+        "project.py": "74f02d00833cc1134ca11086c3318520a466709caf99697eed1f7edc83f29977"
+      }
+    },
+    {
+      "run_id": "urc-1bb6746861844f7d84422f2600715b85",
+      "fixture": "tests",
+      "split_step": 1,
+      "replayed_replies": 4,
+      "workspace": "results\\phase-2\\v11-c-replay-nim-partial-runs\\urc-1bb6746861844f7d84422f2600715b85\\tests",
+      "verified": true,
+      "success": true,
+      "final_digest": {
+        "README.md": "d26f1ca6621480d5962e6255ee046c118e0c72e3c1c52d3c45c4fe389d4b3305",
+        "project.py": "0af7db418f5041887885455b3f6c48c09722a4e40e72fddbc285592b4b257e73"
+      }
+    }
+  ],
+  "replayed": 4,
+  "verified": 4
+}

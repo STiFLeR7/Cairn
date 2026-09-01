@@ -1,0 +1,128 @@
+{
+  "schema_version": "cairn.p24-urc.v0.1",
+  "cell": {
+    "provider": "claude_code",
+    "model": "opus",
+    "fixture": "p24_queue_policy",
+    "split_step": 0,
+    "repetition": 6
+  },
+  "run_dir": "results\\phase-2\\p24-matrix\\runs\\p24-ee6cd5ff623b40c49639dfb4a6adfa18",
+  "parent_pid": 23660,
+  "prefix": {
+    "progress": 1
+  },
+  "branches": {
+    "U": {
+      "start_progress": 1,
+      "accepted_progress": [
+        2,
+        3,
+        4
+      ],
+      "accepted_actions": [
+        {
+          "step": 1,
+          "kind": "code",
+          "code": "src = open('project.py').read()\nold = \"\"\"def retry_schedule(attempt: int) -> list[int]:\n    ...\n\"\"\"\nnew = \"\"\"def retry_schedule(attempt: int) -> list[int]:\n    return [2**i for i in range(attempt)]\n\"\"\"\nassert old in src\nopen('project.py','w').write(src.replace(old, new))\nprint(open('project.py').read())"
+        },
+        {
+          "step": 2,
+          "kind": "code",
+          "code": "src = open('project.py').read()\nold = \"\"\"def dispatchable_ids(tasks: dict[str, str]) -> list[str]:\n    ...\n\"\"\"\nnew = \"\"\"def dispatchable_ids(tasks: dict[str, str]) -> list[str]:\n    return sorted(k for k, v in tasks.items() if v in (\"ready\", \"queued\"))\n\"\"\"\nassert old in src\nopen('project.py','w').write(src.replace(old, new))\nprint(open('project.py').read())"
+        },
+        {
+          "step": 3,
+          "kind": "code",
+          "code": "src = open('project.py').read()\nold = \"\"\"def partition_batches(ids: list[str], batch_size: int) -> list[list[str]]:\n    ...\n\"\"\"\nnew = \"\"\"def partition_batches(ids: list[str], batch_size: int) -> list[list[str]]:\n    return [ids[i:i + batch_size] for i in range(0, len(ids), batch_size)]\n\"\"\"\nassert old in src\nopen('project.py','w').write(src.replace(old, new))\nprint(open('project.py').read())"
+        }
+      ],
+      "final_progress": 4,
+      "verified": true,
+      "success": true,
+      "final_digest": {
+        "README.md": "390fefae1f73ac7fa3d95ca9b523bea4b937f9edf8bc4d22b8cf9f2a3dfbce4a",
+        "project.py": "ac06ce0ea14c84a8785135ba0b0cd238595c0e81c14f9eba5ea875b9d367f6d0"
+      },
+      "worker_pid": 23660,
+      "parent_pid": 23660,
+      "used_in_memory_history": true,
+      "original_transcript_available": true,
+      "state_serialized": false
+    },
+    "R": {
+      "start_progress": 1,
+      "accepted_progress": [
+        2,
+        3,
+        4
+      ],
+      "accepted_actions": [
+        {
+          "step": 1,
+          "kind": "code",
+          "code": "import re\ns=open('project.py').read()\nnew='''def retry_schedule(attempt: int) -> list[int]:\n    return [2**i for i in range(attempt)]\n'''\ns=s.replace('''def retry_schedule(attempt: int) -> list[int]:\n    ...\n''',new)\nopen('project.py','w').write(s)\nprint(open('project.py').read())"
+        },
+        {
+          "step": 2,
+          "kind": "code",
+          "code": "s=open('project.py').read()\nnew='''def dispatchable_ids(tasks: dict[str, str]) -> list[str]:\n    return sorted(k for k, v in tasks.items() if v in (\"ready\", \"queued\"))\n'''\ns=s.replace('''def dispatchable_ids(tasks: dict[str, str]) -> list[str]:\n    ...\n''',new)\nopen('project.py','w').write(s)\nprint(open('project.py').read())"
+        },
+        {
+          "step": 3,
+          "kind": "code",
+          "code": "s=open('project.py').read()\nnew='''def partition_batches(ids: list[str], batch_size: int) -> list[list[str]]:\n    return [ids[i:i+batch_size] for i in range(0, len(ids), batch_size)]\n'''\ns=s.replace('''def partition_batches(ids: list[str], batch_size: int) -> list[list[str]]:\n    ...\n''',new)\nopen('project.py','w').write(s)\nprint(open('project.py').read())"
+        }
+      ],
+      "final_progress": 4,
+      "verified": true,
+      "success": true,
+      "final_digest": {
+        "README.md": "390fefae1f73ac7fa3d95ca9b523bea4b937f9edf8bc4d22b8cf9f2a3dfbce4a",
+        "project.py": "174c4c215cf1e876f0c79f309febe08b5aaed79e3c2c117acc9a2eebbb57c045"
+      },
+      "used_in_memory_history": false,
+      "original_transcript_available": false,
+      "state_serialized": false,
+      "worker_pid": 28188,
+      "parent_pid": 23660
+    },
+    "C": {
+      "start_progress": 1,
+      "accepted_progress": [
+        2,
+        3,
+        4
+      ],
+      "accepted_actions": [
+        {
+          "step": 1,
+          "kind": "code",
+          "code": "src = open('project.py').read()\nsrc = src.replace(\"\"\"def retry_schedule(attempt: int) -> list[int]:\n    ...\"\"\", \"\"\"def retry_schedule(attempt: int) -> list[int]:\n    return [2**i for i in range(attempt)]\"\"\")\nopen('project.py','w').write(src)\nprint(src)"
+        },
+        {
+          "step": 2,
+          "kind": "code",
+          "code": "src = open('project.py').read()\nsrc = src.replace(\"\"\"def dispatchable_ids(tasks: dict[str, str]) -> list[str]:\n    ...\"\"\", \"\"\"def dispatchable_ids(tasks: dict[str, str]) -> list[str]:\n    return sorted(k for k, v in tasks.items() if v in (\"ready\", \"queued\"))\"\"\")\nopen('project.py','w').write(src)\nprint(src)"
+        },
+        {
+          "step": 3,
+          "kind": "code",
+          "code": "src = open('project.py').read()\nsrc = src.replace(\"\"\"def partition_batches(ids: list[str], batch_size: int) -> list[list[str]]:\n    ...\"\"\", \"\"\"def partition_batches(ids: list[str], batch_size: int) -> list[list[str]]:\n    return [ids[i:i + batch_size] for i in range(0, len(ids), batch_size)]\"\"\")\nopen('project.py','w').write(src)\nprint(src)"
+        }
+      ],
+      "final_progress": 4,
+      "verified": true,
+      "success": true,
+      "final_digest": {
+        "README.md": "390fefae1f73ac7fa3d95ca9b523bea4b937f9edf8bc4d22b8cf9f2a3dfbce4a",
+        "project.py": "ac06ce0ea14c84a8785135ba0b0cd238595c0e81c14f9eba5ea875b9d367f6d0"
+      },
+      "used_in_memory_history": false,
+      "original_transcript_available": false,
+      "state_serialized": true,
+      "worker_pid": 7920,
+      "parent_pid": 23660
+    }
+  }
+}

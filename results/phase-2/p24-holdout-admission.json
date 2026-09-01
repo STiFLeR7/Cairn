@@ -1,0 +1,10 @@
+{
+  "status": "admitted",
+  "pinned_inputs_match": true,
+  "frozen_controls_match": true,
+  "author_audit_admitted": true,
+  "expected_cells": 60,
+  "matrix_empty": true,
+  "full_suite": "248 passed in 206.67s",
+  "command": "python -c P2.4 sealed-protocol hash, freeze, author-audit, matrix enumeration, and empty-evidence check"
+}

@@ -1,0 +1,17 @@
+{
+  "schema_version": "cairn.phase-2-urc.v0.1",
+  "fixture": {
+    "name": "followup",
+    "version": "2"
+  },
+  "split_step": 2,
+  "ablation": null,
+  "live": {
+    "provider": "claude_code",
+    "model": "opus"
+  },
+  "invalid": {
+    "stage": "urc",
+    "detail": "ValueError: unverified_mutation"
+  }
+}

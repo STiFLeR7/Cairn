@@ -1,0 +1,65 @@
+{
+  "schema_version": "cairn.phase-2-replay-control.v0.1",
+  "source_branch": "U",
+  "target_branch": "C",
+  "records": [
+    {
+      "run_id": "urc-1b74d7b35a2f4683b7874783994bacdf",
+      "fixture": "tests",
+      "split_step": 1,
+      "target_branch": "C",
+      "replayed_replies": 2,
+      "workspace": "results\\phase-2\\v12-replay-u-to-c-both-runs\\urc-1b74d7b35a2f4683b7874783994bacdf\\tests",
+      "verified": true,
+      "success": true,
+      "final_digest": {
+        "README.md": "d26f1ca6621480d5962e6255ee046c118e0c72e3c1c52d3c45c4fe389d4b3305",
+        "project.py": "c662af563afbf8c7598f4ab46cde0cdb8a93ea3d56eb5d4075a1e8dae37d0d12"
+      }
+    },
+    {
+      "run_id": "urc-d0528574164d437c8fbb7aa1e401e742",
+      "fixture": "tests",
+      "split_step": 1,
+      "target_branch": "C",
+      "replayed_replies": 2,
+      "workspace": "results\\phase-2\\v12-replay-u-to-c-both-runs\\urc-d0528574164d437c8fbb7aa1e401e742\\tests",
+      "verified": true,
+      "success": true,
+      "final_digest": {
+        "README.md": "d26f1ca6621480d5962e6255ee046c118e0c72e3c1c52d3c45c4fe389d4b3305",
+        "project.py": "c662af563afbf8c7598f4ab46cde0cdb8a93ea3d56eb5d4075a1e8dae37d0d12"
+      }
+    },
+    {
+      "run_id": "urc-e9b472fb3c0e475182c098991fafb68d",
+      "fixture": "tests",
+      "split_step": 1,
+      "target_branch": "C",
+      "replayed_replies": 2,
+      "workspace": "results\\phase-2\\v12-replay-u-to-c-both-runs\\urc-e9b472fb3c0e475182c098991fafb68d\\tests",
+      "verified": true,
+      "success": true,
+      "final_digest": {
+        "README.md": "d26f1ca6621480d5962e6255ee046c118e0c72e3c1c52d3c45c4fe389d4b3305",
+        "project.py": "c662af563afbf8c7598f4ab46cde0cdb8a93ea3d56eb5d4075a1e8dae37d0d12"
+      }
+    },
+    {
+      "run_id": "urc-88071238ab0e432aa3a776179ac30e1b",
+      "fixture": "tests",
+      "split_step": 1,
+      "target_branch": "C",
+      "replayed_replies": 2,
+      "workspace": "results\\phase-2\\v12-replay-u-to-c-both-runs\\urc-88071238ab0e432aa3a776179ac30e1b\\tests",
+      "verified": true,
+      "success": true,
+      "final_digest": {
+        "README.md": "d26f1ca6621480d5962e6255ee046c118e0c72e3c1c52d3c45c4fe389d4b3305",
+        "project.py": "c662af563afbf8c7598f4ab46cde0cdb8a93ea3d56eb5d4075a1e8dae37d0d12"
+      }
+    }
+  ],
+  "replayed": 4,
+  "verified": 4
+}

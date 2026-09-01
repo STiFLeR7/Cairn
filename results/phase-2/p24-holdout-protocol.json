@@ -1,0 +1,40 @@
+{
+  "schema_version": "cairn.p24-independent-holdout.v0.1",
+  "status": "sealed-unconsumed",
+  "purpose": "Independent P2.4 clean-room holdout. No scored behavior is hidden from the public task.",
+  "pinned_inputs": {
+    "freeze": {"path": "results/phase-2/p24-freeze.json", "sha256": "a398528bc8dacc1c8ac599ed741a6780fbb35f58a8a64ce6ef50364340f62fdb"},
+    "author_output": {"path": "results/phase-2/p24-author-output-opencode.json", "sha256": "9648d4990a2b9bf2c2754db4106f1db01136b4f8f26fdfdcc3ec90439b9e22d0"},
+    "author_audit": {"path": "results/phase-2/p24-author-audit.json", "sha256": "71156d98f0fe121242666f722d90c8b1ab7efe493f439d69c0523204ef6d3aab"},
+    "fixture_readme": {"path": "benchmarks/recoverybench_fixtures/p24_queue_policy/README.md", "sha256": "390fefae1f73ac7fa3d95ca9b523bea4b937f9edf8bc4d22b8cf9f2a3dfbce4a"},
+    "fixture_starter": {"path": "benchmarks/recoverybench_fixtures/p24_queue_policy/project.py", "sha256": "7ba7a4a9f2245a33820277f7c25be2bbadb6906ba2fd9aaac7d0db06e02b2737"},
+    "fixture_registration": {"path": "benchmarks/p24_fixture.py", "sha256": "a56b851e125e2a277aec322df58847beac5e97cf942c34f335ccba460b057782"},
+    "matrix": {"path": "benchmarks/p24_matrix.py", "sha256": "c5e6f0e32986516dcafbdcfdc0bf0bd731d96ca3dc8b09d0cccba3c21eceff51"},
+    "analysis": {"path": "benchmarks/p24_analysis.py", "sha256": "d7b5c5a33d188b7d065a34ac20264dda286a73ebc594f665e9a32ef7e8bd1a85"},
+    "replay": {"path": "benchmarks/p24_replay.py", "sha256": "56819042b03ee3ec7267dc54ba287d1b3b353586ff631859b4405af64fd1dd2c"}
+  },
+  "matrix": {
+    "models": [{"provider": "claude_code", "model": "opus"}, {"provider": "claude_code", "model": "sonnet"}],
+    "fixture": "p24_queue_policy",
+    "branches": ["U", "R", "C"],
+    "split_steps": [0, 1, 2],
+    "repetitions_per_model_fixture_split": 10,
+    "expected_attempts": 60,
+    "output_directory": "p24-matrix"
+  },
+  "gate": {
+    "complete_matrix": true,
+    "minimum_eligible_checkpoints": 10,
+    "minimum_conditional_recovery_successes": 10,
+    "minimum_conditional_compaction_successes": 10,
+    "minimum_complete_triplets": 10,
+    "fresh_process_required": true,
+    "transcript_unavailable_for_compaction": true,
+    "serialized_state_required": true,
+    "ordered_next_actions_required": true,
+    "correct_termination_required": true,
+    "causal_replay_every_eligible_divergence": true,
+    "phase1_parity_required": true
+  },
+  "forbidden": ["fixture tuning", "prompt changes", "RGR changes", "schema expansion", "framework integrations", "effect semantics", "threshold changes"]
+}

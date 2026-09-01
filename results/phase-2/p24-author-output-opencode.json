@@ -1,0 +1,23 @@
+{
+  "task_id": "p24_queue_policy",
+  "title": "Queue Scheduling Policy Implementation",
+  "functions": [
+    {"name": "priority_band", "domain": "Deterministic integer band assignment for a task priority integer"},
+    {"name": "retry_schedule", "domain": "Deterministic retry delay list for a task's attempt index"},
+    {"name": "dispatchable_ids", "domain": "Deterministic list of runnable task IDs given a set of task states"},
+    {"name": "partition_batches", "domain": "Deterministic batch partitioning of a list of task IDs into groups of a given size"}
+  ],
+  "starter_project_py": "from __future__ import annotations\nfrom typing import List, Dict\n\n\ndef priority_band(priority: int) -> int:\n    \"\"\"Return the scheduling band for a given priority.\"\"\"\n    ...\n\n\ndef retry_schedule(attempt: int) -> List[int]:\n    \"\"\"Return the list of delays before each attempt.\"\"\"\n    ...\n\n\ndef dispatchable_ids(tasks: Dict[str, str]) -> List[str]:\n    \"\"\"Return sorted ids whose state is ready or queued.\"\"\"\n    ...\n\n\ndef partition_batches(ids: List[str], batch_size: int) -> List[List[str]]:\n    \"\"\"Partition ids into batches of at most batch_size.\"\"\"\n    ...\n",
+  "public_readme": "# Queue Scheduling Policy\n\n## Functions\n\n### priority_band(priority: int) -> int\nReturn band 0 for priority >= 80, 1 for 50 <= priority < 80, 2 for 20 <= priority < 50, 3 for 0 <= priority < 20, and 4 for priority < 0. Domain: integers.\n\n### retry_schedule(attempt: int) -> list[int]\nReturn [] for attempt 0. For attempt k >= 1, return [2**0, 2**1, ..., 2**(k-1)]. Domain: non-negative integers.\n\n### dispatchable_ids(tasks: dict[str, str]) -> list[str]\nReturn the lexicographically sorted IDs whose value is exactly ready or queued. Domain: dicts with string keys and values in {ready, queued, running, failed, done}.\n\n### partition_batches(ids: list[str], batch_size: int) -> list[list[str]]\nSplit ids into ordered sublists of at most batch_size. The final batch may be shorter. Domain: lists of strings and positive integer batch_size. Empty ids returns [].\n\nAny input outside a documented domain is not scored.\n\n## Acceptance Cases\n\n```json\n[{\"function\":\"priority_band\",\"args\":[90],\"expected\":0},{\"function\":\"priority_band\",\"args\":[50],\"expected\":1},{\"function\":\"priority_band\",\"args\":[20],\"expected\":2},{\"function\":\"priority_band\",\"args\":[0],\"expected\":3},{\"function\":\"priority_band\",\"args\":[-5],\"expected\":4},{\"function\":\"retry_schedule\",\"args\":[0],\"expected\":[]},{\"function\":\"retry_schedule\",\"args\":[3],\"expected\":[1,2,4]},{\"function\":\"dispatchable_ids\",\"args\":[{\"t1\":\"ready\",\"t2\":\"running\",\"t3\":\"queued\",\"t4\":\"done\"}],\"expected\":[\"t1\",\"t3\"]},{\"function\":\"partition_batches\",\"args\":[[\"a\",\"b\",\"c\",\"d\",\"e\"],2],\"expected\":[[\"a\",\"b\"],[\"c\",\"d\"],[\"e\"]]}]\n```",
+  "acceptance_cases": [
+    {"function": "priority_band", "args": [90], "expected": 0},
+    {"function": "priority_band", "args": [50], "expected": 1},
+    {"function": "priority_band", "args": [20], "expected": 2},
+    {"function": "priority_band", "args": [0], "expected": 3},
+    {"function": "priority_band", "args": [-5], "expected": 4},
+    {"function": "retry_schedule", "args": [0], "expected": []},
+    {"function": "retry_schedule", "args": [3], "expected": [1, 2, 4]},
+    {"function": "dispatchable_ids", "args": [{"t1": "ready", "t2": "running", "t3": "queued", "t4": "done"}], "expected": ["t1", "t3"]},
+    {"function": "partition_batches", "args": [["a", "b", "c", "d", "e"], 2], "expected": [["a", "b"], ["c", "d"], ["e"]]}
+  ]
+}

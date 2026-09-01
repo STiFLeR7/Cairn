@@ -1,0 +1,92 @@
+{
+  "schema_version": "cairn.p24-urc.v0.1",
+  "cell": {
+    "provider": "claude_code",
+    "model": "sonnet",
+    "fixture": "p24_queue_policy",
+    "split_step": 2,
+    "repetition": 7
+  },
+  "run_dir": "results\\phase-2\\p24-matrix\\runs\\p24-1f78b01fda3747aa858dff586b7dc266",
+  "parent_pid": 23956,
+  "prefix": {
+    "progress": 3
+  },
+  "branches": {
+    "U": {
+      "start_progress": 3,
+      "accepted_progress": [
+        4
+      ],
+      "accepted_actions": [
+        {
+          "step": 3,
+          "kind": "code",
+          "code": "code = '''\ndef priority_band(priority: int) -> int:\n    return 0 if priority >= 80 else 1 if priority >= 50 else 2 if priority >= 20 else 3 if priority >= 0 else 4\n\ndef retry_schedule(attempt: int) -> list[int]:\n    return [2 ** index for index in range(attempt)]\n\ndef dispatchable_ids(tasks: dict[str, str]) -> list[str]:\n    return sorted(task_id for task_id, state in tasks.items() if state in {\"ready\", \"queued\"})\n\ndef partition_batches(ids: list[str], batch_size: int) -> list[list[str]]:\n    return [ids[i:i + batch_size] for i in range(0, len(ids), batch_size)]\n'''\nfrom pathlib import Path\nPath('project.py').write_text(code)\nprint(Path('project.py').read_text())"
+        }
+      ],
+      "final_progress": 4,
+      "verified": true,
+      "success": true,
+      "final_digest": {
+        "README.md": "390fefae1f73ac7fa3d95ca9b523bea4b937f9edf8bc4d22b8cf9f2a3dfbce4a",
+        "project.py": "1b6d60ad0deb82cd4b090336c82605f3bcc3e59481eac62d3629560d9525e41e"
+      },
+      "worker_pid": 23956,
+      "parent_pid": 23956,
+      "used_in_memory_history": true,
+      "original_transcript_available": true,
+      "state_serialized": false
+    },
+    "R": {
+      "start_progress": 3,
+      "accepted_progress": [
+        4
+      ],
+      "accepted_actions": [
+        {
+          "step": 3,
+          "kind": "code",
+          "code": "content = open('project.py').read()\ncontent = content.replace(\n    \"def partition_batches(ids: list[str], batch_size: int) -> list[list[str]]:\\n    ...\",\n    \"def partition_batches(ids: list[str], batch_size: int) -> list[list[str]]:\\n    return [ids[i:i + batch_size] for i in range(0, len(ids), batch_size)]\"\n)\nopen('project.py', 'w').write(content)\nprint(content)"
+        }
+      ],
+      "final_progress": 4,
+      "verified": true,
+      "success": true,
+      "final_digest": {
+        "README.md": "390fefae1f73ac7fa3d95ca9b523bea4b937f9edf8bc4d22b8cf9f2a3dfbce4a",
+        "project.py": "5f9a475758f803be78ad9abbabce6a80bc02fdca594af768d8c401b08ce5043f"
+      },
+      "used_in_memory_history": false,
+      "original_transcript_available": false,
+      "state_serialized": false,
+      "worker_pid": 6068,
+      "parent_pid": 23956
+    },
+    "C": {
+      "start_progress": 3,
+      "accepted_progress": [
+        4
+      ],
+      "accepted_actions": [
+        {
+          "step": 3,
+          "kind": "code",
+          "code": "content = open('project.py').read()\ncontent = content.replace(\n    \"def partition_batches(ids: list[str], batch_size: int) -> list[list[str]]:\\n    ...\\n\",\n    \"def partition_batches(ids: list[str], batch_size: int) -> list[list[str]]:\\n    return [ids[i:i + batch_size] for i in range(0, len(ids), batch_size)]\\n\"\n)\nopen('project.py', 'w').write(content)\nprint(content)"
+        }
+      ],
+      "final_progress": 4,
+      "verified": true,
+      "success": true,
+      "final_digest": {
+        "README.md": "390fefae1f73ac7fa3d95ca9b523bea4b937f9edf8bc4d22b8cf9f2a3dfbce4a",
+        "project.py": "5f9a475758f803be78ad9abbabce6a80bc02fdca594af768d8c401b08ce5043f"
+      },
+      "used_in_memory_history": false,
+      "original_transcript_available": false,
+      "state_serialized": true,
+      "worker_pid": 22208,
+      "parent_pid": 23956
+    }
+  }
+}

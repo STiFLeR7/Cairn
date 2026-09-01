@@ -1,0 +1,307 @@
+{
+  "schema_version": "recoverybench.phase-1-results.v0.1",
+  "status": "phase_1_exit_gate_passed",
+  "artifacts": [
+    {
+      "path": "recoverybench-harness-v0.2-a.jsonl",
+      "records": 110,
+      "sha256": "2acbfc2cc30628645455a3d2a188a2ca677412e7d225b48ea35d8ccacf3d27d0"
+    },
+    {
+      "path": "recoverybench-harness-v0.2-b.jsonl",
+      "records": 110,
+      "sha256": "fea9a33f30ec349b3e784fbb6f6bd79a4042b68bd39fb17406816cbad7ade267"
+    }
+  ],
+  "deterministic_summary": {
+    "total": 110,
+    "valid": 110,
+    "invalid": 0,
+    "task_success": 1.0,
+    "artifact_equivalence": 1.0,
+    "no_regression": 1.0
+  },
+  "live_pilot": {
+    "status": "one_valid_pair_published_gate_pending",
+    "provider": "openrouter",
+    "model": "stealth/Ox-alpha",
+    "fixture": "bugfix",
+    "fault_step": 1,
+    "records": 1,
+    "path": "live-pilot-stealth-ox-alpha-bugfix-fault-1.jsonl",
+    "sha256": "14DC3D205FFD46D437B22D20AE39E3940708044B32AECA66C2FEFCAE0C2E427F"
+  },
+  "nvidia_nim_validation": {
+    "model": "nvidia/nemotron-3-super-120b-a12b",
+    "targeted_valid_pairs": 2,
+    "targeted_paths": [
+      "live-pilot-nvidia-nemotron-bugfix-fault-1.jsonl",
+      "live-pilot-nvidia-nemotron-config-fault-0.jsonl"
+    ],
+    "coverage": [
+      {"path": "live-nvidia-nemotron-coverage-1.jsonl", "records": 11, "valid_pairs": 1},
+      {"path": "live-nvidia-nemotron-coverage-2.jsonl", "records": 11, "valid_pairs": 0}
+    ],
+    "coding_payload_retest": {
+      "path": "live-pilot-nvidia-super-tests-fault-0-payload.jsonl",
+      "fixture": "tests",
+      "fault_step": 0,
+      "failure_stage": "baseline",
+      "failure_reason": "model_no_verified_progress",
+      "sha256": "A456728A3CF57EE88E8061516D01F9C2125B92746B572344F07050EA70ADD8E4"
+    },
+    "gate_eligible": false
+  },
+  "nvidia_ultra_validation": {
+    "model": "nvidia/nemotron-3-ultra-550b-a55b",
+    "targeted_valid_pairs": 1,
+    "path": "live-pilot-nvidia-nemotron-ultra-bugfix-fault-1.jsonl",
+    "sha256": "A01E9E1BA3445E4FE2260727745618F0C7F841D868ECBD4A51869A73DE38DE5B",
+    "artifact_equivalence": false,
+    "coverage": [
+      {
+        "path": "live-nvidia-ultra-coverage-1.jsonl",
+        "records": 11,
+        "valid_pairs": 4,
+        "baseline_success": 0.5454545454545454,
+        "recovered_success": 0.36363636363636365,
+        "sha256": "211674B72E5EE27EB91AA5ABC1391D430DF749B5DAD31731C238AE4BC0AFBC62"
+      }
+    ],
+    "gate_eligible": false
+  },
+  "nvidia_lightning_validation": {
+    "model": "nvidia/nemotron-3.5-lightning-30b-a3b",
+    "targeted_valid_pairs": 1,
+    "path": "live-pilot-nvidia-lightning-bugfix-fault-1.jsonl",
+    "failure_stage": "baseline",
+    "failure_reason": "model_no_verified_progress",
+    "sha256": "48AA53012BD0FB1B68F6B4EF3700E406BC7B6CF3BE63B597DDD15483427BD756",
+    "scoped_payload_retest": {
+      "path": "live-pilot-nvidia-lightning-bugfix-fault-1-scoped.jsonl",
+      "baseline_success": true,
+      "failure_stage": "crash",
+      "failure_reason": "model_no_verified_progress",
+      "sha256": "C361B28F43C388F76022A227F01D7D11B2D044A1BD6E80882BC7E9CE62C1A923"
+    },
+    "parser_retest": {
+      "path": "live-pilot-nvidia-lightning-bugfix-fault-1-parser.jsonl",
+      "verification_passed": true,
+      "fresh_process": true,
+      "no_regression": true,
+      "effect_duplicates": 0,
+      "sha256": "1DA73BC5B39F116C29CCE4481855C0146961A0C5F067EB32BAA0ADFEB25E73CC"
+    },
+    "coverage": {
+      "path": "live-nvidia-lightning-coverage-2.jsonl",
+      "records": 11,
+      "valid_pairs": 0,
+      "baseline_success": 0.18181818181818182,
+      "recovered_success": 0.0,
+      "invalid_stages": {"baseline": 9, "resume": 2},
+      "sha256": "73E4747CBD82B9AA8AF0697A6DA631404C990A55834DBA66B429230754BC1E69"
+    },
+    "gate_eligible": false
+  },
+  "nvidia_gptoss120_validation": {
+    "model": "openai/gpt-oss-120b",
+    "coverage": {
+      "path": "live-nvidia-gptoss120-coverage-1.jsonl",
+      "records": 11,
+      "valid_pairs": 0,
+      "baseline_success": 0.36363636363636365,
+      "recovered_success": 0.0,
+      "invalid_stages": {"baseline": 7, "crash": 2, "resume": 2},
+      "reason_markers": {
+        "unverified_mutation": 2,
+        "unverified_progress": 5,
+        "model_no_verified_progress": 4
+      },
+      "sha256": "76E9FE94E334520F94CCF14E76679D80690F956885C13FED878F5C3C15CB77CF"
+    },
+    "gate_eligible": false
+  },
+  "nvidia_gptoss20_validation": {
+    "model": "openai/gpt-oss-20b",
+    "coverage": {
+      "path": "live-nvidia-gptoss20-coverage-1.jsonl",
+      "records": 11,
+      "valid_pairs": 0,
+      "baseline_success": 0.0,
+      "recovered_success": 0.0,
+      "invalid_stages": {"baseline": 11},
+      "failure_reason": "model_finished_before_verification",
+      "sha256": "F92713CF3E618D47B6651D6EF70C0FFED2067EFBC3F52E486592C9DC995BE940"
+    },
+    "gate_eligible": false
+  },
+  "nvidia_deepseek_v4_flash_validation": {
+    "model": "deepseek-ai/deepseek-v4-flash-0731",
+    "coverage": {
+      "path": "live-nvidia-deepseek-v4-flash-coverage-1.jsonl",
+      "records": 11,
+      "valid_pairs": 0,
+      "baseline_success": 0.0,
+      "recovered_success": 0.0,
+      "invalid_stages": {"baseline": 11},
+      "provider_failure": "HTTP 404 Not Found on every first fixture request",
+      "sha256": "B0645C7E48058E7F76F3FBFDD564044338E31B420BBB3D07147F2F6E40799FFD"
+    },
+    "gate_eligible": false
+  },
+  "nvidia_kimi_k26_validation": {
+    "model": "moonshotai/kimi-k2.6",
+    "coverage": {
+      "path": "live-nvidia-kimi-k26-coverage-1.jsonl",
+      "records": 11,
+      "valid_pairs": 0,
+      "baseline_success": 0.0,
+      "recovered_success": 0.0,
+      "invalid_stages": {"baseline": 11},
+      "provider_failure": "HTTP 404 Not Found on every first fixture request",
+      "sha256": "C6503A14DE8B4E4E912B3FD76E46BA221E9F9842DC507670B97F6BA66D92C131"
+    },
+    "gate_eligible": false
+  },
+  "openrouter_minimax_m3_free_validation": {
+    "model": "minimax/minimax-m3:free",
+    "provider": "openrouter",
+    "coverage": {
+      "path": "live-openrouter-minimax-m3-free-coverage-1.jsonl",
+      "records": 11,
+      "valid_pairs": 2,
+      "baseline_success": 0.36363636363636365,
+      "recovered_success": 0.18181818181818182,
+      "effect_duplicates": 0,
+      "invalid_stages": {"baseline": 7, "crash": 1, "resume": 1},
+      "sha256": "E337D32939215FD6AC29628046A98CC81719D845D464028FA5F518DA9ADBD45C"
+    },
+    "gate_eligible": false
+  },
+  "claude_code_sonnet_validation": {
+    "provider": "claude_code",
+    "model": "sonnet",
+    "coverage": {
+      "path": "live-claude-sonnet-coverage-1.jsonl",
+      "records": 11,
+      "valid_pairs": 3,
+      "baseline_success": 0.2727272727272727,
+      "recovered_success": 0.2727272727272727,
+      "effect_duplicates": 0,
+      "invalid_stages": {"baseline": 8},
+      "reason_markers": {
+        "unverified_mutation": 3,
+        "unverified_progress": 3,
+        "model_no_verified_progress": 2
+      },
+      "sha256": "F48D34B1D2062E7E2541F84FF7C4B3ED0600C3109A5E7794FDEB25F08BA0D181"
+    },
+    "gate_eligible": false
+  },
+  "claude_code_sonnet_accumulation": {
+    "provider": "claude_code",
+    "model": "sonnet",
+    "coverage": {
+      "path": "live-claude-sonnet-accumulation-4x.jsonl",
+      "records": 44,
+      "valid_pairs": 18,
+      "baseline_success": 0.4090909090909091,
+      "recovered_success": 0.4090909090909091,
+      "effect_duplicates": 0,
+      "invalid_stages": {"baseline": 26},
+      "reason_markers": {
+        "unverified_progress": 17,
+        "unverified_mutation": 6,
+        "model_no_verified_progress": 3
+      },
+      "sha256": "B50EF07CCD135974C0F547FD9928A8EFEA7651EE9C2E2C2F2D63D54747D9E300"
+    },
+    "gate_eligible": false
+  },
+  "claude_code_opus_accumulation": {
+    "provider": "claude_code",
+    "model": "opus",
+    "coverage": {
+      "path": "live-claude-opus-accumulation-4x.jsonl",
+      "records": 44,
+      "valid_pairs": 28,
+      "baseline_success": 0.6363636363636364,
+      "recovered_success": 0.6363636363636364,
+      "effect_duplicates": 0,
+      "invalid_stages": {"baseline": 16},
+      "reason_markers": {"unverified_mutation": 16},
+      "sha256": "9C8C50E3893C506B871D529C6157A55C44E389E61046342DBA89A4A320FA0BDB"
+    },
+    "gate_eligible": false
+  },
+  "claude_code_gate_aggregate": {
+    "paths": [
+      "live-claude-sonnet-coverage-1.jsonl",
+      "live-claude-sonnet-accumulation-4x.jsonl",
+      "live-claude-opus-coverage-1.jsonl",
+      "live-claude-opus-accumulation-4x.jsonl"
+    ],
+    "records": 110,
+    "valid_pairs": 55,
+    "model_configurations": ["claude_code:opus", "claude_code:sonnet"],
+    "baseline_success": 0.509090909090909,
+    "recovered_success": 0.5,
+    "effect_duplicates": 0,
+    "gate_eligible": true
+  },
+  "claude_code_haiku_validation": {
+    "provider": "claude_code",
+    "model": "haiku",
+    "coverage": {
+      "path": "live-claude-haiku-coverage-3.jsonl",
+      "records": 11,
+      "valid_pairs": 4,
+      "baseline_success": 0.45454545454545453,
+      "recovered_success": 0.36363636363636365,
+      "effect_duplicates": 0,
+      "invalid_stages": {"baseline": 6, "crash": 1},
+      "reason_markers": {
+        "unverified_mutation": 3,
+        "model_no_verified_progress": 3,
+        "unverified_progress": 1
+      },
+      "sha256": "4BE4E362BB0B10D4C444166FBB75D1EA754D87820A4449983F402BCB711E84E1"
+    },
+    "gate_eligible": false
+  },
+  "claude_code_opus_validation": {
+    "provider": "claude_code",
+    "model": "opus",
+    "coverage": {
+      "path": "live-claude-opus-coverage-1.jsonl",
+      "records": 11,
+      "valid_pairs": 6,
+      "baseline_success": 0.6363636363636364,
+      "recovered_success": 0.5454545454545454,
+      "effect_duplicates": 0,
+      "invalid_stages": {"baseline": 4, "crash": 1},
+      "reason_markers": {"unverified_mutation": 5},
+      "sha256": "FEEE45C66BE4A6E588C1219072926B1763C8A7B9C2E4668D659F96F99B145D23"
+    },
+    "gate_eligible": false
+  },
+  "nvidia_minimax_m3_validation": {
+    "model": "minimaxai/minimax-m3",
+    "targeted_valid_pairs": 0,
+    "path": "live-pilot-nvidia-minimax-m3-bugfix-fault-1.jsonl",
+    "failure_stage": "baseline",
+    "failure_reason": "provider_http_429",
+    "sha256": "6E7124B24FD60E11313AEBEFAC25F0B17B90EEE39B3C000C690D4960D9642C5E",
+    "gate_eligible": false
+  },
+  "phase_1_verdict": {
+    "passed": true,
+    "deterministic_cells_pass": true,
+    "deterministic_fidelity": true,
+    "durable_failure_receipts": true,
+    "live_sample_size": true,
+    "live_fidelity": true,
+    "artifacts_published": true,
+    "adapter_adopted": true
+  }
+}

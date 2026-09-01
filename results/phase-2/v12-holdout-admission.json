@@ -1,0 +1,20 @@
+{
+  "schema_version": "cairn.phase-2-holdout-admission.v0.1",
+  "verdict": "PASS",
+  "live_protocol_sha256": "0d5a1a7da9c2adad1647365a22e0c2793c67b71435e7cbf831ab3e2b1def746d",
+  "live_analysis_sha256": "800936b3888cd5fe168323a276a9b317a7fc6fd1ec9234f2fa0e94e982ffc051",
+  "attempts": 242,
+  "missing_cells": 0,
+  "incomplete": 0,
+  "terminal_invalid": 0,
+  "eligible_checkpoints": 141,
+  "recovery_successes": 135,
+  "compaction_successes": 135,
+  "complete_triplets": 133,
+  "causal_replays": 12,
+  "verified_replays": 12,
+  "phase1_freeze_sha256": "7f969a9c861ad8e85a8103e3b421c78d3a1f2ddb8a37b3d2316e0e8c80bbcc56",
+  "repository_tests": "232 passed",
+  "holdout_protocol_sha256": "0e68107dfef775fa764a924ee0163a1b053640a01a5f51376bca859b0edb4fcc",
+  "decision": "Admit the sealed v0.12 holdout without changing its protocol."
+}

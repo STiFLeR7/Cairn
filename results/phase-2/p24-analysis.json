@@ -1,0 +1,54 @@
+{
+  "schema_version": "cairn.p24-analysis.v0.1",
+  "protocol": "results/phase-2/p24-holdout-protocol.json",
+  "selection": {
+    "expected_primary_cells": 60,
+    "selected_primary_cells": 60,
+    "retry_cells": 0,
+    "selection_rule": "one exact primary record for each registered model, split, and repetition"
+  },
+  "acquisition": {
+    "eligible_checkpoints": 40,
+    "ineligible_cells": 20,
+    "failure_classes": {
+      "sonnet/s0/ValueError: unverified_progress": 10,
+      "sonnet/s1/ValueError: unverified_progress": 10
+    },
+    "causal_classification": "The failing U continuation attempted more than one remaining public task unit in a single mutation. The ordered verifier rejected the mutation before an R or C continuation existed. This is a model checkpoint-acquisition/action-granularity failure, not a recovery or compaction failure."
+  },
+  "eligible_outcomes": {
+    "complete_records": 40,
+    "eligible": 40,
+    "recovery_successes": 40,
+    "compaction_successes": 40,
+    "complete_triplets": 40,
+    "structural_failures": 0,
+    "eligible_divergences": []
+  },
+  "by_model": {
+    "opus": {
+      "eligible": 30,
+      "recovery_successes": 30,
+      "compaction_successes": 30,
+      "complete_triplets": 30,
+      "structural_failures": 0
+    },
+    "sonnet": {
+      "eligible": 10,
+      "recovery_successes": 10,
+      "compaction_successes": 10,
+      "complete_triplets": 10,
+      "structural_failures": 0
+    }
+  },
+  "replay": {
+    "eligible_divergences": 0,
+    "replays_required": 0,
+    "result": "vacuously satisfied"
+  },
+  "integrity": {
+    "all_pinned_inputs_match": true,
+    "phase1_control_freeze_sha256": "7f969a9c861ad8e85a8103e3b421c78d3a1f2ddb8a37b3d2316e0e8c80bbcc56",
+    "phase1_parity": "byte-identical"
+  }
+}

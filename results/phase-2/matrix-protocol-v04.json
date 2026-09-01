@@ -1,0 +1,66 @@
+{
+  "schema_version": "cairn.phase-2-matrix-protocol.v0.4",
+  "purpose": "Measure full-state U/R/C continuity without post-hoc cell selection; preserve every attempt, including prefix-stage failures.",
+  "supersedes": {
+    "protocol": "matrix-protocol.json",
+    "reason": "v0.3 did not persist capture_live_urc prefix-stage exceptions, so its partial raw dataset cannot satisfy the reproducibility gate."
+  },
+  "pinned_inputs": {
+    "phase1_control_freeze": {
+      "path": "control-freeze.json",
+      "sha256": "7f969a9c861ad8e85a8103e3b421c78d3a1f2ddb8a37b3d2316e0e8c80bbcc56"
+    },
+    "urc_runner": {
+      "path": "src/cairn/eval/phase2.py",
+      "sha256": "ed83a2d6fc429743f3a818b32d09584b9a9a499ae303a37f1637ee805cfb3a4b"
+    },
+    "urc_cli": {
+      "path": "benchmarks/phase2.py",
+      "sha256": "3c547f4d2d082abaf9e4aceb6e18b56a9f49926e3c8fabfbcab7386f87e7d11e"
+    },
+    "matrix_executor": {
+      "path": "benchmarks/phase2_matrix.py",
+      "sha256": "e8391038ba6fe5ac710dfeae67e69e8e68de698448d60ab9ce934638c2031281"
+    }
+  },
+  "matrix": {
+    "models": [
+      {"provider": "claude_code", "model": "opus"},
+      {"provider": "claude_code", "model": "sonnet"}
+    ],
+    "fixtures": ["bugfix", "config", "tests", "followup"],
+    "split_steps": "all_nonterminal",
+    "ablation": null,
+    "repetitions_per_model_fixture_split": 8,
+    "expected_attempts": 176,
+    "output_directory": "matrix-v04"
+  },
+  "qualification": {
+    "record_schema": "cairn.phase-2-urc.v0.1",
+    "required_branches": ["U", "R", "C"],
+    "qualified_pair": "U, R, and C each verify successfully in one complete record",
+    "minimum_qualified_pairs": 100,
+    "report_all_attempts": true,
+    "do_not_count": ["ablations", "incomplete_records", "pre_protocol_records", "matrix-v02", "matrix-v03"]
+  },
+  "holdout": {
+    "fixture": "phase2_holdout",
+    "version": "2",
+    "first_use": "after matrix analysis and before any candidate contract is published",
+    "pinned_files": {
+      "README.md": "0a36bab771d6bf539994235a93c4f90a9d03f2f9aaa4acde91251a753d862a15",
+      "project.py": "2ac983a16fdac2c6089f87d05c367138b89603bf1e24ddabbd93d9ba52bdc475"
+    }
+  },
+  "correction_rule": {
+    "admit_only_after": ["a named causal hypothesis", "a full-state counterfactual in the pinned matrix", "a frozen rerun", "a blinded-holdout validation"],
+    "forbidden_before_exit": ["prompt changes", "fixture changes", "schema expansion", "RGR changes", "framework integrations", "effect semantics"]
+  },
+  "exit": {
+    "phase1_control_freeze_recheck_matches": true,
+    "minimum_qualified_pairs": 100,
+    "two_model_configurations": true,
+    "holdout_complete": true,
+    "continuation_contract_v0_published": true
+  }
+}

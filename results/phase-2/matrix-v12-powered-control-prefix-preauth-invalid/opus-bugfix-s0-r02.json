@@ -1,0 +1,34 @@
+{
+  "schema_version": "cairn.phase-2-urc.v0.1",
+  "fixture": {
+    "name": "bugfix",
+    "version": "2"
+  },
+  "run_id": "urc-029f073637944ad9a5d7bab7cd66dd39",
+  "split_step": 0,
+  "prefix": {
+    "mode": "control",
+    "work_units": 1
+  },
+  "prompt_composition": "legacy",
+  "verification_mode": "empty",
+  "ablation": null,
+  "live": {
+    "provider": "claude_code",
+    "model": "opus"
+  },
+  "branches": {
+    "U": {
+      "success": false,
+      "invalid": "LiveModelConfigError: Claude Code exited 1: "
+    },
+    "R": {
+      "success": false,
+      "invalid": "LiveModelConfigError: Claude Code exited 1: "
+    },
+    "C": {
+      "success": false,
+      "invalid": "LiveModelConfigError: Claude Code exited 1: "
+    }
+  }
+}

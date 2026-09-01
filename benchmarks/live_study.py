@@ -103,7 +103,7 @@ def run_live_study(
     model: str,
     *,
     provider: str = "openrouter",
-    api_key_env: str = "OPENROUTER_API",
+    api_key_env: str = "OPENROUTER_API_KEY",
     n: int = 6,
     steps=(2, 3),
     repeats: int = 3,
@@ -199,12 +199,12 @@ def main() -> None:
         run_live_study(
             model,
             provider=os.environ.get("CAIRN_LIVE_PROVIDER", "openrouter"),
-            api_key_env=os.environ.get("CAIRN_LIVE_KEY_ENV", "OPENROUTER_API"),
+            api_key_env=os.environ.get("CAIRN_LIVE_KEY_ENV", "OPENROUTER_API_KEY"),
         )
         return
     run_offline_study()
     print("\nNOTE: the transport here is a DETERMINISTIC FAKE — no network, no API key, no spend.")
-    print("Set CAIRN_LIVE_MODEL=openrouter/owl-alpha (+ an OpenRouter key in OPENROUTER_API) to run")
+    print("Set CAIRN_LIVE_MODEL=openrouter/owl-alpha (+ an OpenRouter key in OPENROUTER_API_KEY) to run")
     print("the GATED live study. Live transcripts then replay offline (see REPRODUCE.md).")
 
 

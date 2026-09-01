@@ -1,0 +1,33 @@
+{
+  "schema_version": "cairn.phase-2-urc.v0.1",
+  "fixture": {
+    "name": "followup",
+    "version": "2"
+  },
+  "run_id": "urc-2e976651b22f45a98ed0c129dc05963a",
+  "split_step": 1,
+  "prefix": {
+    "mode": "control",
+    "work_units": 2
+  },
+  "prompt_composition": "single_goal",
+  "ablation": null,
+  "live": {
+    "provider": "claude_code",
+    "model": "sonnet"
+  },
+  "branches": {
+    "U": {
+      "success": false,
+      "invalid": "ValueError: unverified_mutation"
+    },
+    "R": {
+      "success": false,
+      "invalid": "ValueError: model_no_verified_progress"
+    },
+    "C": {
+      "success": false,
+      "invalid": "ValueError: model_no_verified_progress"
+    }
+  }
+}

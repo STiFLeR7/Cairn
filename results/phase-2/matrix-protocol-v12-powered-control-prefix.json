@@ -1,5 +1,5 @@
 {
-  "schema_version": "cairn.phase-2-powered-continuity.v0.12",
+  "schema_version": "cairn.phase-2-powered-continuity.v0.12.1",
   "status": "live-tranche-pinned",
   "purpose": "Powered checkpoint-ready replication after the terminal v0.11 acquisition finding.",
   "does_not_replace": "matrix-protocol-v11-neutral-tranche.json",
@@ -20,10 +20,25 @@
       "path": "benchmarks/phase2_matrix.py",
       "sha256": "b5e5f27c217be08bf4c79d7435bbef70f6e36fd893ea6f4f6d4b5db37171fc6f"
     },
+    "terminal_world": {
+      "path": "src/cairn/worlds/terminal.py",
+      "sha256": "8fb8a71255caa887058bad832e796693327c4c776a16bb557427c9b2e8b2313a"
+    },
+    "docker_terminal_sandbox": {
+      "path": "src/cairn/runtime/sandbox_docker.py",
+      "sha256": "ac6f7ddc30b511f35c5c9b57c07855aa3cf6e4715a97b9e5188e1f7eeddabbb9"
+    },
     "analyzer": {
       "path": "benchmarks/phase2_acquisition_continuity.py",
       "sha256": "89379ea13c8910d3d367d28cc93f04ca4d0fdff6fddace4206a0d44cc45fbe06"
     }
+  },
+  "control_correction": {
+    "revision": "v0.12.1",
+    "terminal_action_timeout_seconds": 30,
+    "cause": "An unbounded model-generated recursive filesystem scan kept a Docker action alive indefinitely because TerminalWorld passed no sandbox timeout.",
+    "invalidated_evidence": "matrix-v12-powered-control-prefix-unbounded-action-invalid",
+    "semantic_change": false
   },
   "power_basis": {
     "prior_complete_triplets": 99,

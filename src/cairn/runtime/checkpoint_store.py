@@ -48,6 +48,10 @@ class CheckpointStore:
         os.replace(tmp, final)  # atomic
         return ckpt_id
 
+    def latest_id(self) -> Optional[str]:
+        hi = self._highest()
+        return None if hi < 0 else f"ckpt_{hi}"
+
     def load_latest(self) -> Optional[Tuple[ContinuationState, str, int]]:
         hi = self._highest()
         if hi < 0:

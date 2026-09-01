@@ -1,0 +1,187 @@
+{
+  "schema_version": "cairn.phase-2-chain-urc.v0.1",
+  "control": {
+    "model": "fake",
+    "task": "chain-6",
+    "prefix": "clean checkpoint"
+  },
+  "cells": 5,
+  "complete_triplets": 5,
+  "records": [
+    {
+      "fixture": "chain-6",
+      "split_step": 0,
+      "prefix_work_units": 1,
+      "branches": {
+        "U": {
+          "success": true,
+          "work_units": 6,
+          "final_digest": {
+            "chain_state.json": "26f77754cc9ad735564b7e979f5df32619c1cccf9b084cd074dfbfa30f327a9e",
+            "oracle.py": "9058224b0cbd8c3b6ed21f44d60fd8e0db2dbf69b624ea7b5925ab20cb029713"
+          },
+          "resumed": false
+        },
+        "R": {
+          "success": true,
+          "work_units": 6,
+          "final_digest": {
+            "chain_state.json": "26f77754cc9ad735564b7e979f5df32619c1cccf9b084cd074dfbfa30f327a9e",
+            "oracle.py": "9058224b0cbd8c3b6ed21f44d60fd8e0db2dbf69b624ea7b5925ab20cb029713"
+          },
+          "resumed": true
+        },
+        "C": {
+          "success": true,
+          "work_units": 6,
+          "final_digest": {
+            "chain_state.json": "26f77754cc9ad735564b7e979f5df32619c1cccf9b084cd074dfbfa30f327a9e",
+            "oracle.py": "9058224b0cbd8c3b6ed21f44d60fd8e0db2dbf69b624ea7b5925ab20cb029713"
+          },
+          "resumed": false
+        }
+      },
+      "digests_equal": true
+    },
+    {
+      "fixture": "chain-6",
+      "split_step": 1,
+      "prefix_work_units": 2,
+      "branches": {
+        "U": {
+          "success": true,
+          "work_units": 6,
+          "final_digest": {
+            "chain_state.json": "26f77754cc9ad735564b7e979f5df32619c1cccf9b084cd074dfbfa30f327a9e",
+            "oracle.py": "9058224b0cbd8c3b6ed21f44d60fd8e0db2dbf69b624ea7b5925ab20cb029713"
+          },
+          "resumed": false
+        },
+        "R": {
+          "success": true,
+          "work_units": 6,
+          "final_digest": {
+            "chain_state.json": "26f77754cc9ad735564b7e979f5df32619c1cccf9b084cd074dfbfa30f327a9e",
+            "oracle.py": "9058224b0cbd8c3b6ed21f44d60fd8e0db2dbf69b624ea7b5925ab20cb029713"
+          },
+          "resumed": true
+        },
+        "C": {
+          "success": true,
+          "work_units": 6,
+          "final_digest": {
+            "chain_state.json": "26f77754cc9ad735564b7e979f5df32619c1cccf9b084cd074dfbfa30f327a9e",
+            "oracle.py": "9058224b0cbd8c3b6ed21f44d60fd8e0db2dbf69b624ea7b5925ab20cb029713"
+          },
+          "resumed": false
+        }
+      },
+      "digests_equal": true
+    },
+    {
+      "fixture": "chain-6",
+      "split_step": 2,
+      "prefix_work_units": 3,
+      "branches": {
+        "U": {
+          "success": true,
+          "work_units": 6,
+          "final_digest": {
+            "chain_state.json": "26f77754cc9ad735564b7e979f5df32619c1cccf9b084cd074dfbfa30f327a9e",
+            "oracle.py": "9058224b0cbd8c3b6ed21f44d60fd8e0db2dbf69b624ea7b5925ab20cb029713"
+          },
+          "resumed": false
+        },
+        "R": {
+          "success": true,
+          "work_units": 6,
+          "final_digest": {
+            "chain_state.json": "26f77754cc9ad735564b7e979f5df32619c1cccf9b084cd074dfbfa30f327a9e",
+            "oracle.py": "9058224b0cbd8c3b6ed21f44d60fd8e0db2dbf69b624ea7b5925ab20cb029713"
+          },
+          "resumed": true
+        },
+        "C": {
+          "success": true,
+          "work_units": 6,
+          "final_digest": {
+            "chain_state.json": "26f77754cc9ad735564b7e979f5df32619c1cccf9b084cd074dfbfa30f327a9e",
+            "oracle.py": "9058224b0cbd8c3b6ed21f44d60fd8e0db2dbf69b624ea7b5925ab20cb029713"
+          },
+          "resumed": false
+        }
+      },
+      "digests_equal": true
+    },
+    {
+      "fixture": "chain-6",
+      "split_step": 3,
+      "prefix_work_units": 4,
+      "branches": {
+        "U": {
+          "success": true,
+          "work_units": 6,
+          "final_digest": {
+            "chain_state.json": "26f77754cc9ad735564b7e979f5df32619c1cccf9b084cd074dfbfa30f327a9e",
+            "oracle.py": "9058224b0cbd8c3b6ed21f44d60fd8e0db2dbf69b624ea7b5925ab20cb029713"
+          },
+          "resumed": false
+        },
+        "R": {
+          "success": true,
+          "work_units": 6,
+          "final_digest": {
+            "chain_state.json": "26f77754cc9ad735564b7e979f5df32619c1cccf9b084cd074dfbfa30f327a9e",
+            "oracle.py": "9058224b0cbd8c3b6ed21f44d60fd8e0db2dbf69b624ea7b5925ab20cb029713"
+          },
+          "resumed": true
+        },
+        "C": {
+          "success": true,
+          "work_units": 6,
+          "final_digest": {
+            "chain_state.json": "26f77754cc9ad735564b7e979f5df32619c1cccf9b084cd074dfbfa30f327a9e",
+            "oracle.py": "9058224b0cbd8c3b6ed21f44d60fd8e0db2dbf69b624ea7b5925ab20cb029713"
+          },
+          "resumed": false
+        }
+      },
+      "digests_equal": true
+    },
+    {
+      "fixture": "chain-6",
+      "split_step": 4,
+      "prefix_work_units": 5,
+      "branches": {
+        "U": {
+          "success": true,
+          "work_units": 6,
+          "final_digest": {
+            "chain_state.json": "26f77754cc9ad735564b7e979f5df32619c1cccf9b084cd074dfbfa30f327a9e",
+            "oracle.py": "9058224b0cbd8c3b6ed21f44d60fd8e0db2dbf69b624ea7b5925ab20cb029713"
+          },
+          "resumed": false
+        },
+        "R": {
+          "success": true,
+          "work_units": 6,
+          "final_digest": {
+            "chain_state.json": "26f77754cc9ad735564b7e979f5df32619c1cccf9b084cd074dfbfa30f327a9e",
+            "oracle.py": "9058224b0cbd8c3b6ed21f44d60fd8e0db2dbf69b624ea7b5925ab20cb029713"
+          },
+          "resumed": true
+        },
+        "C": {
+          "success": true,
+          "work_units": 6,
+          "final_digest": {
+            "chain_state.json": "26f77754cc9ad735564b7e979f5df32619c1cccf9b084cd074dfbfa30f327a9e",
+            "oracle.py": "9058224b0cbd8c3b6ed21f44d60fd8e0db2dbf69b624ea7b5925ab20cb029713"
+          },
+          "resumed": false
+        }
+      },
+      "digests_equal": true
+    }
+  ]
+}

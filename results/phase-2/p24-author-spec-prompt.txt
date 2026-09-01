@@ -1,0 +1,3 @@
+Return one compact JSON object and nothing else. You have no tools or external context.
+
+Independently define a deterministic queue-scheduling coding task with task_id p24_queue_policy. It has exactly four independent pure functions named priority_band, retry_schedule, dispatchable_ids, and partition_batches. Return keys: title, functions, acceptance_cases. functions is four {"name","domain","rule"} objects. acceptance_cases is exactly eight literal JSON {"function","args","expected"} objects, two per function. Define all edge behavior in the rules. No files, time, networking, random behavior, or side effects.

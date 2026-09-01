@@ -1,0 +1,9 @@
+{
+  "schema_version": "cairn.p24-blocking-finding.v0.1",
+  "status": "superseded_before_holdout_seal",
+  "cairn_changes": "none; all admitted Phase 1/2 controls remain frozen",
+  "candidate_status": "rejected candidate retained; OpenCode replacement accepted",
+  "candidate_reason": "The original public specification contradicted its own public acceptance case; no fixture or experiment used it.",
+  "provider_status": "OpenRouter remained rate limited; independent OpenCode plan-agent authorship succeeded without receiving rejected-candidate content.",
+  "resolution": "p24-author-output-opencode.json passed public-spec audit and the public-only ordered fixture test."
+}

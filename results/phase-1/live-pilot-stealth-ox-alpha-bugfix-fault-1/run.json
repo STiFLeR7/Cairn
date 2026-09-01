@@ -1,0 +1,1 @@
+{"agent": "live", "fault_step": 1, "fixture": "bugfix", "live": {"max_calls": 12, "max_chars": 150000, "max_tokens": 4096, "model": "stealth/Ox-alpha", "provider": "openrouter"}, "run_id": "recoverybench-live-dd7107f297364314bcb1f091a931db60"}

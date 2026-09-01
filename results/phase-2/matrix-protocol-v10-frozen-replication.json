@@ -1,0 +1,49 @@
+{
+  "schema_version": "cairn.phase-2-matrix-protocol.v0.10",
+  "purpose": "One independent, full frozen replication of the v0.6 checkpoint-ready reference gate to measure run variance without changing the task, prompt, state, RGR, verifier, or model configurations.",
+  "status": "pre-registered",
+  "hypothesis": "The v0.6 result of 99 qualified U/R/C triplets is a stochastic near-miss under the fixed controls; a complete replication will either cross the existing 100-pair gate or reproduce the shortfall.",
+  "failure_model": ["model/task prefix or continuation failure", "provider failure", "checkpoint acquisition failure", "RGR recovery failure", "compacted continuation failure"],
+  "invariants": ["all four existing fixtures and all nonterminal split steps are retained", "portable control prefix is retained", "legacy prompt composition is retained", "verification capture is empty", "ContinuationState and RGR are unchanged", "the phase2_holdout is not read or executed", "no records from v0.6, v0.7, v0.8, or v0.9 are combined into this gate"],
+  "pinned_inputs": {
+    "control_freeze": {"path": "control-freeze.json", "sha256": "7f969a9c861ad8e85a8103e3b421c78d3a1f2ddb8a37b3d2316e0e8c80bbcc56"},
+    "fixture_manifest": {"path": "benchmarks/recoverybench_fixtures/manifest.json", "sha256": "79d4cbec6458ab755dfe0463543dbffeea30bf6cc9716811f78a0d620c8f7e89"},
+    "harness": {"path": "src/cairn/eval/recoverybench.py", "sha256": "86819b8938cd803ad2ddb1acc260fd85d1dc25d74d59f275bc5c3207687772c6"},
+    "urc_runner": {"path": "src/cairn/eval/phase2.py", "sha256": "c1c87149f52f7314890de1d2c1716967ab6d7d97ab6382acde849412d6d5ef95"},
+    "matrix_executor": {"path": "benchmarks/phase2_matrix.py", "sha256": "d9eb3337fbaeba4eee91abe0d90b00031119ae9dd879dccb25206b812c20754f"}
+  },
+  "matrix": {
+    "models": [{"provider": "claude_code", "model": "opus"}, {"provider": "claude_code", "model": "sonnet"}],
+    "fixtures": ["bugfix", "config", "tests", "followup"],
+    "split_steps": "all_nonterminal",
+    "ablation": null,
+    "prefix_mode": "control",
+    "prompt_composition": "legacy",
+    "verification_mode": "empty",
+    "repetitions_per_model_fixture_split": 8,
+    "expected_attempts": 176,
+    "output_directory": "matrix-v10-frozen-replication"
+  },
+  "qualification": {
+    "record_schema": "cairn.phase-2-urc.v0.1",
+    "required_branches": ["U", "R", "C"],
+    "qualified_pair": "U, R, and C each verify successfully in one complete record",
+    "minimum_qualified_pairs": 100,
+    "two_model_configurations": true,
+    "report_all_attempts": true,
+    "scope": "independent frozen replication only; not an improved contract claim until the gate and holdout rules are satisfied",
+    "do_not_count": ["incomplete records", "pre-protocol records", "v0.6", "v0.7", "v0.8", "v0.9", "ablations"]
+  },
+  "holdout": {
+    "fixture": "phase2_holdout",
+    "first_use": "only after this replication independently satisfies the 100-pair gate and the existing causal correction rule",
+    "consume": false
+  },
+  "exit": {
+    "scheduled_attempts": 176,
+    "all_records_durable": true,
+    "minimum_qualified_pairs": 100,
+    "no_holdout_consumed": true,
+    "publish_only_if_gate_passes": true
+  }
+}

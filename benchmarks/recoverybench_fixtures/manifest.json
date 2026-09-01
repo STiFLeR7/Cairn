@@ -1,0 +1,10 @@
+{
+  "schema_version": "recoverybench.fixtures.v0.1",
+  "fixtures": [
+    {"name": "bugfix", "version": "2", "work_units": 3},
+    {"name": "config", "version": "2", "work_units": 3},
+    {"name": "tests", "version": "2", "work_units": 4},
+    {"name": "followup", "version": "2", "work_units": 5},
+    {"name": "phase2_holdout", "version": "2", "work_units": 4}
+  ]
+}

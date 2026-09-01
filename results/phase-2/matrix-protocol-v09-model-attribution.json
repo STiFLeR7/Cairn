@@ -1,0 +1,45 @@
+{
+  "schema_version": "cairn.phase-2-model-attribution.v0.9",
+  "purpose": "Non-gating capability-attribution probe: test whether the unchanged followup task ceiling is specific to the frozen Claude configurations or persists for an independent external model.",
+  "status": "pre-registered",
+  "hypothesis": "The zero U-eligibility on followup in v0.6/v0.7 is primarily a model/task execution ceiling, not a missing ContinuationState field or RGR defect.",
+  "failure_model": ["model cannot produce verified single-unit progress", "provider or parser failure", "task horizon exceeds configured live action budget", "recovery or compaction branch diverges after a valid checkpoint"],
+  "invariants": ["fixture files are unchanged", "control prefix is the existing portable deterministic prefix", "ContinuationState and RGR are unchanged", "legacy prompt composition is retained", "verification capture remains empty", "the phase2_holdout is not read or executed"],
+  "pinned_inputs": {
+    "harness": {"path": "src/cairn/eval/recoverybench.py", "sha256": "86819b8938cd803ad2ddb1acc260fd85d1dc25d74d59f275bc5c3207687772c6"},
+    "urc_runner": {"path": "src/cairn/eval/phase2.py", "sha256": "c1c87149f52f7314890de1d2c1716967ab6d7d97ab6382acde849412d6d5ef95"},
+    "matrix_executor": {"path": "benchmarks/phase2_matrix.py", "sha256": "d9eb3337fbaeba4eee91abe0d90b00031119ae9dd879dccb25206b812c20754f"},
+    "followup_project": {"path": "benchmarks/recoverybench_fixtures/followup/project.py", "sha256": "541b2a96fdf5fe4dc74e6002fff815caf80d65d08c8814429a1cc733480e4df7"},
+    "followup_readme": {"path": "benchmarks/recoverybench_fixtures/followup/README.md", "sha256": "83d007b5c4421f295cb039cfccb29f4b5a36ad0bc201850c2fc4ca169c7a07e4"},
+    "reference_control": {"path": "matrix-protocol-v06-control-prefix-portable.json", "sha256": "b42a016f251fe8c9a12c953f321c9a815d8810e794aabc83cc70907578562971"}
+  },
+  "matrix": {
+    "models": [{"provider": "nvidia_nim", "model": "nvidia/nemotron-3-ultra-550b-a55b"}],
+    "fixtures": ["bugfix", "followup"],
+    "split_steps": "all_nonterminal",
+    "ablation": null,
+    "prefix_mode": "control",
+    "prompt_composition": "legacy",
+    "verification_mode": "empty",
+    "repetitions_per_model_fixture_split": 2,
+    "expected_attempts": 12,
+    "output_directory": "matrix-v09-model-attribution"
+  },
+  "comparison": {
+    "frozen_reference": "matrix-v06-control-prefix",
+    "reference_models": ["opus", "sonnet"],
+    "reference_followup_u_eligible": "0/32 per model",
+    "reference_followup_triplets": "0/32 per model",
+    "sanity_fixture": "bugfix"
+  },
+  "qualification": {
+    "scope": "diagnostic only; no Phase 2 gate, contract, or holdout claim",
+    "do_not_count": ["v0.9 cells", "all model-attribution probes", "phase2_holdout", "ablations"],
+    "required_evidence": ["all registered records or durable invalid records", "raw transcripts retained", "model/fixture/split stratification", "provider-versus-task failure attribution"]
+  },
+  "exit": {
+    "no_cairn_change": true,
+    "no_holdout_consumed": true,
+    "report_attribution": true
+  }
+}
