@@ -1,0 +1,13 @@
+{
+  "schema_version": "cairn.p5-openhands-workload.v1",
+  "status": "sealed-before-host-execution",
+  "files": [
+    {"path": "sealed-workloads/coding/route_report.py", "bytes": 129, "sha256": "c14cbbb2e0d48502d84f6b87f821cb8f83725eef3dac5c06407e2c4807a1edda"},
+    {"path": "sealed-workloads/coding/TASK.md", "bytes": 694, "sha256": "9c1a9f764f0b6aae7142611cac93cdc6b4d9e48795a80087e2bf137a6315f56e"},
+    {"path": "sealed-workloads/coding/verify_complete.py", "bytes": 346, "sha256": "ebcd146e428005be4a0fd6b4faaf6a750f67372cc7bb1664336f1fc11d514278"},
+    {"path": "sealed-workloads/coding/verify_route.py", "bytes": 578, "sha256": "fbcd2d55b3cd1c3edaaad5ee703d1f21eee76190fbe470fda75cff66baffdc0c"},
+    {"path": "sealed-workloads/effect/workspace/EFFECT_TASK.md", "bytes": 421, "sha256": "3be2542a628a03b79677d1ea6ab53d5dfe5923523913dbde77558a0393cdceb6"},
+    {"path": "sealed-workloads/effect/workspace/issue_gateway.py", "bytes": 3284, "sha256": "2fcf4b9936ea4d8bc2106e15af81f813cd17510055440f0607f051c2f63bb67e"},
+    {"path": "sealed-workloads/effect/workspace/verify_gateway.py", "bytes": 1139, "sha256": "3835c677674ae264b8d9d5eff107ea0360795333ee6037daddfac31673fae15a"}
+  ]
+}

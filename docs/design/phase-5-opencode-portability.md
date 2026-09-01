@@ -1,6 +1,6 @@
 # Phase 5 — second-host portability proof
 
-**Status: OpenHands P5.1 passed; P5.2 is pending. No portability claim is admitted.**
+**Status: OpenHands P5.1 passed; P5.2 reference workloads are sealed, not executed. No portability claim is admitted.**
 
 Phase 5 asks whether a second, independently implemented coding-agent host can consume Cairn's
 admitted recovery, continuation, and receipt/reconciliation semantics through a thin, host-owned
@@ -115,5 +115,16 @@ The complete raw evidence, persisted host event log, workspace marker, probe, an
 The deterministic `TestLLM` controls prove host boundary availability only. They are not a real-model
 conformance result and do not authorize a portability claim.
 
-P5.2 may now author fresh, sealed OpenHands workloads. They must not reuse OpenCode or Phase 4 fixtures,
-must run through this host-owned boundary, and must retain the frozen P5.0 evidence schema.
+## OpenHands P5.2 — independently sealed reference workload
+
+The public reference coding and provider-like effect fixtures were authored after P5.1 and frozen
+before any OpenHands conformance host process was started. They use a route-report code task and a
+maintenance-window provider, rather than a Phase 4 fixture, action map, prompt, command, or verifier.
+Their pre-registered matrix, fixed host inputs, and scope are in
+[`results/phase-5/openhands-reference-v1/PRE_REGISTRATION.md`](../../results/phase-5/openhands-reference-v1/PRE_REGISTRATION.md);
+the workload hash manifest is
+[`results/phase-5/openhands-reference-v1/workload-manifest.json`](../../results/phase-5/openhands-reference-v1/workload-manifest.json).
+
+The coding fixture correctly fails before host execution at its explicit `NotImplementedError`; the
+provider verifier passes in an isolated temporary directory. Those are fixture controls, not host
+results. The next state is P5.3: a thin OpenHands boundary must execute the frozen six-cell matrix.

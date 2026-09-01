@@ -23,7 +23,7 @@ Load-bearing decisions are recorded as [ADRs](../adr/).
 | [tool-recovery-policy.md](tool-recovery-policy.md) | Tool declaration + per-class resume policy + default | AP-0018 | ADR-0006 |
 | [continuation-contract-v0.md](continuation-contract-v0.md) | Fresh-process repository continuation after a verified checkpoint | P2 proof ladder | — |
 | [receipt-reconciliation-contract-v0.md](receipt-reconciliation-contract-v0.md) | Re-observe-before-retry semantics for one deterministic create-once effect | P3 proof ladder | — |
-| [phase-5-opencode-portability.md](phase-5-opencode-portability.md) | P5 host-neutral profile, stopped OpenCode acquisition, and passed OpenHands P5.1 capability gate | P5 proof ladder | — |
+| [phase-5-opencode-portability.md](phase-5-opencode-portability.md) | P5 host-neutral profile, stopped OpenCode acquisition, passed OpenHands P5.1, and sealed P5.2 reference | P5 proof ladder | — |
 
 The legacy specs consume the Phase 1 [concepts](../concepts/) (state taxonomy, tool-effect taxonomy,
 fidelity, the two-layer model). The two contracts link directly to their sealed evidence and state their
