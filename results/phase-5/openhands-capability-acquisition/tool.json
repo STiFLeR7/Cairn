@@ -1,0 +1,30 @@
+{
+  "action_before_observation": true,
+  "conversation_id": "24c30ac1-a39f-4a5d-a168-32132a2d7893",
+  "mode": "native-tool-event-control",
+  "pid": 3188,
+  "sdk_version": "1.42.1",
+  "state": {
+    "event_count": 5,
+    "event_types": [
+      "SystemPromptEvent",
+      "MessageEvent",
+      "ActionEvent",
+      "ObservationEvent",
+      "MessageEvent"
+    ],
+    "view_count": 5,
+    "view_digest": "237f81d7a6aaa194d3caed8d7415258eddf3fc36e25899c6762fb3dd4472f571",
+    "view_types": [
+      "SystemPromptEvent",
+      "MessageEvent",
+      "ActionEvent",
+      "ObservationEvent",
+      "MessageEvent"
+    ]
+  },
+  "workspace_marker": {
+    "content": "P5_OPENHANDS_TOOL_EVENT",
+    "exists": true
+  }
+}

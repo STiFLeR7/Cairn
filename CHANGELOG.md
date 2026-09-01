@@ -45,6 +45,11 @@ updates this file.
   model had a 200000-token catalog context limit. This rules out the prior API-body, model-limit, and
   in-flight-step hypotheses; it does not change a Cairn contract or admit portability. Raw evidence is in
   `results/phase-5/capability-acquisition-reassessment-2026-09-01/`.
+- **P5 OpenHands P5.1 passed, not portability:** released SDK/tools 1.42.1 directly emitted a native
+  condensation event with a changed active view; a fresh process retained it. A host-owned terminal
+  action preceded its observation and wrote only the dedicated evidence-workspace marker. A deliberately
+  killed host process also reconstituted its durable event state. The deterministic control is preserved
+  at `results/phase-5/openhands-capability-acquisition/`; sealed P5.2 workloads have not started.
 - Restored `benchmarks/p4_forked_checkpoint.py`, whose exact SHA-256 was already pinned by P4 V5/V6 freeze
   manifests but was absent from the published tree, so the frozen Phase 4 control can import and run again.
 

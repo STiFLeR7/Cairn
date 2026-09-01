@@ -1,0 +1,11 @@
+{
+  "schema_version": "cairn.evidence-manifest.v1",
+  "files": [
+    {"path": "openhands_capability_probe.py", "bytes": 7313, "sha256": "dbcd86b7e8509d1cf875682fa93d039581eb608e591da9f487dac6f41ce6b9d0"},
+    {"path": "create.json", "bytes": 2033, "sha256": "379cae6c7b93b7f7d9303f41a2b20828a0f8da917420f4dd7df91526a28791ea"},
+    {"path": "resume.json", "bytes": 1051, "sha256": "f86634678af6990825494bcea33f76f3e0e09407df0e3180f67805fa10cba528"},
+    {"path": "tool.json", "bytes": 738, "sha256": "7922d666b85d8f9ca2b2d6830fbd1e7e082b23f82c2456a9a50c0339c1eb64e6"},
+    {"path": "hold-ready.json", "bytes": 429, "sha256": "51b503a7eb8c8b2e39c501059a195780d67b636ef4578d55d3e6fcb3804fc617"},
+    {"path": "hold-resume.json", "bytes": 548, "sha256": "011a43b0c2b6a249c009f197d713ebca099bfb9912bd0806ac01ea69635d73db"}
+  ]
+}

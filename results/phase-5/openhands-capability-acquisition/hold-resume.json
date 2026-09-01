@@ -1,0 +1,21 @@
+{
+  "conversation_id": "d15908f1-3be0-4b2d-8f05-041df63f8b90",
+  "expected_durable_event": "MessageEvent",
+  "expected_durable_event_preserved": true,
+  "mode": "fresh-process-resume",
+  "pid": 13888,
+  "sdk_version": "1.42.1",
+  "state": {
+    "event_count": 2,
+    "event_types": [
+      "SystemPromptEvent",
+      "MessageEvent"
+    ],
+    "view_count": 2,
+    "view_digest": "e09897d74c04713c154bc04b7e08f8560bd78253d536e6ebf5db15e8d23d9ee5",
+    "view_types": [
+      "SystemPromptEvent",
+      "MessageEvent"
+    ]
+  }
+}

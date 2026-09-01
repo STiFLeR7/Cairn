@@ -1,6 +1,6 @@
-# Phase 5 — OpenCode portability proof
+# Phase 5 — second-host portability proof
 
-**Status: blocked at P5.1. No portability claim is admitted.**
+**Status: OpenHands P5.1 passed; P5.2 is pending. No portability claim is admitted.**
 
 Phase 5 asks whether a second, independently implemented coding-agent host can consume Cairn's
 admitted recovery, continuation, and receipt/reconciliation semantics through a thin, host-owned
@@ -21,8 +21,8 @@ unauthorized action. Fresh recovery requires a distinct identity, no original tr
 `reobserve` as its first operation. Compaction requires both a host-native operation and a directly
 observed completion event. Effect recovery requires provider observation before resolution.
 
-This is an evidence-profile validator, not a new Cairn contract or adapter API. It can judge
-facts produced by either Claude Code or OpenCode without naming either host in its input schema.
+This is an evidence-profile validator, not a new Cairn contract or adapter API. It judges facts
+without naming a host in its input schema.
 
 ## P5.1 — direct capability acquisition
 
@@ -74,8 +74,8 @@ atomic interruptible agent steps. Those make a thin host-owned OpenHands driver 
 of satisfying the same semantic profile. It must first pass a separate P5.1 capability acquisition:
 direct condensation-completion event, changed host active view, fresh-process/session control,
 durable-workspace observation, and event ordering. The current machine has no `openhands` command and
-its Docker engine is not running, so no OpenHands conformance workload, adapter, or Cairn change has
-begun.
+at that decision point its Docker engine was not running, so no OpenHands conformance workload,
+adapter, or Cairn change had begun.
 
 After that failure, Cairn did not inject a process death, test tool ordering, author a workload,
 write an adapter, or execute a reference/holdout matrix. Those actions would not repair the missing
@@ -99,3 +99,21 @@ or treat an endpoint declaration as a substitute for the three observations abov
 This blocked result says nothing about OpenCode's general quality, Claude Code conformance, or the
 portability of Cairn's contracts. It admits no framework compatibility, standard, exactly-once
 delivery, or native Cairn support by OpenCode.
+
+## OpenHands P5.1 — direct capability acquisition
+
+The approved fallback has passed its host-capability gate using the released OpenHands SDK 1.42.1 and
+matching terminal tools 1.42.1. A direct `LocalConversation.condense()` call appended the host's
+`Condensation` event and changed the active view from 17 to 6 events. A separate Python process then
+reopened the same persisted conversation and retained that event/view. A second control drove the
+host-owned terminal tool: the event log recorded `ActionEvent` before `ObservationEvent`, and the tool
+wrote a marker into the OpenHands workspace. Finally, a process holding a durable conversation was
+force-terminated; a distinct fresh process reopened the persisted event state.
+
+The complete raw evidence, persisted host event log, workspace marker, probe, and manifest are in
+[`results/phase-5/openhands-capability-acquisition/`](../../results/phase-5/openhands-capability-acquisition/).
+The deterministic `TestLLM` controls prove host boundary availability only. They are not a real-model
+conformance result and do not authorize a portability claim.
+
+P5.2 may now author fresh, sealed OpenHands workloads. They must not reuse OpenCode or Phase 4 fixtures,
+must run through this host-owned boundary, and must retain the frozen P5.0 evidence schema.

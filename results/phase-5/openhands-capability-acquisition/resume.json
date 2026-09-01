@@ -1,0 +1,42 @@
+{
+  "conversation_id": "62afe2a8-3f9e-4a99-a166-b2b15f8d2741",
+  "expected_durable_event": "Condensation",
+  "expected_durable_event_preserved": true,
+  "mode": "fresh-process-resume",
+  "pid": 28528,
+  "sdk_version": "1.42.1",
+  "state": {
+    "event_count": 19,
+    "event_types": [
+      "SystemPromptEvent",
+      "MessageEvent",
+      "MessageEvent",
+      "MessageEvent",
+      "MessageEvent",
+      "MessageEvent",
+      "MessageEvent",
+      "MessageEvent",
+      "MessageEvent",
+      "MessageEvent",
+      "MessageEvent",
+      "MessageEvent",
+      "MessageEvent",
+      "MessageEvent",
+      "MessageEvent",
+      "MessageEvent",
+      "MessageEvent",
+      "CondensationRequest",
+      "Condensation"
+    ],
+    "view_count": 6,
+    "view_digest": "ca2015bdf161909043d0563237cc3001820403823adbf0baf2cb13d4b97e4444",
+    "view_types": [
+      "SystemPromptEvent",
+      "MessageEvent",
+      "MessageEvent",
+      "MessageEvent",
+      "CondensationSummaryEvent",
+      "MessageEvent"
+    ]
+  }
+}

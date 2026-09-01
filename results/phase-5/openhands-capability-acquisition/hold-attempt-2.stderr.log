@@ -1,0 +1,37 @@
+[09/01/26 16:50:36] INFO     Created new conversation              state.py:577
+                             d15908f1-3be0-4b2d-8f05-041df63f8b90              
+[09/01/26 16:50:36] INFO     Loaded 0 tools from spec               base.py:563
+[09/01/26 16:50:36] INFO     [Profile Store] Loaded    llm_profile_store.py:238
+                             profile `Groq` from                               
+                             C:\Users\stifl\.openhands                         
+                             \profiles\Groq.json                               
+[09/01/26 16:50:36] INFO     [Profile Store] Loaded    llm_profile_store.py:238
+                             profile `Ling-3.0-Flash`                          
+                             from                                              
+                             C:\Users\stifl\.openhands                         
+                             \profiles\Ling-3.0-Flash.                         
+                             json                                              
+[09/01/26 16:50:36] INFO     [Profile Store] Loaded    llm_profile_store.py:238
+                             profile                                           
+                             `nemotron-3-ultra-550b-a5                         
+                             5b-free` from                                     
+                             C:\Users\stifl\.openhands                         
+                             \profiles\nemotron-3-ultr                         
+                             a-550b-a55b-free.json                             
+[09/01/26 16:50:36] INFO     [Profile Store] Loaded    llm_profile_store.py:238
+                             profile `Groq` from                               
+                             C:\Users\stifl\.openhands                         
+                             \profiles\Groq.json                               
+[09/01/26 16:50:36] INFO     [Profile Store] Loaded    llm_profile_store.py:238
+                             profile `Ling-3.0-Flash`                          
+                             from                                              
+                             C:\Users\stifl\.openhands                         
+                             \profiles\Ling-3.0-Flash.                         
+                             json                                              
+[09/01/26 16:50:36] INFO     [Profile Store] Loaded    llm_profile_store.py:238
+                             profile                                           
+                             `nemotron-3-ultra-550b-a5                         
+                             5b-free` from                                     
+                             C:\Users\stifl\.openhands                         
+                             \profiles\nemotron-3-ultr                         
+                             a-550b-a55b-free.json                             
