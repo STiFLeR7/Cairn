@@ -8,8 +8,8 @@
 checking what actually happened, and continuing — not by starting over.*
 
 [![License](https://img.shields.io/badge/license-Apache--2.0-blue.svg)](LICENSE)
-[![Status](https://img.shields.io/badge/status-M4%3A%20BYOM%20recovery%20library%20complete-brightgreen.svg)](ROADMAP.md)
-[![Tests](https://img.shields.io/badge/tests-141%20passing-brightgreen.svg)](tests/)
+[![Status](https://img.shields.io/badge/status-P1--P3%20recovery%20contracts%20admitted-brightgreen.svg)](ROADMAP.md)
+[![Tests](https://img.shields.io/badge/tests-current%20suite%20verified-brightgreen.svg)](tests/)
 [![Version](https://img.shields.io/badge/version-0.x%20(v1.0%20held)-orange.svg)](CHANGELOG.md)
 
 </div>
@@ -26,8 +26,8 @@ over. Cairn makes recovery a first-class, *measurable* property built on three p
   as the agent's working memory *and* its recovery checkpoint.
 - A **Re-grounding Recovery (RGR)** protocol that restores situational awareness after context loss
   *without* faithful replay.
-- **Effect-safety** guarantees that stop a resumed agent from re-acting on the world
-  (re-sending an email, re-opening a PR).
+- A narrowly admitted **receipt/reconciliation** semantics: re-observe before retry, then retry,
+  skip, or escalate from durable evidence. It is not an exactly-once guarantee.
 
 > A cairn is a small stack of stones hikers leave to re-find a route after losing the trail.
 > That is exactly what a checkpoint is: a minimal, durable marker left behind on purpose.
@@ -61,7 +61,7 @@ Prefer to keep your own loop? Use the `checkpoint()` / `recover()` primitives di
 the **[BYOM guide](docs/guide/recovery-in-your-agent.md)** and the **[public API reference](docs/guide/public-api-reference.md)**.
 
 ```bash
-python examples/byom_recovery.py     # primitives + Agent loop + exactly-once effect (offline, mock model)
+python examples/byom_recovery.py     # primitives + Agent loop (offline, mock model)
 ```
 
 ## What Cairn is — and is not
@@ -77,29 +77,38 @@ Cairn **complements** agent frameworks (OpenHands, LangGraph, custom harnesses) 
 
 ## Project status
 
-**Milestone M4 — BYOM Recovery Library: complete & merged.** Cairn's recovery mechanism now ships as a
-clean, documented public API a developer drops into their own agent — public `checkpoint()`/`recover()`
-primitives, an opt-in `Agent` loop, pluggable `World`/`CheckpointStore`/`EffectLedger` contracts, a
-runnable offline example, a guide + API reference, and CI. **141 passing tests.** The public surface is
-locked by a contract test; the project stays **0.x**.
+**Recovery proof ladder P1–P3: complete; Phase 4 adoption planning is next.** The existing BYOM library
+remains 0.x and experimental. The evidence-backed claims are the three narrow contracts below, not a
+claim that Cairn makes arbitrary agents reliable or provides exactly-once external effects.
+
+| Proof phase | Admitted result | Evidence boundary |
+|---|---|---|
+| **P1 — crash/restart** | Repository recovery fidelity in the deterministic reference harness | [RecoveryBench report](results/phase-1/REPORT.md) |
+| **P2 — compaction continuity** | [Continuation Contract v0](docs/design/continuation-contract-v0.md) | P2.4: 40 eligible U/R/C cells across Claude Code Opus/Sonnet; 20 pre-continuation Sonnet acquisition failures are retained, not counted as recovery successes ([verdict](results/phase-2/p24-verdict.json)) |
+| **P3 — external effects** | [Receipt/Reconciliation Contract v0](docs/design/receipt-reconciliation-contract-v0.md) | One deterministic create-once provider effect: 36 reference and 15 sealed-holdout cells; no duplicate or silent-loss cells. The holdout reused the provider/harness, so this is not independent-provider validation ([verdict](results/phase-3/p3-verdict.json)) |
+
+P2 requires a fresh process without the original transcript and is conditioned on acquiring a clean,
+verified checkpoint. P3 requires re-observation before a retry and admits only the decision semantics
+proven for its reference effect: absent → retry; matching present → skip; unknown, mismatch, and
+never-retry → escalate. Neither contract establishes broad live-model performance, a framework API,
+or general external-effect delivery.
 
 The journey so far:
 
 | Stage | What happened | Outcome |
 |---|---|---|
-| **Phases 0–6** | Specify, build, and *measure* recovery in a deterministic reference harness | 🟢 In-harness, **RGR beats cold restart** (recovery tax 1.5 vs 5.0; all pre-failure work preserved) and the **effect-safety WAL yields zero duplicate effects** |
+| **Legacy phases 0–6** | Specify, build, and *measure* recovery in a deterministic reference harness | 🟢 Historical mechanism and benchmark work; see the proof ladder above for the currently admitted P1–P3 boundaries |
 | **M1–M3** | Run the benchmark against **real LLMs** to confirm the headline claim (C1) | 🟢 Live pipeline works; RGR looks strong — but **NO-GO** for v1.0: evidence is *suggestive, not confirmed* (free-tier rate limits + underpowered runs) |
 | **M4** | Ship the recovery mechanism as a **BYOM library** so anyone can reproduce C1 on their own model | 🟢 **Complete** — mechanism shipped; stays 0.x |
 
-**Honest scope ([ADR-0009](docs/adr/ADR-0009-evaluation-framework.md)).** The in-harness results establish
-that the *mechanisms* behave as designed and are reproducible. The headline live claim — *RGR beats cold
-restart on a real model* (C1) — is **suggestive but not yet confirmed**; a **powered** live study on a
-paid/reliable API is the remaining gate. Cairn therefore stays **0.x**: no v1.0 tag, no PyPI publish, and
-no announcement until that evidence exists. See the [Roadmap](ROADMAP.md), the
-[Master Checklist](CHECKLIST.md), and the [claims registry](docs/research/claims-registry.md).
+**Honest scope ([ADR-0009](docs/adr/ADR-0009-evaluation-framework.md)).** The legacy live C1 claim remains
+suggestive rather than confirmed. P1–P3 establish narrowly scoped recovery semantics in the recorded
+reference and sealed-holdout experiments; they do not change the v1.0 or broad live-performance gate.
+See the [Roadmap](ROADMAP.md), [Master Checklist](CHECKLIST.md), and
+[claims registry](docs/research/claims-registry.md).
 
 ```bash
-python -m pytest -q                  # 141 passing
+python -m pytest -q                  # current full suite
 python examples/byom_recovery.py     # BYOM: add crash-recovery to YOUR agent (offline, mock model)
 python examples/recovery_demo.py     # crash mid-task, then recover via re-grounding
 python benchmarks/recovery_matrix.py # the baseline × failure-step benchmark (C1, C3)
@@ -120,11 +129,11 @@ policies are all injected. The concrete task and scripted model live only in
 | [`CHANGELOG.md`](CHANGELOG.md) | Notable changes (Keep a Changelog) |
 | [`docs/guide/`](docs/guide/) | **Using Cairn** — BYOM recovery guide + public API reference |
 | [`docs/`](docs/) | **Knowledge** — vision, concepts, governance rules, research, design, ADRs |
-| [`docs/design/`](docs/design/) | **Specs** — Continuation State schema, boundary contract, resume protocol, effect-safety |
+| [`docs/design/`](docs/design/) | **Specs and admitted contracts** — state/boundary/resume designs plus Continuation Contract v0 and Receipt/Reconciliation Contract v0 |
 | [`project/`](project/) | **Live state** — phases, Action Points, tracking, templates |
 | [`src/cairn/`](src/cairn/) | The library: `contract` (public Protocols), `recovery` (`checkpoint`/`recover`), `agent` (opt-in loop), `worlds/` (`Workspace`), `runtime/`, `harness/` (loop, distill, reconcile, effects), `eval/`, `tasks/`, `app` |
 | [`benchmarks/`](benchmarks/) | Runnable studies — recovery matrix, ablation, cross-version, live-pipeline |
-| [`examples/`](examples/), [`tests/`](tests/) | Quickstart + BYOM + recovery demos + the suite (141 tests) |
+| [`examples/`](examples/), [`tests/`](tests/) | Quickstart + BYOM + recovery demos + the current full suite |
 
 ## How we work
 

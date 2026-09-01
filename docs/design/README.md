@@ -1,7 +1,7 @@
 ---
 title: Design
 status: active
-last_updated: 2026-06-15
+last_updated: 2026-09-01
 owner: maintainers
 related_aps: [AP-0013, AP-0014, AP-0015, AP-0016, AP-0017, AP-0018]
 related_adrs: [ADR-0002, ADR-0003, ADR-0004, ADR-0005, ADR-0006]
@@ -9,8 +9,9 @@ related_adrs: [ADR-0002, ADR-0003, ADR-0004, ADR-0005, ADR-0006]
 
 # Design
 
-Architecture and protocol specifications (Phase 2). Each spec is implementable; Phase 3 builds the
-substrate against them. Load-bearing decisions are recorded as [ADRs](../adr/).
+Architecture and protocol specifications plus narrowly admitted recovery contracts. The first six rows
+are legacy design specifications; the last two are evidence-bounded contracts and are not generic APIs.
+Load-bearing decisions are recorded as [ADRs](../adr/).
 
 | Spec | Covers | AP | ADR |
 |---|---|---|---|
@@ -20,6 +21,9 @@ substrate against them. Load-bearing decisions are recorded as [ADRs](../adr/).
 | [unified-distillation.md](unified-distillation.md) | One `distill` for compaction + checkpoint (core/tail) | AP-0016 | ADR-0005 |
 | [effect-safety-protocol.md](effect-safety-protocol.md) | Write-ahead INTENT/COMPLETE ledger + reconciliation | AP-0017 | ADR-0006 |
 | [tool-recovery-policy.md](tool-recovery-policy.md) | Tool declaration + per-class resume policy + default | AP-0018 | ADR-0006 |
+| [continuation-contract-v0.md](continuation-contract-v0.md) | Fresh-process repository continuation after a verified checkpoint | P2 proof ladder | — |
+| [receipt-reconciliation-contract-v0.md](receipt-reconciliation-contract-v0.md) | Re-observe-before-retry semantics for one deterministic create-once effect | P3 proof ladder | — |
 
-These specs consume the Phase 1 [concepts](../concepts/) (state taxonomy, tool-effect taxonomy,
-fidelity, the two-layer model) and feed Phase 3 implementation.
+The legacy specs consume the Phase 1 [concepts](../concepts/) (state taxonomy, tool-effect taxonomy,
+fidelity, the two-layer model). The two contracts link directly to their sealed evidence and state their
+own limits.

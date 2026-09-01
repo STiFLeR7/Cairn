@@ -1,7 +1,7 @@
 # Phase Tracking
 
 > Live phase status board. Canonical goals/criteria: [ROADMAP.md](../../ROADMAP.md).
-> Last updated: 2026-07-02.
+> Last updated: 2026-09-01.
 
 | Phase | Name | Status | APs (done / total) |
 |---|---|---|---|
@@ -18,6 +18,17 @@
 | M4 | BYOM Recovery Library | 🟢 Complete (merged; in-repo 0.x — ships nothing outward) | 5 / 5 |
 
 **Legend:** ⬜ Not started · 🟡 In Progress · 🟢 Complete · 🔴 Blocked
+
+## Current recovery proof ladder
+
+This is separate from the legacy phase/Milestone table above.
+
+| Proof phase | Status | Evidence-bounded result |
+|---|---|---|
+| P1 — crash/restart | 🟢 Complete | Deterministic repository recovery fidelity ([report](../../results/phase-1/REPORT.md)) |
+| P2 — compaction continuity | 🟢 Complete | [Continuation Contract v0](../../docs/design/continuation-contract-v0.md); clean verified checkpoints only |
+| P3 — external effects | 🟢 Complete | [Receipt/Reconciliation Contract v0](../../docs/design/receipt-reconciliation-contract-v0.md); one deterministic create-once provider effect only |
+| P4 — external integration | 🟡 Architectural planning | No adapter or interoperability contract admitted |
 
 ## Current milestone: M4 — BYOM Recovery Library (entered 2026-06-29)
 

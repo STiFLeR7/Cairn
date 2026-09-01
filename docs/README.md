@@ -13,12 +13,14 @@ This tree holds **knowledge** — the rules we work by and the understanding we 
 | [`vision/`](vision/) | [vision](vision/vision.md) · [positioning](vision/positioning.md) · [scope](vision/scope.md) |
 | [`concepts/`](concepts/) | The conceptual framework (Code Harness / Runtime / recovery). *Populated in Phase 1.* |
 | [`research/`](research/) | Related-work survey, claims registry, paper drafts. *Populated in Phase 1.* |
-| [`design/`](design/) | Architecture, schemas, protocols. *Populated in Phase 2.* |
+| [`design/`](design/) | Legacy architecture/specs plus the admitted Continuation Contract v0 and Receipt/Reconciliation Contract v0. |
 | [`adr/`](adr/) | Architecture Decision Records — immutable once accepted. |
 
 ## Document front-matter
 
-Every doc carries machine-readable front-matter so freshness and traceability are visible:
+Active design documents carry machine-readable front-matter so freshness and traceability are visible.
+Sealed contracts and raw evidence retain their admitted bytes; their status and evidence boundary are
+stated in the document rather than edited for formatting.
 
 ```yaml
 ---

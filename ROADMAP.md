@@ -18,6 +18,24 @@
 
 **Legend:** ⬜ Not started · 🟡 In Progress · 🟢 Complete · 🔴 Blocked
 
+## Current recovery proof program
+
+This P1–P3 ladder is newer than, and deliberately separate from, the legacy numbered phases above.
+It records admitted experimental contracts rather than declaring the legacy implementation universally
+reliable.
+
+| Proof phase | Target state | Status | Admitted boundary |
+|---|---|---|---|
+| **P1** | Repository edit recovered after injected process death | 🟢 Complete | Deterministic reference-harness recovery fidelity; [report](results/phase-1/REPORT.md) |
+| **P2** | Fresh compacted/recovered process preserves continuation semantics | 🟢 Complete | [Continuation Contract v0](docs/design/continuation-contract-v0.md); P2.4’s 40 eligible U/R/C cells are the admission evidence ([verdict](results/phase-2/p24-verdict.json)) |
+| **P3** | Fresh process resolves one ambiguous create-once effect from observation | 🟢 Complete | [Receipt/Reconciliation Contract v0](docs/design/receipt-reconciliation-contract-v0.md); deterministic provider only ([verdict](results/phase-3/p3-verdict.json)) |
+| **P4** | An external coding-agent host consumes the contracts through a thin boundary | 🟡 Architectural planning | No adapter or interoperability claim admitted yet |
+
+The P2 contract excludes checkpoint acquisition and external effects. The P3 contract excludes
+exactly-once delivery, generic provider schemas, and independent-provider validation. P3’s current frozen
+evidence recheck is linked-worktree provenance; a portable reconstitution must be independently sealed
+before that limitation can be removed.
+
 ## Milestones (post-7-phase)
 
 | Milestone | Name | Goal | Status | Outcome |

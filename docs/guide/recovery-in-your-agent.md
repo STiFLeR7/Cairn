@@ -3,14 +3,15 @@
 Cairn is a **bring-your-own-model** recovery library. You keep your model, your keys, and your
 tools; Cairn adds **crash-recovery** to your agent through *Re-grounding Recovery (RGR)* — on
 resume it loads the last checkpoint, restores your world, re-observes reality, reconciles the
-step that was in flight, resolves any half-finished side-effect **exactly once**, and re-grounds
-a compact history so your model continues instead of starting over.
+step that was in flight, and re-grounds a compact history so your model continues instead of starting
+over. External effects require a provider-specific observation and policy; Cairn does not promise
+exactly-once delivery.
 
-> **Status (honest scope).** Cairn is **0.x** and not published. In the deterministic reference
-> harness, RGR beats cold restart and the effect WAL yields zero duplicate effects. The headline
-> claim (RGR beats cold restart on a *live* model, "C1") is **not yet confirmed** — it awaits a
-> powered live-LLM study. This library exists partly so you can reproduce the evidence on *your*
-> model. See [`docs/research/claims-registry.md`](../research/claims-registry.md).
+> **Status (honest scope).** Cairn is **0.x** and not published. P1 admits crash/restart fidelity in
+> its deterministic reference harness; P2 admits [Continuation Contract v0](../design/continuation-contract-v0.md)
+> only after a clean, verified checkpoint; P3 admits [Receipt/Reconciliation Contract v0](../design/receipt-reconciliation-contract-v0.md)
+> only for one deterministic create-once provider effect. The legacy live-model C1 claim remains
+> suggestive, not confirmed. See [`docs/research/claims-registry.md`](../research/claims-registry.md).
 
 ## Install
 
@@ -82,7 +83,7 @@ print(run.resumed, run.recovery_tax, run.finished)
 restart that would redo everything. `Agent` has no task oracle: it reports whether the model
 finished and hands back the full history + last checkpoint so you apply your own success test.
 
-## Side-effects, exactly once
+## Side-effects: observe before retry
 
 An irreversible effect (send an email, charge a card) must survive a crash *between* "it
 happened" and "we recorded that it happened". Wrap it as an `EffectfulTool` and register its
@@ -104,8 +105,9 @@ rg = recover(world, store, ledger, effect_tools={"send-1": tool})
 ```
 
 Tool classes: `safe-to-retry` (redo), `check-before-retry` (verify then redo-or-skip),
-`never-retry` (escalate — a human decides). See
-[`docs/design/effect-safety-protocol.md`](../design/effect-safety-protocol.md).
+`never-retry` (escalate — a human decides). This legacy library API is not itself evidence of an
+exactly-once guarantee. The admitted P3 boundary requires a fresh-process provider observation before
+any retry; see [Receipt/Reconciliation Contract v0](../design/receipt-reconciliation-contract-v0.md).
 
 ## Run it
 

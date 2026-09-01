@@ -4,6 +4,15 @@
 > [`project/tracking/phase-tracking.md`](project/tracking/phase-tracking.md) ·
 > [`project/tracking/ap-index.md`](project/tracking/ap-index.md).
 
+## Current recovery proof ladder
+
+This P1–P3 ladder is separate from the legacy numbered phases below.
+
+- [x] **P1 — repository crash/restart fidelity** *(deterministic reference harness; [raw report](results/phase-1/REPORT.md))*
+- [x] **P2 — compaction continuity** *([Continuation Contract v0](docs/design/continuation-contract-v0.md); P2.4: 40 eligible U/R/C cells, with 20 preserved pre-continuation acquisition failures)*
+- [x] **P3 — external-effect recovery** *([Receipt/Reconciliation Contract v0](docs/design/receipt-reconciliation-contract-v0.md); one deterministic create-once provider effect, no exactly-once claim)*
+- [ ] **P4 — external integration proof** *(architecture/proof planning only; no adapter admitted)*
+
 ## Phases
 
 - [x] **Phase 0 — Project Definition** 🟢 *(complete — reviewed & approved 2026-06-15)*

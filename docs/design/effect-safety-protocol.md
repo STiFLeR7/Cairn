@@ -1,7 +1,7 @@
 ---
 title: Effect-Safety Write-Ahead Protocol
 status: active
-last_updated: 2026-06-15
+last_updated: 2026-09-01
 owner: maintainers
 related_aps: [AP-0017]
 related_adrs: [ADR-0006]
@@ -62,12 +62,18 @@ the failure. For each, the policy is keyed to the tool class:
 
 After resolution, a COMPLETE is written so the key leaves the danger window.
 
-## 4. Why this gives claim C3
+## 4. Design intent and evidence boundary
 
-For `check-before-retry` tools, every danger-window key is resolved by an authoritative check (idempotency
-key / world query) before any re-execution, so **no duplicate effect is produced** — the content of
-**claim C3** ([claims registry](../research/claims-registry.md)). The with-WAL vs without-WAL comparison
-is measured on the effect-safety axis in Phase 5.
+For `check-before-retry` tools, the design requires an authoritative check (idempotency key / world query)
+before any re-execution. That is the intended mechanism behind **claim C3**
+([claims registry](../research/claims-registry.md)); it is not, by itself, an exactly-once delivery proof.
+
+Phase 3 admitted the narrower [Receipt/Reconciliation Contract v0](receipt-reconciliation-contract-v0.md)
+for one deterministic create-once provider effect: a fresh process re-observed before retry, retried only
+when absent, skipped a matching present resource, and escalated unknown, mismatch, and never-retry cases.
+The evidence is 36 reference and 15 sealed-holdout cells with no duplicate or silent-loss cells
+([verdict](../../results/phase-3/p3-verdict.json)). The holdout reused the deterministic provider and
+harness, so this document must not be read as independent-provider or general durable-effects validation.
 
 ## 5. Honest scope limit
 

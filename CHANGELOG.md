@@ -7,6 +7,30 @@ All notable changes to Cairn are recorded here. Format follows
 Per the [documentation policy](docs/governance/documentation-policy.md), every meaningful change
 updates this file.
 
+## [Unreleased]
+
+### Added
+- **Phase 1 RecoveryBench evidence:** a deterministic terminal coding-agent reference harness for
+  crash/restart recovery, with raw artifacts and a published report in `results/phase-1/`.
+- **Continuation Contract v0:** an admitted, evidence-scoped contract for fresh-process repository
+  continuation after a clean, verified checkpoint. Its independent P2.4 holdout recorded 40 eligible
+  U/R/C cells with no structural failures or divergences; 20 pre-continuation acquisition failures remain
+  in the evidence rather than being reclassified as recovery success.
+- **Receipt/Reconciliation Contract v0:** an admitted, evidence-scoped contract for one deterministic
+  create-once provider effect. It requires re-observation before retry and records retry/skip/escalate
+  decisions. The 36-cell reference matrix and 15-cell sealed holdout had no duplicate or silent-loss cells.
+
+### Changed
+- Public documentation now distinguishes the legacy implementation design from the P1–P3 admitted proof
+  ladder. Cairn makes no general exactly-once, universal model-reliability, framework-integration, or
+  independent-provider claim from these results.
+
+### Evidence boundary
+- The P2 sealed holdout used Claude Code Opus and Sonnet but is conditional on an eligible checkpoint;
+  it is not a general live-model success-rate study. The P3 holdout independently sealed task semantics
+  but reused the deterministic reference provider and harness. See the linked contract documents and
+  `results/phase-{1,2,3}/` artifacts.
+
 ## [0.3.0] — 2026-07-02 — Milestone M4: BYOM recovery library (in-repo, 0.x — ships nothing outward)
 
 Cairn's recovery **mechanism**, repackaged as a **bring-your-own-model (BYOM) library**: a clean,
@@ -90,7 +114,7 @@ verdict is NOT SHOWN** — model-competence + rate-limit confounds. v1.0 stays h
   stays **0.x**; AP-0036/0037 stay `Blocked`. Next gate: a paid/reliable model + a capability-matched C1
   verdict + C3 wired live. The strict gate was **not** loosened to manufacture a GO (ADR-0009).
 
-## [Unreleased]
+## Historical pre-0.2 development record
 
 ### Added
 - Phase 0 foundation: repository scaffold, governance model, vision/positioning/scope docs,

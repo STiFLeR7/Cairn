@@ -47,7 +47,8 @@ Distill `history` into a cairn, snapshot the world, and persist atomically. Retu
 
 **`recover(world, store, ledger, *, effect_tools=None, escalate=True) -> Regrounded`**
 The full RGR protocol: load latest checkpoint → `world.restore` → re-observe → reconcile the torn
-step → resolve the effect danger window (exactly-once) → re-ground a minimal history. No durable
+step → apply the configured effect policy → re-ground a minimal history. The library API does not itself
+provide an exactly-once delivery guarantee. No durable
 checkpoint ⇒ empty history (start fresh). The goal is carried in the checkpoint, not passed here.
 
 **`regrounded_history(plan_steps) -> list[StepRecord]`**
