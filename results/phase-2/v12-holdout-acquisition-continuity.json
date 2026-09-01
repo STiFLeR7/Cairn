@@ -1,0 +1,103 @@
+{
+  "schema_version": "cairn.phase-2-acquisition-continuity.v0.1",
+  "protocol": "holdout-protocol-v12.json",
+  "matrix_dir": "results\\phase-2\\matrix-v12-holdout",
+  "selected_sources": [
+    "opus-phase2_holdout-s0-r01.json",
+    "opus-phase2_holdout-s1-r01.json",
+    "opus-phase2_holdout-s2-r01.json",
+    "opus-phase2_holdout-s0-r02.json",
+    "opus-phase2_holdout-s1-r02.json",
+    "opus-phase2_holdout-s2-r02.json",
+    "opus-phase2_holdout-s0-r03.json",
+    "opus-phase2_holdout-s1-r03.json",
+    "opus-phase2_holdout-s2-r03.json",
+    "opus-phase2_holdout-s0-r04.json",
+    "opus-phase2_holdout-s1-r04.json",
+    "opus-phase2_holdout-s2-r04.json",
+    "opus-phase2_holdout-s0-r05.json",
+    "opus-phase2_holdout-s1-r05.json",
+    "opus-phase2_holdout-s2-r05.json",
+    "opus-phase2_holdout-s0-r06.json",
+    "opus-phase2_holdout-s1-r06.json",
+    "opus-phase2_holdout-s2-r06.json",
+    "opus-phase2_holdout-s0-r07.json",
+    "opus-phase2_holdout-s1-r07.json",
+    "opus-phase2_holdout-s2-r07.json",
+    "opus-phase2_holdout-s0-r08.json",
+    "opus-phase2_holdout-s1-r08.json",
+    "opus-phase2_holdout-s2-r08.json",
+    "opus-phase2_holdout-s0-r09.json",
+    "opus-phase2_holdout-s1-r09.json",
+    "opus-phase2_holdout-s2-r09.json",
+    "opus-phase2_holdout-s0-r10.json",
+    "opus-phase2_holdout-s1-r10.json",
+    "opus-phase2_holdout-s2-r10.json",
+    "sonnet-phase2_holdout-s0-r01.json",
+    "sonnet-phase2_holdout-s1-r01.json",
+    "sonnet-phase2_holdout-s2-r01.json",
+    "sonnet-phase2_holdout-s0-r02.json",
+    "sonnet-phase2_holdout-s1-r02.json",
+    "sonnet-phase2_holdout-s2-r02.json",
+    "sonnet-phase2_holdout-s0-r03.json",
+    "sonnet-phase2_holdout-s1-r03.json",
+    "sonnet-phase2_holdout-s2-r03.json",
+    "sonnet-phase2_holdout-s0-r04.json",
+    "sonnet-phase2_holdout-s1-r04.json",
+    "sonnet-phase2_holdout-s2-r04.json",
+    "sonnet-phase2_holdout-s0-r05.json",
+    "sonnet-phase2_holdout-s1-r05.json",
+    "sonnet-phase2_holdout-s2-r05.json",
+    "sonnet-phase2_holdout-s0-r06.json",
+    "sonnet-phase2_holdout-s1-r06.json",
+    "sonnet-phase2_holdout-s2-r06.json",
+    "sonnet-phase2_holdout-s0-r07.json",
+    "sonnet-phase2_holdout-s1-r07.json",
+    "sonnet-phase2_holdout-s2-r07.json",
+    "sonnet-phase2_holdout-s0-r08.json",
+    "sonnet-phase2_holdout-s1-r08.json",
+    "sonnet-phase2_holdout-s2-r08.json",
+    "sonnet-phase2_holdout-s0-r09.json",
+    "sonnet-phase2_holdout-s1-r09.json",
+    "sonnet-phase2_holdout-s2-r09.json",
+    "sonnet-phase2_holdout-s0-r10.json",
+    "sonnet-phase2_holdout-s1-r10.json",
+    "sonnet-phase2_holdout-s2-r10.json"
+  ],
+  "missing_cells": [],
+  "attempts": 60,
+  "incomplete": 0,
+  "terminal_invalid": 0,
+  "acquisition": {
+    "eligible": 0,
+    "ineligible": 60
+  },
+  "continuity": {
+    "eligible": 0,
+    "recovery_successes": 0,
+    "compaction_successes": 0,
+    "complete_triplets": 0
+  },
+  "conditional_divergence": {
+    "recovery_only_failures": 0,
+    "compaction_only_failures": 0,
+    "both_failures": 0
+  },
+  "failure_classes": {
+    "U": {
+      "model_no_verified_progress": 3,
+      "unverified_mutation": 51,
+      "unverified_progress": 6
+    },
+    "R": {
+      "model_no_verified_progress": 5,
+      "unverified_mutation": 53,
+      "unverified_progress": 2
+    },
+    "C": {
+      "model_no_verified_progress": 5,
+      "unverified_mutation": 55
+    }
+  },
+  "terminal_failure_classes": {}
+}

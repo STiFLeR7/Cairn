@@ -6,6 +6,8 @@ injected fake client stands in for a real LLM. No network, no SDK required.
 
 from __future__ import annotations
 
+import time
+
 import pytest
 
 from cairn.model import CODE, FINISH, Action, ModelProvider, StepRecord
@@ -13,6 +15,7 @@ from cairn.model_live import (
     DEFAULT_FINISH_SENTINEL,
     LiveModelConfigError,
     LiveModelProvider,
+    claude_code_transport,
     anthropic_transport,
     openai_chat_transport,
     openrouter_transport,
@@ -57,6 +60,41 @@ def test_parse_extracts_code_from_xml_tool_call():
     action = parse_action(reply)
     assert action.kind == CODE
     assert "open('a.txt'" in action.code
+
+
+def test_parse_extracts_code_from_json_terminal_action():
+    # Nemotron emits this OpenAI-style action envelope rather than a Markdown fence.
+    action = parse_action('{"action":"python","code":"open(\'a.txt\', \'w\').write(\'ok\')"}')
+    assert action.kind == CODE
+    assert "a.txt" in action.code
+
+
+def test_parse_extracts_code_from_json_code_only_action():
+    action = parse_action('{"code":"open(\'a.txt\', \'w\').write(\'ok\')"}')
+    assert action.kind == CODE
+    assert "a.txt" in action.code
+
+
+def test_parse_translates_json_read_file_action():
+    action = parse_action('{"action":"read_file","path":"project.py"}')
+    assert action.kind == CODE
+    assert "Path('project.py').read_text()" in action.code
+
+
+def test_parse_translates_json_edit_file_action():
+    action = parse_action(
+        '{"action":"edit_file","file_path":"project.py","from":"old","to":"new"}'
+    )
+    assert action.kind == CODE
+    assert "source.replace(old, new, 1)" in action.code
+
+
+def test_parse_translates_nested_json_write_file_action():
+    action = parse_action(
+        '{"action":{"name":"write_file","args":{"path":"project.py","content":"next"}}}'
+    )
+    assert action.kind == CODE
+    assert "Path('project.py').write_text('next')" in action.code
 
 
 def test_parse_accepts_unfenced_code_that_compiles():
@@ -217,6 +255,72 @@ def test_openai_chat_transport_is_endpoint_agnostic():
     assert captured["payload"]["temperature"] == 0.0
 
 
+def test_openai_chat_transport_includes_an_explicit_extra_body():
+    captured = {}
+
+    def fake_request(payload: dict) -> dict:
+        captured["payload"] = payload
+        return {"choices": [{"message": {"content": "TASK_COMPLETE"}}]}
+
+    transport = openai_chat_transport(
+        model="m", url="https://example.test/chat", api_key_env="UNUSED",
+        extra_body={"chat_template_kwargs": {"force_nonempty_content": True}},
+        request=fake_request,
+    )
+    transport("p")
+    assert captured["payload"]["chat_template_kwargs"]["force_nonempty_content"] is True
+
+
+def test_openai_chat_transport_enforces_a_total_request_deadline():
+    def stalled_request(_: dict) -> dict:
+        time.sleep(0.2)
+        return {"choices": [{"message": {"content": "TASK_COMPLETE"}}]}
+
+    transport = openai_chat_transport(
+        model="m", url="https://example.test/chat", api_key_env="UNUSED",
+        timeout=0.01, request=stalled_request,
+    )
+    with pytest.raises(LiveModelConfigError, match="timed out"):
+        transport("p")
+
+
+def test_claude_code_transport_is_no_tools_and_returns_its_result():
+    captured = {}
+
+    class Result:
+        returncode = 0
+        stderr = ""
+        stdout = '{"is_error": false, "result": "```python\\nprint(1)\\n```"}'
+
+    def fake_run(args, **kwargs):
+        captured["args"] = args
+        captured["kwargs"] = kwargs
+        return Result()
+
+    transport = claude_code_transport(model="haiku", run=fake_run)
+    assert transport("prompt") == "```python\nprint(1)\n```"
+    assert captured["args"][:6] == [
+        "claude", "-p", "--safe-mode", "--no-session-persistence", "--tools", "",
+    ]
+    assert "--system-prompt" in captured["args"]
+    assert "low" in captured["args"]
+    assert "--json-schema" in captured["args"]
+    assert captured["args"][captured["args"].index("--model") + 1] == "haiku"
+    assert captured["kwargs"]["timeout"] == 90.0
+
+
+def test_parse_action_accepts_bare_python_after_a_reasoning_trace():
+    action = parse_action("reasoning</think>\nprint('next action')")
+    assert action.kind == CODE
+    assert action.code == "print('next action')"
+
+
+def test_parse_action_discards_a_hallucinated_terminal_result_after_bare_python():
+    action = parse_action("print('next action')\nreturncode: 0")
+    assert action.kind == CODE
+    assert action.code == "print('next action')"
+
+
 def test_openai_chat_transport_missing_key_raises():
     with pytest.raises(LiveModelConfigError):
         openai_chat_transport(
@@ -226,14 +330,41 @@ def test_openai_chat_transport_missing_key_raises():
 
 
 def test_build_live_transport_routes_known_providers_and_rejects_unknown(monkeypatch):
+    import benchmarks.scenarios as scenarios
     from benchmarks.scenarios import OPENAI_COMPATIBLE_PROVIDERS, build_live_transport
 
     assert {"openrouter", "groq", "zenmux"} <= set(OPENAI_COMPATIBLE_PROVIDERS)
+    assert OPENAI_COMPATIBLE_PROVIDERS["openrouter"]["key_env"] == "OPENROUTER_API_KEY"
     # Inert without a key: each OpenAI-compatible provider raises on its own key env.
     for provider, cfg in OPENAI_COMPATIBLE_PROVIDERS.items():
         monkeypatch.delenv(cfg["key_env"], raising=False)
         with pytest.raises(LiveModelConfigError):
             build_live_transport("some/model", provider=provider)
+    captured = []
+    monkeypatch.setattr(
+        scenarios, "claude_code_transport",
+        lambda **kwargs: captured.append(kwargs) or (lambda _prompt: "TASK_COMPLETE"),
+    )
+    assert build_live_transport("haiku", provider="claude_code")("p") == "TASK_COMPLETE"
+    assert captured == [{"model": "haiku"}]
     # An unknown provider is a clear configuration error, not a silent default.
     with pytest.raises(ValueError, match="unknown provider"):
         build_live_transport("m", provider="not-a-provider")
+
+
+def test_nim_coding_payload_is_limited_to_documented_models(monkeypatch):
+    import benchmarks.scenarios as scenarios
+
+    captured = []
+    monkeypatch.setattr(
+        scenarios,
+        "openai_chat_transport",
+        lambda **kwargs: captured.append(kwargs) or (lambda _prompt: "TASK_COMPLETE"),
+    )
+    monkeypatch.setenv("NVIDIA_NIM_API_KEY", "test-key")
+
+    scenarios.build_live_transport("nvidia/nemotron-3-super-120b-a12b", provider="nvidia_nim")
+    scenarios.build_live_transport("nvidia/nemotron-3.5-lightning-30b-a3b", provider="nvidia_nim")
+
+    assert captured[0]["extra_body"] == {"chat_template_kwargs": {"force_nonempty_content": True}}
+    assert captured[1]["extra_body"] is None

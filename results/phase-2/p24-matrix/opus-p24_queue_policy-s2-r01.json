@@ -1,0 +1,92 @@
+{
+  "schema_version": "cairn.p24-urc.v0.1",
+  "cell": {
+    "provider": "claude_code",
+    "model": "opus",
+    "fixture": "p24_queue_policy",
+    "split_step": 2,
+    "repetition": 1
+  },
+  "run_dir": "results\\phase-2\\p24-matrix\\runs\\p24-d1e047a9333841f7a9c75ac1b86ca538",
+  "parent_pid": 23660,
+  "prefix": {
+    "progress": 3
+  },
+  "branches": {
+    "U": {
+      "start_progress": 3,
+      "accepted_progress": [
+        4
+      ],
+      "accepted_actions": [
+        {
+          "step": 3,
+          "kind": "code",
+          "code": "import base64\nfrom pathlib import Path\nsrc = Path('project.py').read_text()\nbody = '''def partition_batches(ids: list[str], batch_size: int) -> list[list[str]]:\n    return [ids[start:start + batch_size] for start in range(0, len(ids), batch_size)]\n'''\nhead = src.split('def partition_batches')[0]\nPath('project.py').write_text(head + body)\nprint(Path('project.py').read_text())"
+        }
+      ],
+      "final_progress": 4,
+      "verified": true,
+      "success": true,
+      "final_digest": {
+        "README.md": "390fefae1f73ac7fa3d95ca9b523bea4b937f9edf8bc4d22b8cf9f2a3dfbce4a",
+        "project.py": "57e78a437ce3a7c82a1c32ca86e58b1653b041cf85aa308347239f8657d7dafb"
+      },
+      "worker_pid": 23660,
+      "parent_pid": 23660,
+      "used_in_memory_history": true,
+      "original_transcript_available": true,
+      "state_serialized": false
+    },
+    "R": {
+      "start_progress": 3,
+      "accepted_progress": [
+        4
+      ],
+      "accepted_actions": [
+        {
+          "step": 3,
+          "kind": "code",
+          "code": "from pathlib import Path\ns = Path('project.py').read_text()\nold = \"\"\"def partition_batches(ids: list[str], batch_size: int) -> list[list[str]]:\n    ...\n\"\"\"\nnew = \"\"\"def partition_batches(ids: list[str], batch_size: int) -> list[list[str]]:\n    return [ids[i:i + batch_size] for i in range(0, len(ids), batch_size)]\n\"\"\"\nassert old in s\nPath('project.py').write_text(s.replace(old, new))\nprint(Path('project.py').read_text())"
+        }
+      ],
+      "final_progress": 4,
+      "verified": true,
+      "success": true,
+      "final_digest": {
+        "README.md": "390fefae1f73ac7fa3d95ca9b523bea4b937f9edf8bc4d22b8cf9f2a3dfbce4a",
+        "project.py": "5f9a475758f803be78ad9abbabce6a80bc02fdca594af768d8c401b08ce5043f"
+      },
+      "used_in_memory_history": false,
+      "original_transcript_available": false,
+      "state_serialized": false,
+      "worker_pid": 22860,
+      "parent_pid": 23660
+    },
+    "C": {
+      "start_progress": 3,
+      "accepted_progress": [
+        4
+      ],
+      "accepted_actions": [
+        {
+          "step": 3,
+          "kind": "code",
+          "code": "import re\nsrc = open('project.py').read()\nnew = src.replace(\"\"\"def partition_batches(ids: list[str], batch_size: int) -> list[list[str]]:\n    ...\"\"\", \"\"\"def partition_batches(ids: list[str], batch_size: int) -> list[list[str]]:\n    return [ids[i:i + batch_size] for i in range(0, len(ids), batch_size)]\"\"\")\nopen('project.py','w').write(new)\nimport project\nprint(project.partition_batches(['a','b','c','d','e'],2))"
+        }
+      ],
+      "final_progress": 4,
+      "verified": true,
+      "success": true,
+      "final_digest": {
+        "README.md": "390fefae1f73ac7fa3d95ca9b523bea4b937f9edf8bc4d22b8cf9f2a3dfbce4a",
+        "project.py": "5f9a475758f803be78ad9abbabce6a80bc02fdca594af768d8c401b08ce5043f"
+      },
+      "used_in_memory_history": false,
+      "original_transcript_available": false,
+      "state_serialized": true,
+      "worker_pid": 10996,
+      "parent_pid": 23660
+    }
+  }
+}

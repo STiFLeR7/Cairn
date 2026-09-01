@@ -1,0 +1,26 @@
+{
+  "task_id": "p24_queue_policy",
+  "title": "Queue Scheduling Policy",
+  "functions": [
+    {"name": "priority_band", "domain": "priority:int -> band:str"},
+    {"name": "retry_schedule", "domain": "attempt:int, base_delay:int -> delay:int"},
+    {"name": "dispatchable_ids", "domain": "queue:list[dict[id:int,ready:bool]] -> ids:list[int]"},
+    {"name": "partition_batches", "domain": "items:list[int], batch_size:int -> batches:list[list[int]]"}
+  ],
+  "starter_project_py": "def priority_band(priority: int) -> str:\n    \"\"\"Return priority band.\"\"\"\n    raise NotImplementedError\n\ndef retry_schedule(attempt: int, base_delay: int) -> int:\n    \"\"\"Return retry delay.\"\"\"\n    raise NotImplementedError\n\ndef dispatchable_ids(queue: list[dict]) -> list[int]:\n    \"\"\"Return ids of ready items.\"\"\"\n    raise NotImplementedError\n\ndef partition_batches(items: list[int], batch_size: int) -> list[list[int]]:\n    \"\"\"Partition items into batches.\"\"\"\n    raise NotImplementedError",
+  "public_readme": "Queue Scheduling Policy Task\n\nFunctions:\n1. priority_band(priority:int)->str: returns \"high\" for priority>=8, \"medium\" for 4<=priority<8, else \"low\".\n2. retry_schedule(attempt:int,base_delay:int)->int: returns base_delay*2**(attempt-1) for attempt>=1 else 0.\n3. dispatchable_ids(queue:list[dict])->list[int]: returns ids where ready is true.\n4. partition_batches(items:list[int],batch_size:int)->list[list[int]]: splits into batches of size batch_size.\n\nOut-of-domain inputs are not scored.\n\nAcceptance cases:\n```json\n[{\"function\":\"priority_band\",\"args\":[7],\"expected\":\"low\"},{\"function\":\"priority_band\",\"args\":[8],\"expected\":\"high\"},{\"function\":\"priority_band\",\"args\":[5],\"expected\":\"medium\"},{\"function\":\"retry_schedule\",\"args\":[1,10],\"expected\":10},{\"function\":\"retry_schedule\",\"args\":[2,10],\"expected\":20},{\"function\":\"retry_schedule\",\"args\":[0,10],\"expected\":0},{\"function\":\"dispatchable_ids\",\"args\":[[{\"id\":1,\"ready\":true},{\"id\":2,\"ready\":false},{\"id\":3,\"ready\":true}]],\"expected\":[1,3]},{\"function\":\"dispatchable_ids\",\"args\":[[{\"id\":10,\"ready\":false}]],\"expected\":[]},{\"function\":\"dispatchable_ids\",\"args\":[[]],\"expected\":[]},{\"function\":\"partition_batches\",\"args\":[[1,2,3,4,5],2],\"expected\":[[1,2],[3,4],[5]]},{\"function\":\"partition_batches\",\"args\":[[],3],\"expected\":[]},{\"function\":\"partition_batches\",\"args\":[[10,20,30],5],\"expected\":[[10,20,30]]}]\n```",
+  "acceptance_cases": [
+    {"function": "priority_band", "args": [7], "expected": "low"},
+    {"function": "priority_band", "args": [8], "expected": "high"},
+    {"function": "priority_band", "args": [5], "expected": "medium"},
+    {"function": "retry_schedule", "args": [1, 10], "expected": 10},
+    {"function": "retry_schedule", "args": [2, 10], "expected": 20},
+    {"function": "retry_schedule", "args": [0, 10], "expected": 0},
+    {"function": "dispatchable_ids", "args": [[{"id": 1, "ready": true}, {"id": 2, "ready": false}, {"id": 3, "ready": true}]], "expected": [1, 3]},
+    {"function": "dispatchable_ids", "args": [[{"id": 10, "ready": false}]], "expected": []},
+    {"function": "dispatchable_ids", "args": [[]], "expected": []},
+    {"function": "partition_batches", "args": [[1, 2, 3, 4, 5], 2], "expected": [[1, 2], [3, 4], [5]]},
+    {"function": "partition_batches", "args": [[], 3], "expected": []},
+    {"function": "partition_batches", "args": [[10, 20, 30], 5], "expected": [[10, 20, 30]]}
+  ]
+}

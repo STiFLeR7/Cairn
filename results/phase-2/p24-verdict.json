@@ -1,0 +1,23 @@
+{
+  "schema_version": "cairn.p24-verdict.v0.1",
+  "verdict": "PASS",
+  "contract_admitted": true,
+  "gate": {
+    "complete_60_cell_matrix": true,
+    "minimum_10_eligible_checkpoints": true,
+    "minimum_10_recovery_successes": true,
+    "minimum_10_compaction_successes": true,
+    "minimum_10_complete_triplets": true,
+    "fresh_process_recovery": true,
+    "transcript_unavailable_compaction": true,
+    "serialized_compaction_state": true,
+    "ordered_next_actions": true,
+    "correct_termination": true,
+    "every_eligible_divergence_replayed": true,
+    "zero_causal_cairn_defects": true,
+    "pinned_inputs_unchanged": true,
+    "phase1_parity": true,
+    "fresh_full_suite": "248 passed in 292.53s"
+  },
+  "limitation": "20/60 cells were ineligible before recovery/compaction because Sonnet made multi-unit mutations that the ordered one-unit verifier rejected. This does not support a model checkpoint-acquisition claim and is reported separately from conditional continuation outcomes."
+}

@@ -1,0 +1,14 @@
+def is_nonempty(value):
+    return isinstance(value, str) and len(value) > 0
+
+
+def is_positive(value):
+    return isinstance(value, (int, float)) and value > 0
+
+
+def is_even(value):
+    return isinstance(value, int) and value % 2 == 0
+
+
+def has_prefix(value, prefix):
+    return False

@@ -18,6 +18,7 @@ from cairn.model_live import (
     LiveModelProvider,
     Transport,
     anthropic_transport,
+    claude_code_transport,
     openai_chat_transport,
 )
 from cairn.model_mock import ScriptableMockModel
@@ -261,7 +262,7 @@ def live_effectful_scenario(
 OPENAI_COMPATIBLE_PROVIDERS: dict[str, dict] = {
     "openrouter": {
         "url": "https://openrouter.ai/api/v1/chat/completions",
-        "key_env": "OPENROUTER_API",
+        "key_env": "OPENROUTER_API_KEY",
         "referer": "https://github.com/STiFLeR7/Cairn",
         "title": "Cairn",
     },
@@ -272,6 +273,15 @@ OPENAI_COMPATIBLE_PROVIDERS: dict[str, dict] = {
     "zenmux": {
         "url": "https://zenmux.ai/api/v1/chat/completions",
         "key_env": "ZENMUX_API",
+    },
+    "nvidia_nim": {
+        "url": "https://integrate.api.nvidia.com/v1/chat/completions",
+        "key_env": "NVIDIA_NIM_API_KEY",
+        "extra_body": {"chat_template_kwargs": {"force_nonempty_content": True}},
+        "extra_body_models": {
+            "nvidia/nemotron-3-super-120b-a12b",
+            "nvidia/nemotron-3-ultra-550b-a55b",
+        },
     },
 }
 
@@ -284,6 +294,7 @@ def build_live_transport(
     transcript_path: Optional[str] = None,
     max_calls: Optional[int] = None,
     max_chars: Optional[int] = None,
+    max_tokens: int = 2048,
 ) -> Transport:
     """Construct the REAL transport for a live run (AP-0040/AP-0049, **GATED**).
 
@@ -296,9 +307,11 @@ def build_live_transport(
     ``LiveModelConfigError`` — the live path is wired but **inert** until explicitly enabled with a
     key and an approved spend.
     """
-    if provider == "anthropic":
+    if provider == "claude_code":
+        transport = claude_code_transport(model=model)
+    elif provider == "anthropic":
         kw = {"api_key_env": api_key_env} if api_key_env else {}
-        transport = anthropic_transport(model=model, **kw)
+        transport = anthropic_transport(model=model, max_tokens=max_tokens, **kw)
     elif provider in OPENAI_COMPATIBLE_PROVIDERS:
         cfg = OPENAI_COMPATIBLE_PROVIDERS[provider]
         transport = openai_chat_transport(
@@ -307,9 +320,11 @@ def build_live_transport(
             api_key_env=api_key_env or cfg["key_env"],
             referer=cfg.get("referer", ""),
             title=cfg.get("title", ""),
+            extra_body=cfg.get("extra_body") if model in cfg.get("extra_body_models", ()) else None,
+            max_tokens=max_tokens,
         )
     else:
-        known = ", ".join(["anthropic", *OPENAI_COMPATIBLE_PROVIDERS])
+        known = ", ".join(["claude_code", "anthropic", *OPENAI_COMPATIBLE_PROVIDERS])
         raise ValueError(f"unknown provider {provider!r} (expected one of: {known})")
     transport = retrying(transport)  # innermost: tolerate transient provider 429/5xx/"error" hiccups
     if transcript_path:

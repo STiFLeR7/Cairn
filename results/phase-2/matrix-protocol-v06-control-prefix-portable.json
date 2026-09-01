@@ -1,0 +1,52 @@
+{
+  "schema_version": "cairn.phase-2-matrix-protocol.v0.6",
+  "purpose": "Clean rerun of the separate checkpoint-ready reference control after making the existing fixture control command portable across the external-model Docker world.",
+  "supersedes": {
+    "protocol": "matrix-protocol-v05-control-prefix.json",
+    "reason": "v0.5 retained 176 command_failed records because its harness control command embedded the host interpreter path; no model continuation was attempted."
+  },
+  "does_not_replace": "matrix-protocol-v04.json",
+  "pinned_inputs": {
+    "phase1_control_freeze": {"path": "control-freeze.json", "sha256": "7f969a9c861ad8e85a8103e3b421c78d3a1f2ddb8a37b3d2316e0e8c80bbcc56"},
+    "recoverybench_harness": {"path": "src/cairn/eval/recoverybench.py", "sha256": "86819b8938cd803ad2ddb1acc260fd85d1dc25d74d59f275bc5c3207687772c6"},
+    "urc_runner": {"path": "src/cairn/eval/phase2.py", "sha256": "bcc9259c4820d779aa52c6959767fe82513db4aec0b270917c26af1865705a52"},
+    "urc_cli": {"path": "benchmarks/phase2.py", "sha256": "3c547f4d2d082abaf9e4aceb6e18b56a9f49926e3c8fabfbcab7386f87e7d11e"},
+    "matrix_executor": {"path": "benchmarks/phase2_matrix.py", "sha256": "9ffae07893c55dc89e6d0df2908c7850982c41759ebb6ce72241159ec354b1e1"}
+  },
+  "matrix": {
+    "models": [{"provider": "claude_code", "model": "opus"}, {"provider": "claude_code", "model": "sonnet"}],
+    "fixtures": ["bugfix", "config", "tests", "followup"],
+    "split_steps": "all_nonterminal",
+    "ablation": null,
+    "prefix_mode": "control",
+    "repetitions_per_model_fixture_split": 8,
+    "expected_attempts": 176,
+    "output_directory": "matrix-v06-control-prefix"
+  },
+  "qualification": {
+    "record_schema": "cairn.phase-2-urc.v0.1",
+    "required_branches": ["U", "R", "C"],
+    "qualified_pair": "U, R, and C each verify successfully in one complete record",
+    "minimum_qualified_pairs": 100,
+    "report_all_attempts": true,
+    "scope": "checkpoint-ready reference control only; not end-to-end model prefix acquisition",
+    "do_not_count": ["ablations", "incomplete_records", "pre_protocol_records", "matrix-v02", "matrix-v03", "matrix-v04", "matrix-v05-control-prefix"]
+  },
+  "holdout": {
+    "fixture": "phase2_holdout", "version": "2",
+    "first_use": "after v0.6 matrix analysis and before any scoped candidate contract is published",
+    "pinned_files": {"README.md": "0a36bab771d6bf539994235a93c4f90a9d03f2f9aaa4acde91251a753d862a15", "project.py": "2ac983a16fdac2c6089f87d05c367138b89603bf1e24ddabbd93d9ba52bdc475"}
+  },
+  "correction_rule": {
+    "admit_only_after": ["a named causal hypothesis", "a full-state counterfactual in the pinned matrix", "a frozen rerun", "a blinded-holdout validation"],
+    "forbidden_before_exit": ["prompt changes", "fixture changes", "schema expansion", "RGR changes", "framework integrations", "effect semantics"]
+  },
+  "exit": {
+    "phase1_control_freeze_recheck_matches": true,
+    "minimum_qualified_pairs": 100,
+    "two_model_configurations": true,
+    "holdout_complete": true,
+    "continuation_contract_v0_published": true,
+    "claim_scope": "checkpoint-ready reference control only unless an independently completed end-to-end prefix-acquisition study earns a broader claim"
+  }
+}

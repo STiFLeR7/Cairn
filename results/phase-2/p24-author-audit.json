@@ -1,0 +1,14 @@
+{
+  "accepted_author_model": "opencode/mimo-v2.5-free",
+  "accepted_author_boundary": "OpenCode plan agent in an empty temporary directory; no repository, v12 text, or execution feedback",
+  "accepted_session_id": "ses_fa927b6e2ffe3PenHGJVUVkZw2",
+  "accepted_output": "p24-author-output-opencode.json",
+  "accepted_output_sha256": "9648d4990a2b9bf2c2754db4106f1db01136b4f8f26fdfdcc3ec90439b9e22d0",
+  "syntax_audit": {"admitted": true, "reasons": []},
+  "semantic_seal": {"admitted": true, "method": "the public-only ordered fixture executes every published acceptance case"},
+  "rejected_preseal_attempts": [
+    {"model": "claude haiku/sonnet", "reason": "no stdout despite healthy short-output probes; transport failure"},
+    {"model": "minimax/minimax-m3:free", "reason": "invalid JSON transport payload; rejected without semantic feedback"},
+    {"model": "nvidia/nemotron-3-ultra-550b-a55b:free", "reason": "public README and public acceptance case contradicted each other; preserved as p24-author-output.json and never used"}
+  ]
+}

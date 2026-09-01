@@ -1,0 +1,10 @@
+{
+  "cell": {
+    "provider": "claude_code",
+    "model": "sonnet",
+    "fixture": "p24_queue_policy",
+    "split_step": 0,
+    "repetition": 1
+  },
+  "invalid": "ValueError: unverified_progress"
+}

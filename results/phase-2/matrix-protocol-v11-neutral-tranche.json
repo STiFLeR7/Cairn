@@ -1,0 +1,105 @@
+{
+  "schema_version": "cairn.phase-2-neutral-tranche.v0.1",
+  "status": "live-tranche-pinned",
+  "purpose": "Define the next independent live study after v0.10 without changing Cairn semantics or tuning the existing synthetic fixtures.",
+  "supersedes": null,
+  "baseline": {
+    "failed_protocol": "matrix-protocol-v10-frozen-replication.json",
+    "semantic_control": "semantic-control-v01.json",
+    "conditional_audit": "v10-acquisition-continuity.json"
+  },
+  "architectural_boundary": [
+    "TerminalWorld plus the existing reference coding-agent loop",
+    "one clean checkpoint before each U/R/C branch",
+    "fresh-process recovery and fresh-process compaction",
+    "harness-owned hidden verifier",
+    "no framework integrations, external effects, or OpenTelemetry"
+  ],
+  "task_selection": {
+    "source": "pinned external open-source repositories or independently authored stateful terminal tasks",
+    "calibration": {
+      "task": "chain-6",
+      "artifact": "chain-urc-v01.json",
+      "task_sources": {
+        "benchmarks/scenarios.py": "f560896d37db91647d339ca0943be0e8d6b4330b31fc4887be1c62039a50f70e",
+        "src/cairn/eval/chain.py": "81d868f174dfe672e6c1b3aabfa4946cb945b9502dd88d522a5d19e3d5413fbc"
+      },
+      "deterministic_result": "5/5 U/R/C triplets; zero final-digest mismatches",
+      "existing_live_capability_evidence": [
+        {"manifest": "benchmarks/transcripts/openai_gpt-oss-120b-chain-study.manifest.json", "fired": 28, "B3_success": "11/15", "provider": "groq"},
+        {"manifest": "benchmarks/transcripts/nvidia_nemotron-3-super-120b-a12b_free-chain-study.manifest.json", "fired": 4, "B3_success": "1/2", "provider": "openrouter"}
+      ]
+    },
+    "holdout": {
+      "task": "phase2_holdout",
+      "consume": false,
+      "task_sources": {
+        "benchmarks/recoverybench_fixtures/phase2_holdout/README.md": "0a36bab771d6bf539994235a93c4f90a9d03f2f9aaa4acde91251a753d862a15",
+        "benchmarks/recoverybench_fixtures/phase2_holdout/project.py": "2ac983a16fdac2c6089f87d05c367138b89603bf1e24ddabbd93d9ba52bdc475"
+      }
+    },
+    "required_properties": [
+      "one independently verifiable work unit per continuation step",
+      "the verifier is hidden from the agent and deterministic",
+      "a capable agent cannot complete all units in one opaque mutation",
+      "task text and verifier are frozen before model execution",
+      "calibration and holdout tasks are disjoint"
+    ],
+    "forbidden": [
+      "editing a task or prompt after observing a failure",
+      "selecting tasks because they improve the Cairn score",
+      "counting a failed U branch as a recovery failure",
+      "using the blinded holdout for calibration"
+    ]
+  },
+  "stages": {
+    "acquisition_calibration": {
+      "objective": "Measure whether each pinned model/provider can reach and verify a clean checkpoint.",
+      "evidence": ["U branch outcome", "failure class", "checkpoint id and digest when eligible"],
+      "gate": {"minimum_eligible_checkpoints": 100, "report_all_attempts": true}
+    },
+    "continuity_evaluation": {
+      "objective": "Measure R and C only on U-eligible records from the frozen task tranche.",
+      "evidence": ["R/C branch outcome", "hidden-verifier result", "final artifact digest", "prompt/state provenance"],
+      "gate": {
+        "minimum_complete_triplets": 100,
+        "minimum_conditional_recovery_successes": 100,
+        "minimum_conditional_compaction_successes": 100
+      }
+    },
+    "blinded_holdout": {
+      "objective": "Confirm the pre-registered continuity result on disjoint tasks.",
+      "entry": "Only after acquisition and continuity gates pass independently.",
+      "consume": false
+    }
+  },
+  "matrix": {
+    "models": [
+      {"provider": "groq", "model": "openai/gpt-oss-120b"},
+      {"provider": "nvidia_nim", "model": "nvidia/nemotron-3-ultra-550b-a55b"}
+    ],
+    "fixtures": ["bugfix", "config", "tests", "followup"],
+    "repetitions_per_model_fixture_split": 5,
+    "expected_attempts": 110,
+    "output_directory": "matrix-v11-live-tranche",
+    "split_steps": "all_nonterminal",
+    "branches": ["U", "R", "C"],
+    "prompt": "Existing reference prompt; no post-hoc composition changes",
+    "state": "Existing ContinuationState and RGR; no schema correction admitted by v0.10",
+    "verification": "Existing hidden verifier plus recorded final artifact digest"
+  },
+  "integrity": {
+    "raw_records": "Retain every attempt, including provider, acquisition, and branch failures",
+    "selection": "One deterministic record per registered cell; replacements require preserved original and explicit reason",
+    "analysis": "Use acquisition/continuity stratification before any contract claim",
+    "holdout": "Do not read or execute until both gates pass"
+  },
+  "out_of_scope": [
+    "new ContinuationState fields",
+    "RGR behavior changes",
+    "prompt optimization",
+    "fixture-specific retries",
+    "framework adapters",
+    "EffectReceipt or external-effect semantics"
+  ]
+}

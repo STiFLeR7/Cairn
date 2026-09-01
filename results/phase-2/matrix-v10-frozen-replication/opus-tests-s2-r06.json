@@ -1,0 +1,22 @@
+{
+  "schema_version": "cairn.phase-2-urc.v0.1",
+  "fixture": {
+    "name": "tests",
+    "version": "2"
+  },
+  "split_step": 2,
+  "prefix": {
+    "mode": "control"
+  },
+  "prompt_composition": "legacy",
+  "verification_mode": "empty",
+  "ablation": null,
+  "live": {
+    "provider": "claude_code",
+    "model": "opus"
+  },
+  "invalid": {
+    "stage": "urc",
+    "detail": "ValueError: command_failed"
+  }
+}

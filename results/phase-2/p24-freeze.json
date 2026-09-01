@@ -1,0 +1,28 @@
+{
+  "schema_version": "cairn.p24-freeze.v0.1",
+  "metadata": {
+    "git_head": "97305b5b4c5351d4bae5048c787febe6854db9ac",
+    "python": "3.12.4",
+    "purpose": "P2.4 clean-room holdout reconstitution; frozen before independent author output"
+  },
+  "files": [
+    {"path": "src\\cairn\\state.py", "sha256": "3f989a6c746edf572b3188bb74106e16244463f29b89215fdadd9766934973a8", "bytes": 3653},
+    {"path": "src\\cairn\\recovery.py", "sha256": "96fc032defe7108537738a1543f9260e5d8f13aa11dea212df182cd097dd1c13", "bytes": 3937},
+    {"path": "src\\cairn\\harness\\distill.py", "sha256": "2bd6466b1907d8752ee16531c9d75af789204c194c5de1da96935bd7f6085332", "bytes": 5484},
+    {"path": "src\\cairn\\eval\\phase2.py", "sha256": "91a66602810f1a2caecfab4e60964bf7c9c0c7b62813643f44fe8f10746f0a32", "bytes": 14820},
+    {"path": "src\\cairn\\eval\\recoverybench.py", "sha256": "86819b8938cd803ad2ddb1acc260fd85d1dc25d74d59f275bc5c3207687772c6", "bytes": 37903},
+    {"path": "src\\cairn\\runtime\\checkpoint_store.py", "sha256": "bd55807993479fd4991bba3905cde8cfa19ce8078db85c25f5e9dd6a6bf87e77", "bytes": 2145},
+    {"path": "src\\cairn\\runtime\\sandbox_docker.py", "sha256": "ac6f7ddc30b511f35c5c9b57c07855aa3cf6e4715a97b9e5188e1f7eeddabbb9", "bytes": 2894},
+    {"path": "src\\cairn\\worlds\\terminal.py", "sha256": "8fb8a71255caa887058bad832e796693327c4c776a16bb557427c9b2e8b2313a", "bytes": 435},
+    {"path": "benchmarks\\phase2_matrix.py", "sha256": "b5e5f27c217be08bf4c79d7435bbef70f6e36fd893ea6f4f6d4b5db37171fc6f", "bytes": 2245},
+    {"path": "benchmarks\\phase2_acquisition_continuity.py", "sha256": "89379ea13c8910d3d367d28cc93f04ca4d0fdff6fddace4206a0d44cc45fbe06", "bytes": 4938},
+    {"path": "benchmarks\\phase2_replay_control.py", "sha256": "5be47a653264a5e69e304ce397acdb14205fe661fdd823c22d02105b63704044", "bytes": 5565},
+    {"path": "results\\phase-2\\control-freeze-recheck-v12.json", "sha256": "7f969a9c861ad8e85a8103e3b421c78d3a1f2ddb8a37b3d2316e0e8c80bbcc56", "bytes": 1181},
+    {"path": "results\\phase-2\\matrix-protocol-v12-powered-control-prefix.json", "sha256": "0d5a1a7da9c2adad1647365a22e0c2793c67b71435e7cbf831ab3e2b1def746d", "bytes": 3120},
+    {"path": "results\\phase-2\\v12-acquisition-continuity.json", "sha256": "800936b3888cd5fe168323a276a9b317a7fc6fd1ec9234f2fa0e94e982ffc051", "bytes": 9223},
+    {"path": "results\\phase-2\\v12-replay-c-to-r.json", "sha256": "56c5e43d1834f8a931ca181d5a93fecae8e2e631de25f5c272e255679a6f7c63", "bytes": 1278},
+    {"path": "results\\phase-2\\v12-replay-r-to-c.json", "sha256": "90261713595b99c1b2c4dfdd39e3e8627b6aa77601f6dc257728f40802979eee", "bytes": 1278},
+    {"path": "results\\phase-2\\v12-replay-u-to-c-both.json", "sha256": "f51092574fab6234dcc906a85182b29ad3ba7a3c090ebf7020db1377586d94f3", "bytes": 2406},
+    {"path": "results\\phase-2\\v12-replay-u-to-r-both.json", "sha256": "d0ee9d10cedfe1dd75c4fc064e28d1a97fe166c33586424e7bcd688650fb745e", "bytes": 2406}
+  ]
+}

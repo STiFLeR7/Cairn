@@ -1,0 +1,45 @@
+{
+  "schema_version": "cairn.phase-2-urc.v0.1",
+  "fixture": {
+    "name": "bugfix",
+    "version": "2"
+  },
+  "run_id": "urc-6ee00233707f405d9e0b1a2910670499",
+  "split_step": 1,
+  "ablation": null,
+  "live": {
+    "provider": "claude_code",
+    "model": "sonnet"
+  },
+  "branches": {
+    "U": {
+      "success": true,
+      "work_units": 3,
+      "history_length": 3,
+      "state_digest": {
+        "README.md": "75da6ed0d985734324ab79d01ec1571293aeaaaefbba7c558f9be4c903364022",
+        "project.py": "e7f018d15cf4f7906638bfd1b52b2d18263b491ffd555320de3eb0b9cc970c3a"
+      }
+    },
+    "R": {
+      "success": true,
+      "work_units": 3,
+      "history_length": 3,
+      "state_digest": {
+        "README.md": "75da6ed0d985734324ab79d01ec1571293aeaaaefbba7c558f9be4c903364022",
+        "project.py": "e7f018d15cf4f7906638bfd1b52b2d18263b491ffd555320de3eb0b9cc970c3a"
+      }
+    },
+    "C": {
+      "success": true,
+      "work_units": 3,
+      "history_length": 3,
+      "state_digest": {
+        "README.md": "75da6ed0d985734324ab79d01ec1571293aeaaaefbba7c558f9be4c903364022",
+        "project.py": "e7f018d15cf4f7906638bfd1b52b2d18263b491ffd555320de3eb0b9cc970c3a"
+      },
+      "original_transcript_available": false,
+      "prompt_has_durable_state": true
+    }
+  }
+}

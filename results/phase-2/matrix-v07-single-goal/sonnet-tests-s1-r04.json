@@ -1,0 +1,33 @@
+{
+  "schema_version": "cairn.phase-2-urc.v0.1",
+  "fixture": {
+    "name": "tests",
+    "version": "2"
+  },
+  "run_id": "urc-fa0e96e4ec104e4081c89ffcb5501d33",
+  "split_step": 1,
+  "prefix": {
+    "mode": "control",
+    "work_units": 2
+  },
+  "prompt_composition": "single_goal",
+  "ablation": null,
+  "live": {
+    "provider": "claude_code",
+    "model": "sonnet"
+  },
+  "branches": {
+    "U": {
+      "success": false,
+      "invalid": "ValueError: unverified_progress"
+    },
+    "R": {
+      "success": false,
+      "invalid": "ValueError: unverified_progress"
+    },
+    "C": {
+      "success": false,
+      "invalid": "ValueError: unverified_progress"
+    }
+  }
+}

@@ -1,0 +1,37 @@
+{
+  "schema_version": "cairn.phase-2-replay-control.v0.1",
+  "source_branch": "C",
+  "target_branch": "R",
+  "records": [
+    {
+      "run_id": "urc-134f9687d21a494c9f7f34b6d23042d1",
+      "fixture": "tests",
+      "split_step": 1,
+      "target_branch": "R",
+      "replayed_replies": 3,
+      "workspace": "results\\phase-2\\v12-replay-c-to-r-runs\\urc-134f9687d21a494c9f7f34b6d23042d1\\tests",
+      "verified": true,
+      "success": true,
+      "final_digest": {
+        "README.md": "d26f1ca6621480d5962e6255ee046c118e0c72e3c1c52d3c45c4fe389d4b3305",
+        "project.py": "c662af563afbf8c7598f4ab46cde0cdb8a93ea3d56eb5d4075a1e8dae37d0d12"
+      }
+    },
+    {
+      "run_id": "urc-8408ea76c1244536a340a728b20df06e",
+      "fixture": "tests",
+      "split_step": 1,
+      "target_branch": "R",
+      "replayed_replies": 3,
+      "workspace": "results\\phase-2\\v12-replay-c-to-r-runs\\urc-8408ea76c1244536a340a728b20df06e\\tests",
+      "verified": true,
+      "success": true,
+      "final_digest": {
+        "README.md": "d26f1ca6621480d5962e6255ee046c118e0c72e3c1c52d3c45c4fe389d4b3305",
+        "project.py": "c662af563afbf8c7598f4ab46cde0cdb8a93ea3d56eb5d4075a1e8dae37d0d12"
+      }
+    }
+  ],
+  "replayed": 2,
+  "verified": 2
+}

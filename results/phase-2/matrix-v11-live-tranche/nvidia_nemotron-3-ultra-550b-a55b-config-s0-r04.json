@@ -1,0 +1,44 @@
+{
+  "schema_version": "cairn.phase-2-urc.v0.1",
+  "fixture": {
+    "name": "config",
+    "version": "2"
+  },
+  "run_id": "urc-49d032ffc1d64ce98e6e31e86483a70a",
+  "split_step": 0,
+  "prefix": {
+    "mode": "live",
+    "work_units": 1
+  },
+  "prompt_composition": "legacy",
+  "verification_mode": "empty",
+  "ablation": null,
+  "live": {
+    "provider": "nvidia_nim",
+    "model": "nvidia/nemotron-3-ultra-550b-a55b"
+  },
+  "branches": {
+    "U": {
+      "success": true,
+      "work_units": 3,
+      "history_length": 3,
+      "state_digest": {
+        "README.md": "28e575cd8d82644a5f524347821acdbc0f7eb7f4c1d04b436c93ba44e774e6a0",
+        "project.py": "99f75db18617ae6f69774b97d6c0797a559f426b9a3ef96294fb34f95ddc8dba"
+      }
+    },
+    "R": {
+      "success": true,
+      "work_units": 3,
+      "history_length": 3,
+      "state_digest": {
+        "README.md": "28e575cd8d82644a5f524347821acdbc0f7eb7f4c1d04b436c93ba44e774e6a0",
+        "project.py": "99f75db18617ae6f69774b97d6c0797a559f426b9a3ef96294fb34f95ddc8dba"
+      }
+    },
+    "C": {
+      "success": false,
+      "invalid": "ValueError: model_no_verified_progress"
+    }
+  }
+}

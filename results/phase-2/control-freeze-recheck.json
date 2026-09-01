@@ -1,0 +1,39 @@
+{
+  "schema_version": "cairn.phase-2-control-freeze.v0.1",
+  "artifacts": [
+    {
+      "path": "live-claude-sonnet-coverage-1.jsonl",
+      "records": 11,
+      "sha256": "f48d34b1d2062e7e2541f84ff7c4b3ed0600c3109a5e7794fdeb25f08ba0d181"
+    },
+    {
+      "path": "live-claude-sonnet-accumulation-4x.jsonl",
+      "records": 44,
+      "sha256": "b50ef07ccd135974c0f547fd9928a8efea7651ee9c2e2c2f2d63d54747d9e300"
+    },
+    {
+      "path": "live-claude-opus-coverage-1.jsonl",
+      "records": 11,
+      "sha256": "feee45c66be4a6e588c1219072926b1763c8a7b9c2e4668d659f96f99b145d23"
+    },
+    {
+      "path": "live-claude-opus-accumulation-4x.jsonl",
+      "records": 44,
+      "sha256": "9c8c50e3893c506b871d529c6157a55c44e389e61046342dba89a4a320fa0bdb"
+    }
+  ],
+  "records": 110,
+  "diagnosis": {
+    "attempted": 110,
+    "baseline_completion_failures": 54,
+    "checkpoint_acquisition_failures": 1,
+    "recovery_path_failures": 0,
+    "recovered_successes": 55,
+    "unattributed_failures": 0,
+    "failure_reasons": {
+      "model_no_verified_progress": 5,
+      "unverified_mutation": 30,
+      "unverified_progress": 20
+    }
+  }
+}

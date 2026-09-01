@@ -1,0 +1,13 @@
+{
+  "schema_version": "cairn.phase-2-transport-invalid.v0.1",
+  "recorded_at": "2026-08-29T10:41:46.0311631+05:30",
+  "protocol": "matrix-protocol-v12-powered-control-prefix.json",
+  "status": "excluded-pre-model-transport-failure",
+  "attempts": 18,
+  "evidence_directory": "matrix-v12-powered-control-prefix-preauth-invalid",
+  "analysis": "v12-preauth-invalid-acquisition-continuity.json",
+  "root_cause": "Claude Code auth status was loggedIn=false; every CLI call exited 1 before inference.",
+  "diagnostic_gap": "Claude Code returned the login message in JSON stdout while the transport surfaced only stderr.",
+  "remediation": "Authenticated the existing Claude Code subscription and verified the exact no-tools Opus command exits 0 before creating a fresh matrix output directory.",
+  "scoring": "Excluded from acquisition and continuity denominators because no model inference occurred; retained as raw transport evidence."
+}

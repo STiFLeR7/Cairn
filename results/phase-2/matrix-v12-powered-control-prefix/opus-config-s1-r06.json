@@ -1,0 +1,51 @@
+{
+  "schema_version": "cairn.phase-2-urc.v0.1",
+  "fixture": {
+    "name": "config",
+    "version": "2"
+  },
+  "run_id": "urc-d1d871d4b1f446c2b8be6c8ff29df9c2",
+  "split_step": 1,
+  "prefix": {
+    "mode": "control",
+    "work_units": 2
+  },
+  "prompt_composition": "legacy",
+  "verification_mode": "empty",
+  "ablation": null,
+  "live": {
+    "provider": "claude_code",
+    "model": "opus"
+  },
+  "branches": {
+    "U": {
+      "success": true,
+      "work_units": 3,
+      "history_length": 3,
+      "state_digest": {
+        "README.md": "28e575cd8d82644a5f524347821acdbc0f7eb7f4c1d04b436c93ba44e774e6a0",
+        "project.py": "55fbe4e2516d3e4b159a8efa2b8fdfbd92c842e19b4e1c5b3b3d03946a1268be"
+      }
+    },
+    "R": {
+      "success": true,
+      "work_units": 3,
+      "history_length": 3,
+      "state_digest": {
+        "README.md": "28e575cd8d82644a5f524347821acdbc0f7eb7f4c1d04b436c93ba44e774e6a0",
+        "project.py": "55fbe4e2516d3e4b159a8efa2b8fdfbd92c842e19b4e1c5b3b3d03946a1268be"
+      }
+    },
+    "C": {
+      "success": true,
+      "work_units": 3,
+      "history_length": 3,
+      "state_digest": {
+        "README.md": "28e575cd8d82644a5f524347821acdbc0f7eb7f4c1d04b436c93ba44e774e6a0",
+        "project.py": "55fbe4e2516d3e4b159a8efa2b8fdfbd92c842e19b4e1c5b3b3d03946a1268be"
+      },
+      "original_transcript_available": false,
+      "prompt_has_durable_state": true
+    }
+  }
+}

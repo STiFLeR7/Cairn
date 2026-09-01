@@ -1,0 +1,20 @@
+You are authoring a standalone, fully specified Python repository-edit task for an evaluation. Return one JSON object only. Do not use tools, files, repositories, external context, or prior conversations.
+
+Create a task in the queue/scheduling domain. Its task_id must be "p24_queue_policy". It must contain exactly four independent pure Python functions. Use these names exactly: priority_band, retry_schedule, dispatchable_ids, partition_batches. Their behavior and the supported input domains are entirely your choice, but make every behavior required by evaluation explicit in the README and every scored input/output example public.
+
+Return this exact JSON shape:
+{
+  "task_id": "p24_queue_policy",
+  "title": "...",
+  "functions": [{"name": "...", "domain": "..."}],
+  "starter_project_py": "...",
+  "public_readme": "...",
+  "acceptance_cases": [{"function": "...", "args": [...], "expected": ...}]
+}
+
+Requirements:
+- functions has exactly the four names above, once each.
+- starter_project_py is valid Python 3.11 containing runnable stubs for all four functions; do not use third-party dependencies.
+- acceptance_cases contains all cases that a verifier may score. Each has only function, args, and expected fields; args and expected must be JSON literals.
+- public_readme explains each function, edge conditions, and the supported input domain. It must include exactly the same acceptance_cases array in a fenced ```json block, verbatim as JSON. It must explicitly state that out-of-domain inputs are not scored.
+- Do not introduce hidden requirements, hidden data, randomized behavior, networking, time, files, or side effects.

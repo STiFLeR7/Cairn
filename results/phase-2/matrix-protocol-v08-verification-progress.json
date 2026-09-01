@@ -1,0 +1,37 @@
+{
+  "schema_version": "cairn.phase-2-verification-pilot.v0.8",
+  "purpose": "Counterfactual arm for a verification-state pilot after v0.7 observed that verified prefix progress is not persisted in durable_core.verification.",
+  "hypothesis": {
+    "causal": "The checkpoint currently carries an empty verification list even after verified prefix steps; a fresh R/C agent may make a more correct next action when verified progress is explicitly preserved.",
+    "counterfactual": "Keep the v0.7 control prefix, ContinuationState schema, RGR, prompt composition, models, fixtures, and verifier unchanged while adding only pass VerificationItems for successful prefix steps to the existing durable field.",
+    "comparison": "This arm is paired with matrix-protocol-v08-verification-empty.json; only verification_mode differs.",
+    "invalidation": "No paired improvement in R/C success or next-action correctness in the progress arm invalidates the verification-state hypothesis."
+  },
+  "supersedes": null,
+  "pinned_inputs": {
+    "phase1_control_freeze": {"path": "control-freeze.json", "sha256": "7f969a9c861ad8e85a8103e3b421c78d3a1f2ddb8a37b3d2316e0e8c80bbcc56"},
+    "recoverybench_harness": {"path": "src/cairn/eval/recoverybench.py", "sha256": "86819b8938cd803ad2ddb1acc260fd85d1dc25d74d59f275bc5c3207687772c6"},
+    "urc_runner": {"path": "src/cairn/eval/phase2.py", "sha256": "c1c87149f52f7314890de1d2c1716967ab6d7d97ab6382acde849412d6d5ef95"},
+    "matrix_executor": {"path": "benchmarks/phase2_matrix.py", "sha256": "d9eb3337fbaeba4eee91abe0d90b00031119ae9dd879dccb25206b812c20754f"}
+  },
+  "matrix": {
+    "models": [{"provider": "claude_code", "model": "opus"}, {"provider": "claude_code", "model": "sonnet"}],
+    "fixtures": ["bugfix", "tests"],
+    "split_steps": "all_nonterminal",
+    "ablation": null,
+    "prefix_mode": "control",
+    "prompt_composition": "single_goal",
+    "verification_mode": "progress",
+    "repetitions_per_model_fixture_split": 2,
+    "expected_attempts": 20,
+    "output_directory": "matrix-v08-verification-progress"
+  },
+  "qualification": {
+    "record_schema": "cairn.phase-2-urc.v0.1",
+    "paired_arm": "matrix-protocol-v08-verification-empty.json",
+    "report_all_attempts": true,
+    "scope": "pilot only; no Phase 2 gate or contract claim",
+    "do_not_count": ["v0.7", "ablations", "incomplete_records", "pre-protocol-records"]
+  },
+  "exit": {"pilot_complete": true, "paired_analysis_complete": true, "full_rerun_authorized": false}
+}

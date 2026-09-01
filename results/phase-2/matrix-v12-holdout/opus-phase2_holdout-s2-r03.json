@@ -1,0 +1,34 @@
+{
+  "schema_version": "cairn.phase-2-urc.v0.1",
+  "fixture": {
+    "name": "phase2_holdout",
+    "version": "2"
+  },
+  "run_id": "urc-a70819e412854664b4589c4b06c2d3b0",
+  "split_step": 2,
+  "prefix": {
+    "mode": "control",
+    "work_units": 3
+  },
+  "prompt_composition": "legacy",
+  "verification_mode": "empty",
+  "ablation": null,
+  "live": {
+    "provider": "claude_code",
+    "model": "opus"
+  },
+  "branches": {
+    "U": {
+      "success": false,
+      "invalid": "ValueError: unverified_mutation"
+    },
+    "R": {
+      "success": false,
+      "invalid": "ValueError: unverified_mutation"
+    },
+    "C": {
+      "success": false,
+      "invalid": "ValueError: unverified_mutation"
+    }
+  }
+}

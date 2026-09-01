@@ -1,0 +1,32 @@
+{
+  "schema_version": "cairn.phase-2-urc.v0.1",
+  "fixture": {
+    "name": "followup",
+    "version": "2"
+  },
+  "run_id": "urc-33a7c95b60a34de4b79bf2458c52cf63",
+  "split_step": 0,
+  "prefix": {
+    "mode": "control",
+    "work_units": 1
+  },
+  "ablation": null,
+  "live": {
+    "provider": "claude_code",
+    "model": "sonnet"
+  },
+  "branches": {
+    "U": {
+      "success": false,
+      "invalid": "LiveModelConfigError: Claude Code command not found: claude"
+    },
+    "R": {
+      "success": false,
+      "invalid": "ValueError: unverified_mutation"
+    },
+    "C": {
+      "success": false,
+      "invalid": "ValueError: unverified_progress"
+    }
+  }
+}

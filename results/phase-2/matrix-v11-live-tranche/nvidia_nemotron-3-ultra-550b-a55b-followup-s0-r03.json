@@ -1,0 +1,34 @@
+{
+  "schema_version": "cairn.phase-2-urc.v0.1",
+  "fixture": {
+    "name": "followup",
+    "version": "2"
+  },
+  "run_id": "urc-b8280b11845a4cff8436423e317cf198",
+  "split_step": 0,
+  "prefix": {
+    "mode": "live",
+    "work_units": 1
+  },
+  "prompt_composition": "legacy",
+  "verification_mode": "empty",
+  "ablation": null,
+  "live": {
+    "provider": "nvidia_nim",
+    "model": "nvidia/nemotron-3-ultra-550b-a55b"
+  },
+  "branches": {
+    "U": {
+      "success": false,
+      "invalid": "ValueError: unverified_mutation"
+    },
+    "R": {
+      "success": false,
+      "invalid": "ValueError: model_no_verified_progress"
+    },
+    "C": {
+      "success": false,
+      "invalid": "ValueError: model_no_verified_progress"
+    }
+  }
+}

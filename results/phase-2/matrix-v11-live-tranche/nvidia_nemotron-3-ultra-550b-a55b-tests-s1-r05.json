@@ -1,0 +1,22 @@
+{
+  "schema_version": "cairn.phase-2-urc.v0.1",
+  "fixture": {
+    "name": "tests",
+    "version": "2"
+  },
+  "split_step": 1,
+  "prefix": {
+    "mode": "live"
+  },
+  "prompt_composition": "legacy",
+  "verification_mode": "empty",
+  "ablation": null,
+  "live": {
+    "provider": "nvidia_nim",
+    "model": "nvidia/nemotron-3-ultra-550b-a55b"
+  },
+  "invalid": {
+    "stage": "urc",
+    "detail": "ValueError: model_no_verified_progress"
+  }
+}

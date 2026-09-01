@@ -1,0 +1,1 @@
+{"agent": "live", "fault_step": 0, "fixture": "config", "live": {"max_calls": 12, "max_chars": 100000, "max_tokens": 4096, "model": "nvidia/nemotron-3-super-120b-a12b", "provider": "nvidia_nim"}, "run_id": "recoverybench-live-600675886fc4433fa78afd194a516750"}

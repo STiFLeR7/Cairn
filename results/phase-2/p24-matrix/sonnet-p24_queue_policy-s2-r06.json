@@ -1,0 +1,92 @@
+{
+  "schema_version": "cairn.p24-urc.v0.1",
+  "cell": {
+    "provider": "claude_code",
+    "model": "sonnet",
+    "fixture": "p24_queue_policy",
+    "split_step": 2,
+    "repetition": 6
+  },
+  "run_dir": "results\\phase-2\\p24-matrix\\runs\\p24-5816790e129248058412ab791be2811b",
+  "parent_pid": 23956,
+  "prefix": {
+    "progress": 3
+  },
+  "branches": {
+    "U": {
+      "start_progress": 3,
+      "accepted_progress": [
+        4
+      ],
+      "accepted_actions": [
+        {
+          "step": 3,
+          "kind": "code",
+          "code": "import base64\nfrom pathlib import Path\nPath('project.py').write_bytes(base64.b64decode('ZGVmIHByaW9yaXR5X2JhbmQocHJpb3JpdHk6IGludCkgLT4gaW50OgogICAgcmV0dXJuIDAgaWYgcHJpb3JpdHkgPj0gODAgZWxzZSAxIGlmIHByaW9yaXR5ID49IDUwIGVsc2UgMiBpZiBwcmlvcml0eSA+PSAyMCBlbHNlIDMgaWYgcHJpb3JpdHkgPj0gMCBlbHNlIDQKCmRlZiByZXRyeV9zY2hlZHVsZShhdHRlbXB0OiBpbnQpIC0+IGxpc3RbaW50XToKICAgIHJldHVybiBbMiAqKiBpbmRleCBmb3IgaW5kZXggaW4gcmFuZ2UoYXR0ZW1wdCldCgpkZWYgZGlzcGF0Y2hhYmxlX2lkcyh0YXNrczogZGljdFtzdHIsIHN0cl0pIC0+IGxpc3Rbc3RyXToKICAgIHJldHVybiBzb3J0ZWQodGFza19pZCBmb3IgdGFza19pZCwgc3RhdGUgaW4gdGFza3MuaXRlbXMoKSBpZiBzdGF0ZSBpbiB7J3JlYWR5JywgJ3F1ZXVlZCd9KQoKZGVmIHBhcnRpdGlvbl9iYXRjaGVzKGlkczogbGlzdFtzdHJdLCBiYXRjaF9zaXplOiBpbnQpIC0+IGxpc3RbbGlzdFtzdHJdXToKICAgIHJldHVybiBbaWRzW2k6aStiYXRjaF9zaXplXSBmb3IgaSBpbiByYW5nZSgwLCBsZW4oaWRzKSwgYmF0Y2hfc2l6ZSldCg=='))\nprint(Path('project.py').read_text())"
+        }
+      ],
+      "final_progress": 4,
+      "verified": true,
+      "success": true,
+      "final_digest": {
+        "README.md": "390fefae1f73ac7fa3d95ca9b523bea4b937f9edf8bc4d22b8cf9f2a3dfbce4a",
+        "project.py": "43414b2ea0a9fcfedbb7fe9259e171c5248dcfe82932debe70805c8f092c6366"
+      },
+      "worker_pid": 23956,
+      "parent_pid": 23956,
+      "used_in_memory_history": true,
+      "original_transcript_available": true,
+      "state_serialized": false
+    },
+    "R": {
+      "start_progress": 3,
+      "accepted_progress": [
+        4
+      ],
+      "accepted_actions": [
+        {
+          "step": 3,
+          "kind": "code",
+          "code": "import re\nfrom pathlib import Path\ncontent = Path('project.py').read_text()\ncontent = content.replace(\n    \"def partition_batches(ids: list[str], batch_size: int) -> list[list[str]]:\\n    ...\\n\",\n    \"def partition_batches(ids: list[str], batch_size: int) -> list[list[str]]:\\n    return [ids[i:i+batch_size] for i in range(0, len(ids), batch_size)]\\n\"\n)\nPath('project.py').write_text(content)\nprint(content)"
+        }
+      ],
+      "final_progress": 4,
+      "verified": true,
+      "success": true,
+      "final_digest": {
+        "README.md": "390fefae1f73ac7fa3d95ca9b523bea4b937f9edf8bc4d22b8cf9f2a3dfbce4a",
+        "project.py": "43414b2ea0a9fcfedbb7fe9259e171c5248dcfe82932debe70805c8f092c6366"
+      },
+      "used_in_memory_history": false,
+      "original_transcript_available": false,
+      "state_serialized": false,
+      "worker_pid": 23036,
+      "parent_pid": 23956
+    },
+    "C": {
+      "start_progress": 3,
+      "accepted_progress": [
+        4
+      ],
+      "accepted_actions": [
+        {
+          "step": 3,
+          "kind": "code",
+          "code": "import re\nfrom pathlib import Path\ncontent = Path('project.py').read_text()\nnew_func = '''def partition_batches(ids: list[str], batch_size: int) -> list[list[str]]:\n    return [ids[i:i+batch_size] for i in range(0, len(ids), batch_size)]\n'''\ncontent = re.sub(r'def partition_batches.*', new_func, content, flags=re.S)\nPath('project.py').write_text(content)\nprint(content)"
+        }
+      ],
+      "final_progress": 4,
+      "verified": true,
+      "success": true,
+      "final_digest": {
+        "README.md": "390fefae1f73ac7fa3d95ca9b523bea4b937f9edf8bc4d22b8cf9f2a3dfbce4a",
+        "project.py": "43414b2ea0a9fcfedbb7fe9259e171c5248dcfe82932debe70805c8f092c6366"
+      },
+      "used_in_memory_history": false,
+      "original_transcript_available": false,
+      "state_serialized": true,
+      "worker_pid": 20552,
+      "parent_pid": 23956
+    }
+  }
+}
