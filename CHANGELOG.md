@@ -10,6 +10,10 @@ updates this file.
 ## [Unreleased]
 
 ### Added
+- **Phase 4 Claude Code evidence:** two sealed reconstitutions and raw manifests are retained. Corrected v2
+  passed its input, recovery, and effect-safety checks but failed the locked U/R/C byte-equivalence gate:
+  independent uninterrupted and crash paths emitted equivalent code with different quote styles. P4 remains
+  blocked; no host-integration, exactly-once, or interoperability claim is admitted.
 - **Phase 1 RecoveryBench evidence:** a deterministic terminal coding-agent reference harness for
   crash/restart recovery, with raw artifacts and a published report in `results/phase-1/`.
 - **Continuation Contract v0:** an admitted, evidence-scoped contract for fresh-process repository
@@ -28,8 +32,9 @@ updates this file.
 ### Evidence boundary
 - The P2 sealed holdout used Claude Code Opus and Sonnet but is conditional on an eligible checkpoint;
   it is not a general live-model success-rate study. The P3 holdout independently sealed task semantics
-  but reused the deterministic reference provider and harness. See the linked contract documents and
-  `results/phase-{1,2,3}/` artifacts.
+  but reused the deterministic reference provider and harness. P4 evidence covers one host/provider attempt,
+  not a general adapter, independent-provider validation, exactly-once result, or interoperability standard. See
+  the linked contract documents and `results/phase-{1,2,3,4}/` artifacts.
 
 ## [0.3.0] — 2026-07-02 — Milestone M4: BYOM recovery library (in-repo, 0.x — ships nothing outward)
 

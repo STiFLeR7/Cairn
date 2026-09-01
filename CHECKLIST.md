@@ -6,12 +6,12 @@
 
 ## Current recovery proof ladder
 
-This P1–P3 ladder is separate from the legacy numbered phases below.
+This P1–P3 ladder is separate from the legacy numbered phases below; P4 has a documented blocking finding.
 
 - [x] **P1 — repository crash/restart fidelity** *(deterministic reference harness; [raw report](results/phase-1/REPORT.md))*
 - [x] **P2 — compaction continuity** *([Continuation Contract v0](docs/design/continuation-contract-v0.md); P2.4: 40 eligible U/R/C cells, with 20 preserved pre-continuation acquisition failures)*
 - [x] **P3 — external-effect recovery** *([Receipt/Reconciliation Contract v0](docs/design/receipt-reconciliation-contract-v0.md); one deterministic create-once provider effect, no exactly-once claim)*
-- [ ] **P4 — external integration proof** *(architecture/proof planning only; no adapter admitted)*
+- [ ] **P4 — external integration proof** *([Claude Code integration proof](docs/design/phase-4-claude-code-integration.md); blocked: sealed Claude Code v2 fails locked U/R/C byte-equivalence despite recovery preserving its crash artifact)*
 
 ## Phases
 

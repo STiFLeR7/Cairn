@@ -1,0 +1,7 @@
+{
+  "coding_recovery_template": "fresh process; sole continuation input; reobserve TASK.md and verify.py; preserve verified work; stop",
+  "effect_recovery_template": "fresh process; sole external input; first command observe; matching present closes skip; all other observations escalate",
+  "schema_version": "cairn.p4-claude-code-reconstitution.v0.1",
+  "status": "sealed-before-execution",
+  "task_prompt": "Read TASK.md and execute it exactly."
+}

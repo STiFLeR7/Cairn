@@ -1,0 +1,2 @@
+{"effect_id": "p4-claude-holdout-v2-create-once", "idempotency_key": "p4-claude-holdout-v2-key", "kind": "dispatch", "request_fingerprint": "p4-claude-holdout-v2-request", "tool_class": "create-once"}
+{"effect_id": "p4-claude-holdout-v2-create-once", "idempotency_key": "p4-claude-holdout-v2-key", "kind": "commit", "request_fingerprint": "p4-claude-holdout-v2-request", "tool_class": "create-once"}

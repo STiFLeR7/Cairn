@@ -1,0 +1,17 @@
+{
+  "intent": "Implement greet(name) in greeting.py to return 'Hello, <name>!' and verify it.",
+  "active_subgoal": "Completed: verify.py passes for greeting.greet",
+  "accepted_decisions": [
+    "greet(name) returns the string formatted as f\"Hello, {name}!\""
+  ],
+  "verified_work": [
+    "greeting.py defines greet(name) returning 'Hello, <name>!'",
+    "verify.py executed successfully and printed 'verified'"
+  ],
+  "verification_state": "passed",
+  "world_digest": "greeting.py and verify.py present in sealed-workloads/c; verify.py imports greet from greeting and asserts greet('Ada') == 'Hello, Ada!'",
+  "checkpoint_provenance": "python verify.py run from sealed-workloads/c on 2026-09-01",
+  "stop_condition": "verify.py passed; task complete",
+  "next_action": "none",
+  "first_recovery_operation": "reobserve"
+}

@@ -1,0 +1,17 @@
+{
+  "intent": "Implement greet(name) in greeting.py to return 'Hello, <name>!' and verify it passes verify.py.",
+  "active_subgoal": "Task complete: greeting.py implemented and verified.",
+  "accepted_decisions": [
+    "greet(name) returns an f-string formatted as 'Hello, {name}!'"
+  ],
+  "verified_work": [
+    "greeting.py defines greet(name) returning 'Hello, <name>!'",
+    "python verify.py executed and printed 'verified' with no assertion errors"
+  ],
+  "verification_state": "passed",
+  "world_digest": "Directory contains TASK.md, verify.py, greeting.py. verify.py asserts greet('Ada') == 'Hello, Ada!' and prints 'verified'.",
+  "checkpoint_provenance": "Created after successful run of `python verify.py` in the sealed workload directory.",
+  "stop_condition": "verify.py passes and this continuation file has been written; task is complete.",
+  "next_action": "None; task finished. If resumed, re-run `python verify.py` to reconfirm before taking further action.",
+  "first_recovery_operation": "reobserve"
+}

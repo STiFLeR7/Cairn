@@ -1,0 +1,7 @@
+{
+  "effect_id": "p4-claude-holdout-v2-create-once",
+  "idempotency_key": "p4-claude-holdout-v2-key",
+  "observed_from": "commit",
+  "request_fingerprint": "p4-claude-holdout-v2-request",
+  "resource_id": "resource-29eb42332e98"
+}

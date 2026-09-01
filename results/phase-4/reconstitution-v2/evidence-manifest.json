@@ -1,0 +1,665 @@
+{
+  "entries": [
+    {
+      "bytes": 24452,
+      "path": "c-compacted/record.json",
+      "sha256": "c6a434aad9ae34ff605a3d9eb33fae21b22ecdf430a7cb43dc54e661d4dd7654"
+    },
+    {
+      "bytes": 0,
+      "path": "c-compacted/stderr.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 13935,
+      "path": "c-compacted/stdout.jsonl",
+      "sha256": "89800d491e5715bb8d7766370f5b36ed076b6e1e43939e9781cf52d9c1b05915"
+    },
+    {
+      "bytes": 36168,
+      "path": "c-initial/record.json",
+      "sha256": "a2a759e7e9e54d208dea343f4888e3452a7a5a35bec81aa40ae62d500e123c42"
+    },
+    {
+      "bytes": 0,
+      "path": "c-initial/stderr.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 23488,
+      "path": "c-initial/stdout.jsonl",
+      "sha256": "f29aa5ca326062be1153c52dfab2f29f061902742e75704f723412747d4f4fff"
+    },
+    {
+      "bytes": 32126,
+      "path": "effect-r-crash/record.json",
+      "sha256": "895dc52b177d6012e45036a4a030b09a45c27bbd3902603b53cd92566eb9f5fb"
+    },
+    {
+      "bytes": 0,
+      "path": "effect-r-crash/stderr.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 22991,
+      "path": "effect-r-crash/stdout.jsonl",
+      "sha256": "1965f359a0d4b51ccf04b9eac199b443c16f9f7d506ae63d801c76e6d62bc21e"
+    },
+    {
+      "bytes": 18003,
+      "path": "effect-r-recovery/record.json",
+      "sha256": "64eeef9c30863482b7ca3cae4b9419a6a454624815a9e86bc89100dce728cff8"
+    },
+    {
+      "bytes": 0,
+      "path": "effect-r-recovery/stderr.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 10346,
+      "path": "effect-r-recovery/stdout.jsonl",
+      "sha256": "838c8c6d27e1b98c93ec4533590adf976ebd0d63f4384e0769c5e909b5f9c15f"
+    },
+    {
+      "bytes": 50407,
+      "path": "effect-u/record.json",
+      "sha256": "4799e0fed5f4df96e185858d5a9c4378977818abe8c83092561d1443c3ffa7f7"
+    },
+    {
+      "bytes": 0,
+      "path": "effect-u/stderr.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 36056,
+      "path": "effect-u/stdout.jsonl",
+      "sha256": "6bc6b7112b6ee91ecf7d754ec06349b8ef981b2d92728b77f2725fbd9542f5c4"
+    },
+    {
+      "bytes": 825,
+      "path": "evidence-snapshot/c/workspace/.cairn-continuation.json",
+      "sha256": "d8d2f111fb0dac34ed0ed21eeae0a85e2d3ff2f81f31faee44f1f0658534e720"
+    },
+    {
+      "bytes": 322,
+      "path": "evidence-snapshot/c/workspace/__pycache__/greeting.cpython-312.pyc",
+      "sha256": "ba6537cfc9e1783460bc5e932bf813a477dcde51e89bc0e41cf8317e475176b3"
+    },
+    {
+      "bytes": 46,
+      "path": "evidence-snapshot/c/workspace/greeting.py",
+      "sha256": "a55c14346b5c0e11da873793db175efd28d4840a330a5edba18d03d7d7310626"
+    },
+    {
+      "bytes": 458,
+      "path": "evidence-snapshot/c/workspace/TASK.md",
+      "sha256": "f7eccfe59f4cd56c70694b559a572fbbac9391558b696dc4ada965c990c288f2"
+    },
+    {
+      "bytes": 87,
+      "path": "evidence-snapshot/c/workspace/verify.py",
+      "sha256": "7f2b572a13edc36ae41228bd853c1e373c35aa566367fe5d5fbae6b2336af178"
+    },
+    {
+      "bytes": 336,
+      "path": "evidence-snapshot/effect-r/remote/provider-events.jsonl",
+      "sha256": "16219ebf7929b15990117feab4e588f86954aae6fbd5f11005511b38bed3f8ff"
+    },
+    {
+      "bytes": 136,
+      "path": "evidence-snapshot/effect-r/remote/provider.json",
+      "sha256": "d4ddace989f19c1e968159d364ea5cfe79213e8d9a28a74be5a2dcbd1ea30031"
+    },
+    {
+      "bytes": 164,
+      "path": "evidence-snapshot/effect-r/workspace/.cairn-effect-intent.json",
+      "sha256": "52e9e58891343dfd7b2a61f649618a2c27b6c1a0538cd990b4905ef394b0ea02"
+    },
+    {
+      "bytes": 118,
+      "path": "evidence-snapshot/effect-r/workspace/.cairn-effect-observation.json",
+      "sha256": "c9a24d896f2be9775f9f76f776dc860ae58ab864e44d2d945709b3df13ccdab3"
+    },
+    {
+      "bytes": 208,
+      "path": "evidence-snapshot/effect-r/workspace/.cairn-effect-receipt.json",
+      "sha256": "de03c093cffb2ae7d4810b831b2d09b340f99d8611d7c81cf3ec9e989cd54e02"
+    },
+    {
+      "bytes": 172,
+      "path": "evidence-snapshot/effect-r/workspace/.cairn-effect-resolution.json",
+      "sha256": "6f57bfed48e7abc4ef84e811d1bdedb3fceff367ef6691d9a2e7ef3c984d5a38"
+    },
+    {
+      "bytes": 308,
+      "path": "evidence-snapshot/effect-r/workspace/.cairn-effects.jsonl",
+      "sha256": "51c61f8e4ddeaac9cb3d5427d6252ae57dd0f516a8ca659d49fd7138e9a03282"
+    },
+    {
+      "bytes": 205,
+      "path": "evidence-snapshot/effect-r/workspace/.cairn-provider-response.json",
+      "sha256": "52a47c00d2e3f248f82aecaa394d846748bdcc7eea6eb985f585488c5f6d1a61"
+    },
+    {
+      "bytes": 596,
+      "path": "evidence-snapshot/effect-r/workspace/EFFECT_TASK.md",
+      "sha256": "da62e69b6774bd59a9c1499958aca2478be98bdaaf54ff96bd1945e28f07be62"
+    },
+    {
+      "bytes": 2824,
+      "path": "evidence-snapshot/effect-r/workspace/effect_tool.py",
+      "sha256": "1bdc02199c83b180366345942eeb09b96d7d90aad4c90e75c0e80af7a5fc8371"
+    },
+    {
+      "bytes": 336,
+      "path": "evidence-snapshot/effect-u/remote/provider-events.jsonl",
+      "sha256": "16219ebf7929b15990117feab4e588f86954aae6fbd5f11005511b38bed3f8ff"
+    },
+    {
+      "bytes": 136,
+      "path": "evidence-snapshot/effect-u/remote/provider.json",
+      "sha256": "d4ddace989f19c1e968159d364ea5cfe79213e8d9a28a74be5a2dcbd1ea30031"
+    },
+    {
+      "bytes": 164,
+      "path": "evidence-snapshot/effect-u/workspace/.cairn-effect-intent.json",
+      "sha256": "52e9e58891343dfd7b2a61f649618a2c27b6c1a0538cd990b4905ef394b0ea02"
+    },
+    {
+      "bytes": 205,
+      "path": "evidence-snapshot/effect-u/workspace/.cairn-effect-receipt.json",
+      "sha256": "52a47c00d2e3f248f82aecaa394d846748bdcc7eea6eb985f585488c5f6d1a61"
+    },
+    {
+      "bytes": 176,
+      "path": "evidence-snapshot/effect-u/workspace/.cairn-effect-resolution.json",
+      "sha256": "8428959efefa7c096645a536afeb6a43d921bd3f6c298ec4cad32519549203ed"
+    },
+    {
+      "bytes": 308,
+      "path": "evidence-snapshot/effect-u/workspace/.cairn-effects.jsonl",
+      "sha256": "02500a80dce01eb9db49cd3add84535d3094ba22efdbd0acacf3f45b1fa92f01"
+    },
+    {
+      "bytes": 205,
+      "path": "evidence-snapshot/effect-u/workspace/.cairn-provider-response.json",
+      "sha256": "52a47c00d2e3f248f82aecaa394d846748bdcc7eea6eb985f585488c5f6d1a61"
+    },
+    {
+      "bytes": 596,
+      "path": "evidence-snapshot/effect-u/workspace/EFFECT_TASK.md",
+      "sha256": "da62e69b6774bd59a9c1499958aca2478be98bdaaf54ff96bd1945e28f07be62"
+    },
+    {
+      "bytes": 2824,
+      "path": "evidence-snapshot/effect-u/workspace/effect_tool.py",
+      "sha256": "65eaacf8365c54fbb86a17c5bdc40356fa6d02c333d1d4293f73f4004d3eb144"
+    },
+    {
+      "bytes": 402,
+      "path": "evidence-snapshot/holdout/remote/provider-events.jsonl",
+      "sha256": "ebc5e5538fd878a35a6d0633720ec370f73299128719e25488cf9b0ba953c926"
+    },
+    {
+      "bytes": 158,
+      "path": "evidence-snapshot/holdout/remote/provider.json",
+      "sha256": "31bd80c1feaddc71be9322a2887d2aac59ff72fb6ceadbb5a75bba4845cba0b1"
+    },
+    {
+      "bytes": 1328,
+      "path": "evidence-snapshot/holdout/workspace/.cairn-continuation.json",
+      "sha256": "fe1924adfff62897ab96eaf0448942e93966eb652132a03adff97163a6bd08d2"
+    },
+    {
+      "bytes": 197,
+      "path": "evidence-snapshot/holdout/workspace/.cairn-effect-intent.json",
+      "sha256": "aecf08e13122788c1f192e663811c83401908e0a577155da4c03d4fbce06180f"
+    },
+    {
+      "bytes": 129,
+      "path": "evidence-snapshot/holdout/workspace/.cairn-effect-observation.json",
+      "sha256": "c052f99c691fbe183b2c01df5c981286b0cdcb178ce201756bb40ea8ed796131"
+    },
+    {
+      "bytes": 241,
+      "path": "evidence-snapshot/holdout/workspace/.cairn-effect-receipt.json",
+      "sha256": "90af01b7923da6f9f9c73eaeff9edccb61c7c5f9ccda0940db373b100d41760f"
+    },
+    {
+      "bytes": 183,
+      "path": "evidence-snapshot/holdout/workspace/.cairn-effect-resolution.json",
+      "sha256": "90d0949712fba6cebe6168c129b1ee906d1e1e15ff99b4e8fc23d234ceea25e3"
+    },
+    {
+      "bytes": 330,
+      "path": "evidence-snapshot/holdout/workspace/.cairn-effects.jsonl",
+      "sha256": "11b034bf11ab33dc19ce73b09ce8583f8e250d3720e962a4c7d1950d3c3a93a4"
+    },
+    {
+      "bytes": 238,
+      "path": "evidence-snapshot/holdout/workspace/.cairn-provider-response.json",
+      "sha256": "42b66bc444e1cfde9cbbc0bce18c766d180295af45253ddac4f8096d9f1dc286"
+    },
+    {
+      "bytes": 634,
+      "path": "evidence-snapshot/holdout/workspace/__pycache__/segments.cpython-312.pyc",
+      "sha256": "f639d8ae49b0c9a4e9171cc9887d2d7f4db1e8a4454cd0db80e322138bd9b1a6"
+    },
+    {
+      "bytes": 596,
+      "path": "evidence-snapshot/holdout/workspace/EFFECT_TASK.md",
+      "sha256": "da62e69b6774bd59a9c1499958aca2478be98bdaaf54ff96bd1945e28f07be62"
+    },
+    {
+      "bytes": 2856,
+      "path": "evidence-snapshot/holdout/workspace/effect_tool.py",
+      "sha256": "3a882b3c849e4450518a9b14adc750ae43486c25208b8c07f57414fab095aae6"
+    },
+    {
+      "bytes": 87,
+      "path": "evidence-snapshot/holdout/workspace/segments.py",
+      "sha256": "a6e51e5404a4cbe07282f8e82afe42995c4f2efd2ca626f4a1daf7690854709d"
+    },
+    {
+      "bytes": 689,
+      "path": "evidence-snapshot/holdout/workspace/TASK.md",
+      "sha256": "c433701a5ad9273bb7a18d2f3ef9131faae97e308b6f351b3c19fd57b78f4d0e"
+    },
+    {
+      "bytes": 124,
+      "path": "evidence-snapshot/holdout/workspace/verify.py",
+      "sha256": "8fd9356f7993eab3a055c080239322d9272f12c8cb35178cbbb12ff08cef02b8"
+    },
+    {
+      "bytes": 1022,
+      "path": "evidence-snapshot/r/workspace/.cairn-continuation.json",
+      "sha256": "96bc37f13f52aef451a89647f6449697d1456c1cc3c4a02bd4c25ac07c64743f"
+    },
+    {
+      "bytes": 322,
+      "path": "evidence-snapshot/r/workspace/__pycache__/greeting.cpython-312.pyc",
+      "sha256": "3619eec62bd21df56842ebd6e5ec01e9c9c5bcbdbdc5ac8aa47d846047d060ef"
+    },
+    {
+      "bytes": 46,
+      "path": "evidence-snapshot/r/workspace/greeting.py",
+      "sha256": "e212ec43d9fd52c0ecdfe25403aded16f21015ca62419686c4fe68413043e2d1"
+    },
+    {
+      "bytes": 458,
+      "path": "evidence-snapshot/r/workspace/TASK.md",
+      "sha256": "f7eccfe59f4cd56c70694b559a572fbbac9391558b696dc4ada965c990c288f2"
+    },
+    {
+      "bytes": 87,
+      "path": "evidence-snapshot/r/workspace/verify.py",
+      "sha256": "7f2b572a13edc36ae41228bd853c1e373c35aa566367fe5d5fbae6b2336af178"
+    },
+    {
+      "bytes": 960,
+      "path": "evidence-snapshot/u/workspace/.cairn-continuation.json",
+      "sha256": "b6c4b195e87681ef594feec3e18b4972cc8f2995b9d0e1c46da2b874b5599fc0"
+    },
+    {
+      "bytes": 322,
+      "path": "evidence-snapshot/u/workspace/__pycache__/greeting.cpython-312.pyc",
+      "sha256": "b245fde713c3d2ba310dfc2f596b0e7fcf7b03f0bd9f9caaa2f6bf55142106dc"
+    },
+    {
+      "bytes": 46,
+      "path": "evidence-snapshot/u/workspace/greeting.py",
+      "sha256": "a55c14346b5c0e11da873793db175efd28d4840a330a5edba18d03d7d7310626"
+    },
+    {
+      "bytes": 458,
+      "path": "evidence-snapshot/u/workspace/TASK.md",
+      "sha256": "f7eccfe59f4cd56c70694b559a572fbbac9391558b696dc4ada965c990c288f2"
+    },
+    {
+      "bytes": 87,
+      "path": "evidence-snapshot/u/workspace/verify.py",
+      "sha256": "7f2b572a13edc36ae41228bd853c1e373c35aa566367fe5d5fbae6b2336af178"
+    },
+    {
+      "bytes": 95,
+      "path": "execution-complete.json",
+      "sha256": "0cadfc143f6771860648a6b987420af8ed338388fe3ccc4721f80e3907ebf957"
+    },
+    {
+      "bytes": 187568,
+      "path": "holdout-crash/record.json",
+      "sha256": "22b9e398d9721878ab2b2d330863deb846e7d9db55233d23ac6cb5f4d1f4d574"
+    },
+    {
+      "bytes": 0,
+      "path": "holdout-crash/stderr.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 144833,
+      "path": "holdout-crash/stdout.jsonl",
+      "sha256": "a1d5f603c47fcff98b7a0f8e1784cca2675e13ee6b235445cfb00eeff15313f3"
+    },
+    {
+      "bytes": 34261,
+      "path": "holdout-recovery/record.json",
+      "sha256": "5ac1de62b07b69a782e66c32fd211a4040cc173a90688573d358cd1fe8a8d292"
+    },
+    {
+      "bytes": 0,
+      "path": "holdout-recovery/stderr.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 18944,
+      "path": "holdout-recovery/stdout.jsonl",
+      "sha256": "6d22b5560cac4bbb8a757bb96f8000e08d1c2617d5843c6dd7a90d5404b5e3f2"
+    },
+    {
+      "bytes": 7544,
+      "path": "pre-run-freeze.json",
+      "sha256": "6320a8b3fcaca10cd045dcf6cd337b4c2dc5e6755bd37e47698d45a301066ae2"
+    },
+    {
+      "bytes": 486,
+      "path": "prepared-contexts.json",
+      "sha256": "5bc271d2a9c0e870a503bca7f868df62c07e7b6fa6e484027d25fd869353cafe"
+    },
+    {
+      "bytes": 459,
+      "path": "protocol.json",
+      "sha256": "1fac5c97ed1b92c724d20c4ac208d5e9106ae34dfce13ddd2ef657f385295276"
+    },
+    {
+      "bytes": 30565,
+      "path": "r-crash/record.json",
+      "sha256": "0cc5e7c9541f71786e7a12230dc13934d2e0f01b9d94053c7f462e618659b1d3"
+    },
+    {
+      "bytes": 0,
+      "path": "r-crash/stderr.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 19668,
+      "path": "r-crash/stdout.jsonl",
+      "sha256": "68e8ee5419597bf5fbcddee6a978214f9e9ea83863e87d6cc7d2732f6707d2d0"
+    },
+    {
+      "bytes": 24387,
+      "path": "r-recovery/record.json",
+      "sha256": "828801acfe30728c70306362aa50d3ba26d0d65d40751d6cd4f513a37563d8d6"
+    },
+    {
+      "bytes": 0,
+      "path": "r-recovery/stderr.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 13585,
+      "path": "r-recovery/stdout.jsonl",
+      "sha256": "159c49157c1840b4abce2794b62ad4251febfadb8a601ebbd060405b3ade279f"
+    },
+    {
+      "bytes": 825,
+      "path": "sealed-workloads/c/.cairn-continuation.json",
+      "sha256": "d8d2f111fb0dac34ed0ed21eeae0a85e2d3ff2f81f31faee44f1f0658534e720"
+    },
+    {
+      "bytes": 322,
+      "path": "sealed-workloads/c/__pycache__/greeting.cpython-312.pyc",
+      "sha256": "ba6537cfc9e1783460bc5e932bf813a477dcde51e89bc0e41cf8317e475176b3"
+    },
+    {
+      "bytes": 46,
+      "path": "sealed-workloads/c/greeting.py",
+      "sha256": "a55c14346b5c0e11da873793db175efd28d4840a330a5edba18d03d7d7310626"
+    },
+    {
+      "bytes": 458,
+      "path": "sealed-workloads/c/TASK.md",
+      "sha256": "f7eccfe59f4cd56c70694b559a572fbbac9391558b696dc4ada965c990c288f2"
+    },
+    {
+      "bytes": 87,
+      "path": "sealed-workloads/c/verify.py",
+      "sha256": "7f2b572a13edc36ae41228bd853c1e373c35aa566367fe5d5fbae6b2336af178"
+    },
+    {
+      "bytes": 336,
+      "path": "sealed-workloads/effect-r/remote/provider-events.jsonl",
+      "sha256": "16219ebf7929b15990117feab4e588f86954aae6fbd5f11005511b38bed3f8ff"
+    },
+    {
+      "bytes": 136,
+      "path": "sealed-workloads/effect-r/remote/provider.json",
+      "sha256": "d4ddace989f19c1e968159d364ea5cfe79213e8d9a28a74be5a2dcbd1ea30031"
+    },
+    {
+      "bytes": 164,
+      "path": "sealed-workloads/effect-r/workspace/.cairn-effect-intent.json",
+      "sha256": "52e9e58891343dfd7b2a61f649618a2c27b6c1a0538cd990b4905ef394b0ea02"
+    },
+    {
+      "bytes": 118,
+      "path": "sealed-workloads/effect-r/workspace/.cairn-effect-observation.json",
+      "sha256": "c9a24d896f2be9775f9f76f776dc860ae58ab864e44d2d945709b3df13ccdab3"
+    },
+    {
+      "bytes": 208,
+      "path": "sealed-workloads/effect-r/workspace/.cairn-effect-receipt.json",
+      "sha256": "de03c093cffb2ae7d4810b831b2d09b340f99d8611d7c81cf3ec9e989cd54e02"
+    },
+    {
+      "bytes": 172,
+      "path": "sealed-workloads/effect-r/workspace/.cairn-effect-resolution.json",
+      "sha256": "6f57bfed48e7abc4ef84e811d1bdedb3fceff367ef6691d9a2e7ef3c984d5a38"
+    },
+    {
+      "bytes": 308,
+      "path": "sealed-workloads/effect-r/workspace/.cairn-effects.jsonl",
+      "sha256": "51c61f8e4ddeaac9cb3d5427d6252ae57dd0f516a8ca659d49fd7138e9a03282"
+    },
+    {
+      "bytes": 205,
+      "path": "sealed-workloads/effect-r/workspace/.cairn-provider-response.json",
+      "sha256": "52a47c00d2e3f248f82aecaa394d846748bdcc7eea6eb985f585488c5f6d1a61"
+    },
+    {
+      "bytes": 596,
+      "path": "sealed-workloads/effect-r/workspace/EFFECT_TASK.md",
+      "sha256": "da62e69b6774bd59a9c1499958aca2478be98bdaaf54ff96bd1945e28f07be62"
+    },
+    {
+      "bytes": 2824,
+      "path": "sealed-workloads/effect-r/workspace/effect_tool.py",
+      "sha256": "1bdc02199c83b180366345942eeb09b96d7d90aad4c90e75c0e80af7a5fc8371"
+    },
+    {
+      "bytes": 336,
+      "path": "sealed-workloads/effect-u/remote/provider-events.jsonl",
+      "sha256": "16219ebf7929b15990117feab4e588f86954aae6fbd5f11005511b38bed3f8ff"
+    },
+    {
+      "bytes": 136,
+      "path": "sealed-workloads/effect-u/remote/provider.json",
+      "sha256": "d4ddace989f19c1e968159d364ea5cfe79213e8d9a28a74be5a2dcbd1ea30031"
+    },
+    {
+      "bytes": 164,
+      "path": "sealed-workloads/effect-u/workspace/.cairn-effect-intent.json",
+      "sha256": "52e9e58891343dfd7b2a61f649618a2c27b6c1a0538cd990b4905ef394b0ea02"
+    },
+    {
+      "bytes": 205,
+      "path": "sealed-workloads/effect-u/workspace/.cairn-effect-receipt.json",
+      "sha256": "52a47c00d2e3f248f82aecaa394d846748bdcc7eea6eb985f585488c5f6d1a61"
+    },
+    {
+      "bytes": 176,
+      "path": "sealed-workloads/effect-u/workspace/.cairn-effect-resolution.json",
+      "sha256": "8428959efefa7c096645a536afeb6a43d921bd3f6c298ec4cad32519549203ed"
+    },
+    {
+      "bytes": 308,
+      "path": "sealed-workloads/effect-u/workspace/.cairn-effects.jsonl",
+      "sha256": "02500a80dce01eb9db49cd3add84535d3094ba22efdbd0acacf3f45b1fa92f01"
+    },
+    {
+      "bytes": 205,
+      "path": "sealed-workloads/effect-u/workspace/.cairn-provider-response.json",
+      "sha256": "52a47c00d2e3f248f82aecaa394d846748bdcc7eea6eb985f585488c5f6d1a61"
+    },
+    {
+      "bytes": 596,
+      "path": "sealed-workloads/effect-u/workspace/EFFECT_TASK.md",
+      "sha256": "da62e69b6774bd59a9c1499958aca2478be98bdaaf54ff96bd1945e28f07be62"
+    },
+    {
+      "bytes": 2824,
+      "path": "sealed-workloads/effect-u/workspace/effect_tool.py",
+      "sha256": "65eaacf8365c54fbb86a17c5bdc40356fa6d02c333d1d4293f73f4004d3eb144"
+    },
+    {
+      "bytes": 402,
+      "path": "sealed-workloads/holdout/remote/provider-events.jsonl",
+      "sha256": "ebc5e5538fd878a35a6d0633720ec370f73299128719e25488cf9b0ba953c926"
+    },
+    {
+      "bytes": 158,
+      "path": "sealed-workloads/holdout/remote/provider.json",
+      "sha256": "31bd80c1feaddc71be9322a2887d2aac59ff72fb6ceadbb5a75bba4845cba0b1"
+    },
+    {
+      "bytes": 1328,
+      "path": "sealed-workloads/holdout/workspace/.cairn-continuation.json",
+      "sha256": "fe1924adfff62897ab96eaf0448942e93966eb652132a03adff97163a6bd08d2"
+    },
+    {
+      "bytes": 197,
+      "path": "sealed-workloads/holdout/workspace/.cairn-effect-intent.json",
+      "sha256": "aecf08e13122788c1f192e663811c83401908e0a577155da4c03d4fbce06180f"
+    },
+    {
+      "bytes": 129,
+      "path": "sealed-workloads/holdout/workspace/.cairn-effect-observation.json",
+      "sha256": "c052f99c691fbe183b2c01df5c981286b0cdcb178ce201756bb40ea8ed796131"
+    },
+    {
+      "bytes": 241,
+      "path": "sealed-workloads/holdout/workspace/.cairn-effect-receipt.json",
+      "sha256": "90af01b7923da6f9f9c73eaeff9edccb61c7c5f9ccda0940db373b100d41760f"
+    },
+    {
+      "bytes": 183,
+      "path": "sealed-workloads/holdout/workspace/.cairn-effect-resolution.json",
+      "sha256": "90d0949712fba6cebe6168c129b1ee906d1e1e15ff99b4e8fc23d234ceea25e3"
+    },
+    {
+      "bytes": 330,
+      "path": "sealed-workloads/holdout/workspace/.cairn-effects.jsonl",
+      "sha256": "11b034bf11ab33dc19ce73b09ce8583f8e250d3720e962a4c7d1950d3c3a93a4"
+    },
+    {
+      "bytes": 238,
+      "path": "sealed-workloads/holdout/workspace/.cairn-provider-response.json",
+      "sha256": "42b66bc444e1cfde9cbbc0bce18c766d180295af45253ddac4f8096d9f1dc286"
+    },
+    {
+      "bytes": 634,
+      "path": "sealed-workloads/holdout/workspace/__pycache__/segments.cpython-312.pyc",
+      "sha256": "f639d8ae49b0c9a4e9171cc9887d2d7f4db1e8a4454cd0db80e322138bd9b1a6"
+    },
+    {
+      "bytes": 596,
+      "path": "sealed-workloads/holdout/workspace/EFFECT_TASK.md",
+      "sha256": "da62e69b6774bd59a9c1499958aca2478be98bdaaf54ff96bd1945e28f07be62"
+    },
+    {
+      "bytes": 2856,
+      "path": "sealed-workloads/holdout/workspace/effect_tool.py",
+      "sha256": "3a882b3c849e4450518a9b14adc750ae43486c25208b8c07f57414fab095aae6"
+    },
+    {
+      "bytes": 87,
+      "path": "sealed-workloads/holdout/workspace/segments.py",
+      "sha256": "a6e51e5404a4cbe07282f8e82afe42995c4f2efd2ca626f4a1daf7690854709d"
+    },
+    {
+      "bytes": 689,
+      "path": "sealed-workloads/holdout/workspace/TASK.md",
+      "sha256": "c433701a5ad9273bb7a18d2f3ef9131faae97e308b6f351b3c19fd57b78f4d0e"
+    },
+    {
+      "bytes": 124,
+      "path": "sealed-workloads/holdout/workspace/verify.py",
+      "sha256": "8fd9356f7993eab3a055c080239322d9272f12c8cb35178cbbb12ff08cef02b8"
+    },
+    {
+      "bytes": 1022,
+      "path": "sealed-workloads/r/.cairn-continuation.json",
+      "sha256": "96bc37f13f52aef451a89647f6449697d1456c1cc3c4a02bd4c25ac07c64743f"
+    },
+    {
+      "bytes": 322,
+      "path": "sealed-workloads/r/__pycache__/greeting.cpython-312.pyc",
+      "sha256": "3619eec62bd21df56842ebd6e5ec01e9c9c5bcbdbdc5ac8aa47d846047d060ef"
+    },
+    {
+      "bytes": 46,
+      "path": "sealed-workloads/r/greeting.py",
+      "sha256": "e212ec43d9fd52c0ecdfe25403aded16f21015ca62419686c4fe68413043e2d1"
+    },
+    {
+      "bytes": 458,
+      "path": "sealed-workloads/r/TASK.md",
+      "sha256": "f7eccfe59f4cd56c70694b559a572fbbac9391558b696dc4ada965c990c288f2"
+    },
+    {
+      "bytes": 87,
+      "path": "sealed-workloads/r/verify.py",
+      "sha256": "7f2b572a13edc36ae41228bd853c1e373c35aa566367fe5d5fbae6b2336af178"
+    },
+    {
+      "bytes": 960,
+      "path": "sealed-workloads/u/.cairn-continuation.json",
+      "sha256": "b6c4b195e87681ef594feec3e18b4972cc8f2995b9d0e1c46da2b874b5599fc0"
+    },
+    {
+      "bytes": 322,
+      "path": "sealed-workloads/u/__pycache__/greeting.cpython-312.pyc",
+      "sha256": "b245fde713c3d2ba310dfc2f596b0e7fcf7b03f0bd9f9caaa2f6bf55142106dc"
+    },
+    {
+      "bytes": 46,
+      "path": "sealed-workloads/u/greeting.py",
+      "sha256": "a55c14346b5c0e11da873793db175efd28d4840a330a5edba18d03d7d7310626"
+    },
+    {
+      "bytes": 458,
+      "path": "sealed-workloads/u/TASK.md",
+      "sha256": "f7eccfe59f4cd56c70694b559a572fbbac9391558b696dc4ada965c990c288f2"
+    },
+    {
+      "bytes": 87,
+      "path": "sealed-workloads/u/verify.py",
+      "sha256": "7f2b572a13edc36ae41228bd853c1e373c35aa566367fe5d5fbae6b2336af178"
+    },
+    {
+      "bytes": 61238,
+      "path": "u/record.json",
+      "sha256": "04e01db3545c39f07b4895c4f4fe8b11e833e8e22540f8aa0324571f3e208f9c"
+    },
+    {
+      "bytes": 0,
+      "path": "u/stderr.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 44905,
+      "path": "u/stdout.jsonl",
+      "sha256": "26ef00f015d239eb0b7ad3dc2b3f11f3e60b84cff7abc856c5307ec8279709c7"
+    }
+  ],
+  "schema_version": "cairn.p4-evidence-manifest.v0.2"
+}

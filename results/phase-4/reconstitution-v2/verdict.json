@@ -1,0 +1,139 @@
+{
+  "boundary": "This is one deterministic host/provider integration, not an adapter API, framework integration, exactly-once claim, or interoperability standard.",
+  "claim": "One external coding-agent host retained execution control while consuming Cairn continuation and receipt/reconciliation semantics through workspace files and native terminal operations.",
+  "evidence_manifest_matches": true,
+  "host": {
+    "name": "Claude Code",
+    "requested_flags": [
+      "--safe-mode",
+      "--setting-sources project",
+      "--model sonnet",
+      "--no-session-persistence"
+    ]
+  },
+  "passed": false,
+  "pre_run_control_freeze_matches": true,
+  "reference": {
+    "artifact_equivalence": false,
+    "coding_crash_recovery": {
+      "first_operation_reobserves": false,
+      "fresh_process": true,
+      "injected_crash": true,
+      "projection_valid": true,
+      "recovery_returncode": true,
+      "snapshot_bound": true,
+      "tools": [
+        {
+          "command": "ls -la . && echo \"---TASK.md---\" && cat TASK.md 2>/dev/null",
+          "name": "Bash"
+        },
+        {
+          "command": "",
+          "name": "Read"
+        },
+        {
+          "command": "cd \"D:\\project-unknown-phase4\\results\\phase-4\\reconstitution-v2\\sealed-workloads\\r\" && python verify.py",
+          "name": "Bash"
+        }
+      ],
+      "transcript_free_input": true,
+      "verifier_passes": true
+    },
+    "compaction": {
+      "first_operation_reobserves": false,
+      "fresh_process": true,
+      "projection_valid": true,
+      "recovery_returncode": true,
+      "snapshot_bound": true,
+      "tools": [
+        {
+          "command": "cd \"D:\\project-unknown-phase4\\results\\phase-4\\reconstitution-v2\\sealed-workloads\\c\" && ls -la",
+          "name": "Bash"
+        },
+        {
+          "command": "",
+          "name": "Read"
+        },
+        {
+          "command": "cd \"D:\\project-unknown-phase4\\results\\phase-4\\reconstitution-v2\\sealed-workloads\\c\" && python verify.py",
+          "name": "Bash"
+        }
+      ],
+      "transcript_free_input": true,
+      "verifier_passes": true
+    },
+    "effect_crash_recovery": {
+      "coding_verifier_passes": true,
+      "decision_skip": true,
+      "first_operation_observes": true,
+      "fresh_process": true,
+      "injected_crash": true,
+      "ledger_closed": true,
+      "projection_valid": true,
+      "receipt_absent_at_crash": true,
+      "receipt_from_reobserve": true,
+      "receipt_matches_intent_and_observation": true,
+      "recovery_returncode": true,
+      "single_commit": true,
+      "single_resource": true,
+      "snapshot_bound": true,
+      "tools": [
+        {
+          "command": "python effect_tool.py observe",
+          "name": "Bash"
+        },
+        {
+          "command": "python effect_tool.py close-skip",
+          "name": "Bash"
+        }
+      ],
+      "transcript_free_input": true
+    },
+    "effect_uninterrupted_baseline": {
+      "receipt_persisted": true,
+      "returncode": true,
+      "single_commit": true,
+      "single_resource": true
+    },
+    "uninterrupted_baseline": true
+  },
+  "schema_version": "cairn.p4-claude-code-verdict.v0.2",
+  "sealed_holdout": {
+    "combined_crash_recovery": {
+      "coding_verifier_passes": true,
+      "decision_skip": true,
+      "first_operation_observes": true,
+      "fresh_process": true,
+      "injected_crash": true,
+      "ledger_closed": true,
+      "projection_valid": true,
+      "receipt_absent_at_crash": true,
+      "receipt_from_reobserve": true,
+      "receipt_matches_intent_and_observation": true,
+      "recovery_returncode": true,
+      "single_commit": true,
+      "single_resource": true,
+      "snapshot_bound": true,
+      "tools": [
+        {
+          "command": "python effect_tool.py observe",
+          "name": "Bash"
+        },
+        {
+          "command": "python effect_tool.py close-skip",
+          "name": "Bash"
+        },
+        {
+          "command": "",
+          "name": "Read"
+        },
+        {
+          "command": "python verify.py",
+          "name": "Bash"
+        }
+      ],
+      "transcript_free_input": true
+    }
+  },
+  "verdict": "FAIL \u2014 do not admit Phase 4"
+}

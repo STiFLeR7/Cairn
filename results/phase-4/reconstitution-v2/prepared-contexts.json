@@ -1,0 +1,8 @@
+{
+  "c": "results\\phase-4\\reconstitution-v2\\sealed-workloads\\c",
+  "effect_r": "results\\phase-4\\reconstitution-v2\\sealed-workloads\\effect-r\\workspace",
+  "effect_u": "results\\phase-4\\reconstitution-v2\\sealed-workloads\\effect-u\\workspace",
+  "holdout": "results\\phase-4\\reconstitution-v2\\sealed-workloads\\holdout\\workspace",
+  "r": "results\\phase-4\\reconstitution-v2\\sealed-workloads\\r",
+  "u": "results\\phase-4\\reconstitution-v2\\sealed-workloads\\u"
+}

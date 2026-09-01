@@ -11,7 +11,10 @@ exactly-once delivery.
 > its deterministic reference harness; P2 admits [Continuation Contract v0](../design/continuation-contract-v0.md)
 > only after a clean, verified checkpoint; P3 admits [Receipt/Reconciliation Contract v0](../design/receipt-reconciliation-contract-v0.md)
 > only for one deterministic create-once provider effect. The legacy live-model C1 claim remains
-> suggestive, not confirmed. See [`docs/research/claims-registry.md`](../research/claims-registry.md).
+> suggestive, not confirmed. P4’s sealed Claude Code attempt remains blocked on its locked U/R/C
+> byte-equivalence gate; it is not an admitted adapter or interoperability result. See the
+> [integration proof](../design/phase-4-claude-code-integration.md)
+> and [`docs/research/claims-registry.md`](../research/claims-registry.md).
 
 ## Install
 
