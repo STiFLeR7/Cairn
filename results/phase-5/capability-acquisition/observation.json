@@ -1,0 +1,35 @@
+{
+  "schema_version": "cairn.p5-capability-acquisition.v0",
+  "status": "blocked",
+  "host": {
+    "name": "OpenCode",
+    "version": "1.18.20",
+    "server": "http://127.0.0.1:4095",
+    "model": "opencode/big-pickle"
+  },
+  "session_id": "ses_fa3bd4ec9ffe35qPQoUzWZLYID",
+  "directly_observed": {
+    "session_created": true,
+    "prompt_admitted": true,
+    "durable_ordered_event_stream": true,
+    "model_completed_non_mutating_probe": true,
+    "native_compaction_endpoint_advertised": true,
+    "native_compaction_completed": false
+  },
+  "blocker": {
+    "capability": "native compaction through the host API",
+    "request": "POST /api/session/ses_fa3bd4ec9ffe35qPQoUzWZLYID/compact",
+    "response_status": 503,
+    "response_file": "compact-response.json",
+    "classification": "host limitation",
+    "reason": "The advertised endpoint returned ServiceUnavailableError before a native compact event or changed active context could be observed."
+  },
+  "not_attempted_after_gate_failure": [
+    "process-death injection",
+    "tool-event ordering for re-observe-before-action",
+    "durable-workspace recovery workload",
+    "OpenCode adapter/driver",
+    "reference or sealed-holdout matrix"
+  ],
+  "claim": "No OpenCode portability or conformance claim is admitted from this acquisition result."
+}

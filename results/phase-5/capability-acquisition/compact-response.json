@@ -1,0 +1,5 @@
+{
+  "_tag": "ServiceUnavailableError",
+  "message": "Session compact is not available yet",
+  "service": "session.compact"
+}

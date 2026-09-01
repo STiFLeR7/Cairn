@@ -1,0 +1,20 @@
+{
+  "schema_version": "cairn.p5-evidence-manifest.v0",
+  "entries": [
+    {
+      "bytes": 125,
+      "path": "compact-response.json",
+      "sha256": "06f0e8cd1e490381306380097d2d8e7642bf97b1322274fcda5728755b424293"
+    },
+    {
+      "bytes": 1311,
+      "path": "observation.json",
+      "sha256": "bac7789122df2aef21d70293a0d83c102fd65b7ff1f9aaa947bfe03bed5c8b6b"
+    },
+    {
+      "bytes": 3143,
+      "path": "session-events.sse",
+      "sha256": "bdd262e475d27c56407f31bcc519cabb60c9dedc0378cf819442d587626ba89c"
+    }
+  ]
+}

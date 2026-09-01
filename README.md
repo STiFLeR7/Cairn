@@ -77,7 +77,7 @@ Cairn **complements** agent frameworks (OpenHands, LangGraph, custom harnesses) 
 
 ## Project status
 
-**Recovery proof ladder P1–P4: complete.** The existing BYOM library
+**Recovery proof ladder P1–P4: complete; P5 is blocked at an OpenCode host capability gate.** The existing BYOM library
 remains 0.x and experimental. The evidence-backed claims are the three narrow contracts below, not a
 claim that Cairn makes arbitrary agents reliable or provides exactly-once external effects.
 
@@ -87,13 +87,14 @@ claim that Cairn makes arbitrary agents reliable or provides exactly-once extern
 | **P2 — compaction continuity** | [Continuation Contract v0](docs/design/continuation-contract-v0.md) | P2.4: 40 eligible U/R/C cells across Claude Code Opus/Sonnet; 20 pre-continuation Sonnet acquisition failures are retained, not counted as recovery successes ([verdict](results/phase-2/p24-verdict.json)) |
 | **P3 — external effects** | [Receipt/Reconciliation Contract v0](docs/design/receipt-reconciliation-contract-v0.md) | One deterministic create-once provider effect: 36 reference and 15 sealed-holdout cells; no duplicate or silent-loss cells. The holdout reused the provider/harness, so this is not independent-provider validation ([verdict](results/phase-3/p3-verdict.json)) |
 | **P4 — external host** | [Claude Code integration proof](docs/design/phase-4-claude-code-integration.md) | One Claude Code host/provider proof. V5 gives the shared-checkpoint/effect reference control; V6 adds a post-compaction causal negative and independently sealed generic U/R/C holdout ([admission verdict](results/phase-4/reconstitution-v6/verdict.json)). |
+| **P5 — second host portability** | Not admitted | OpenCode 1.18.20 directly exposed but could not complete its native-compaction API (`503 ServiceUnavailable`), so no workload, adapter, recovery matrix, or portability claim was produced ([capability record](docs/design/phase-5-opencode-portability.md)). |
 
 P2 requires a fresh process without the original transcript and is conditioned on acquiring a clean,
 verified checkpoint. P3 requires re-observation before a retry and admits only the decision semantics
 proven for its reference effect: absent → retry; matching present → skip; unknown, mismatch, and
 never-retry → escalate. Neither contract establishes broad live-model performance, a framework API,
 or general external-effect delivery. P4 admits one host integration only; it does not expand either v0
-contract or establish multi-host compatibility.
+contract or establish multi-host compatibility. P5's blocked capability acquisition does not change that boundary.
 
 The journey so far:
 

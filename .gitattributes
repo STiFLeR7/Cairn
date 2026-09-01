@@ -3,3 +3,4 @@
 /results/phase-4/reconstitution-v2/** -text -diff whitespace=-cr-at-eol
 /results/phase-4/reconstitution-v5/** -text -diff whitespace=-cr-at-eol
 /results/phase-4/reconstitution-v6/** -text -diff whitespace=-cr-at-eol
+/results/phase-5/capability-acquisition/** -text -diff whitespace=-cr-at-eol
