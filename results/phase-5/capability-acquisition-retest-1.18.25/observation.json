@@ -1,0 +1,27 @@
+{
+  "schema_version": "cairn.p5-capability-acquisition.v0",
+  "status": "blocked",
+  "host": {
+    "name": "OpenCode",
+    "version": "1.18.25",
+    "server": "http://127.0.0.1:4096",
+    "model": "opencode/big-pickle"
+  },
+  "session_id": "ses_fa3a7b6fcffeF60AfFMKfuOcdb",
+  "probe": {
+    "prompt": "Reply only with P5_COMPACTION_CAPABILITY_PROBE. Do not call tools. Do not read, create, modify, or delete files.",
+    "completed_without_tools_or_file_changes": true,
+    "active_context_messages_before_request": 2,
+    "active_context_messages_after_request": 2
+  },
+  "blocker": {
+    "capability": "native compaction through the host API",
+    "request": "POST /api/session/ses_fa3a7b6fcffeF60AfFMKfuOcdb/compact",
+    "response_status": 503,
+    "response_file": "compact-response.http",
+    "compaction_completed_event_observed": false,
+    "classification": "host limitation",
+    "reason": "The latest available OpenCode release reproduced the 1.18.20 ServiceUnavailable result; its active context did not change and no native compaction completion event was observed."
+  },
+  "claim": "This retest does not admit OpenCode portability or conformance."
+}

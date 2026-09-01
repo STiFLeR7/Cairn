@@ -45,6 +45,13 @@ route is not evidence that the host can perform the required behavior. Under Pha
 rules, this is a **host limitation**, not a Cairn defect and not a reason to simulate compaction or
 substitute transcript handling.
 
+The installed host was then updated to the latest available npm release, OpenCode 1.18.25, and the
+same direct probe was repeated in a fresh server/session. It reproduced the same `503` response; the
+active context remained at two messages and no completion event appeared. The raw retest is preserved
+in [`results/phase-5/capability-acquisition-retest-1.18.25/`](../../results/phase-5/capability-acquisition-retest-1.18.25/).
+This rules out the currently available minor-release update as an unblocking change; it does not make
+any claim about future OpenCode releases or configurations.
+
 After that failure, Cairn did not inject a process death, test tool ordering, author a workload,
 write an adapter, or execute a reference/holdout matrix. Those actions would not repair the missing
 native capability and would contaminate the portability proof.

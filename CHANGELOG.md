@@ -35,8 +35,10 @@ updates this file.
   independent-provider claim from these results.
 - **P5 OpenCode acquisition is blocked, not passed:** OpenCode 1.18.20 created sessions and emitted durable
   event records for a non-mutating probe, but its advertised native-compaction endpoint returned `503
-  ServiceUnavailable`. Cairn did not simulate compaction, build an adapter, or claim two-host portability;
-  the direct raw response and unblocking condition are recorded in `docs/design/phase-5-opencode-portability.md`.
+  ServiceUnavailable`. The then-latest available 1.18.25 reproduced that direct response with unchanged
+  active context and no completion event. Cairn did not simulate compaction, build an adapter, or claim
+  two-host portability; the raw responses and unblocking condition are recorded in
+  `docs/design/phase-5-opencode-portability.md`.
 - Restored `benchmarks/p4_forked_checkpoint.py`, whose exact SHA-256 was already pinned by P4 V5/V6 freeze
   manifests but was absent from the published tree, so the frozen Phase 4 control can import and run again.
 

@@ -1,0 +1,9 @@
+HTTP/1.1 503 Service Unavailable
+Content-Type: application/json
+Date: Tue, 01 Sep 2026 09:42:29 GMT
+Content-Length: 111
+Vary: Origin
+
+{"_tag":"ServiceUnavailableError","message":"Session compact is not available yet","service":"session.compact"}
+context_count=2
+compacted_event=
