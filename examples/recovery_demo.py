@@ -74,7 +74,7 @@ def main() -> None:
           f"(cold restart would be {len(script)})")
     print(f"[resume] effect resolutions={[(r.key, r.action) for r in result.resolutions]}")
     print(f"[done] files={sorted(os.listdir(rt2.workspace_dir))} outbox_lines={_lines(outbox)} "
-          f"(effect happened exactly once)")
+          f"(matching observed effect skipped in this demo)")
 
 
 def _lines(path):

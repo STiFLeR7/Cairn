@@ -29,7 +29,7 @@ Without `make` (any platform), run the same commands directly:
 
 ```bash
 python -m pytest -q                       # test
-python examples/byom_recovery.py          # BYOM: primitives + Agent loop + exactly-once effect (offline)
+python examples/byom_recovery.py          # BYOM: primitives + Agent loop + deterministic effect-policy demo
 python examples/recovery_demo.py          # demo: crash mid-task, then recover
 python benchmarks/recovery_matrix.py      # bench: baseline × failure-step matrix + effect-safety
 python benchmarks/ablation_study.py       # bench: Continuation-State ablation
@@ -41,14 +41,14 @@ python benchmarks/live_study.py           # bench: the same matrix through the L
 
 ### Tests
 ```
-141 passed
+The current full suite passes; its count evolves with the admitted evidence.
 ```
 
 ### BYOM example (`examples/byom_recovery.py`)
 ```
 [primitives] regrounded=1 new_steps=1 files=['a.txt', 'b.txt']
 [agent]      resumed=True recovery_tax=1 finished=True files=['a.txt', 'b.txt']
-[effect]     resolutions=[('send-1', 'skip')] outbox_before=1 outbox_after=1 (exactly once)
+[effect]     resolutions=[('send-1', 'skip')] outbox_before=1 outbox_after=1 (matching observed effect skipped; demo only)
 ```
 
 ### Recovery demo (`examples/recovery_demo.py`)
@@ -57,7 +57,7 @@ python benchmarks/live_study.py           # bench: the same matrix through the L
 [state] files=['step0.txt', 'step1.txt'] outbox_lines=1
 [resume] success=True recovery_tax=1 (cold restart would be 3)
 [resume] effect resolutions=[('send-1', 'skip')]
-[done] files=['step0.txt', 'step1.txt', 'step2.txt'] outbox_lines=1 (effect happened exactly once)
+[done] files=['step0.txt', 'step1.txt', 'step2.txt'] outbox_lines=1 (matching observed effect skipped in this demo)
 ```
 
 ### Recovery matrix (`benchmarks/recovery_matrix.py`)

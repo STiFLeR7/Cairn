@@ -5,7 +5,7 @@ Three self-contained demos on a deterministic mock model (no paid API, no networ
   demo_primitives  — you keep your OWN loop; you call checkpoint()/recover() yourself.
   demo_agent       — the batteries-included Agent loop does it for you.
   demo_effect_once — a torn side-effect (INTENT written, crash before COMPLETE) is
-                     resolved exactly-once on recover() (claim C3).
+                     re-observed and skipped when this deterministic demo confirms it happened.
 
 Run from the repo root:
 
@@ -121,7 +121,7 @@ def demo_agent(base_dir: str) -> dict:
 
 
 def demo_effect_once(base_dir: str) -> dict:
-    """A torn side-effect is resolved exactly-once on recover() (WAL danger window, C3)."""
+    """A deterministic observed effect is skipped on recovery; not a delivery guarantee."""
     ws = os.path.join(base_dir, "ws")
     os.makedirs(ws, exist_ok=True)
     snaps = os.path.join(base_dir, "snaps")
@@ -144,7 +144,7 @@ def demo_effect_once(base_dir: str) -> dict:
         f.write("sent\n")                            # effect happened; crash before complete_effect
     lines_before = _lines(outbox)
 
-    # Recover in fresh objects: the danger window is resolved exactly-once (verify -> skip).
+    # Recover in fresh objects: this demo's observation sees the prior effect, so recovery skips it.
     tool = EffectfulTool(
         "send_report", "check-before-retry",
         run=lambda: open(outbox, "a", encoding="utf-8").write("sent\n"),
@@ -157,7 +157,7 @@ def demo_effect_once(base_dir: str) -> dict:
     return {
         "resolutions": [(r.key, r.action) for r in rg.resolutions],
         "outbox_lines_before": lines_before,
-        "outbox_lines_after": _lines(outbox),        # unchanged -> effect happened exactly once
+        "outbox_lines_after": _lines(outbox),        # unchanged in this deterministic demo
     }
 
 
@@ -220,7 +220,7 @@ def main() -> None:
         e = demo_effect_once(os.path.join(base, "effect"))
         print(f"[effect]     resolutions={e['resolutions']} "
               f"outbox_before={e['outbox_lines_before']} outbox_after={e['outbox_lines_after']} "
-              f"(exactly once)")
+              f"(matching observed effect skipped; demo only)")
 
     if os.environ.get("CAIRN_OLLAMA") == "1":
         # Opt-in real-model run — requires `ollama serve`. Never invoked by CI.

@@ -150,9 +150,11 @@ set is the **danger window**, resolved per the tool's class
 | `check-before-retry` | **Verify, then redo-or-skip** — query the world / idempotency key; if it already happened, skip and write COMPLETE; else redo. |
 | `never-retry` | **Escalate** — do not auto-retry; the effect may or may not have happened and repeating it is harmful. |
 
-For `check-before-retry` tools an authoritative check resolves every danger-window key before any
-re-execution, so **no duplicate effect is produced**. The honest scope limit (C3): `never-retry` tools
-(non-idempotent *and* unqueryable) cannot be made safe automatically and are escalated, not covered.
+For `check-before-retry` tools the design requires an authoritative check before any re-execution. In the
+deterministic reference setting that can avoid a duplicate; it is not a general exactly-once delivery
+guarantee. The honest scope limit (C3): `never-retry` tools (non-idempotent *and* unqueryable) cannot be
+made safe automatically and are escalated, not covered. The narrower admitted external-effect result is
+the [Receipt/Reconciliation Contract v0](docs/design/receipt-reconciliation-contract-v0.md).
 
 ## 7. Unified distillation
 

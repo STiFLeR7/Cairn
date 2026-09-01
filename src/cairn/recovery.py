@@ -60,8 +60,9 @@ def recover(world, store, ledger, *, effect_tools=None, escalate: bool = True) -
     """The RGR protocol as a primitive. Returns a `Regrounded` to continue your loop from.
 
     No durable checkpoint -> empty history (start fresh). Otherwise: restore the world, re-observe
-    via the World's digest, reconcile the torn step, resolve any effect danger window (exactly-once,
-    ADR-0006), and re-ground a minimal history from the cairn's done steps. The goal is not a
+    via the World's digest, reconcile the torn step, apply the configured effect policy, and re-ground
+    a minimal history from the cairn's done steps. This API is not a general exactly-once delivery
+    guarantee. The goal is not a
     parameter — it is carried in the loaded cairn (`state.durable_core.intent`).
     """
     loaded = store.load_latest()
