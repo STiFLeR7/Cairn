@@ -1,0 +1,55 @@
+{
+  "schema_version": "cairn.p6-kit-verdict.v0",
+  "state": "KIT_READY",
+  "claim": "The standalone v0 kit is copyable and evaluates a valid host-neutral evidence envelope without importing a host runtime.",
+  "limitations": [
+    "This is not an independent implementation verdict.",
+    "No external host is driven or inspected by the evaluator.",
+    "Human audit is still required to establish that host raw records support submitted semantic observations."
+  ],
+  "kit": {
+    "root": "conformance/v0",
+    "sha256": "98c6a1c06116b9fb552f21c7ec6f160124922c15b388e6a782f590733f899aca",
+    "files": [
+      {
+        "path": "conformance/v0/README.md",
+        "bytes": 4880,
+        "sha256": "4c151ca2554f0b1218366da7ed367561d04d31981a1dc14d25141876a7c683e7"
+      },
+      {
+        "path": "conformance/v0/evidence.schema.json",
+        "bytes": 2565,
+        "sha256": "d460508b9fc38403f8e330ebfea66834262069757864b59e1ab587a1f484ad32"
+      },
+      {
+        "path": "conformance/v0/vectors.json",
+        "bytes": 1119,
+        "sha256": "56f98e352b9e8d5a7b02480e7c1a3a486ec93fd8d523771799a89cdcaa114c1d"
+      },
+      {
+        "path": "conformance/v0/evaluate.py",
+        "bytes": 20089,
+        "sha256": "bf37d25e5fe84cde910f7ff306ef97762aadcb2ff6007da0152d7c7ff4ab7daa"
+      }
+    ]
+  },
+  "verification": {
+    "python": "3.12.4",
+    "freeze_check": {
+      "manifest": "results/phase-6/freeze.json",
+      "sha256": "c1f5c972eaa887916ebdf5d846ef28416f755726e8f388d3ab1f0e1aecc0af4b",
+      "passed": true
+    },
+    "tests": {
+      "command": "pytest -q tests/test_p6_freeze.py tests/test_p6_conformance_kit.py",
+      "passed": 14,
+      "failed": 0
+    },
+    "lint": {
+      "command": "ruff check conformance/v0 tests/test_p6_conformance_kit.py",
+      "passed": true
+    },
+    "copy_outside_repository": true,
+    "standard_library_only": true
+  }
+}

@@ -6,6 +6,8 @@ import importlib.util
 import json
 from pathlib import Path
 import shutil
+import subprocess
+import sys
 
 import pytest
 
@@ -342,3 +344,22 @@ def test_phase5_boolean_facts_are_not_p6_evidence(tmp_path: Path):
 
     assert verdict["passed"] is False
     assert "unsupported evidence schema" in verdict["failures"]
+
+
+def test_published_kit_runs_after_copy_outside_repository(valid_submission, tmp_path: Path):
+    submission, submission_root, _ = valid_submission
+    copied_kit = tmp_path / "published-kit"
+    shutil.copytree(KIT_SOURCE, copied_kit)
+    submission["kit"]["sha256"] = _kit_digest(copied_kit)
+    evidence_path = submission_root / "evidence.json"
+    evidence_path.write_text(json.dumps(submission), encoding="utf-8")
+
+    completed = subprocess.run(
+        [sys.executable, str(copied_kit / "evaluate.py"), str(evidence_path)],
+        cwd=tmp_path,
+        capture_output=True,
+        text=True,
+    )
+
+    assert completed.returncode == 0, completed.stderr
+    assert json.loads(completed.stdout)["passed"] is True
