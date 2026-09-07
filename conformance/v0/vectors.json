@@ -1,0 +1,51 @@
+{
+  "schema_version": "cairn.conformance-vectors.v0",
+  "continuation_required": [
+    "task_intent",
+    "active_subgoal",
+    "accepted_decisions",
+    "verified_work",
+    "verification_state",
+    "world_identity",
+    "stop_conditions",
+    "next_action_boundary"
+  ],
+  "effect_resolution": [
+    {
+      "observation": "absent",
+      "tool_class": "safe-to-retry",
+      "matching": null,
+      "decision": "retry"
+    },
+    {
+      "observation": "absent",
+      "tool_class": "proven-idempotent",
+      "matching": null,
+      "decision": "retry"
+    },
+    {
+      "observation": "present",
+      "tool_class": "check-before-retry",
+      "matching": true,
+      "decision": "skip"
+    },
+    {
+      "observation": "unknown",
+      "tool_class": "check-before-retry",
+      "matching": null,
+      "decision": "escalate"
+    },
+    {
+      "observation": "present",
+      "tool_class": "check-before-retry",
+      "matching": false,
+      "decision": "escalate"
+    },
+    {
+      "observation": "absent",
+      "tool_class": "never-retry",
+      "matching": null,
+      "decision": "escalate"
+    }
+  ]
+}

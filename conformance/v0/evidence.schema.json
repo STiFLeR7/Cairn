@@ -1,0 +1,97 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://cairn.dev/conformance/v0/evidence.schema.json",
+  "title": "Cairn Conformance Evidence v0",
+  "description": "Observations submitted for conformance evaluation. This is not a host state, checkpoint, continuation, memory, receipt, transcript, workflow, or session schema.",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "kit",
+    "implementation",
+    "workload",
+    "evidence_files",
+    "runs"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "cairn.conformance-evidence.v0"
+    },
+    "kit": {
+      "type": "object",
+      "required": ["version", "sha256"],
+      "properties": {
+        "version": {"const": "v0"},
+        "sha256": {"$ref": "#/$defs/sha256"}
+      },
+      "additionalProperties": true
+    },
+    "implementation": {
+      "type": "object",
+      "required": [
+        "repository",
+        "commit",
+        "dependency_lock_sha256",
+        "author",
+        "cairn_runtime_dependency"
+      ],
+      "properties": {
+        "repository": {"type": "string", "minLength": 1},
+        "commit": {"type": "string", "minLength": 7},
+        "dependency_lock_sha256": {"$ref": "#/$defs/sha256"},
+        "author": {"type": "string", "minLength": 1},
+        "cairn_runtime_dependency": {"const": false}
+      },
+      "additionalProperties": true
+    },
+    "workload": {
+      "type": "object",
+      "required": [
+        "id",
+        "public_task_sha256",
+        "verifier_sha256",
+        "seal_sha256",
+        "sealed_before_execution"
+      ],
+      "additionalProperties": true
+    },
+    "evidence_files": {
+      "type": "array",
+      "items": {"$ref": "#/$defs/file"}
+    },
+    "runs": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "cell",
+          "repetition",
+          "triplet_id",
+          "checkpoint_id",
+          "checkpoint_artifact_sha256",
+          "checkpoint_verified_work_sha256",
+          "process",
+          "events",
+          "final"
+        ],
+        "additionalProperties": true
+      }
+    }
+  },
+  "$defs": {
+    "sha256": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "file": {
+      "type": "object",
+      "required": ["path", "bytes", "sha256"],
+      "properties": {
+        "path": {"type": "string", "minLength": 1},
+        "bytes": {"type": "integer", "minimum": 0},
+        "sha256": {"$ref": "#/$defs/sha256"}
+      },
+      "additionalProperties": false
+    }
+  },
+  "additionalProperties": true
+}
