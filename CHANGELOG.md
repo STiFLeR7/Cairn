@@ -10,6 +10,13 @@ updates this file.
 ## [Unreleased]
 
 ### Added
+- **Phase 6 independent-conformance kit:** a four-file, copy-isolated,
+  standard-library evaluator, evidence profile, and immutable P1/P2/P3 decision
+  vectors at `conformance/v0/`. It validates linked raw-evidence hashes,
+  fresh-process ordering, native-compaction observations, effect decisions,
+  negative behavior, and U/R/C equivalence without importing or driving a host.
+  The passing kit verdict proves executability only; no independently authored
+  third implementation or sealed independent holdout has passed.
 - **Phase 4 Claude Code integration proof:** V5 seals a shared host-created checkpoint before branching
   into uninterrupted, crash/restart, and native-host-compaction paths. Generic fresh RGR is authorized
   by durable continuation/action state rather than a task-specific recovery prompt; an unmapped-action
@@ -30,6 +37,13 @@ updates this file.
   decisions. The 36-cell reference matrix and 15-cell sealed holdout had no duplicate or silent-loss cells.
 
 ### Changed
+- **P6 Pydantic AI/DBOS target is stopped, not a negative ecosystem claim:**
+  Pydantic AI 2.40.0 plus DBOS 2.31.0 ran a SQLite workflow, but the
+  credential-free deterministic model rejected native compaction. Enabling the
+  provider-specific route still left no configured OpenAI credential, so the
+  required completion and changed-active-context observations could not be
+  directly obtained. Cairn did not mock or synthesize the boundary; raw records
+  and the stopped verdict are in `results/phase-6/capability-acquisition/`.
 - Public documentation now distinguishes the legacy implementation design from the P1–P4 admitted proof
   ladder. Cairn makes no general exactly-once, universal model-reliability, framework-integration, or
   independent-provider claim from these results.
