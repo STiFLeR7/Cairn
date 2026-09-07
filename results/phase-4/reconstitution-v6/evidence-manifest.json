@@ -16,11 +16,6 @@
       "sha256": "4e849abdc801751949bcd426f3a46ebe35fce480733d743d97b57118b044195d"
     },
     {
-      "bytes": 490,
-      "path": "branches/holdout-c/__pycache__/labels.cpython-312.pyc",
-      "sha256": "5c8731deae77be73a9fc7fee23e51d53f7899b7b141ac6b776f79c17312f43d6"
-    },
-    {
       "bytes": 175,
       "path": "branches/holdout-c/advance.py",
       "sha256": "8c0d78deb45d3aa2346508458b7bdadd5a04e7ec767a90a3f8f4e7ae27a6f248"
@@ -69,11 +64,6 @@
       "bytes": 10,
       "path": "branches/holdout-r/.cairn-rgr-ready",
       "sha256": "4e91d03747bf3c5b2affb4399a8a90ef5c3421b89d9e00a87fe90e5cca9a499b"
-    },
-    {
-      "bytes": 490,
-      "path": "branches/holdout-r/__pycache__/labels.cpython-312.pyc",
-      "sha256": "5c8731deae77be73a9fc7fee23e51d53f7899b7b141ac6b776f79c17312f43d6"
     },
     {
       "bytes": 175,
@@ -126,11 +116,6 @@
       "sha256": "4e849abdc801751949bcd426f3a46ebe35fce480733d743d97b57118b044195d"
     },
     {
-      "bytes": 337,
-      "path": "branches/reference-c-negative/__pycache__/greeting.cpython-312.pyc",
-      "sha256": "4136979f2fe811323e539b73eaaaea6c75bb36916bab0ca77323dcf64c634f24"
-    },
-    {
       "bytes": 46,
       "path": "branches/reference-c-negative/greeting.py",
       "sha256": "e212ec43d9fd52c0ecdfe25403aded16f21015ca62419686c4fe68413043e2d1"
@@ -169,11 +154,6 @@
       "bytes": 9,
       "path": "evidence-snapshot/holdout-c/workspace/.cairn-release-stage2",
       "sha256": "4e849abdc801751949bcd426f3a46ebe35fce480733d743d97b57118b044195d"
-    },
-    {
-      "bytes": 490,
-      "path": "evidence-snapshot/holdout-c/workspace/__pycache__/labels.cpython-312.pyc",
-      "sha256": "5c8731deae77be73a9fc7fee23e51d53f7899b7b141ac6b776f79c17312f43d6"
     },
     {
       "bytes": 175,
@@ -226,11 +206,6 @@
       "sha256": "4e91d03747bf3c5b2affb4399a8a90ef5c3421b89d9e00a87fe90e5cca9a499b"
     },
     {
-      "bytes": 490,
-      "path": "evidence-snapshot/holdout-r/workspace/__pycache__/labels.cpython-312.pyc",
-      "sha256": "5c8731deae77be73a9fc7fee23e51d53f7899b7b141ac6b776f79c17312f43d6"
-    },
-    {
       "bytes": 175,
       "path": "evidence-snapshot/holdout-r/workspace/advance.py",
       "sha256": "8c0d78deb45d3aa2346508458b7bdadd5a04e7ec767a90a3f8f4e7ae27a6f248"
@@ -274,11 +249,6 @@
       "bytes": 9,
       "path": "evidence-snapshot/holdout-u/workspace/.cairn-release-stage2",
       "sha256": "4e849abdc801751949bcd426f3a46ebe35fce480733d743d97b57118b044195d"
-    },
-    {
-      "bytes": 490,
-      "path": "evidence-snapshot/holdout-u/workspace/__pycache__/labels.cpython-312.pyc",
-      "sha256": "5c8731deae77be73a9fc7fee23e51d53f7899b7b141ac6b776f79c17312f43d6"
     },
     {
       "bytes": 175,
@@ -331,11 +301,6 @@
       "sha256": "4e849abdc801751949bcd426f3a46ebe35fce480733d743d97b57118b044195d"
     },
     {
-      "bytes": 337,
-      "path": "evidence-snapshot/reference-c-negative/workspace/__pycache__/greeting.cpython-312.pyc",
-      "sha256": "4136979f2fe811323e539b73eaaaea6c75bb36916bab0ca77323dcf64c634f24"
-    },
-    {
       "bytes": 46,
       "path": "evidence-snapshot/reference-c-negative/workspace/greeting.py",
       "sha256": "e212ec43d9fd52c0ecdfe25403aded16f21015ca62419686c4fe68413043e2d1"
@@ -374,11 +339,6 @@
       "bytes": 9,
       "path": "evidence-snapshot/reference-u/workspace/.cairn-release-stage2",
       "sha256": "4e849abdc801751949bcd426f3a46ebe35fce480733d743d97b57118b044195d"
-    },
-    {
-      "bytes": 337,
-      "path": "evidence-snapshot/reference-u/workspace/__pycache__/greeting.cpython-312.pyc",
-      "sha256": "4136979f2fe811323e539b73eaaaea6c75bb36916bab0ca77323dcf64c634f24"
     },
     {
       "bytes": 46,
@@ -529,11 +489,6 @@
       "bytes": 1360,
       "path": "holdout-checkpoint/workspace/.cairn-continuation.json",
       "sha256": "225cfe201cb1342582368da1f0ef36bf23c5d147e1e93e697a5d1651492c3ad4"
-    },
-    {
-      "bytes": 490,
-      "path": "holdout-checkpoint/workspace/__pycache__/labels.cpython-312.pyc",
-      "sha256": "5c8731deae77be73a9fc7fee23e51d53f7899b7b141ac6b776f79c17312f43d6"
     },
     {
       "bytes": 175,
@@ -736,11 +691,6 @@
       "sha256": "79c50419844d559cd6afd489b24c8d27d60be37db6ae79ef8f72b8db18ab2d21"
     },
     {
-      "bytes": 337,
-      "path": "reference-checkpoint/workspace/__pycache__/greeting.cpython-312.pyc",
-      "sha256": "4136979f2fe811323e539b73eaaaea6c75bb36916bab0ca77323dcf64c634f24"
-    },
-    {
       "bytes": 46,
       "path": "reference-checkpoint/workspace/greeting.py",
       "sha256": "e212ec43d9fd52c0ecdfe25403aded16f21015ca62419686c4fe68413043e2d1"
@@ -796,11 +746,6 @@
       "sha256": "4e849abdc801751949bcd426f3a46ebe35fce480733d743d97b57118b044195d"
     },
     {
-      "bytes": 490,
-      "path": "sealed-workloads/holdout-source/__pycache__/labels.cpython-312.pyc",
-      "sha256": "5c8731deae77be73a9fc7fee23e51d53f7899b7b141ac6b776f79c17312f43d6"
-    },
-    {
       "bytes": 175,
       "path": "sealed-workloads/holdout-source/advance.py",
       "sha256": "8c0d78deb45d3aa2346508458b7bdadd5a04e7ec767a90a3f8f4e7ae27a6f248"
@@ -844,11 +789,6 @@
       "bytes": 9,
       "path": "sealed-workloads/reference-source/.cairn-release-stage2",
       "sha256": "4e849abdc801751949bcd426f3a46ebe35fce480733d743d97b57118b044195d"
-    },
-    {
-      "bytes": 337,
-      "path": "sealed-workloads/reference-source/__pycache__/greeting.cpython-312.pyc",
-      "sha256": "4136979f2fe811323e539b73eaaaea6c75bb36916bab0ca77323dcf64c634f24"
     },
     {
       "bytes": 46,

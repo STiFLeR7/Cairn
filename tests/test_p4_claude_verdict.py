@@ -48,3 +48,15 @@ def test_evidence_manifest_and_receipt_binding_reject_tampering(tmp_path: Path):
     receipt = intent | {"observed_from": "reobserve", "resource_id": "r"}
     assert receipt_matches_intent_and_observation(receipt, intent, observation)
     assert not receipt_matches_intent_and_observation(receipt | {"resource_id": "other"}, intent, observation)
+
+
+def test_evidence_manifest_excludes_regenerable_bytecode(tmp_path: Path):
+    cache = tmp_path / "__pycache__"
+    cache.mkdir()
+    (cache / "task.cpython-312.pyc").write_bytes(b"generated")
+    (tmp_path / "raw.json").write_text("raw", encoding="utf-8")
+
+    manifest = write_evidence_manifest(tmp_path)
+
+    assert [entry["path"] for entry in manifest["entries"]] == ["raw.json"]
+    assert evidence_manifest_matches(tmp_path)

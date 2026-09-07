@@ -1,6 +1,6 @@
 # Phase 5 — second-host portability proof
 
-**Status: OpenHands P5.1 capability acquisition and P5.3 sealed reference conformance passed. P5.4's independent holdout is sealed but has not run; no portability claim is admitted.**
+**Status: admitted narrowly. OpenHands P5.1, P5.3, and independently sealed P5.4 passed; the P5.5 two-host verdict joins them to the already admitted Claude Code P4 evidence.**
 
 Phase 5 asks whether a second, independently implemented coding-agent host can consume Cairn's
 admitted recovery, continuation, and receipt/reconciliation semantics through a thin, host-owned
@@ -152,5 +152,25 @@ archive-job provider have distinct task text, source names, completion artifact,
 intent fingerprint, and terminal actions. The public registration and workload hashes are in
 [`results/phase-5/openhands-holdout-v1/`](../../results/phase-5/openhands-holdout-v1/). Its starter
 coding verifier fails at the declared `NotImplementedError`; its isolated provider verifier passes.
-No OpenHands P5.4 conversation has been started. The next permitted state is its thin-host execution
-against the already sealed matrix.
+Its completed [`holdout-run-1`](../../results/phase-5/openhands-holdout-v1/holdout-run-1/) passed all
+six cells with a matching raw-evidence manifest: verified U/R/C artifacts, safe negative termination,
+native `Condensation` plus active-view change, and fresh matching-present archive observation before
+`skip`.
+
+## P5.5 — two-host portability verdict
+
+[`two-host-portability-verdict.json`](../../results/phase-5/two-host-portability-verdict.json) is PASS.
+It evaluates the admitted Claude Code P4 V5/V6 verdict facts alongside the OpenHands P5 reference and
+independent holdout using the same recovery, continuation, compaction, safe-termination, and
+re-observe-before-effect-resolution obligations. Both hosts retain their own execution boundary;
+Cairn supplies neither host's loop, planner, scheduler, memory, or runtime.
+
+During this check, the P4 evidence manifests were found to list ignored regenerable `__pycache__` files
+that were absent from the published repository. The manifest helper now excludes that transient bytecode
+both when writing and validating, and the V5/V6 manifests were repacked against their unchanged raw
+records. This repairs evidence packaging only; it does not alter P4's workload, verifier, contract,
+host execution, or admission verdict.
+
+The admission is deliberately bounded: it proves deterministic two-host consumption of the existing
+contracts, not universal framework compatibility, host-native Cairn support, exactly-once delivery,
+or a general adapter API or ecosystem-standard candidate.

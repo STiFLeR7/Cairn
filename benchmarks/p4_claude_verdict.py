@@ -72,7 +72,7 @@ def write_evidence_manifest(root: Path) -> dict:
     entries = [
         {"path": str(path.relative_to(root)).replace("\\", "/"), "bytes": path.stat().st_size, "sha256": _sha(path)}
         for path in sorted(root.rglob("*"))
-        if path.is_file() and path.name not in {"evidence-manifest.json", "verdict.json"}
+        if path.is_file() and path.name not in {"evidence-manifest.json", "verdict.json"} and "__pycache__" not in path.parts
     ]
     manifest = {"schema_version": "cairn.p4-evidence-manifest.v0.2", "entries": entries}
     (root / "evidence-manifest.json").write_text(json.dumps(manifest, indent=2, sort_keys=True) + "\n", encoding="utf-8")
@@ -91,7 +91,7 @@ def evidence_manifest_matches(root: Path) -> bool:
     actual = {
         str(path.relative_to(root)).replace("\\", "/"): path
         for path in root.rglob("*")
-        if path.is_file() and path.name not in {"evidence-manifest.json", "verdict.json"}
+        if path.is_file() and path.name not in {"evidence-manifest.json", "verdict.json"} and "__pycache__" not in path.parts
     }
     return set(listed) == set(actual) and all(
         entry.get("bytes") == actual[name].stat().st_size and entry.get("sha256") == _sha(actual[name])

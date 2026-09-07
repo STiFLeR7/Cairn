@@ -1,0 +1,8 @@
+{
+  "effect_id": "archive-job",
+  "idempotency_key": "p5-archive-917",
+  "observed_from": "response",
+  "request_fingerprint": "sha256:bb63c1f3e6f8d0aa",
+  "resource_id": "archive-917",
+  "tool_class": "check-before-retry"
+}

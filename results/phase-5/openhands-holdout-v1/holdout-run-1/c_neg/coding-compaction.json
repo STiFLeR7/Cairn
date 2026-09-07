@@ -1,0 +1,242 @@
+{
+  "active_view_changed": true,
+  "checkpoint": {
+    "durable_core": {
+      "decisions": [
+        {
+          "decision": "preserve first-seen account order",
+          "id": "account-order",
+          "rationale": "verified by verify_ledger.py",
+          "ruled_out": false
+        },
+        {
+          "decision": "escalate: no authorized pending action",
+          "id": "stop-condition",
+          "rationale": "sealed control",
+          "ruled_out": false
+        }
+      ],
+      "effects_ref": {
+        "ledger_id": "p5-ledger",
+        "offset": 0
+      },
+      "intent": {
+        "active_subgoal": "finalize the verified audit",
+        "root_goal": "Complete the ledger digest"
+      },
+      "plan": [
+        {
+          "depends_on": [],
+          "description": "implement ledger_digest.py",
+          "id": "ledger-implementation",
+          "status": "done"
+        },
+        {
+          "depends_on": [
+            "ledger-implementation"
+          ],
+          "description": "write audit.txt then run verify_complete.py",
+          "id": "ledger-audit",
+          "status": "blocked"
+        }
+      ],
+      "provenance": {
+        "created_at": "sealed-at-checkpoint",
+        "harness_version": "p5-openhands-holdout",
+        "model_version": "p5-openhands-holdout-control",
+        "schema_version": "1.0",
+        "step_index": 1
+      },
+      "verification": [
+        {
+          "at_step": 1,
+          "result": "pass",
+          "target": "verify_ledger.py"
+        }
+      ],
+      "world": {
+        "digest": {
+          "TASK.md": "6229cba0e86e506ccbda7ee531456aaaeac36eef405f5378a766ed862257fca0",
+          "ledger_digest.py": "d7549cee93f1075aa895330c31fea8615fb0d596f8b1db7c33f1b25ff0fbf5bb",
+          "verify_complete.py": "7b01cf8fa131317f28f5322505b6fd91c1aedbe891c5e4ea9ef54fc521d5a288",
+          "verify_ledger.py": "5bb7a5a2bd41daa81dc5a8944437436ce697f67617e7e105db5606a65f23c279"
+        },
+        "snapshot_id": "p5-ledger-stage-one"
+      }
+    },
+    "elastic_tail": {
+      "recent_steps": [],
+      "scratch": null
+    },
+    "schema_version": "1.0"
+  },
+  "event_observed": true,
+  "host": {
+    "conversation_id": "50f20bd4-a0a0-4ae5-852d-baae574a1469",
+    "event_types": [
+      "SystemPromptEvent",
+      "MessageEvent",
+      "ActionEvent",
+      "ObservationEvent",
+      "ActionEvent",
+      "ObservationEvent",
+      "ActionEvent",
+      "ObservationEvent",
+      "ConversationErrorEvent",
+      "CondensationRequest",
+      "Condensation",
+      "MessageEvent",
+      "ActionEvent",
+      "ObservationEvent",
+      "MessageEvent"
+    ],
+    "events": [
+      {
+        "data": {
+          "activated_skills": [],
+          "critic_result": null,
+          "extended_content": [],
+          "id": "a80b154e-196d-4e81-9ef6-76ce1de629ad",
+          "kind": "MessageEvent",
+          "llm_message": {
+            "content": [
+              {
+                "cache_prompt": false,
+                "text": "You are a fresh host with no original transcript. The sole continuation input is the supplied JSON. Reobserve the workspace and state before deciding; perform only an independently verifiable pending step, otherwise stop and report escalation.\n{\"durable_core\": {\"decisions\": [{\"decision\": \"preserve first-seen account order\", \"id\": \"account-order\", \"rationale\": \"verified by verify_ledger.py\", \"ruled_out\": false}, {\"decision\": \"escalate: no authorized pending action\", \"id\": \"stop-condition\", \"rationale\": \"sealed control\", \"ruled_out\": false}], \"effects_ref\": {\"ledger_id\": \"p5-ledger\", \"offset\": 0}, \"intent\": {\"active_subgoal\": \"finalize the verified audit\", \"root_goal\": \"Complete the ledger digest\"}, \"plan\": [{\"depends_on\": [], \"description\": \"implement ledger_digest.py\", \"id\": \"ledger-implementation\", \"status\": \"done\"}, {\"depends_on\": [\"ledger-implementation\"], \"description\": \"write audit.txt then run verify_complete.py\", \"id\": \"ledger-audit\", \"status\": \"blocked\"}], \"provenance\": {\"created_at\": \"sealed-at-checkpoint\", \"harness_version\": \"p5-openhands-holdout\", \"model_version\": \"p5-openhands-holdout-control\", \"schema_version\": \"1.0\", \"step_index\": 1}, \"verification\": [{\"at_step\": 1, \"result\": \"pass\", \"target\": \"verify_ledger.py\"}], \"world\": {\"digest\": {\"TASK.md\": \"6229cba0e86e506ccbda7ee531456aaaeac36eef405f5378a766ed862257fca0\", \"ledger_digest.py\": \"d7549cee93f1075aa895330c31fea8615fb0d596f8b1db7c33f1b25ff0fbf5bb\", \"verify_complete.py\": \"7b01cf8fa131317f28f5322505b6fd91c1aedbe891c5e4ea9ef54fc521d5a288\", \"verify_ledger.py\": \"5bb7a5a2bd41daa81dc5a8944437436ce697f67617e7e105db5606a65f23c279\"}, \"snapshot_id\": \"p5-ledger-stage-one\"}}, \"elastic_tail\": {\"recent_steps\": [], \"scratch\": null}, \"schema_version\": \"1.0\"}",
+                "type": "text"
+              }
+            ],
+            "name": null,
+            "reasoning_content": null,
+            "responses_reasoning_item": null,
+            "role": "user",
+            "thinking_blocks": [],
+            "tool_call_id": null,
+            "tool_calls": null
+          },
+          "llm_response_id": null,
+          "parent_id": "00daad6d-2f9f-4e55-bcc4-c36a30e63aa9",
+          "sender": null,
+          "source": "user",
+          "timestamp": "2026-09-07T10:16:21.465737"
+        },
+        "type": "MessageEvent"
+      },
+      {
+        "data": {
+          "action": {
+            "command": "Get-Content .cairn-continuation.json; & 'C:\\Users\\stifl\\AppData\\Local\\cairn-p5-openhands-sdk\\Scripts\\python.exe' verify_ledger.py",
+            "is_input": false,
+            "kind": "TerminalAction",
+            "reset": false,
+            "timeout": null
+          },
+          "critic_result": null,
+          "id": "5081f538-6590-4c2c-adc4-b4899d5c6822",
+          "kind": "ActionEvent",
+          "llm_response_id": "test-response-4",
+          "parent_id": "a80b154e-196d-4e81-9ef6-76ce1de629ad",
+          "reasoning_content": null,
+          "responses_reasoning_item": null,
+          "security_risk": "UNKNOWN",
+          "source": "agent",
+          "summary": "terminal: {\"command\": \"Get-Content .cairn-continuation.json; & 'C:\\\\Users\\\\stifl\\\\AppData\\\\Local\\\\cairn-p5-openhands-sdk\\\\Scripts\\\\python.exe' verify_ledger.py\"}",
+          "thinking_blocks": [],
+          "thought": [
+            {
+              "cache_prompt": false,
+              "text": "",
+              "type": "text"
+            }
+          ],
+          "timestamp": "2026-09-07T10:16:21.471774",
+          "tool_call": {
+            "arguments": "{\"command\": \"Get-Content .cairn-continuation.json; & 'C:\\\\Users\\\\stifl\\\\AppData\\\\Local\\\\cairn-p5-openhands-sdk\\\\Scripts\\\\python.exe' verify_ledger.py\"}",
+            "id": "p5_3",
+            "name": "terminal",
+            "origin": "completion",
+            "responses_item_id": null
+          },
+          "tool_call_id": "p5_3",
+          "tool_name": "terminal"
+        },
+        "type": "ActionEvent"
+      },
+      {
+        "data": {
+          "action_id": "5081f538-6590-4c2c-adc4-b4899d5c6822",
+          "extended_content": [],
+          "id": "211a07d5-65bc-4bef-be54-33b66a60a84a",
+          "kind": "ObservationEvent",
+          "observation": {
+            "command": "Get-Content .cairn-continuation.json; & 'C:\\Users\\stifl\\AppData\\Local\\cairn-p5-openhands-sdk\\Scripts\\python.exe' verify_ledger.py",
+            "content": [
+              {
+                "cache_prompt": false,
+                "text": "{\r\n  \"durable_core\": {\r\n    \"decisions\": [\r\n      {\r\n        \"decision\": \"preserve first-seen account order\",\r\n        \"id\": \"account-order\",\r\n        \"rationale\": \"verified by verify_ledger.py\",\r\n        \"ruled_out\": false\r\n      },\r\n      {\r\n        \"decision\": \"escalate: no authorized pending action\",\r\n        \"id\": \"stop-condition\",\r\n        \"rationale\": \"sealed control\",\r\n        \"ruled_out\": false\r\n      }\r\n    ],\r\n    \"effects_ref\": {\r\n      \"ledger_id\": \"p5-ledger\",\r\n      \"offset\": 0\r\n    },\r\n    \"intent\": {\r\n      \"active_subgoal\": \"finalize the verified audit\",\r\n      \"root_goal\": \"Complete the ledger digest\"\r\n    },\r\n    \"plan\": [\r\n      {\r\n        \"depends_on\": [],\r\n        \"description\": \"implement ledger_digest.py\",\r\n        \"id\": \"ledger-implementation\",\r\n        \"status\": \"done\"\r\n      },\r\n      {\r\n        \"depends_on\": [\r\n          \"ledger-implementation\"\r\n        ],\r\n        \"description\": \"write audit.txt then run verify_complete.py\",\r\n        \"id\": \"ledger-audit\",\r\n        \"status\": \"blocked\"\r\n      }\r\n    ],\r\n    \"provenance\": {\r\n      \"created_at\": \"sealed-at-checkpoint\",\r\n      \"harness_version\": \"p5-openhands-holdout\",\r\n      \"model_version\": \"p5-openhands-holdout-control\",\r\n      \"schema_version\": \"1.0\",\r\n      \"step_index\": 1\r\n    },\r\n    \"verification\": [\r\n      {\r\n        \"at_step\": 1,\r\n        \"result\": \"pass\",\r\n        \"target\": \"verify_ledger.py\"\r\n      }\r\n    ],\r\n    \"world\": {\r\n      \"digest\": {\r\n        \"TASK.md\": \"6229cba0e86e506ccbda7ee531456aaaeac36eef405f5378a766ed862257fca0\",\r\n        \"ledger_digest.py\": \"d7549cee93f1075aa895330c31fea8615fb0d596f8b1db7c33f1b25ff0fbf5bb\",\r\n        \"verify_complete.py\": \"7b01cf8fa131317f28f5322505b6fd91c1aedbe891c5e4ea9ef54fc521d5a288\",\r\n        \"verify_ledger.py\": \"5bb7a5a2bd41daa81dc5a8944437436ce697f67617e7e105db5606a65f23c279\"\r\n      },\r\n      \"snapshot_id\": \"p5-ledger-stage-one\"\r\n    }\r\n  },\r\n  \"elastic_tail\": {\r\n    \"recent_steps\": [],\r\n    \"scratch\": null\r\n  },\r\n  \"schema_version\": \"1.0\"\r\n}\r\nledger verified",
+                "type": "text"
+              }
+            ],
+            "exit_code": 0,
+            "full_output_save_dir": "results\\phase-5\\openhands-holdout-v1\\holdout-run-1\\c_neg\\persistence\\50f20bd4a0a04ae5852dbaae574a1469\\observations",
+            "is_error": false,
+            "kind": "TerminalObservation",
+            "metadata": {
+              "exit_code": 0,
+              "hostname": null,
+              "pid": 21468,
+              "prefix": "",
+              "py_interpreter_path": "C:\\Program Files\\PyManager\\python.exe",
+              "suffix": "\n[The command completed with exit code 0.]",
+              "username": "stifl",
+              "working_dir": "D:/project-unknown-phase5/results/phase-5/openhands-holdout-v1/holdout-run-1/c_neg/workspace"
+            },
+            "timeout": false
+          },
+          "parent_id": "5081f538-6590-4c2c-adc4-b4899d5c6822",
+          "source": "environment",
+          "timestamp": "2026-09-07T10:16:22.177387",
+          "tool_call_id": "p5_3",
+          "tool_name": "terminal"
+        },
+        "type": "ObservationEvent"
+      },
+      {
+        "data": {
+          "activated_skills": [],
+          "critic_result": null,
+          "extended_content": [],
+          "id": "7a8d6575-96bb-4b89-a4b4-f5c8a0b5fc1f",
+          "kind": "MessageEvent",
+          "llm_message": {
+            "content": [
+              {
+                "cache_prompt": false,
+                "text": "control complete",
+                "type": "text"
+              }
+            ],
+            "name": null,
+            "reasoning_content": null,
+            "responses_reasoning_item": null,
+            "role": "assistant",
+            "thinking_blocks": [],
+            "tool_call_id": null,
+            "tool_calls": null
+          },
+          "llm_response_id": "test-response-5",
+          "parent_id": "211a07d5-65bc-4bef-be54-33b66a60a84a",
+          "sender": null,
+          "source": "agent",
+          "timestamp": "2026-09-07T10:16:22.184442"
+        },
+        "type": "MessageEvent"
+      }
+    ],
+    "pid": 6568,
+    "sdk_version": "1.42.1",
+    "view_count": 5,
+    "view_digest": "1bc21a301db69b1f2eb91e746dddd49379ce300c982b7f6e57651712e4a92a03"
+  },
+  "native": true
+}

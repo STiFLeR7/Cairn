@@ -1,0 +1,13 @@
+{
+  "boundary": "This is deterministic, evidence-scoped two-host portability; it is not universal compatibility, a host-native Cairn implementation, exactly-once delivery, or an ecosystem standard.",
+  "claim": "Two independently implemented coding-agent hosts satisfied the existing recovery, continuation, and receipt/reconciliation semantics through host-owned boundaries.",
+  "claude_code_admission_evidence": true,
+  "hosts": [
+    "Claude Code",
+    "OpenHands SDK LocalConversation"
+  ],
+  "openhands_independent_holdout_conformance": true,
+  "openhands_reference_conformance": true,
+  "passed": true,
+  "schema_version": "cairn.p5-two-host-portability.v0"
+}

@@ -12,7 +12,7 @@ This P1–P4 ladder is separate from the legacy numbered phases below.
 - [x] **P2 — compaction continuity** *([Continuation Contract v0](docs/design/continuation-contract-v0.md); P2.4: 40 eligible U/R/C cells, with 20 preserved pre-continuation acquisition failures)*
 - [x] **P3 — external-effect recovery** *([Receipt/Reconciliation Contract v0](docs/design/receipt-reconciliation-contract-v0.md); one deterministic create-once provider effect, no exactly-once claim)*
 - [x] **P4 — external integration proof** *([Claude Code integration proof](docs/design/phase-4-claude-code-integration.md); V5 reference/effect evidence plus V6 causal post-compaction negative and independently sealed generic U/R/C holdout; no exactly-once or interoperability claim)*
-- [~] **P5 — independent host portability** *(blocked at P5.1: OpenCode 1.18.20 and the latest available 1.18.25 both returned `503 ServiceUnavailable` from their advertised native-compaction API; no adapter or conformance claim; [record](docs/design/phase-5-opencode-portability.md))*
+- [x] **P5 — independent host portability** *([two-host verdict](results/phase-5/two-host-portability-verdict.json); OpenCode remained stopped at native compaction, while OpenHands SDK 1.42.1 passed sealed reference and independent-holdout host-neutral matrices alongside the admitted Claude Code P4 evidence; deterministic portability only)*
 
 ## Phases
 

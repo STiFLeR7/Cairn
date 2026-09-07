@@ -54,8 +54,15 @@ updates this file.
   `results/phase-5/openhands-reference-v1/`. Its deterministic P5.3 matrix then passed
   U/R/R_NEG/C/C_NEG/EFFECT at `reference-run-11/`, including fresh re-observation, native compaction
   evidence, and matching-present effect skip. This is host-boundary control evidence, not a real-model
-  or two-host portability claim. P5.4 then independently sealed its ledger-digest and archive-job
-  holdout at `results/phase-5/openhands-holdout-v1/`; no P5.4 host execution has started.
+  or two-host portability claim. P5.4 then independently sealed and passed its ledger-digest and
+  archive-job holdout at `results/phase-5/openhands-holdout-v1/`. P5.5 combines that evidence with
+  the admitted Claude Code P4 V5/V6 results in a passing deterministic
+  `results/phase-5/two-host-portability-verdict.json`; it remains neither universal compatibility nor
+  an ecosystem-standard or exactly-once claim.
+- **P4 evidence manifest packaging repair:** P4 V5/V6 manifests had included ignored, regenerable
+  `__pycache__` bytecode that was not published. The manifest writer and validator now exclude that
+  transient output, and both manifests were repacked against unchanged raw records. No P4 workload,
+  verifier, contract, host execution, or verdict was changed.
 - Restored `benchmarks/p4_forked_checkpoint.py`, whose exact SHA-256 was already pinned by P4 V5/V6 freeze
   manifests but was absent from the published tree, so the frozen Phase 4 control can import and run again.
 

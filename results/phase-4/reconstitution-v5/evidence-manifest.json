@@ -16,11 +16,6 @@
       "sha256": "4e849abdc801751949bcd426f3a46ebe35fce480733d743d97b57118b044195d"
     },
     {
-      "bytes": 327,
-      "path": "branches/c/__pycache__/greeting.cpython-312.pyc",
-      "sha256": "4780bea98d516e503fd4e75c03bc2af54ce3be1d85908c8c65afcda765e93e8f"
-    },
-    {
       "bytes": 46,
       "path": "branches/c/greeting.py",
       "sha256": "a55c14346b5c0e11da873793db175efd28d4840a330a5edba18d03d7d7310626"
@@ -71,11 +66,6 @@
       "sha256": "4e849abdc801751949bcd426f3a46ebe35fce480733d743d97b57118b044195d"
     },
     {
-      "bytes": 327,
-      "path": "branches/negative/__pycache__/greeting.cpython-312.pyc",
-      "sha256": "4780bea98d516e503fd4e75c03bc2af54ce3be1d85908c8c65afcda765e93e8f"
-    },
-    {
       "bytes": 46,
       "path": "branches/negative/greeting.py",
       "sha256": "a55c14346b5c0e11da873793db175efd28d4840a330a5edba18d03d7d7310626"
@@ -119,11 +109,6 @@
       "bytes": 10,
       "path": "branches/r/.cairn-rgr-ready",
       "sha256": "4e91d03747bf3c5b2affb4399a8a90ef5c3421b89d9e00a87fe90e5cca9a499b"
-    },
-    {
-      "bytes": 327,
-      "path": "branches/r/__pycache__/greeting.cpython-312.pyc",
-      "sha256": "4780bea98d516e503fd4e75c03bc2af54ce3be1d85908c8c65afcda765e93e8f"
     },
     {
       "bytes": 46,
@@ -271,11 +256,6 @@
       "sha256": "73c9ff72bde54c7714c7fcf4d9ef0fea62ea3b23f0cf0de9fe36671795003d8f"
     },
     {
-      "bytes": 327,
-      "path": "checkpoint-fork/workspace/__pycache__/greeting.cpython-312.pyc",
-      "sha256": "4780bea98d516e503fd4e75c03bc2af54ce3be1d85908c8c65afcda765e93e8f"
-    },
-    {
       "bytes": 46,
       "path": "checkpoint-fork/workspace/greeting.py",
       "sha256": "a55c14346b5c0e11da873793db175efd28d4840a330a5edba18d03d7d7310626"
@@ -364,11 +344,6 @@
       "bytes": 9,
       "path": "evidence-snapshot/c/workspace/.cairn-release-stage2",
       "sha256": "4e849abdc801751949bcd426f3a46ebe35fce480733d743d97b57118b044195d"
-    },
-    {
-      "bytes": 327,
-      "path": "evidence-snapshot/c/workspace/__pycache__/greeting.cpython-312.pyc",
-      "sha256": "4780bea98d516e503fd4e75c03bc2af54ce3be1d85908c8c65afcda765e93e8f"
     },
     {
       "bytes": 46,
@@ -541,11 +516,6 @@
       "sha256": "42b66bc444e1cfde9cbbc0bce18c766d180295af45253ddac4f8096d9f1dc286"
     },
     {
-      "bytes": 639,
-      "path": "evidence-snapshot/holdout/workspace/__pycache__/segments.cpython-312.pyc",
-      "sha256": "4159bb4eb6c4890f28c1a5b59003d04bc74f5c788c243e2fb3bb697865322f46"
-    },
-    {
       "bytes": 596,
       "path": "evidence-snapshot/holdout/workspace/EFFECT_TASK.md",
       "sha256": "da62e69b6774bd59a9c1499958aca2478be98bdaaf54ff96bd1945e28f07be62"
@@ -589,11 +559,6 @@
       "bytes": 9,
       "path": "evidence-snapshot/negative/workspace/.cairn-release-stage2",
       "sha256": "4e849abdc801751949bcd426f3a46ebe35fce480733d743d97b57118b044195d"
-    },
-    {
-      "bytes": 327,
-      "path": "evidence-snapshot/negative/workspace/__pycache__/greeting.cpython-312.pyc",
-      "sha256": "4780bea98d516e503fd4e75c03bc2af54ce3be1d85908c8c65afcda765e93e8f"
     },
     {
       "bytes": 46,
@@ -641,11 +606,6 @@
       "sha256": "4e91d03747bf3c5b2affb4399a8a90ef5c3421b89d9e00a87fe90e5cca9a499b"
     },
     {
-      "bytes": 327,
-      "path": "evidence-snapshot/r/workspace/__pycache__/greeting.cpython-312.pyc",
-      "sha256": "4780bea98d516e503fd4e75c03bc2af54ce3be1d85908c8c65afcda765e93e8f"
-    },
-    {
       "bytes": 46,
       "path": "evidence-snapshot/r/workspace/greeting.py",
       "sha256": "a55c14346b5c0e11da873793db175efd28d4840a330a5edba18d03d7d7310626"
@@ -689,11 +649,6 @@
       "bytes": 9,
       "path": "evidence-snapshot/u/workspace/.cairn-release-stage2",
       "sha256": "4e849abdc801751949bcd426f3a46ebe35fce480733d743d97b57118b044195d"
-    },
-    {
-      "bytes": 327,
-      "path": "evidence-snapshot/u/workspace/__pycache__/greeting.cpython-312.pyc",
-      "sha256": "4780bea98d516e503fd4e75c03bc2af54ce3be1d85908c8c65afcda765e93e8f"
     },
     {
       "bytes": 46,
@@ -961,11 +916,6 @@
       "sha256": "42b66bc444e1cfde9cbbc0bce18c766d180295af45253ddac4f8096d9f1dc286"
     },
     {
-      "bytes": 639,
-      "path": "sealed-workloads/holdout/workspace/__pycache__/segments.cpython-312.pyc",
-      "sha256": "4159bb4eb6c4890f28c1a5b59003d04bc74f5c788c243e2fb3bb697865322f46"
-    },
-    {
       "bytes": 596,
       "path": "sealed-workloads/holdout/workspace/EFFECT_TASK.md",
       "sha256": "da62e69b6774bd59a9c1499958aca2478be98bdaaf54ff96bd1945e28f07be62"
@@ -1004,11 +954,6 @@
       "bytes": 9,
       "path": "sealed-workloads/source/.cairn-release-stage2",
       "sha256": "4e849abdc801751949bcd426f3a46ebe35fce480733d743d97b57118b044195d"
-    },
-    {
-      "bytes": 327,
-      "path": "sealed-workloads/source/__pycache__/greeting.cpython-312.pyc",
-      "sha256": "4780bea98d516e503fd4e75c03bc2af54ce3be1d85908c8c65afcda765e93e8f"
     },
     {
       "bytes": 46,
