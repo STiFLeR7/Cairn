@@ -63,6 +63,9 @@ updates this file.
   `__pycache__` bytecode that was not published. The manifest writer and validator now exclude that
   transient output, and both manifests were repacked against unchanged raw records. No P4 workload,
   verifier, contract, host execution, or verdict was changed.
+- **P2 hash-pin portability repair:** corrected the v12 control-freeze digest from the original
+  Windows CRLF working-tree hash to the canonical LF bytes stored by Git. No evidence payload,
+  protocol cell, threshold, or admitted contract changed.
 - Restored `benchmarks/p4_forked_checkpoint.py`, whose exact SHA-256 was already pinned by P4 V5/V6 freeze
   manifests but was absent from the published tree, so the frozen Phase 4 control can import and run again.
 

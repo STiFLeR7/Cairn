@@ -49,9 +49,9 @@ def test_p5_initial_control_formats_an_empty_route_without_a_trailing_space():
     assert namespace["make_route_report"]([{"route": "solo", "stops": []}]) == "solo:"
 
 
-def test_p5_protocol_exposes_a_raw_evidence_manifest_writer():
-    root = Path("D:/project-unknown/.p5-evidence-test")
-    root.mkdir(exist_ok=True)
+def test_p5_protocol_exposes_a_raw_evidence_manifest_writer(tmp_path: Path):
+    root = tmp_path / "evidence"
+    root.mkdir()
     (root / "raw.json").write_text('{"event":"observed"}\n', encoding="utf-8")
 
     manifest = protocol.write_evidence_manifest(root)
