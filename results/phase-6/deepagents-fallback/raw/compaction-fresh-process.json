@@ -1,0 +1,18 @@
+{
+  "active_context_changed": true,
+  "checkpoint_backend": "langgraph-checkpoint-sqlite==3.1.1",
+  "compaction_event": {
+    "cutoff_index": 2,
+    "file_path": "/conversation_history/session_cd0048177301443e91177e17eaed6b60.md",
+    "summary_text": "summary text"
+  },
+  "deepagents": "0.7.13",
+  "fresh_process": true,
+  "langgraph": "1.2.11",
+  "processes": {
+    "before": 9628,
+    "after": 984
+  },
+  "state_message_count_after": 4,
+  "state_message_count_before": 2
+}

@@ -1,0 +1,10 @@
+{
+  "claim": "The fallback exposes native compaction and durable cross-process state, but its bare-host effect recovery is not Cairn-conformant.",
+  "schema_version": "cairn.p6-fallback-reconnaissance.v0",
+  "state": "TARGET_NOT_PROMOTED",
+  "why": [
+    "No provider observation occurred after the crash-created effect ambiguity.",
+    "No retry, skip, or escalation decision was emitted.",
+    "No independent implementation or sealed workload exists."
+  ]
+}

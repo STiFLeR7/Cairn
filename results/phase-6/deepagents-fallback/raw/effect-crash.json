@@ -1,0 +1,18 @@
+{
+  "crash_exit_code": 88,
+  "crash_boundary": "after local provider commit, before tool-node completion",
+  "host": {
+    "deepagents": "0.7.13",
+    "langgraph": "1.2.11",
+    "checkpoint_backend": "langgraph-checkpoint-sqlite==3.1.1"
+  },
+  "provider_after_crash": "commit\n",
+  "provider_after_fresh_process": "commit\n",
+  "recovery": {
+    "fresh_process_pid": 16040,
+    "provider_observation": false,
+    "recovery_dispatch": false,
+    "resolution": "none",
+    "terminal_message": "done"
+  }
+}

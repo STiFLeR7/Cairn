@@ -23,6 +23,14 @@ records and stopped verdict are under
 [capability-acquisition](../../results/phase-6/capability-acquisition/). Cairn
 did not simulate a compaction boundary to pass this gate.
 
+The permitted Deep Agents/LangGraph fallback exposed native compaction and
+SQLite-backed fresh-process state, but its bare-host effect negative control
+completed after a provider-commit crash without provider re-observation or a
+retry/skip/escalate decision. It is not promoted as a conformance target from
+that result. The unsealed records are in
+[deepagents-fallback](../../results/phase-6/deepagents-fallback/); they show
+the semantic work an independent implementation must actually provide.
+
 ## Admission gate
 
 Phase 6 can be admitted only when all of the following exist:
