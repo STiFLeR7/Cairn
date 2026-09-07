@@ -1,0 +1,5 @@
+{
+  "returncode": 1,
+  "stderr": "Traceback (most recent call last):\n  File \"D:\\project-unknown-phase5\\results\\phase-5\\openhands-reference-v1\\reference-run-10\\r\\workspace\\verify_complete.py\", line 14, in <module>\n    main()\n  File \"D:\\project-unknown-phase5\\results\\phase-5\\openhands-reference-v1\\reference-run-10\\r\\workspace\\verify_complete.py\", line 9, in main\n    verify_route()\n  File \"D:\\project-unknown-phase5\\results\\phase-5\\openhands-reference-v1\\reference-run-10\\r\\workspace\\verify_route.py\", line 14, in main\n    assert make_route_report([{\"route\": \"solo\", \"stops\": []}]) == \"solo:\"\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError\n",
+  "stdout": ""
+}

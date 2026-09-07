@@ -1,0 +1,9 @@
+{
+  "failures": [
+    "U: final verification or artifact equivalence failed",
+    "R: final verification or artifact equivalence failed",
+    "C: final verification or artifact equivalence failed"
+  ],
+  "passed": false,
+  "schema_version": "cairn.p5-conformance.v0"
+}

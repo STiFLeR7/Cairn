@@ -1,0 +1,71 @@
+{
+  "durable_core": {
+    "decisions": [
+      {
+        "decision": "preserve first-seen route order",
+        "id": "route-order",
+        "rationale": "verified by verify_route.py",
+        "ruled_out": false
+      },
+      {
+        "decision": "stop after verify_complete.py passes",
+        "id": "stop-condition",
+        "rationale": "sealed control",
+        "ruled_out": false
+      }
+    ],
+    "effects_ref": {
+      "ledger_id": "p5-route",
+      "offset": 0
+    },
+    "intent": {
+      "active_subgoal": "finalize the verified report",
+      "root_goal": "Complete the route report"
+    },
+    "plan": [
+      {
+        "depends_on": [],
+        "description": "implement route_report.py",
+        "id": "route-implementation",
+        "status": "done"
+      },
+      {
+        "depends_on": [
+          "route-implementation"
+        ],
+        "description": "write completion.txt then run verify_complete.py",
+        "id": "route-completion",
+        "status": "pending"
+      }
+    ],
+    "provenance": {
+      "created_at": "sealed-at-checkpoint",
+      "harness_version": "p5-openhands",
+      "model_version": "p5-openhands-control",
+      "schema_version": "1.0",
+      "step_index": 1
+    },
+    "verification": [
+      {
+        "at_step": 1,
+        "result": "pass",
+        "target": "verify_route.py"
+      }
+    ],
+    "world": {
+      "digest": {
+        "TASK.md": "9c1a9f764f0b6aae7142611cac93cdc6b4d9e48795a80087e2bf137a6315f56e",
+        "route_report.py": "0686563affbda89e049f50b1a2d1544eee59022e01894ccc02b99c8fc5fe3543",
+        "routes=2`nstops=4`n": "55dd5c6f0c9695b6206d9045adbd76f6c67ae2beddb338e9220639114ec811dc",
+        "verify_complete.py": "ebcd146e428005be4a0fd6b4faaf6a750f67372cc7bb1664336f1fc11d514278",
+        "verify_route.py": "fbcd2d55b3cd1c3edaaad5ee703d1f21eee76190fbe470fda75cff66baffdc0c"
+      },
+      "snapshot_id": "p5-route-stage-one"
+    }
+  },
+  "elastic_tail": {
+    "recent_steps": [],
+    "scratch": null
+  },
+  "schema_version": "1.0"
+}

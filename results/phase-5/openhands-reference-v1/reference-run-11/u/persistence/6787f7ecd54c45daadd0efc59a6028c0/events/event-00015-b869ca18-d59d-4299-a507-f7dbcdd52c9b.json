@@ -1,0 +1,1 @@
+{"id":"b869ca18-d59d-4299-a507-f7dbcdd52c9b","timestamp":"2026-09-07T09:49:38.036287","source":"environment","parent_id":"d90d76a8-0b37-49b7-a8e6-725c21fcbb7c","code":"MaxIterationsReached","detail":"Agent reached maximum iterations limit (3).","classification":{"kind":"agent_action","retryable":false,"user_action":"none"},"kind":"ConversationErrorEvent"}

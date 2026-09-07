@@ -1,0 +1,87 @@
++----------------------------------------------------------------------+
+|  OpenHands SDK v1.42.1                                               |
+|                                                                      |
+|  Report a bug: github.com/OpenHands/software-agent-sdk/issues        |
+|  Get help: openhands.dev/joinslack                                   |
+|  Scale up: openhands.dev/product/sdk                                 |
+|                                                                      |
+|  Set OPENHANDS_SUPPRESS_BANNER=1 to hide this message                |
++----------------------------------------------------------------------+
+
+[09/01/26 17:20:42] INFO     Created new conversation              state.py:577
+                             407ad522-0caf-4c64-8dbb-ff0968272770              
+[09/01/26 17:20:42] INFO     Auto-detected: Using                factory.py:156
+                             WindowsTerminal (PowerShell                       
+                             backend)                                          
+[09/01/26 17:20:44] INFO     TerminalExecutor initialized with      impl.py:124
+                             working_dir:                                      
+                             results\phase-5\openhands-reference-v1            
+                             \reference-run-3\u\workspace,                     
+                             username: None, terminal_type:                    
+                             TerminalSession                                   
+[09/01/26 17:20:44] INFO     Loaded 1 tools from spec               base.py:563
+[09/01/26 17:20:44] INFO     [Profile Store] Loaded    llm_profile_store.py:238
+                             profile `Groq` from                               
+                             C:\Users\stifl\.openhands                         
+                             \profiles\Groq.json                               
+[09/01/26 17:20:44] INFO     [Profile Store] Loaded    llm_profile_store.py:238
+                             profile `Ling-3.0-Flash`                          
+                             from                                              
+                             C:\Users\stifl\.openhands                         
+                             \profiles\Ling-3.0-Flash.                         
+                             json                                              
+[09/01/26 17:20:44] INFO     [Profile Store] Loaded    llm_profile_store.py:238
+                             profile                                           
+                             `nemotron-3-ultra-550b-a5                         
+                             5b-free` from                                     
+                             C:\Users\stifl\.openhands                         
+                             \profiles\nemotron-3-ultr                         
+                             a-550b-a55b-free.json                             
+[09/01/26 17:20:44] INFO     [Profile Store] Loaded    llm_profile_store.py:238
+                             profile `Groq` from                               
+                             C:\Users\stifl\.openhands                         
+                             \profiles\Groq.json                               
+[09/01/26 17:20:44] INFO     [Profile Store] Loaded    llm_profile_store.py:238
+                             profile `Ling-3.0-Flash`                          
+                             from                                              
+                             C:\Users\stifl\.openhands                         
+                             \profiles\Ling-3.0-Flash.                         
+                             json                                              
+[09/01/26 17:20:44] INFO     [Profile Store] Loaded    llm_profile_store.py:238
+                             profile                                           
+                             `nemotron-3-ultra-550b-a5                         
+                             5b-free` from                                     
+                             C:\Users\stifl\.openhands                         
+                             \profiles\nemotron-3-ultr                         
+                             a-550b-a55b-free.json                             
+Traceback (most recent call last):
+  File "<frozen runpy>", line 198, in _run_module_as_main
+  File "<frozen runpy>", line 88, in _run_code
+  File "D:\project-unknown-phase5\benchmarks\p5_openhands_protocol.py", line 445, in <module>
+    raise SystemExit(main())
+                     ~~~~^^
+  File "D:\project-unknown-phase5\benchmarks\p5_openhands_protocol.py", line 438, in main
+    child(args.child_mode, args.run_dir, args.output, blocked=args.blocked)
+    ~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\project-unknown-phase5\benchmarks\p5_openhands_protocol.py", line 408, in child
+    result = run_coding_uninterrupted(workspace, persistence)
+  File "D:\project-unknown-phase5\benchmarks\p5_openhands_protocol.py", line 207, in run_coding_uninterrupted
+    reset_script(host, coding_commands(recovery=True), "p5-openhands-uninterrupted-recovery")
+    ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\project-unknown-phase5\benchmarks\p5_openhands_protocol.py", line 140, in reset_script
+    host.agent.llm = scripted_llm(commands, label)
+    ^^^^^^^^^^^^^^
+  File "C:\Users\stifl\AppData\Local\Temp\cairn-p5-openhands-sdk\Lib\site-packages\pydantic\main.py", line 1048, in __setattr__
+    elif (setattr_handler := self._setattr_handler(name, value)) is not None:
+                             ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "C:\Users\stifl\AppData\Local\Temp\cairn-p5-openhands-sdk\Lib\site-packages\pydantic\main.py", line 1084, in _setattr_handler
+    _check_frozen(cls, name, value)
+    ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^
+  File "C:\Users\stifl\AppData\Local\Temp\cairn-p5-openhands-sdk\Lib\site-packages\pydantic\main.py", line 90, in _check_frozen
+    raise ValidationError.from_exception_data(
+        model_cls.__name__, [{'type': error_type, 'loc': (name,), 'input': value}]
+    )
+pydantic_core._pydantic_core.ValidationError: 1 validation error for Agent
+llm
+  Instance is frozen [type=frozen_instance, input_value=TestLLM(model='p5-openhan..., is_subscription=False), input_type=TestLLM]
+    For further information visit https://errors.pydantic.dev/2.13/v/frozen_instance

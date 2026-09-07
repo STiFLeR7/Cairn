@@ -77,7 +77,7 @@ Cairn **complements** agent frameworks (OpenHands, LangGraph, custom harnesses) 
 
 ## Project status
 
-**Recovery proof ladder P1–P4: complete; P5 is blocked at an OpenCode host capability gate.** The existing BYOM library
+**Recovery proof ladder P1–P4: complete; P5 is in OpenHands holdout validation after the OpenCode host capability gate failed.** The existing BYOM library
 remains 0.x and experimental. The evidence-backed claims are the three narrow contracts below, not a
 claim that Cairn makes arbitrary agents reliable or provides exactly-once external effects.
 
@@ -87,7 +87,7 @@ claim that Cairn makes arbitrary agents reliable or provides exactly-once extern
 | **P2 — compaction continuity** | [Continuation Contract v0](docs/design/continuation-contract-v0.md) | P2.4: 40 eligible U/R/C cells across Claude Code Opus/Sonnet; 20 pre-continuation Sonnet acquisition failures are retained, not counted as recovery successes ([verdict](results/phase-2/p24-verdict.json)) |
 | **P3 — external effects** | [Receipt/Reconciliation Contract v0](docs/design/receipt-reconciliation-contract-v0.md) | One deterministic create-once provider effect: 36 reference and 15 sealed-holdout cells; no duplicate or silent-loss cells. The holdout reused the provider/harness, so this is not independent-provider validation ([verdict](results/phase-3/p3-verdict.json)) |
 | **P4 — external host** | [Claude Code integration proof](docs/design/phase-4-claude-code-integration.md) | One Claude Code host/provider proof. V5 gives the shared-checkpoint/effect reference control; V6 adds a post-compaction causal negative and independently sealed generic U/R/C holdout ([admission verdict](results/phase-4/reconstitution-v6/verdict.json)). |
-| **P5 — second host portability** | Not admitted | The OpenCode target is stopped on direct negative evidence. OpenHands P5.1 has passed native compaction, tool-event ordering, durable workspace, and fresh-process controls; P5.2's independent reference workload is sealed, but its six-cell host recovery matrix has not run ([capability record](docs/design/phase-5-opencode-portability.md)). |
+| **P5 — second host portability** | Not admitted | The OpenCode target is stopped on direct negative evidence. OpenHands P5.1 passed capability controls and its sealed deterministic P5.3 reference matrix passed U/R/R_NEG/C/C_NEG/EFFECT; P5.4's independent holdout and the two-host verdict remain required ([record](docs/design/phase-5-opencode-portability.md)). |
 
 P2 requires a fresh process without the original transcript and is conditioned on acquiring a clean,
 verified checkpoint. P3 requires re-observation before a retry and admits only the decision semantics

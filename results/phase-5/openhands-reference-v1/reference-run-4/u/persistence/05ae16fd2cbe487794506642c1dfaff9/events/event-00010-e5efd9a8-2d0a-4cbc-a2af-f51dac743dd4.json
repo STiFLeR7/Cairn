@@ -1,0 +1,1 @@
+{"id":"e5efd9a8-2d0a-4cbc-a2af-f51dac743dd4","timestamp":"2026-09-01T17:22:42.554915","source":"environment","parent_id":"4c26d88a-ba1e-4236-a316-79c86c0821cf","code":"RuntimeError","detail":"Agent not initialized; call _initialize() before use","classification":{"kind":"unknown","retryable":false,"user_action":"none"},"kind":"ConversationErrorEvent"}

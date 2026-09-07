@@ -1,0 +1,12 @@
+Traceback (most recent call last):
+  File "<frozen runpy>", line 198, in _run_module_as_main
+  File "<frozen runpy>", line 88, in _run_code
+  File "D:\project-unknown-phase5\benchmarks\p5_openhands_protocol.py", line 442, in <module>
+    raise SystemExit(main())
+                     ^^^^^^
+  File "D:\project-unknown-phase5\benchmarks\p5_openhands_protocol.py", line 435, in main
+    child(args.child_mode, args.run_dir, args.output, blocked=args.blocked)
+  File "D:\project-unknown-phase5\benchmarks\p5_openhands_protocol.py", line 413, in child
+    result = run_effect(workspace, persistence)
+             ^^^^^^^^^^
+NameError: name 'run_effect' is not defined

@@ -1,6 +1,6 @@
 # Phase 5 — second-host portability proof
 
-**Status: OpenHands P5.1 passed; P5.2 reference workloads are sealed, not executed. No portability claim is admitted.**
+**Status: OpenHands P5.1 capability acquisition and P5.3 sealed reference conformance passed. P5.4's independent holdout has not been authored or run; no portability claim is admitted.**
 
 Phase 5 asks whether a second, independently implemented coding-agent host can consume Cairn's
 admitted recovery, continuation, and receipt/reconciliation semantics through a thin, host-owned
@@ -127,4 +127,21 @@ the workload hash manifest is
 
 The coding fixture correctly fails before host execution at its explicit `NotImplementedError`; the
 provider verifier passes in an isolated temporary directory. Those are fixture controls, not host
-results. The next state is P5.3: a thin OpenHands boundary must execute the frozen six-cell matrix.
+results.
+
+## OpenHands P5.3 — sealed reference conformance
+
+The thin driver in [`benchmarks/p5_openhands_protocol.py`](../../benchmarks/p5_openhands_protocol.py)
+uses OpenHands `LocalConversation`, its terminal tool, and a deterministic `TestLLM` only at the host
+boundary. It neither imports Cairn's runtime nor transfers host sessions or transcripts into the raw
+Continuation Contract input. The fully sealed reference matrix passed in
+[`reference-run-11`](../../results/phase-5/openhands-reference-v1/reference-run-11/): uninterrupted
+U, fresh-process R/R_NEG, native-condensation C/C_NEG, and the provider-commit-before-receipt EFFECT
+cell. Fresh coding recovery re-observed before action; native condensation emitted a host
+`Condensation` event and changed the active view; the effect recovery observed the one matching
+resource before `skip`, with verified provider parity. The raw records are frozen by its
+[`evidence manifest`](../../results/phase-5/openhands-reference-v1/reference-run-11/evidence-manifest.json).
+
+This is a host-capability and deterministic-control result, not a real-model score or a portability
+admission. P5.4 must independently author, seal, and run a different holdout before P5.5 can compare
+two hosts.

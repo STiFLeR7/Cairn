@@ -1,0 +1,6 @@
+{
+  "effect_id": "maintenance-window",
+  "idempotency_key": "p5-maintenance-042",
+  "request_fingerprint": "sha256:5c8e89b2d4721d7d",
+  "tool_class": "check-before-retry"
+}

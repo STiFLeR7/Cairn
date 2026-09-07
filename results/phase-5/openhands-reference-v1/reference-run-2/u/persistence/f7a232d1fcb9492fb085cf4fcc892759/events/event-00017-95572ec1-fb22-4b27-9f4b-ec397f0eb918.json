@@ -1,0 +1,1 @@
+{"id":"95572ec1-fb22-4b27-9f4b-ec397f0eb918","timestamp":"2026-09-01T17:18:32.065029","source":"environment","parent_id":"1ca20ca0-88a4-4847-8431-12da9169f1b3","code":"TestLLMExhaustedError","detail":"TestLLM: no more scripted responses (exhausted after 7 calls)","classification":{"kind":"unknown","retryable":false,"user_action":"none"},"kind":"ConversationErrorEvent"}

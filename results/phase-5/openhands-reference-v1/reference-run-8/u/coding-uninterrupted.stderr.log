@@ -1,0 +1,60 @@
++----------------------------------------------------------------------+
+|  OpenHands SDK v1.42.1                                               |
+|                                                                      |
+|  Report a bug: github.com/OpenHands/software-agent-sdk/issues        |
+|  Get help: openhands.dev/joinslack                                   |
+|  Scale up: openhands.dev/product/sdk                                 |
+|                                                                      |
+|  Set OPENHANDS_SUPPRESS_BANNER=1 to hide this message                |
++----------------------------------------------------------------------+
+
+[09/07/26 09:38:56] INFO     Created new conversation              state.py:577
+                             4600e0de-08f6-4443-8f6a-573fbda3b7ad              
+[09/07/26 09:38:56] INFO     Auto-detected: Using                factory.py:156
+                             WindowsTerminal (PowerShell                       
+                             backend)                                          
+[09/07/26 09:38:58] INFO     TerminalExecutor initialized with      impl.py:124
+                             working_dir:                                      
+                             results\phase-5\openhands-reference-v1            
+                             \reference-run-8\u\workspace,                     
+                             username: None, terminal_type:                    
+                             TerminalSession                                   
+[09/07/26 09:38:58] INFO     Loaded 1 tools from spec               base.py:563
+[09/07/26 09:38:58] INFO     [Profile Store] Loaded    llm_profile_store.py:238
+                             profile `Groq` from                               
+                             C:\Users\stifl\.openhands                         
+                             \profiles\Groq.json                               
+[09/07/26 09:38:58] INFO     [Profile Store] Loaded    llm_profile_store.py:238
+                             profile `Ling-3.0-Flash`                          
+                             from                                              
+                             C:\Users\stifl\.openhands                         
+                             \profiles\Ling-3.0-Flash.                         
+                             json                                              
+[09/07/26 09:38:58] INFO     [Profile Store] Loaded    llm_profile_store.py:238
+                             profile                                           
+                             `nemotron-3-ultra-550b-a5                         
+                             5b-free` from                                     
+                             C:\Users\stifl\.openhands                         
+                             \profiles\nemotron-3-ultr                         
+                             a-550b-a55b-free.json                             
+[09/07/26 09:38:58] INFO     [Profile Store] Loaded    llm_profile_store.py:238
+                             profile `Groq` from                               
+                             C:\Users\stifl\.openhands                         
+                             \profiles\Groq.json                               
+[09/07/26 09:38:58] INFO     [Profile Store] Loaded    llm_profile_store.py:238
+                             profile `Ling-3.0-Flash`                          
+                             from                                              
+                             C:\Users\stifl\.openhands                         
+                             \profiles\Ling-3.0-Flash.                         
+                             json                                              
+[09/07/26 09:38:58] INFO     [Profile Store] Loaded    llm_profile_store.py:238
+                             profile                                           
+                             `nemotron-3-ultra-550b-a5                         
+                             5b-free` from                                     
+                             C:\Users\stifl\.openhands                         
+                             \profiles\nemotron-3-ultr                         
+                             a-550b-a55b-free.json                             
+[09/07/26 09:39:00] ERROR    Agent reached maximum   local_conversation.py:1987
+                             iterations limit (3).                             
+[09/07/26 09:39:01] ERROR    Agent reached maximum   local_conversation.py:1987
+                             iterations limit (3).                             

@@ -1,0 +1,42 @@
++----------------------------------------------------------------------+
+|  OpenHands SDK v1.42.1                                               |
+|                                                                      |
+|  Report a bug: github.com/OpenHands/software-agent-sdk/issues        |
+|  Get help: openhands.dev/joinslack                                   |
+|  Scale up: openhands.dev/product/sdk                                 |
+|                                                                      |
+|  Set OPENHANDS_SUPPRESS_BANNER=1 to hide this message                |
++----------------------------------------------------------------------+
+
+Traceback (most recent call last):
+  File "<frozen runpy>", line 198, in _run_module_as_main
+  File "<frozen runpy>", line 88, in _run_code
+  File "D:\project-unknown-phase5\benchmarks\p5_openhands_protocol.py", line 431, in <module>
+    raise SystemExit(main())
+                     ~~~~^^
+  File "D:\project-unknown-phase5\benchmarks\p5_openhands_protocol.py", line 424, in main
+    child(args.child_mode, args.run_dir, args.output, blocked=args.blocked)
+    ~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\project-unknown-phase5\benchmarks\p5_openhands_protocol.py", line 394, in child
+    result = run_coding_uninterrupted(workspace, persistence)
+  File "D:\project-unknown-phase5\benchmarks\p5_openhands_protocol.py", line 188, in run_coding_uninterrupted
+    host = conversation(workspace, persistence, [*coding_commands(), *coding_commands(recovery=True)], "p5-openhands-uninterrupted")
+  File "D:\project-unknown-phase5\benchmarks\p5_openhands_protocol.py", line 135, in conversation
+    agent=host_agent(commands, label),
+          ~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "D:\project-unknown-phase5\benchmarks\p5_openhands_protocol.py", line 123, in host_agent
+    condenser=LLMSummarizingCondenser(
+              ~~~~~~~~~~~~~~~~~~~~~~~^
+        llm=TestLLM.from_messages([Message(role="assistant", content=[TextContent(text="P5 native condensation")])], model=f"{label}-summary"),
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        max_size=6,
+        ^^^^^^^^^^^
+        keep_first=2,
+        ^^^^^^^^^^^^^
+    ),
+    ^
+  File "C:\Users\stifl\AppData\Local\Temp\cairn-p5-openhands-sdk\Lib\site-packages\pydantic\main.py", line 263, in __init__
+    validated_self = self.__pydantic_validator__.validate_python(data, self_instance=self)
+pydantic_core._pydantic_core.ValidationError: 1 validation error for LLMSummarizingCondenser
+  Value error, keep_first must be less than max_size // 2 to leave room for condensation [type=value_error, input_value={'llm': TestLLM(model='p5...ze': 6, 'keep_first': 2}, input_type=dict]
+    For further information visit https://errors.pydantic.dev/2.13/v/value_error
