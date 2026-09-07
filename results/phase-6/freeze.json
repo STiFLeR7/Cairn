@@ -1,0 +1,57 @@
+{
+  "files": [
+    {
+      "bytes": 1956,
+      "path": "docs/design/continuation-contract-v0.md",
+      "sha256": "339ec146534fedfbfe7a03a40f35fdf915c9138d3ed8dc8d37b619c1e52cbaf3"
+    },
+    {
+      "bytes": 2157,
+      "path": "docs/design/receipt-reconciliation-contract-v0.md",
+      "sha256": "290e4c264370bfc22477add9aebebeede2e4af758adc2ac4937c9d381d372e42"
+    },
+    {
+      "bytes": 13988,
+      "path": "results/phase-1/REPORT.md",
+      "sha256": "4266670932fe52a68815619d028a796096a9e76f62e8689cc75008436196753f"
+    },
+    {
+      "bytes": 1004,
+      "path": "results/phase-2/p24-verdict.json",
+      "sha256": "6642584c2f7185fefa0d4f911ad96070b6a1c1981ac550475eeb29f5a0912a2a"
+    },
+    {
+      "bytes": 1151,
+      "path": "results/phase-3/p3-verdict.json",
+      "sha256": "3e74584a3152d778cd7a2980e5bb6ac60ccedb86270cb0d9d7770e077a74f708"
+    },
+    {
+      "bytes": 913,
+      "path": "results/phase-4/reconstitution-v6/verdict.json",
+      "sha256": "32a9a6a9ceac4f9a99ec9be4e35c1d4f641bbdfe043aa5882fb4a64a5d15d648"
+    },
+    {
+      "bytes": 679,
+      "path": "results/phase-5/two-host-portability-verdict.json",
+      "sha256": "5e17da8614cad2a5831a557267ba8284f387f4e97ccb17aa66f8f9da6ce8d58d"
+    },
+    {
+      "bytes": 2759,
+      "path": "benchmarks/p5_conformance.py",
+      "sha256": "2f53a19c555a66cc708f3d7838eef33c1397d7d4c954f9e91cdb33d57caed8a4"
+    },
+    {
+      "bytes": 14954,
+      "path": "docs/superpowers/specs/2026-09-07-p6-independent-ecosystem-conformance-design.md",
+      "sha256": "58f821bcff7598bc4da99f97e722923792a7bc8a6720fc969372cd8f871905c9"
+    }
+  ],
+  "metadata": {
+    "baseline_commit": "4db80e0b9f0b6ba01ec92a50060c4b8d6a6e97fb",
+    "branch": "phase6-independent-conformance",
+    "platform": "Windows-11-10.0.26200-SP0",
+    "python": "3.12.4 (tags/v3.12.4:8e8a4ba, Jun  6 2024, 19:30:16) [MSC v.1940 64 bit (AMD64)]",
+    "state": "FROZEN_OBLIGATIONS"
+  },
+  "schema_version": "cairn.p6-freeze.v0"
+}
