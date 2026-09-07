@@ -1,0 +1,14 @@
+{
+  "missing": [
+    "fresh_process",
+    "durable_workspace",
+    "durable_journal",
+    "compaction_completed",
+    "active_context_changed",
+    "ordered_effect_events",
+    "ambiguous_effect_window"
+  ],
+  "passed": false,
+  "schema_version": "cairn.p6-capability-verdict.v0",
+  "state": "TARGET_STOPPED"
+}

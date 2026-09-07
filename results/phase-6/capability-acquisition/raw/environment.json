@@ -1,0 +1,8 @@
+{
+  "dbos": "2.31.0",
+  "openai": "3.8.0",
+  "openai_api_key_present": false,
+  "pydantic_ai_slim": "2.40.0",
+  "python": "3.12.4",
+  "tiktoken": "0.14.0"
+}

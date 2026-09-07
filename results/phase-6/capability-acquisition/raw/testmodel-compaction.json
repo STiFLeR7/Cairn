@@ -1,0 +1,7 @@
+{
+  "completed": false,
+  "error": "Message compaction is not supported by TestModel",
+  "error_type": "NotImplementedError",
+  "operation": "TestModel.compact_messages",
+  "pydantic_ai": "2.40.0"
+}

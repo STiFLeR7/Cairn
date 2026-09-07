@@ -1,0 +1,6 @@
+{
+  "openai_compaction_signature": "(*, stateless: bool | None = None, token_threshold: int | None = None, message_count_threshold: int | None = None, trigger: Callable[[list[ModelMessage]], bool] | None = None) -> None",
+  "openai_extra_importable": true,
+  "openai_api_key_present": false,
+  "operation": "import OpenAICompaction after installing pydantic-ai-slim[openai]==2.40.0"
+}

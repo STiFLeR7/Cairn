@@ -1,0 +1,9 @@
+{
+  "active_context_changed": false,
+  "ambiguous_effect_window": false,
+  "compaction_completed": false,
+  "durable_journal": false,
+  "durable_workspace": false,
+  "fresh_process": false,
+  "ordered_effect_events": false
+}

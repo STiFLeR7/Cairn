@@ -1,0 +1,7 @@
+{
+  "command": "DBOS(config={name: cairn-p6-smoke, system_database_url: sqlite:///...}); DBOS.start_workflow(workflow).get_result()",
+  "operation": "one DBOS workflow with one DBOS step",
+  "result": "completed",
+  "system_database": "SQLite",
+  "version": "dbos==2.31.0"
+}
