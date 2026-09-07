@@ -1,6 +1,6 @@
 # Phase 5 — second-host portability proof
 
-**Status: OpenHands P5.1 capability acquisition and P5.3 sealed reference conformance passed. P5.4's independent holdout has not been authored or run; no portability claim is admitted.**
+**Status: OpenHands P5.1 capability acquisition and P5.3 sealed reference conformance passed. P5.4's independent holdout is sealed but has not run; no portability claim is admitted.**
 
 Phase 5 asks whether a second, independently implemented coding-agent host can consume Cairn's
 admitted recovery, continuation, and receipt/reconciliation semantics through a thin, host-owned
@@ -143,5 +143,14 @@ resource before `skip`, with verified provider parity. The raw records are froze
 [`evidence manifest`](../../results/phase-5/openhands-reference-v1/reference-run-11/evidence-manifest.json).
 
 This is a host-capability and deterministic-control result, not a real-model score or a portability
-admission. P5.4 must independently author, seal, and run a different holdout before P5.5 can compare
-two hosts.
+admission.
+
+## OpenHands P5.4 — independently sealed holdout
+
+The holdout was authored after P5.3's raw evidence was committed. Its ledger-digest coding task and
+archive-job provider have distinct task text, source names, completion artifact, verifier assumptions,
+intent fingerprint, and terminal actions. The public registration and workload hashes are in
+[`results/phase-5/openhands-holdout-v1/`](../../results/phase-5/openhands-holdout-v1/). Its starter
+coding verifier fails at the declared `NotImplementedError`; its isolated provider verifier passes.
+No OpenHands P5.4 conversation has been started. The next permitted state is its thin-host execution
+against the already sealed matrix.

@@ -1,0 +1,13 @@
+{
+  "schema_version": "cairn.p5-openhands-holdout.v1",
+  "status": "sealed-before-host-execution",
+  "files": [
+    {"path": "sealed-workloads/coding/ledger_digest.py", "bytes": 85, "sha256": "79fd4f3fc7619e0e9327c4a9d5bc1f379bbf189b45c235c836be56cf3bc0d0bc"},
+    {"path": "sealed-workloads/coding/TASK.md", "bytes": 617, "sha256": "6229cba0e86e506ccbda7ee531456aaaeac36eef405f5378a766ed862257fca0"},
+    {"path": "sealed-workloads/coding/verify_complete.py", "bytes": 267, "sha256": "7b01cf8fa131317f28f5322505b6fd91c1aedbe891c5e4ea9ef54fc521d5a288"},
+    {"path": "sealed-workloads/coding/verify_ledger.py", "bytes": 434, "sha256": "5bb7a5a2bd41daa81dc5a8944437436ce697f67617e7e105db5606a65f23c279"},
+    {"path": "sealed-workloads/effect/workspace/archive_gateway.py", "bytes": 3243, "sha256": "8c7fe8f0f0bbcae79104a36d3ccecd40742baf9c16cb2d4d610bd7ca09e83292"},
+    {"path": "sealed-workloads/effect/workspace/EFFECT_TASK.md", "bytes": 406, "sha256": "b40e0328a04d1309f25ba570cf61ed0c11ca2829e25f66960042d5026488a0a5"},
+    {"path": "sealed-workloads/effect/workspace/verify_archive.py", "bytes": 1098, "sha256": "3c0d134479390f0be40a7986eae21d3d5b9799192f949d0515cec4e1b5e58ec8"}
+  ]
+}
