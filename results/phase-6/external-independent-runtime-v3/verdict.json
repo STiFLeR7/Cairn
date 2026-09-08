@@ -1,0 +1,30 @@
+{
+  "phase": "P6",
+  "candidate": "external-independent-runtime-v3",
+  "verdict": "REJECTED_PRE_REFERENCE",
+  "classification": "independent implementation defect",
+  "candidate_root": "D:/phase6-independent-runtime-v3",
+  "candidate_commit": "3741e451c1790b4962165cda96fa0b359893a5e3",
+  "driver_sha256": "99e95e914b307cb2cb6324b0dc2f6e6ef4707367e5653e5e8916743d1e75fa2f",
+  "self_check_sha256": "4376e5b9e12889c6ed59a2dc7d034eb61807b759a94c281008315c23596b5cbc",
+  "submission_sha256": "149bb6f6ed3305acea04729bc2edfca68026532e2248338deaeab4779ad2cef8",
+  "source_audit": {
+    "actual_process_death": false,
+    "fresh_process": false,
+    "checkpoint_uses_verified_work": false,
+    "workspace_reobservation": false,
+    "provider_observation_is_real": false
+  },
+  "findings": [
+    "Recovery and compaction set child_pid = parent_pid + 1000; they neither start a child process nor use os._exit(137).",
+    "The claimed re-observation writes a fixed text evidence file and does not read, hash, or compare the workspace against the checkpoint world identity.",
+    "The checkpoint declares verified_work.task_completed true before the task action occurs.",
+    "Effect observations are passed into the cell as fixed values; commits, receipts, and ledger state are evidence strings rather than provider-derived durable state.",
+    "The local smoke does not use source_root and is not an external repository workload."
+  ],
+  "consequences": [
+    "The local evaluator pass is structurally valid only and is not admitted evidence.",
+    "No public reference, sealed holdout, or reproducer was created or disclosed to this candidate.",
+    "No Cairn contract or evaluator changed because of this implementation defect."
+  ]
+}

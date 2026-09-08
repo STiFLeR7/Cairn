@@ -53,6 +53,16 @@ The copied kit now rejects placeholder workload digests. This remains a
 candidate and evaluator-provenance finding; no Cairn contract changed and P6
 is still not admitted.
 
+A third Haiku-authored local-smoke candidate was also stopped before reference
+disclosure. It had a non-placeholder sealed smoke envelope and passed the
+structural evaluator, but source audit found a fabricated `parent_pid + 1000`
+child, no `os._exit(137)` or subprocess recovery, no actual workspace
+re-observation, pre-claimed verified work, and fixed provider facts. The
+[v3 stopped record](../../results/phase-6/external-independent-runtime-v3/)
+is a second reminder that evaluator acceptance is necessary but insufficient:
+the implementation and its raw host records must survive independent audit.
+P6 remains not admitted.
+
 ## Admission gate
 
 Phase 6 can be admitted only when all of the following exist:
