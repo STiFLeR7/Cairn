@@ -53,6 +53,12 @@ updates this file.
   decisions. The 36-cell reference matrix and 15-cell sealed holdout had no duplicate or silent-loss cells.
 
 ### Changed
+- **Phase 6 v2 continuation challenges hardened:** a stopped Haiku-only
+  candidate ignored the supplied continuation and regenerated the witness's
+  then-predictable `<field>:<run_nonce>` values. The witness now randomizes
+  continuation values independently from the nonce, and a sixteenth focused
+  control rejects that synthesis. The candidate did not run the reference
+  matrix or touch `D:/imgshape`; no Cairn recovery contract changed.
 - **Phase 6 v1 scope corrected:** candidate 5 proved that v1's verifier-owned
   runtime facts were insufficient because its host requests still disclosed
   case labels, negative state, recovery continuation/task data, and the

@@ -25,6 +25,14 @@ host must recover continuation, task digest, and effect intent from the selected
 checkpoint. v2 does not import Cairn or dictate a host runtime, agent loop,
 model, memory, tools, persistence, or scheduler.
 
+A subsequent stopped candidate exposed one remaining derivation channel: v2
+originally constructed every continuation value as `<field>:<run_nonce>`. Its
+source audit found that the host ignored the supplied continuation and recreated
+those values. Commit `7e9bd81879fe48433d5e08e18fc36750791da1fe`
+randomizes every continuation value independently from the nonce and adds a
+runtime negative control for that exact attack. This hardens the witness; it
+does not change Continuation Contract v0.
+
 ## Trust-boundary evolution
 
 | Claimed fact | v0 | v1 limitation | v2 treatment |
@@ -66,6 +74,7 @@ solvable local property.
 | Fabricated PID/process event | PID and termination status come from `subprocess.Popen`, not the host. |
 | Fixed artifact hash | Witness recomputes artifact bytes and checks their nonce/task binding. |
 | Hard-coded PASS/reference vector | Artifact/state values are random and verifier-bound; recovery is not given them again. |
+| Nonce-derived continuation synthesis | Each continuation value is independently random; recreating `<field>:<nonce>` fails exact-state validation. |
 | Cell-label-derived provider output | No cell label appears in host requests or workspace paths. |
 | Copy matching/decision conclusions | Provider response has observation/resource identity but no matching boolean or decision. |
 | Replayed evidence | Every checkpoint, mailbox, result, and manifest is nonce-bound; prior-run values are rejected. |

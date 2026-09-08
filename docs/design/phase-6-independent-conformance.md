@@ -17,11 +17,15 @@ while removing those answer channels. The full trust boundary and limits are
 in the [verifier-grounding design](phase-6-verifier-grounding.md).
 
 The P6 frozen baseline is [freeze.json](../../results/phase-6/freeze.json).
-The current v2 validation is
+The published v2 validation is
 [verifier-grounded-kit-v2.json](../../results/phase-6/verifier-grounded-kit-v2.json):
-15 focused checks passed, including a complete 30-cell semantic control,
-copy-isolated execution, answer-table attacks, and independently recomputed kit
-hashes pinned to commit `214344b74ad3cedb143d8c57745679d04f47befc`.
+15 focused checks passed at commit
+`214344b74ad3cedb143d8c57745679d04f47befc`. A later candidate exposed a
+nonce-derived continuation shortcut before reference execution. The local
+[nonce-independence hardening](../../results/phase-6/verifier-grounded-kit-v2-nonce-hardening.json)
+adds a sixteenth adversarial check and independently randomizes continuation
+values at commit `7e9bd81879fe48433d5e08e18fc36750791da1fe`;
+it is not a new Stage 6A result and must be published before reuse.
 The kit validation is [kit-verdict.json](../../results/phase-6/kit-verdict.json):
 14 focused checks passed for its then-current four-file kit, including
 copied-kit execution outside the repository. The current handoff validation is
@@ -64,6 +68,17 @@ hashes, and non-executed gates are recorded in
 [stage-6a-haiku-candidate-5.json](../../results/phase-6/stage-6a-haiku-candidate-5.json).
 This is both an implementation failure and a v1 protocol finding; it changes
 no admitted Cairn contract. Kit v2 is the only route for a subsequent run.
+
+Candidate 6 consumed the published v2 kit and was stopped before tests or the
+reference matrix. Its uninterrupted path ignored `task.continuation` and
+recreated the witness's then-predictable `<field>:<run_nonce>` values. All 504
+recorded model messages used `claude-haiku-4-5-20251001`; no Cairn import,
+`D:/imgshape` access, or out-of-scope tool access was found. The rejected source
+commit, trace hashes, and non-executed gates are recorded in
+[stage-6a-haiku-candidate-6.json](../../results/phase-6/stage-6a-haiku-candidate-6.json).
+This is an implementation failure and a v2 challenge-generation finding, not a
+Continuation Contract change. Another candidate must not receive the kit until
+the nonce-independence hardening is published.
 
 ### Stage 6B — independent sealing and reproduction
 

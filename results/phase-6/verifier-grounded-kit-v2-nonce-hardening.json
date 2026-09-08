@@ -1,0 +1,52 @@
+{
+  "schema_version": "cairn.p6-verifier-grounded-kit.v2.1",
+  "generated_at": "2026-09-08",
+  "state": "READY_LOCAL_UNPUBLISHED",
+  "claim": "The v2 witness now generates continuation challenge values independently from the run nonce, so nonce-derived synthesis fails mechanically.",
+  "does_not_claim": [
+    "an independent implementation passed",
+    "Stage 6B sealing or reproduction",
+    "Phase 6 admission",
+    "universal interoperability",
+    "exactly-once effects"
+  ],
+  "causal_input": {
+    "candidate_record": "results/phase-6/stage-6a-haiku-candidate-6.json",
+    "failure": "A stopped v2 candidate regenerated verifier-specific continuation values from the nonce instead of preserving task.continuation."
+  },
+  "kit": {
+    "root": "conformance/v2",
+    "prior_published_commit": "214344b74ad3cedb143d8c57745679d04f47befc",
+    "hardening_commit": "7e9bd81879fe48433d5e08e18fc36750791da1fe",
+    "files": [
+      {"path": "conformance/v2/README.md", "bytes": 4424, "sha256": "1b45167ab36c30f2b720ae70cca50277c8281e032a776b8fc31cd70a8c1accbd"},
+      {"path": "conformance/v2/vectors.json", "bytes": 985, "sha256": "e6d3037d736a3961ef6e4e1a09de592a12a79ebfd07d29a9f4e169e4e925107a"},
+      {"path": "conformance/v2/witness.py", "bytes": 19961, "sha256": "c3accf76ebc48b5f418cb058e81505cf8043c87f34c45810262c449a33ab2452"}
+    ]
+  },
+  "verification": {
+    "python": "3.12.4",
+    "tests": {
+      "command": "python -m pytest tests/test_p6_witness_v2.py -q",
+      "passed": 16,
+      "failed": 0,
+      "new_control": "nonce-derived continuation synthesis is rejected"
+    },
+    "semantic_control_repetitions": {
+      "command": "run the 30-cell semantic control three consecutive times",
+      "passed": 3,
+      "failed": 0
+    },
+    "diagnosed_environmental_race": {
+      "symptom": "An earlier semantic control child intermittently exited while opening observation-response.json.",
+      "root_cause": "Windows returned PermissionError at the mailbox read boundary.",
+      "treatment": "The reference host retries FileNotFoundError or PermissionError within its existing ten-second bound; verifier semantics and thresholds are unchanged."
+    },
+    "lint": {
+      "command": "ruff check conformance/v2/witness.py tests/test_p6_witness_v2.py",
+      "passed": true
+    },
+    "standard_library_only": true
+  },
+  "next_gate": "Review and publish the hardening commit before a fresh independent implementation receives the kit."
+}

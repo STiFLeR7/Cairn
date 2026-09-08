@@ -1,0 +1,51 @@
+{
+  "schema_version": "cairn.phase6a-stopped-candidate.v1",
+  "verdict": "FAIL",
+  "stage": "6A",
+  "claim": "Stopped during pre-reference source audit; no reference, evaluator, or workload result exists.",
+  "kit_input": {
+    "version": "v2",
+    "published_commit": "214344b74ad3cedb143d8c57745679d04f47befc",
+    "witness_sha256": "22857a958be122a9029dba34dabd6aeed23a8c7ad7027865a0c3c1fb4ea558"
+  },
+  "external_repository": "D:/phase6a-independent-implementation-v4",
+  "candidate_baseline_commit": "f294ed77b7f1d0d9538961ebd72bd6fc32decab4",
+  "rejected_source_commit": "43ab1cb5aecb5a886e79f335659c4aee45c20339",
+  "rejected_source_tree": "e15cb84ecd52576d2351e381f2f77165ba9c907b",
+  "source_model": "claude-haiku-4-5-20251001",
+  "model_message_count": 504,
+  "raw_evidence": {
+    "root": "D:/phase6a-independent-implementation-v4-evidence",
+    "checksums_sha256": "23e630546ae6cef383adbcf5978c04827e23667e49da9ebb179e94d707ab631e",
+    "main_trace_sha256": "33e9909b10ef00d0df3cc629fff0f3d86a6732fbb5ee658f5137fcd357d620b5",
+    "candidate_bundle_sha256": "666331bf0be25b65d838104da69232c6bc0419b9dac5a9c0ab66e4b855522fba"
+  },
+  "independence_audit": {
+    "cairn_imports": [],
+    "external_dependencies": [],
+    "imgshape_accessed": false,
+    "source_trace_outside_candidate_accesses": [],
+    "model_trace_values": ["claude-haiku-4-5-20251001"]
+  },
+  "failure": {
+    "boundary": "pre-reference adversarial source audit",
+    "file": "host.py",
+    "lines": [44, 56, 97],
+    "finding": "Uninterrupted execution ignored task.continuation and regenerated every required value as <field>:<run_nonce>, mirroring the verifier's then-public challenge construction. This could satisfy the runtime check without preserving the supplied host state."
+  },
+  "not_executed": [
+    "candidate unit tests",
+    "30-cell reference matrix",
+    "evaluator acceptance",
+    "D:/imgshape workload",
+    "Stage 6B holdout",
+    "uninvolved reproduction"
+  ],
+  "specification_finding": {
+    "v2_status": "requires the nonce-independence hardening before another candidate",
+    "reason": "The v2 witness randomized the nonce but deterministically derived continuation values from it. Runtime validation alone could not distinguish preservation from regeneration.",
+    "correction_commit": "7e9bd81879fe48433d5e08e18fc36750791da1fe",
+    "correction": "Generate each continuation value independently from the nonce and reject a nonce-derived adversarial host. No admitted Cairn contract changes."
+  },
+  "next_state": "Publish the reviewed v2 nonce-independence hardening before exposing a fresh kit copy to another independent implementer. Phase 6 remains unadmitted."
+}
