@@ -32,7 +32,7 @@
   "public_file_sha256": {
     "conformance/v1/README.md": "f3dab8714a0508d2ed387fa08991e304c6dfb7fd13b17133e4056015917f7a11",
     "conformance/v1/vectors.json": "619a28dee8379556d94900c87c057219cbeb85552591748105f8aeb5133122c1",
-    "conformance/v1/witness.py": "db3003a2916c944e77abaac8700d19cf56394c34567ea84e7f66a74c609179d6",
+    "conformance/v1/witness.py": "3fcbca74bf979fe195d57261bc41209a8e9752edd2c23ded48043ae8bc25c063",
     "docs/design/phase-6-verifier-grounding.md": "7fe6b4d800f30c75a51093e729450988bf7be38274dc802928fa4cf082ee9fa7"
   },
   "remaining_self_attestation": [
