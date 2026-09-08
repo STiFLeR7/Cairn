@@ -65,6 +65,12 @@ updates this file.
   decisions. The 36-cell reference matrix and 15-cell sealed holdout had no duplicate or silent-loss cells.
 
 ### Changed
+- **Phase 6 verifier kill race closed:** v1/v2 no longer equate calling
+  `kill()` with proving verifier-owned death. They now require the child exit
+  status that the OS reports for forced termination, rejecting a host that
+  publishes readiness and exits naturally in the poll-to-kill race. This fixes
+  the Python 3.10/Linux adversarial-test failure without changing a recovery
+  contract or the candidate-7 evidence pinned to `0ec49cc`.
 - **Phase 6 v2 continuation challenges hardened:** a stopped Haiku-only
   candidate ignored the supplied continuation and regenerated the witness's
   then-predictable `<field>:<run_nonce>` values. The witness now randomizes

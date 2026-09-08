@@ -75,7 +75,8 @@ for completed/resolved outcomes.
 
 ## Verifier-owned evidence
 
-The witness owns process creation and death, fresh directories, nonces,
+The witness owns process creation and death, confirms the OS-reported forced
+termination status instead of trusting that `kill()` was merely called, and owns fresh directories, nonces,
 provider/world observations, timestamps, file inspection, artifact hashes,
 checkpoint hashes, and the final verdict. It rejects output before
 re-observation, replayed tokens, fixed artifacts, nonce-derived or lost

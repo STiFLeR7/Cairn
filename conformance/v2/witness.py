@@ -7,6 +7,7 @@ import hashlib
 import json
 from pathlib import Path
 import secrets
+import signal
 import shutil
 import subprocess
 import sys
@@ -65,6 +66,17 @@ def _finish(child: subprocess.Popen[str]) -> int | None:
     except subprocess.TimeoutExpired:
         child.kill()
         return child.wait(timeout=4)
+
+
+def _kill_and_confirm(child: subprocess.Popen[str]) -> tuple[bool, int | None]:
+    """Kill a live child and confirm the OS-reported termination reason."""
+    try:
+        child.kill()
+    except OSError:
+        pass
+    exit_code = _finish(child)
+    expected = 1 if sys.platform == "win32" else -signal.SIGKILL
+    return exit_code == expected, exit_code
 
 
 def _new_process(command: list[str], phase: str, request: Path) -> subprocess.Popen[str]:
@@ -327,8 +339,10 @@ def _run_cell(
     if prepare.poll() is not None:
         record["process"]["prepare"]["exit_code"] = prepare.returncode
         return _failure(record, "prepare child exited before verifier kill")
-    prepare.kill()
-    record["process"]["prepare"]["exit_code"] = _finish(prepare)
+    killed, exit_code = _kill_and_confirm(prepare)
+    record["process"]["prepare"]["exit_code"] = exit_code
+    if not killed:
+        return _failure(record, "prepare child exited before verifier kill")
     record["process"]["prepare"]["killed_by_verifier"] = True
     _event(record, "process_killed", phase="prepare", pid=prepare.pid)
 
