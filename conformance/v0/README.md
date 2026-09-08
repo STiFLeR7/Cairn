@@ -71,6 +71,10 @@ The kit consists only of this profile, `evidence.schema.json`, `vectors.json`,
 and `evaluate.py`. Copy those four files unchanged. The submission's kit hash
 must match that copy.
 
+For the required independent-author, sealer, and reproducer separation, use
+the [independent runner protocol](INDEPENDENT-RUNNER.md). It is provenance and
+execution guidance, not a Cairn runtime or another conformance schema.
+
 ## Verdict and limits
 
 `evaluate.py` is standard-library-only and evaluates linked semantic facts; it
