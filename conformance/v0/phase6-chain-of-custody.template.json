@@ -1,0 +1,23 @@
+{
+  "schema_version": "cairn.phase6-chain-of-custody.v0",
+  "phase": "P6",
+  "state": "DRAFT",
+  "claim": "BLOCKED_UNADMITTED",
+  "run_id": null,
+  "created_at_utc": null,
+  "actors": {
+    "implementer": {"identity": null, "session_id": null, "repository": null, "claude_code_model": "haiku", "attestation_sha256": null},
+    "sealer": {"identity": null, "session_id": null, "attestation_sha256": null},
+    "reproducer": {"identity": null, "session_id": null, "attestation_sha256": null}
+  },
+  "separation": {"implementer_ne_sealer": null, "implementer_ne_reproducer": null, "sealer_ne_reproducer": null},
+  "kit": {"path": null, "combined_sha256": null, "vectors_sha256": null, "evaluator_sha256": null},
+  "imgshape": {"target_path": "D:/imgshape", "head": null, "status_before_sha256": null, "tracked_patch_sha256": null, "snapshot_manifest_sha256": null, "status_after_sha256": null, "preserved_exactly": null},
+  "implementation": {"commit": null, "archive_sha256": null, "dependency_lock_sha256": null, "command": null, "command_sha256": null, "frozen_at_utc": null, "cairn_runtime_dependency": false},
+  "reference": {"manifest_sha256": null, "seal_sha256": null, "task_sha256": null, "verifier_sha256": null, "effect_provider_sha256": null, "vectors_sha256": null, "sealed_at_utc": null, "output_evidence_sha256": null, "evaluator_verdict_sha256": null, "verdict": null},
+  "holdout": {"manifest_sha256": null, "seal_sha256": null, "task_sha256": null, "verifier_sha256": null, "effect_provider_sha256": null, "vectors_sha256": null, "sealed_at_utc": null, "output_evidence_sha256": null, "evaluator_verdict_sha256": null, "verdict": null},
+  "reproduction": {"environment_sha256": null, "command_sha256": null, "output_evidence_sha256": null, "evaluator_verdict_sha256": null, "matches_sealed_holdout": null, "verdict": null},
+  "raw_evidence": {"reference_index_sha256": null, "holdout_index_sha256": null, "reproduction_index_sha256": null},
+  "state_history": ["DRAFT", "IMPLEMENTATION_FROZEN", "REFERENCE_SEALED", "REFERENCE_EXECUTED", "HOLDOUT_SEALED", "HOLDOUT_EXECUTED", "REPRODUCED", "PASS|FAIL|INCONCLUSIVE"],
+  "final": {"verdict": "BLOCKED_UNADMITTED", "reason": "Awaiting genuinely separate IMPLEMENTER, SEALER, and REPRODUCER.", "admitted": false, "finalized_at_utc": null}
+}

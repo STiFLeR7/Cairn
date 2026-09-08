@@ -1,0 +1,27 @@
+{
+  "schema_version": "cairn.p6-handoff-validation.v0",
+  "generated_at_utc": "2026-09-08T06:02:45Z",
+  "state": "BLOCKED_UNADMITTED",
+  "claim": "The current published four-file conformance kit and external-authority handoff documentation pass focused local validation. This is not independent conformance evidence.",
+  "kit": {
+    "root": "conformance/v0",
+    "sha256": "aa42a30ff61e860bc371d5f3dffb85b589d960672e3c0f8c5bda84583ae76e18",
+    "files": [
+      {"path": "conformance/v0/README.md", "bytes": 5540, "sha256": "088aacfa0e26b9607d335af03c3d26414cdfe7ed3dc94fbc6e861a10c615f43a"},
+      {"path": "conformance/v0/evidence.schema.json", "bytes": 2575, "sha256": "6683640c7061076c68172bf6c7a262ff714bb1f5d875c0c77c0d99b3fbbb21ea"},
+      {"path": "conformance/v0/vectors.json", "bytes": 1119, "sha256": "56f98e352b9e8d5a7b02480e7c1a3a486ec93fd8d523771799a89cdcaa114c1d"},
+      {"path": "conformance/v0/evaluate.py", "bytes": 20223, "sha256": "3430c3c72a6a1a2268ebbcd388b6a8726213086c51e316deb6467decc27b09db"}
+    ]
+  },
+  "validation": {
+    "tests": {"command": "pytest -q tests/test_p6_conformance_kit.py tests/test_p6_freeze.py", "passed": 15, "failed": 0},
+    "lint": {"command": "ruff check conformance/v0 tests/test_p6_conformance_kit.py", "passed": true},
+    "json_template_parse": true,
+    "copy_outside_repository": "Previously validated by kit-verdict.json; this documentation-only handoff change does not drive a host."
+  },
+  "limitations": [
+    "No external implementer, sealer, or reproducer participated in this validation.",
+    "No D:/imgshape workload was executed or modified.",
+    "Phase 6 remains blocked and unadmitted."
+  ]
+}

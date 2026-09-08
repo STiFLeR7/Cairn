@@ -4,7 +4,7 @@ Phase 6 tests whether an implementation outside Cairn can satisfy the admitted
 recovery semantics without importing Cairn code, adapters, or runtime internals.
 It is not a new Cairn runtime or integration program.
 
-## Current state: KIT_READY, not admitted
+## Current state: BLOCKED / UNADMITTED
 
 The [Conformance Kit v0](../../conformance/v0/README.md) is published and
 copy-isolated. Its standard-library evaluator checks an evidence envelope for
@@ -13,7 +13,14 @@ but does not define host state or run a host.
 
 The P6 frozen baseline is [freeze.json](../../results/phase-6/freeze.json).
 The kit validation is [kit-verdict.json](../../results/phase-6/kit-verdict.json):
-14 focused checks passed, including copied-kit execution outside the repository.
+14 focused checks passed for its then-current four-file kit, including
+copied-kit execution outside the repository. The current handoff validation is
+[external-authority-handoff-validation.json](../../results/phase-6/external-authority-handoff-validation.json):
+15 focused checks passed against the current four-file kit.
+The [external-authority handoff](../../conformance/v0/PHASE6-EXTERNAL-HANDOFF.md)
+now defines the required separate IMPLEMENTER, SEALER, and REPRODUCER chain
+for an immutable `D:/imgshape` workload snapshot. Until that external chain
+completes, no Phase 6 conformance claim is permitted.
 
 Pydantic AI 2.40.0 plus DBOS 2.31.0 was the first capability target. It is
 stopped for this environment, not rejected as an ecosystem: its deterministic

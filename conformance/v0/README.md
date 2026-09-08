@@ -75,6 +75,11 @@ For the required independent-author, sealer, and reproducer separation, use
 the [independent runner protocol](INDEPENDENT-RUNNER.md). It is provenance and
 execution guidance, not a Cairn runtime or another conformance schema.
 
+The actor-executable [external-authority handoff](PHASE6-EXTERNAL-HANDOFF.md)
+and [chain-of-custody template](phase6-chain-of-custody.template.json) define
+the required `D:/imgshape` preservation, sealing, execution, and reproduction
+procedure. Neither is part of the four-file evaluator kit.
+
 ## Verdict and limits
 
 `evaluate.py` is standard-library-only and evaluates linked semantic facts; it
