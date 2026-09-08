@@ -1,0 +1,37 @@
+{
+  "schema_version": "cairn.phase6a-stopped-candidate.v0",
+  "verdict": "FAIL",
+  "stage": "6A",
+  "claim": "Stopped before reference execution; not conformance evidence.",
+  "external_repository": "D:/phase6a-independent-implementation",
+  "public_inputs_commit": "613a6ca6e8c03f5dcebfc7d0813d26ebe3efde2d",
+  "implementation_commit": null,
+  "model_observed_in_raw_trace": "claude-haiku-4-5-20251001",
+  "raw_evidence": {
+    "root": "D:/phase6a-independent-implementation",
+    "implementer_trace": {
+      "path": "raw-implementer-haiku.jsonl",
+      "sha256": "24e1fec544328529abbf6bd53f302a026c1c10cf67de61b25d742b04f475e50d"
+    },
+    "agent_py_sha256": "1bc75f54b0c134e83465ac36dcc36aa9c022c25157e437f538d1ee22426726f6",
+    "runner_py_sha256": "3cd1e1f00cd495b5d3ba09d56619a5f5761091ab03e17ec1983c3aceff275128"
+  },
+  "audit": {
+    "cairn_runtime_imports": [],
+    "imgshape_references": [],
+    "findings": [
+      "runner.py used parent_pid + 1 when a recovery PID was absent.",
+      "runner.py generated fallback recovery events and final facts after parse failure.",
+      "runner.py used fixed artifact hashes instead of produced artifacts.",
+      "agent.py selected provider state from effect cell labels."
+    ]
+  },
+  "not_executed": [
+    "sealed reference matrix",
+    "copied evaluator",
+    "D:/imgshape workload",
+    "holdout",
+    "reproduction"
+  ],
+  "next_state": "Stage 6A requires a new independent candidate; Stage 6B remains blocked."
+}

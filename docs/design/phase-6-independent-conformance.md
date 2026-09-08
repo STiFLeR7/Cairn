@@ -22,6 +22,34 @@ now defines the required separate IMPLEMENTER, SEALER, and REPRODUCER chain
 for an immutable `D:/imgshape` workload snapshot. Until that external chain
 completes, no Phase 6 conformance claim is permitted.
 
+## Two-stage independent-conformance gate
+
+### Stage 6A — independent implementation
+
+An implementer may use only the published four-file kit, its public profile,
+vectors, and evaluator interface to create a new runtime in a fresh repository.
+It must independently demonstrate an actual abrupt process death, a distinct
+fresh process, durable continuation/compaction state consumed by recovery,
+provider-derived effect observation, and raw state-derived evidence. A Stage
+6A pass requires the sealed 30-cell reference matrix and evaluator acceptance;
+it does not admit Phase 6 or authorize a holdout claim.
+
+The first Stage 6A Haiku-only candidate is a **FAIL before reference
+execution**. Its source did not import Cairn and did not touch `D:/imgshape`,
+but audit found a synthetic `parent_pid + 1` identity, fallback-generated
+events/finals, fixed artifact hashes, and effect state selected from cell
+labels. The external repository and raw trace are preserved at the path and
+hashes recorded in
+[stage-6a-haiku-candidate-1.json](../../results/phase-6/stage-6a-haiku-candidate-1.json).
+It was stopped rather than repaired or evaluated.
+
+### Stage 6B — independent sealing and reproduction
+
+Stage 6B remains blocked until a separate Stage 6A implementation has passed
+the reference matrix and been frozen. Only then may an independent SEALER
+author the holdout and an uninvolved REPRODUCER execute it. Stage 6A alone is
+not evidence of ecosystem portability or a Phase 6 admission.
+
 Pydantic AI 2.40.0 plus DBOS 2.31.0 was the first capability target. It is
 stopped for this environment, not rejected as an ecosystem: its deterministic
 `TestModel` does not support `compact_messages`, and the provider-native
