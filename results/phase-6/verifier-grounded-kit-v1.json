@@ -1,0 +1,44 @@
+{
+  "schema_version": "cairn.phase6.verifier-grounding-result.v1",
+  "date": "2026-09-08",
+  "verdict": "PASS — kit hardening only; Phase 6 remains BLOCKED / UNADMITTED",
+  "scope": "Verifier-owned Stage 6A public reference infrastructure. This is not an independent implementation, sealed holdout, reproduction, or interoperability admission.",
+  "v0_finding": "v0 validates submitter-linked structural evidence but not that a host performed the claimed recovery operation. Its synthetic 30-cell test fixture demonstrates that limitation.",
+  "v1_controls": [
+    "verifier-observed child PID and forced pre-crash process termination",
+    "fresh recovery workspace containing only verifier-selected checkpoint state",
+    "verifier-generated nonce and post-restart response token",
+    "verifier-recomputed checkpoint, mailbox, result, and artifact hashes",
+    "distinct compaction state with preserved continuation values",
+    "verifier-owned effect-provider observation and decision validation"
+  ],
+  "adversarial_defenses": [
+    "fabricated PID/process event",
+    "fixed artifact hash",
+    "hard-coded PASS/reference output",
+    "replayed evidence",
+    "skipped actual recovery boundary",
+    "claimed but absent compaction",
+    "cell-derived fake provider output",
+    "missing external provider observation",
+    "incorrect recovered continuation state"
+  ],
+  "validation": {
+    "command": "ruff check conformance/v1 tests/test_p6_witness.py; pytest -q tests/test_p6_conformance_kit.py tests/test_p6_witness.py tests/test_p6_freeze.py; git diff --check",
+    "result": "28 passed; lint and diff checks passed",
+    "focused_witness_tests": "13 passed, including a verifier-owned 30-cell reference matrix and copied-kit execution",
+    "full_suite_attempt": "Stopped without a verdict after an unrelated existing P2.4 freeze subprocess remained active after 58 tests; no v1 test failed before the stop."
+  },
+  "public_file_sha256": {
+    "conformance/v1/README.md": "f3dab8714a0508d2ed387fa08991e304c6dfb7fd13b17133e4056015917f7a11",
+    "conformance/v1/vectors.json": "619a28dee8379556d94900c87c057219cbeb85552591748105f8aeb5133122c1",
+    "conformance/v1/witness.py": "db3003a2916c944e77abaac8700d19cf56394c34567ea84e7f66a74c609179d6",
+    "docs/design/phase-6-verifier-grounding.md": "7fe6b4d800f30c75a51093e729450988bf7be38274dc802928fa4cf082ee9fa7"
+  },
+  "remaining_self_attestation": [
+    "implementation author/repository provenance",
+    "absence of copied Cairn code or runtime dependency",
+    "an arbitrary host process's private reasoning"
+  ],
+  "next_gate": "A fresh Haiku-only independent implementation may receive only a copied v1 kit. It must pass the v1 reference matrix and source/dependency audit before D:/imgshape or Stage 6B is considered."
+}

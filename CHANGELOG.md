@@ -10,6 +10,14 @@ updates this file.
 ## [Unreleased]
 
 ### Added
+- **Phase 6 verifier-grounded conformance kit v1:** a standard-library,
+  host-neutral witness at `conformance/v1/` that owns child launch/kill,
+  fresh recovery workspaces, per-run nonces, checkpoint/artifact hashes, and
+  observation/provider mailboxes. Its 30-cell control and focused adversarial
+  tests reject synthetic process evidence, fixed/hard-coded artifacts, replay,
+  skipped recovery, fake compaction, missing provider observation, and lost
+  recovered continuation. It is Stage 6A reference infrastructure only—not
+  independent conformance or a Phase 6 admission.
 - **Phase 6 independent-conformance kit:** a four-file, copy-isolated,
   standard-library evaluator, evidence profile, and immutable P1/P2/P3 decision
   vectors at `conformance/v0/`. It validates linked raw-evidence hashes,
@@ -37,6 +45,12 @@ updates this file.
   decisions. The 36-cell reference matrix and 15-cell sealed holdout had no duplicate or silent-loss cells.
 
 ### Changed
+- **Phase 6 v0 scope corrected:** the published v0 evaluator validates a
+  self-attested structural evidence envelope, not that a host actually ran the
+  recovery operation. It remains available for historical compatibility but
+  cannot admit a Stage 6A implementation; the verifier-owned v1 route is now
+  required. The finding came from the stopped Haiku candidate and v0's own
+  synthetic passing fixture, not from a change to Cairn runtime semantics.
 - **P6 Pydantic AI/DBOS target is stopped, not a negative ecosystem claim:**
   Pydantic AI 2.40.0 plus DBOS 2.31.0 ran a SQLite workflow, but the
   credential-free deterministic model rejected native compaction. Enabling the

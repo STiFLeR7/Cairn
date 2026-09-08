@@ -6,10 +6,14 @@ It is not a new Cairn runtime or integration program.
 
 ## Current state: BLOCKED / UNADMITTED
 
-The [Conformance Kit v0](../../conformance/v0/README.md) is published and
-copy-isolated. Its standard-library evaluator checks an evidence envelope for
-the P1 recovery, P2 continuation/compaction, and P3 reconciliation invariants,
-but does not define host state or run a host.
+The historical [Conformance Kit v0](../../conformance/v0/README.md) is
+published and copy-isolated, but validates a self-attested structural evidence
+envelope only. It is not an admissible Stage 6A route. The required
+[Conformance Kit v1](../../conformance/v1/README.md) is a host-neutral,
+verifier-owned witness: it launches/kills child processes, creates a fresh
+recovery workspace, independently hashes state/artifacts, and owns the
+observation/provider mailboxes. The full trust boundary and limits are in the
+[verifier-grounding design](phase-6-verifier-grounding.md).
 
 The P6 frozen baseline is [freeze.json](../../results/phase-6/freeze.json).
 The kit validation is [kit-verdict.json](../../results/phase-6/kit-verdict.json):
@@ -26,8 +30,8 @@ completes, no Phase 6 conformance claim is permitted.
 
 ### Stage 6A — independent implementation
 
-An implementer may use only the published four-file kit, its public profile,
-vectors, and evaluator interface to create a new runtime in a fresh repository.
+An implementer may use only the published v1 kit, its public profile, vectors,
+and witness interface to create a new runtime in a fresh repository.
 It must independently demonstrate an actual abrupt process death, a distinct
 fresh process, durable continuation/compaction state consumed by recovery,
 provider-derived effect observation, and raw state-derived evidence. A Stage
@@ -38,8 +42,9 @@ The first Stage 6A Haiku-only candidate is a **FAIL before reference
 execution**. Its source did not import Cairn and did not touch `D:/imgshape`,
 but audit found a synthetic `parent_pid + 1` identity, fallback-generated
 events/finals, fixed artifact hashes, and effect state selected from cell
-labels. The external repository and raw trace are preserved at the path and
-hashes recorded in
+labels. This exposed a v0 conformance-kit weakness, so it was replaced for new
+runs with verifier-owned v1 rather than repaired or evaluated. The external
+repository and raw trace are preserved at the path and hashes recorded in
 [stage-6a-haiku-candidate-1.json](../../results/phase-6/stage-6a-haiku-candidate-1.json).
 It was stopped rather than repaired or evaluated.
 
@@ -115,8 +120,9 @@ Phase 6 can be admitted only when all of the following exist:
 1. A non-Cairn implementation uses only the copied kit.
 2. Its author and repository provenance prove it does not import Cairn runtime
    code or copied Cairn host drivers.
-3. It passes the complete 30-cell public reference matrix, with linked raw host
-   evidence audited against the envelope.
+3. It passes the complete 30-cell public reference matrix through the v1
+   witness, with verifier-derived raw process/workspace/mailbox evidence and
+   an independent source/dependency audit.
 4. A different holdout author seals and runs an unchanged 30-cell holdout.
 5. An uninvolved reproducer obtains the same verdict from the sealed inputs.
 
@@ -126,8 +132,8 @@ compatibility claim, native-host feature, or exactly-once guarantee.
 
 ## Smallest next action
 
-An independent implementer should choose a host that can directly expose a
-fresh process, durable workspace and journal, native compaction completion plus
-changed active context, ordered effect events, and an ambiguous effect window.
-They then submit the sealed evidence envelope to the copied evaluator. Cairn
-maintainers do not author or patch that host implementation.
+An independent implementer should consume only a copied v1 kit and choose a
+host that can expose a fresh process, durable workspace and journal,
+compaction state, and an ambiguous effect window. They run the 30-cell matrix
+through the copied witness, then submit source/dependency provenance for audit.
+Cairn maintainers do not author or patch that host implementation.
