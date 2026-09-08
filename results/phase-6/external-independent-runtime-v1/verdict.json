@@ -1,0 +1,36 @@
+{
+  "schema_version": "cairn.phase-6-external-candidate-verdict.v1",
+  "status": "FAIL",
+  "admitted": false,
+  "date": "2026-09-07",
+  "classification": "independent implementation boundary defect",
+  "candidate": {
+    "repository": "D:/phase6-independent-runtime-v1",
+    "commit": "7b7ae26919992bae732776ff0132940513cf98ac",
+    "cairn_runtime_dependency": false
+  },
+  "reference": {
+    "published_evaluator": "PASS (30/30)",
+    "exact_state_verifier_replay": "PASS (30/30)",
+    "evidence_sha256": "411c872800b191b9d04e60c56ff2de39b583dc56e26cabd7d074aaac93c204f7",
+    "controller_verdict_sha256": "93ee9d50dc6012081029d7bf86a08809f24821020677d85c3abf803a02e02fa5"
+  },
+  "sealed_holdout": {
+    "repository": "D:/phase6-sealed-holdout-v2",
+    "commit": "e64c1e1908d1f20cede6810107ebbff91fba3f50",
+    "public_task_sha256": "5afb8d9dc88c885899b893e4a51a22b7225f3e28cf07ae5c051e35ce3c1de7eb",
+    "baseline_manifest_sha256": "d2ffc35648f335d0671ba394cdfddf4eb416b0226d73d1f7b1212813532ae072",
+    "verifier_sha256": "101bd75dbad320bf1cb017bef405085f2db04aac577de078aaac1461ef99990d"
+  },
+  "reproduction": {
+    "repository": "D:/phase6-holdout-reproducer-v1",
+    "commit": "de6fcde0a2d97e197bf9c9363e9b175a3456b1db",
+    "report_sha256": "42815a66c7e5e735b18d4f4219717d14eb053f550e99dca2b8720993a444ad21",
+    "result": "no usable sealed-holdout input boundary"
+  },
+  "failure_boundary": {
+    "path": "run_conformance.py",
+    "detail": "The frozen candidate hard-codes D:/phase6-public-reference-v1 for the verifier and manifest and has no documented workload/holdout input. The independent reproducer could not invoke the sealed holdout without prohibited source edits, path substitution, or a new adapter."
+  },
+  "contract_change": "none"
+}

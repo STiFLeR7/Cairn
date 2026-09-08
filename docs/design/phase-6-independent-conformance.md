@@ -31,6 +31,15 @@ that result. The unsealed records are in
 [deepagents-fallback](../../results/phase-6/deepagents-fallback/); they show
 the semantic work an independent implementation must actually provide.
 
+An external, Haiku-authored runtime then passed its public-reference control
+but failed the sealed-holdout/reproducer gate. Its frozen entrypoint had no
+workload input and hard-coded the public reference path; the uninvolved
+reproducer could not target the sealed holdout without prohibited adaptation.
+The [stopped verdict](../../results/phase-6/external-independent-runtime-v1/)
+preserves the candidate, holdout, and reproducer provenance. This is an
+implementation-boundary failure, not a change to any admitted contract or a
+Phase 6 admission.
+
 ## Admission gate
 
 Phase 6 can be admitted only when all of the following exist:
