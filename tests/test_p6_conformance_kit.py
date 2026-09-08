@@ -346,6 +346,17 @@ def test_phase5_boolean_facts_are_not_p6_evidence(tmp_path: Path):
     assert "unsupported evidence schema" in verdict["failures"]
 
 
+def test_zero_workload_seal_or_verifier_digest_is_not_admissible(valid_submission):
+    submission, submission_root, kit = valid_submission
+    submission["workload"]["seal_sha256"] = "0" * 64
+    submission["workload"]["verifier_sha256"] = "0" * 64
+
+    verdict = evaluator.evaluate_submission(submission, submission_root, kit)
+
+    assert verdict["passed"] is False
+    assert any("workload" in failure and "digest" in failure for failure in verdict["failures"]), verdict
+
+
 def test_published_kit_runs_after_copy_outside_repository(valid_submission, tmp_path: Path):
     submission, submission_root, _ = valid_submission
     copied_kit = tmp_path / "published-kit"

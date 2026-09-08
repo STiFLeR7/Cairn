@@ -40,6 +40,19 @@ preserves the candidate, holdout, and reproducer provenance. This is an
 implementation-boundary failure, not a change to any admitted contract or a
 Phase 6 admission.
 
+A second Haiku-authored candidate was stopped earlier, before any public
+reference workload was disclosed. Although its local smoke envelope satisfied
+the former evaluator, source review showed that it generated evaluator-shaped
+facts rather than recovering durable operational state: its checkpoint omitted
+the required continuation semantics, its compaction hashes were unrelated to
+persisted context, its fresh process did not re-observe the workspace, and its
+effect facts were parent-synthesized. It also used all-zero verifier and seal
+digests. The raw record is under
+[external-independent-runtime-v2](../../results/phase-6/external-independent-runtime-v2/).
+The copied kit now rejects placeholder workload digests. This remains a
+candidate and evaluator-provenance finding; no Cairn contract changed and P6
+is still not admitted.
+
 ## Admission gate
 
 Phase 6 can be admitted only when all of the following exist:

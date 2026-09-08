@@ -58,6 +58,9 @@ independent-conformance claim additionally requires a non-Cairn implementer
 and a holdout author/sealer distinct from that implementer. A Cairn-authored
 run is a technical rehearsal, not independent conformance.
 
+`public_task_sha256`, `verifier_sha256`, and `seal_sha256` are mandatory,
+non-placeholder SHA-256 values. An all-zero digest is rejected.
+
 Run the copied kit from outside the Cairn repository:
 
 ```text

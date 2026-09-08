@@ -1,0 +1,25 @@
+{
+  "phase": "P6",
+  "candidate": "external-independent-runtime-v2",
+  "verdict": "REJECTED_PRE_REFERENCE",
+  "classification": "independent implementation defect; evaluator provenance hardening required",
+  "candidate_root": "D:/phase6-independent-runtime-v2",
+  "candidate_commit": "8a47e374573e24b0a737880e5ed6cf8d2b62071d",
+  "raw_smoke_evidence": "D:/phase6-independent-runtime-v2/output/smoke-final/evidence.json",
+  "raw_smoke_evidence_sha256": "f1fce34b96b34ec37ea6e3ae308f2831500ea8382eaf4bdeac03202adca7b9eb",
+  "driver_sha256": "cc19ffa9782aaa0639c647d3fb6f1f19e988cf2f26b33c5d1b08ac2f530b86c9",
+  "audit_log": "D:/phase6-independent-runtime-v2/output/smoke-final/audit-result.txt",
+  "audit_log_sha256": "18f06612f8a101954b2babd206f4e981df792b0d34473329e91715bc7580edc2",
+  "findings": [
+    "The smoke envelope passed the copied v0 evaluator but is not sealed evidence: verifier_sha256 and seal_sha256 are all-zero placeholders.",
+    "The runtime checkpoint contains only phase, process identity, and timestamp; it does not persist the required continuation semantics.",
+    "The compaction records hash fixed pre/post strings instead of durable active-context artifacts, and recovery does not consume a compacted state.",
+    "Continuation runs do not operate on or re-observe the copied workspace snapshot; their final artifact hashes are calculated from metadata outside the fresh process.",
+    "Effect fields are constructed by the parent after execution rather than derived from a provider observation and durable receipt."
+  ],
+  "consequences": [
+    "No reference vector, sealed holdout, or reproducer was created for this candidate.",
+    "No Cairn contract changed.",
+    "The v0 evaluator now rejects placeholder workload digests; human audit remains required for semantic provenance."
+  ]
+}

@@ -80,7 +80,7 @@
   "$defs": {
     "sha256": {
       "type": "string",
-      "pattern": "^[0-9a-f]{64}$"
+      "pattern": "^(?!0{64}$)[0-9a-f]{64}$"
     },
     "file": {
       "type": "object",

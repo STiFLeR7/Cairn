@@ -73,6 +73,10 @@ def _is_sha256(value: object) -> bool:
     )
 
 
+def _is_nonzero_sha256(value: object) -> bool:
+    return _is_sha256(value) and value != "0" * 64
+
+
 def _index(events: list[dict], kind: str, *, after: int = -1) -> int | None:
     return next(
         (event["seq"] for event in events if event.get("kind") == kind and event.get("seq", -1) > after),
@@ -432,8 +436,8 @@ def evaluate_submission(
     if workload.get("sealed_before_execution") is not True:
         fail("workload: not sealed before execution")
     for field in ("public_task_sha256", "verifier_sha256", "seal_sha256"):
-        if not _is_sha256(workload.get(field)):
-            fail(f"workload: invalid {field}")
+        if not _is_nonzero_sha256(workload.get(field)):
+            fail(f"workload: invalid or placeholder digest for {field}")
 
     valid_evidence = _validate_inventory(submission_root, submission.get("evidence_files"), fail)
     if not isinstance(runs_value, list):
