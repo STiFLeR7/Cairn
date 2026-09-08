@@ -1,0 +1,24 @@
+{
+  "schema_version": "cairn.conformance-vectors.v2",
+  "continuation_required": [
+    "task_intent",
+    "active_subgoal",
+    "accepted_decisions",
+    "verified_work",
+    "verification_state",
+    "world_identity",
+    "stop_conditions",
+    "next_action_boundary"
+  ],
+  "effect_resolution": [
+    {"observation": "present", "matching": true, "tool_class": "check-before-retry", "decision": "skip"},
+    {"observation": "absent", "matching": null, "tool_class": "safe-to-retry", "decision": "retry"},
+    {"observation": "unknown", "matching": null, "tool_class": "check-before-retry", "decision": "escalate"},
+    {"observation": "present", "matching": false, "tool_class": "check-before-retry", "decision": "escalate"},
+    {"observation": "absent", "matching": null, "tool_class": "never-retry", "decision": "escalate"}
+  ],
+  "world_resolution": [
+    {"matches_declared_state": true, "status": "completed"},
+    {"matches_declared_state": false, "status": "escalated"}
+  ]
+}
