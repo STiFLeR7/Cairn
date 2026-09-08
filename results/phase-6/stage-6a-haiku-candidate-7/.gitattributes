@@ -1,0 +1,3 @@
+*.json whitespace=cr-at-eol
+*.log whitespace=cr-at-eol
+*.sha256 whitespace=cr-at-eol

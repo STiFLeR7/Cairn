@@ -1,0 +1,23 @@
+{
+  "schema_version": "phase6a.independent-evidence-audit.v1",
+  "audited_manifest": "e342be53d4529e2d0b024c5413ffc7b508e3d4b9ec61118084dbb4c705352385",
+  "runs": 30,
+  "reference_passed_cells": 30,
+  "unique_nonces": 30,
+  "unique_response_tokens": 27,
+  "independently_recomputed": [
+    "result hashes",
+    "artifact hashes and exact bytes",
+    "observation hashes",
+    "continuation preservation",
+    "checkpoint copy and compaction",
+    "fresh PID separation",
+    "verifier event ordering",
+    "provider observation and semantic decision",
+    "negative action suppression"
+  ],
+  "error_count": 0,
+  "errors": [],
+  "passed": true,
+  "audited_at": "2026-09-08T16:15:15.7920639+05:30"
+}

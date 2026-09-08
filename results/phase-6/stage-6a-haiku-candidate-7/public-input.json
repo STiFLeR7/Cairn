@@ -1,0 +1,32 @@
+{
+  "schema_version": "phase6a.public-input.v1",
+  "repository": "https://github.com/STiFLeR7/Cairn.git",
+  "pinned_commit": "0ec49cc140888ec96411c30deac540d66ed0294f",
+  "remote_master_at_fetch": "0ec49cc140888ec96411c30deac540d66ed0294f",
+  "fetched_at_utc": "2026-09-08T10:15:16.8663691Z",
+  "files": [
+    {
+      "path": "public-kit/README.md",
+      "bytes": 4424,
+      "sha256": "1b45167ab36c30f2b720ae70cca50277c8281e032a776b8fc31cd70a8c1accbd",
+      "source_url": "https://raw.githubusercontent.com/STiFLeR7/Cairn/0ec49cc140888ec96411c30deac540d66ed0294f/conformance/v2/README.md"
+    },
+    {
+      "path": "public-kit/vectors.json",
+      "bytes": 985,
+      "sha256": "e6d3037d736a3961ef6e4e1a09de592a12a79ebfd07d29a9f4e169e4e925107a",
+      "source_url": "https://raw.githubusercontent.com/STiFLeR7/Cairn/0ec49cc140888ec96411c30deac540d66ed0294f/conformance/v2/vectors.json"
+    },
+    {
+      "path": "public-kit/witness.py",
+      "bytes": 19961,
+      "sha256": "c3accf76ebc48b5f418cb058e81505cf8043c87f34c45810262c449a33ab2452",
+      "source_url": "https://raw.githubusercontent.com/STiFLeR7/Cairn/0ec49cc140888ec96411c30deac540d66ed0294f/conformance/v2/witness.py"
+    }
+  ],
+  "environment": {
+    "os": "Microsoft Windows NT 10.0.26200.0",
+    "python": "Python 3.12.4",
+    "claude_code": "2.1.263 (Claude Code)"
+  }
+}

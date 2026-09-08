@@ -1,7 +1,17 @@
 # Phase 6 external-authority handoff
 
-**State: `BLOCKED / UNADMITTED`.** This package enables a genuine external
-run; it does not claim conformance or alter Cairn contracts.
+**State: `STAGE 6A PASS; PHASE 6 BLOCKED / UNADMITTED`.** The frozen Stage 6A
+candidate and reference evidence are published at
+[`results/phase-6/stage-6a-haiku-candidate-7/`](../../results/phase-6/stage-6a-haiku-candidate-7/).
+The remaining procedure requires a genuinely separate SEALER and uninvolved
+REPRODUCER; it does not claim Phase 6 conformance or alter Cairn contracts.
+
+For candidate 7, the IMPLEMENTER build/freeze and v2 reference-execution
+sections are complete and immutable. Do not repeat or adapt them. The next
+authorized transition starts at **Holdout and reproduction** with the published
+`candidate.bundle`. Commands below that mention the historical v0 evaluator are
+format guidance only; the corrected v2 witness and candidate-7 publication
+manifest are the authoritative Stage 6A inputs.
 
 ## Objective and boundary
 

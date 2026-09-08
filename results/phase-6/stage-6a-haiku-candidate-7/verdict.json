@@ -1,0 +1,57 @@
+{
+  "schema_version": "phase6a.execution-verdict.v1",
+  "verdict": "PASS",
+  "phase6_status": "BLOCKED / UNADMITTED pending Stage 6B",
+  "candidate_repository": "D:\\phase6a-independent-implementation-v5",
+  "candidate_commit": "ca29b601454f83d0ab75433522c40930089bc5d3",
+  "candidate_tree": "35c9c96e3f0d4cf869cba39a20629fe30b2ca61e",
+  "public_repository": "https://github.com/STiFLeR7/Cairn",
+  "public_kit_commit": "0ec49cc140888ec96411c30deac540d66ed0294f",
+  "public_kit_files": [
+    {
+      "path": "README.md",
+      "sha256": "1b45167ab36c30f2b720ae70cca50277c8281e032a776b8fc31cd70a8c1accbd"
+    },
+    {
+      "path": "vectors.json",
+      "sha256": "e6d3037d736a3961ef6e4e1a09de592a12a79ebfd07d29a9f4e169e4e925107a"
+    },
+    {
+      "path": "witness.py",
+      "sha256": "c3accf76ebc48b5f418cb058e81505cf8043c87f34c45810262c449a33ab2452"
+    }
+  ],
+  "model": "claude-haiku-4-5-20251001",
+  "model_log_messages": 301,
+  "independence_audit_passed": true,
+  "reference_matrix": {
+    "runs": 30,
+    "passed": 30,
+    "failed": 0,
+    "evaluator_accepted": true,
+    "manifest_sha256": "e342be53d4529e2d0b024c5413ffc7b508e3d4b9ec61118084dbb4c705352385",
+    "independent_audit_sha256": "003703772062e54f1fdf2190dc667cb83ddb6f8aaf5ffb8e97af74d5224d297c"
+  },
+  "exact_state": {
+    "target": "D:\\imgshape",
+    "baseline_head": "36346b42fb502146c5907fccf7566119a0ea3589",
+    "files": 115,
+    "prepare_pid": 21972,
+    "recover_pid": 17908,
+    "fresh_process": true,
+    "file_set_and_bytes_exact": true,
+    "git_status_exact": true,
+    "result_sha256": "3dc1e5edd2e1d402ba8e2f251ac6a82c9f4ef6f825db3f9f9fc206880c6f226a"
+  },
+  "workload_test_state": {
+    "before": "54 passed, 1 failed",
+    "after": "54 passed, 1 failed",
+    "pre_existing_failure": "PyTorch/torchvision optional dependency absent",
+    "state_unchanged": true
+  },
+  "candidate_tests": "23 passed",
+  "failure_classification": null,
+  "stage6b_started": false,
+  "evidence_root": "D:\\phase6a-independent-implementation-v5-evidence",
+  "completed_at": "2026-09-08T16:28:33.2383330+05:30"
+}

@@ -1,0 +1,14 @@
+{
+  "schema_version": "phase6a.imgshape-final-verification.v1",
+  "baseline_test_exit": 1,
+  "post_recovery_test_exit": 1,
+  "baseline_result": "54 passed, 1 failed: optional PyTorch/torchvision absent",
+  "post_recovery_matches_baseline_result": true,
+  "exact_before_post_test": true,
+  "exact_after_post_test": true,
+  "head": "36346b42fb502146c5907fccf7566119a0ea3589",
+  "head_exact": true,
+  "status": [],
+  "file_count": 115,
+  "passed": true
+}

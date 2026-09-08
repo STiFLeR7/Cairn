@@ -20,7 +20,7 @@
 
 ## Current recovery proof program
 
-This P1–P4 ladder is newer than, and deliberately separate from, the legacy numbered phases above.
+This P1–P6 ladder is newer than, and deliberately separate from, the legacy numbered phases above.
 It records admitted experimental contracts rather than declaring the legacy implementation universally
 reliable.
 
@@ -31,7 +31,7 @@ reliable.
 | **P3** | Fresh process resolves one ambiguous create-once effect from observation | 🟢 Complete | [Receipt/Reconciliation Contract v0](docs/design/receipt-reconciliation-contract-v0.md); deterministic provider only ([verdict](results/phase-3/p3-verdict.json)) |
 | **P4** | An external coding-agent host consumes the contracts through a thin boundary | 🟢 Complete | One Claude Code host/provider proof: V5 shared-checkpoint/effect reference evidence plus V6 post-compaction causal negative and independently sealed generic U/R/C holdout ([admission verdict](results/phase-4/reconstitution-v6/verdict.json)); not multi-host interoperability. |
 | **P5** | A second independent host consumes the same contracts | 🟢 Complete | OpenCode remained stopped on direct native-compaction negative evidence; OpenHands SDK 1.42.1 passed the host-neutral reference and independently sealed holdout matrices. Together with Claude Code P4 evidence, the [two-host verdict](results/phase-5/two-host-portability-verdict.json) admits deterministic portability only. |
-| **P6** | An independent implementation passes the conformance kit without Cairn runtime code | 🟡 Kit v2 hardening pending publication; unadmitted | [Conformance Kit v2](conformance/v2/README.md) owns observable process, workspace, and mailbox evidence while withholding case labels, recovery task inputs, and expected decisions ([trust audit](docs/design/phase-6-verifier-grounding.md)). A stopped candidate exposed nonce-derived continuation challenges; local commit `7e9bd81879fe48433d5e08e18fc36750791da1fe` removes that shortcut. No independent implementation has been admitted. |
+| **P6** | An independent implementation passes the conformance kit without Cairn runtime code | 🟡 Stage 6A passed; unadmitted | A separate Haiku-only implementation passed the corrected answer-free v2 reference 30/30 and restored the 115-file `imgshape` boundary exactly ([Stage 6A evidence](results/phase-6/stage-6a-haiku-candidate-7/README.md)). Phase 6 remains blocked on a different sealer’s post-freeze holdout and an uninvolved reproduction. |
 
 The P2 contract excludes checkpoint acquisition and external effects. The P3 contract excludes
 exactly-once delivery, generic provider schemas, and independent-provider validation. P3’s current frozen

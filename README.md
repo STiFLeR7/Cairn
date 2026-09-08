@@ -77,7 +77,7 @@ Cairn **complements** agent frameworks (OpenHands, LangGraph, custom harnesses) 
 
 ## Project status
 
-**Recovery proof ladder P1–P5: complete, narrowly. P6 is kit-ready, not admitted.** The existing BYOM library
+**Recovery proof ladder P1–P5: complete, narrowly. P6 Stage 6A passed; P6 is not admitted.** The existing BYOM library
 remains 0.x and experimental. The evidence-backed claims are the three narrow contracts below, not a
 claim that Cairn makes arbitrary agents reliable or provides exactly-once external effects.
 
@@ -88,7 +88,7 @@ claim that Cairn makes arbitrary agents reliable or provides exactly-once extern
 | **P3 — external effects** | [Receipt/Reconciliation Contract v0](docs/design/receipt-reconciliation-contract-v0.md) | One deterministic create-once provider effect: 36 reference and 15 sealed-holdout cells; no duplicate or silent-loss cells. The holdout reused the provider/harness, so this is not independent-provider validation ([verdict](results/phase-3/p3-verdict.json)) |
 | **P4 — external host** | [Claude Code integration proof](docs/design/phase-4-claude-code-integration.md) | One Claude Code host/provider proof. V5 gives the shared-checkpoint/effect reference control; V6 adds a post-compaction causal negative and independently sealed generic U/R/C holdout ([admission verdict](results/phase-4/reconstitution-v6/verdict.json)). |
 | **P5 — second host portability** | Two-host portability evidence | Claude Code’s admitted P4 evidence and OpenHands SDK 1.42.1’s sealed reference plus independent holdout passed the same host-neutral recovery/effect criteria ([verdict](results/phase-5/two-host-portability-verdict.json)). This is deterministic two-host evidence, not universal compatibility or a standard. |
-| **P6 — independent conformance** | [Conformance Kit v2](conformance/v2/README.md) | The verifier-owned host-neutral witness hides case labels and expected answers, independently randomizes continuation challenges, observes OS child death/fresh recovery, hashes workspace state itself, and owns observation/provider mailboxes ([grounding design](docs/design/phase-6-verifier-grounding.md)). v0 is self-attested; v1 is superseded; two later candidates exposed answer-bearing v1 inputs and nonce-derived v2 continuation synthesis. No independent implementation or sealed holdout has passed; this is not an interoperability claim. |
+| **P6 — independent conformance** | [Stage 6A reference pass](results/phase-6/stage-6a-haiku-candidate-7/README.md) | A clean-room, Haiku-only implementation at frozen commit `ca29b60` passed the answer-free v2 matrix 30/30 and restored all 115 Git-visible `imgshape` files exactly after verifier-owned process death. The public evaluator and an independent evidence recomputation passed. Stage 6B has no independent sealer/reproducer result, so P6 remains unadmitted and this is not an interoperability claim. |
 
 P2 requires a fresh process without the original transcript and is conditioned on acquiring a clean,
 verified checkpoint. P3 requires re-observation before a retry and admits only the decision semantics
@@ -97,8 +97,8 @@ never-retry → escalate. Neither contract establishes broad live-model performa
 or general external-effect delivery. P4 admits one host integration only; it does not expand either v0
 contract. P5 adds only deterministic two-host portability evidence; it does not establish universal
 compatibility, a host-native Cairn integration, exactly-once delivery, or an ecosystem standard. P6
-publishes an answer-free verifier-grounded conformance kit only; it does not yet add an independently implemented
-third host.
+now has one code-independent Stage 6A reference implementation, but no independently sealed holdout
+or uninvolved reproduction. That is not Phase 6 admission or an ecosystem standard.
 
 The journey so far:
 

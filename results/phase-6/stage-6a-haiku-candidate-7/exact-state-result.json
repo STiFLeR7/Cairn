@@ -1,0 +1,49 @@
+{
+  "schema_version": "phase6a.exact-state-result.v1",
+  "passed": true,
+  "declared_manifest_sha256": "081d8a402c41a4a899033cc62dc86b108cd1e7948e519580b552c58923eb9462",
+  "checkpoint_manifest_sha256": "d80dbe06c1d83e375126011c2d60cba4fe3ffecb5ee33f800f0052170f216f1c",
+  "prepare_pid": 21972,
+  "prepare_was_killed": true,
+  "recover_pid": 17908,
+  "fresh_process": true,
+  "mutated_path": "src/imgshape/__init__.py",
+  "post_crash_mutation_sha256": "0488e6bf68b962cc5889a97e73b5eb275a454780981782718269226ce72b2366",
+  "recovered_sha256": "e5edc65ff2911f8ef714868d504d99ebdb054e76a75bcceb9a73da647c6c79d5",
+  "file_set_and_bytes_exact": true,
+  "git_status_exact": true,
+  "head_exact": true,
+  "file_count": 115,
+  "events": [
+    {
+      "event": "prepare_started",
+      "pid": 21972,
+      "at": "2026-09-08T16:23:15.1693627+05:30"
+    },
+    {
+      "event": "ready_observed",
+      "pid": 21972,
+      "alive": true,
+      "at": "2026-09-08T16:23:15.3596462+05:30"
+    },
+    {
+      "event": "prepare_killed",
+      "pid": 21972,
+      "exit_code": -1,
+      "at": "2026-09-08T16:23:16.0813090+05:30"
+    },
+    {
+      "event": "post_crash_mutation",
+      "path": "src/imgshape/__init__.py",
+      "sha256": "0488e6bf68b962cc5889a97e73b5eb275a454780981782718269226ce72b2366",
+      "at": "2026-09-08T16:23:16.1110675+05:30"
+    },
+    {
+      "event": "recover_exited",
+      "pid": 17908,
+      "exit_code": 0,
+      "fresh_pid": true,
+      "at": "2026-09-08T16:23:16.2984926+05:30"
+    }
+  ]
+}

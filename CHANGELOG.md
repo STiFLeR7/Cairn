@@ -10,6 +10,18 @@ updates this file.
 ## [Unreleased]
 
 ### Added
+- **Phase 6A clean-room reference pass:** a separate Haiku-only implementation
+  pinned to public kit commit `0ec49cc` passed all 30 answer-free v2 reference
+  cells. Verifier-owned processes performed real death/fresh recovery,
+  continuation and reducing-compaction checks, negative behavior, and effect
+  reconciliation. An independent audit recomputed the result, artifact,
+  observation, checkpoint, and compaction hashes with zero discrepancies. A
+  separate exact-state run killed the checkpoint process and restored all 115
+  Git-visible files in `D:/imgshape` byte-for-byte from a fresh process. The
+  frozen source bundle and sanitized evidence are under
+  `results/phase-6/stage-6a-haiku-candidate-7/`. Stage 6B has not run; Phase 6
+  remains blocked/unadmitted pending an independent sealer and uninvolved
+  reproducer.
 - **Phase 6 answer-free conformance kit v2:** a verifier-owned witness at
   `conformance/v2/` that removes case labels, expected decisions, and recovered
   task/continuation values from host recovery requests. It requires a real

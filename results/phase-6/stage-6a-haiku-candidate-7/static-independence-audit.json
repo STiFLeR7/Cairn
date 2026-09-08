@@ -1,0 +1,26 @@
+{
+  "schema_version": "phase6a.static-independence-audit.v1",
+  "candidate_commit": "ca29b601454f83d0ab75433522c40930089bc5d3",
+  "candidate_tree": "35c9c96e3f0d4cf869cba39a20629fe30b2ca61e",
+  "public_kit_sha": "0ec49cc140888ec96411c30deac540d66ed0294f",
+  "core_files": [
+    "host.py",
+    "state.py",
+    "checkpoint.py",
+    "recovery.py",
+    "checkpoint_cli.py"
+  ],
+  "prohibited_pattern_hits": [],
+  "exact_core_file_copies_from_cairn": [],
+  "cairn_tracked_files_compared": 8057,
+  "model_counts": [
+    {
+      "model": "claude-haiku-4-5-20251001",
+      "count": 301
+    }
+  ],
+  "claude_tool_calls_to_external_paths": [],
+  "third_party_or_cairn_import_hits": 0,
+  "passed": true,
+  "audited_at": "2026-09-08T16:25:39.4774749+05:30"
+}

@@ -1,0 +1,11 @@
+{
+  "attempt": 1,
+  "classification": "PROTOCOL",
+  "failure": "Verifier property-count expression was incorrect",
+  "candidate_failure": false,
+  "mutation_performed": false,
+  "checkpoint_manifest_entries": 115,
+  "related_python_processes_after_cleanup": 0,
+  "imgshape_head": "36346b42fb502146c5907fccf7566119a0ea3589",
+  "imgshape_status": []
+}

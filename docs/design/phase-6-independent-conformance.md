@@ -24,8 +24,9 @@ The published v2 validation is
 nonce-derived continuation shortcut before reference execution. The local
 [nonce-independence hardening](../../results/phase-6/verifier-grounded-kit-v2-nonce-hardening.json)
 adds a sixteenth adversarial check and independently randomizes continuation
-values at commit `7e9bd81879fe48433d5e08e18fc36750791da1fe`;
-it is not a new Stage 6A result and must be published before reuse.
+values at commit `7e9bd81879fe48433d5e08e18fc36750791da1fe`.
+That correction is published in the admissible public input
+`0ec49cc140888ec96411c30deac540d66ed0294f`.
 The kit validation is [kit-verdict.json](../../results/phase-6/kit-verdict.json):
 14 focused checks passed for its then-current four-file kit, including
 copied-kit execution outside the repository. The current handoff validation is
@@ -77,15 +78,29 @@ recorded model messages used `claude-haiku-4-5-20251001`; no Cairn import,
 commit, trace hashes, and non-executed gates are recorded in
 [stage-6a-haiku-candidate-6.json](../../results/phase-6/stage-6a-haiku-candidate-6.json).
 This is an implementation failure and a v2 challenge-generation finding, not a
-Continuation Contract change. Another candidate must not receive the kit until
-the nonce-independence hardening is published.
+Continuation Contract change. At that point another candidate could not receive
+the kit until the nonce-independence hardening was published.
+
+Candidate 7 is the first **Stage 6A PASS** against the corrected public input.
+A Claude Code team whose 301 recorded model responses all identify
+`claude-haiku-4-5-20251001` built a new implementation in a separate repository
+from the public v2 kit. Its frozen commit `ca29b601454f83d0ab75433522c40930089bc5d3`
+passed 23 local tests and the complete answer-free reference matrix 30/30.
+The public evaluator accepted, and a separate audit recomputed continuation,
+checkpoint/compaction, mailbox, effect-decision, artifact, and negative-action
+facts with zero discrepancies. A verifier-owned exact-state exercise then
+killed the checkpoint process and recovered all 115 Git-visible files in
+`D:/imgshape` from a distinct fresh process with unchanged HEAD and worktree.
+The frozen source bundle and sanitized records are in
+[stage-6a-haiku-candidate-7](../../results/phase-6/stage-6a-haiku-candidate-7/).
+This satisfies only Stage 6A; it is not a Phase 6 admission.
 
 ### Stage 6B — independent sealing and reproduction
 
-Stage 6B remains blocked until a separate Stage 6A implementation has passed
-the reference matrix and been frozen. Only then may an independent SEALER
-author the holdout and an uninvolved REPRODUCER execute it. Stage 6A alone is
-not evidence of ecosystem portability or a Phase 6 admission.
+The Stage 6A implementation is now frozen and reference-passing. Stage 6B
+remains blocked on a genuinely separate SEALER authoring the post-freeze
+holdout and an uninvolved REPRODUCER executing it. Stage 6A alone is not
+evidence of ecosystem portability or a Phase 6 admission.
 
 Pydantic AI 2.40.0 plus DBOS 2.31.0 was the first capability target. It is
 stopped for this environment, not rejected as an ecosystem: its deterministic
@@ -164,8 +179,8 @@ compatibility claim, native-host feature, or exactly-once guarantee.
 
 ## Smallest next action
 
-An independent implementer should consume only a copied v2 kit and choose a
-host that can expose a fresh process, durable workspace and journal,
-compaction state, and an ambiguous effect window. They run the 30-cell matrix
-through the copied witness, then submit source/dependency provenance for audit.
-Cairn maintainers do not author or patch that host implementation.
+A separate SEALER receives the frozen candidate bundle and authors a new,
+fully specified post-freeze holdout without modifying the implementation. An
+uninvolved REPRODUCER then executes that sealed input in a fresh environment.
+Any implementation change invalidates the Stage 6A freeze and requires a new
+candidate identity.

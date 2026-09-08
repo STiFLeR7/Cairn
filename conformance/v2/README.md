@@ -94,3 +94,8 @@ A 30/30 v2 reference result is only Stage 6A evidence. Phase 6 remains
 unadmitted until a different sealer authors a post-freeze holdout and an
 uninvolved reproducer obtains the same verdict. Do not claim a standard,
 universal compatibility, native Cairn support, or exactly-once effects.
+
+The first recorded 30/30 Stage 6A execution against the corrected public input
+is [candidate 7](../../results/phase-6/stage-6a-haiku-candidate-7/README.md).
+Its frozen implementation and exact-state evidence do not replace the Stage 6B
+sealer/reproducer gate.

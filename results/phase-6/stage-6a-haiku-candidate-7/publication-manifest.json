@@ -1,0 +1,25 @@
+{
+  "schema_version": "cairn.phase6a-publication-manifest.v1",
+  "claim": "STAGE_6A_PASS_PHASE_6_UNADMITTED",
+  "candidate_commit": "ca29b601454f83d0ab75433522c40930089bc5d3",
+  "candidate_tree": "35c9c96e3f0d4cf869cba39a20629fe30b2ca61e",
+  "public_kit_commit": "0ec49cc140888ec96411c30deac540d66ed0294f",
+  "files": {
+    "candidate-final-verification.json": "f46560e42565ec851b1f7ce375766026ae28b1c9b4c86be2882687fa3ab1e34d",
+    "candidate-local-tests.log": "fb3a1b573e62fc05cac99fa75cf2b346527276baf0a3aa3e01114de230eaa8ec",
+    "candidate.bundle": "e964ea84a7145477183942912b76493a37af753abe3a7fd5bf9a75a98e21b33d",
+    "evidence-index.json": "b6a8fe021e1e797797895fe148dc96cc7608f70dc4924187f7eaed3354427185",
+    "exact-state-attempt1.json": "c8dd2c7158c28afd2cc4c321995408c24e7ecff4498f97a7f9c21c17231faaa1",
+    "exact-state-result.json": "3dc1e5edd2e1d402ba8e2f251ac6a82c9f4ef6f825db3f9f9fc206880c6f226a",
+    "imgshape-baseline-validation.json": "6f30c5771682a7a9756a5b2269d6ff00777b03f356ab0d6d97ed3abd338835cf",
+    "imgshape-final-verification.json": "949dc271ad54fc3fa32890c9e2e86d65b0fd8c844ebc3331fedce3e01f08c57a",
+    "public-input.json": "42cd2db25fda21c92430464a9ceec3018c65987f75d5bfade548924b41e7a903",
+    "reference-independent-audit.json": "003703772062e54f1fdf2190dc667cb83ddb6f8aaf5ffb8e97af74d5224d297c",
+    "reference-manifest.json": "e342be53d4529e2d0b024c5413ffc7b508e3d4b9ec61118084dbb4c705352385",
+    "static-independence-audit.json": "a7e8fc05c5d15d1af57b52056e0a16bcc454e32f8d4346b4a42ab66163d3ab51",
+    "verdict.json": "1b2c2fb8867b8cbdc3ebecf0aee2949980f17644dea3cf18d756dbe016d0c68f"
+  },
+  "private_evidence_index_sha256": "b6a8fe021e1e797797895fe148dc96cc7608f70dc4924187f7eaed3354427185",
+  "stage6b_started": false,
+  "phase6_admitted": false
+}
