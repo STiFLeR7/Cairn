@@ -1,0 +1,51 @@
+{
+  "schema_version": "cairn.phase6a-stopped-candidate.v1",
+  "verdict": "FAIL",
+  "stage": "6A",
+  "claim": "Stopped during pre-freeze source audit; no reference or workload result exists.",
+  "kit_input": {
+    "version": "v1",
+    "published_commit": "79a6f83c6914babfc2995a413ed6a66637a11890",
+    "witness_sha256": "3fcbca74bf979fe195d57261bc41209a8e9752edd2c23ded48043ae8bc25c063"
+  },
+  "external_repository": "D:/phase6a-independent-implementation",
+  "candidate_baseline_commit": "dbd91532adff52bb8924d4b73419057602e214c8",
+  "rejected_source_commit": "576a48ce05df64d6a4c31db53717673ead8d1c42",
+  "rejected_source_tree": "c6159f64f66db68ef4d8d4253fd35193315cb758",
+  "source_model": "claude-haiku-4-5-20251001",
+  "raw_evidence": {
+    "root": "D:/phase6a-independent-evidence-20260908",
+    "manifest": {
+      "path": "stage6a-failure-manifest.json",
+      "sha256": "eb4e3185be49d3f8ada480ff997e8b7d7fe4171fe3db29ab843c36ffd7f423b5"
+    },
+    "architect_trace_sha256": "69d7edd29959da5fa7f276f98801ae36e1206fa20d5ffe54715891c57e03b66e",
+    "builder_trace_sha256": "6c9a09047c3f8005d55d3e70adc11553cec0cddf6adc4dc1e532f6f109b676c6"
+  },
+  "independence_audit": {
+    "cairn_imports": [],
+    "external_dependencies": [],
+    "imgshape_accessed": false,
+    "source_trace_outside_candidate_accesses": [],
+    "model_trace_values": ["claude-haiku-4-5-20251001"]
+  },
+  "failure": {
+    "boundary": "pre-freeze adversarial source audit during builder write",
+    "file": "effects.py",
+    "finding": "The host embedded the five reference cell labels with their provider facts and expected decisions. prepare.py selected durable intent facts from the cell label, and recover.py copied provider.decision instead of deriving reconciliation from durable intent plus observed facts."
+  },
+  "not_executed": [
+    "local implementation tests",
+    "30-cell reference matrix",
+    "evaluator",
+    "D:/imgshape workload",
+    "Stage 6B holdout",
+    "uninvolved reproduction"
+  ],
+  "specification_finding": {
+    "v1_status": "superseded for new Stage 6A evidence",
+    "reason": "v1 disclosed case labels, negative state, recovery continuation/task data, and the expected effect decision to the host. Its runtime witness could not distinguish the rejected lookup from semantic reconciliation.",
+    "correction": "Conformance Kit v2 removes answer-bearing recovery inputs and retains v1 unchanged for reproduction."
+  },
+  "next_state": "A new candidate must be authored from v2 and pass pre-freeze audit before any reference run. Phase 6 remains unadmitted."
+}

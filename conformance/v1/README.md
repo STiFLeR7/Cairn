@@ -1,5 +1,10 @@
 # Cairn Recovery Conformance Kit v1
 
+> **Historical protocol.** Keep v1 for reproduction of commit-pinned runs, but
+> do not use it for new Stage 6A evidence. Candidate 5 demonstrated that v1
+> exposes case/negative fields, recovered task state, and the expected provider
+> decision to the host. [Kit v2](../v2/README.md) removes those answer channels.
+
 This is a verifier-owned, host-neutral reference conformance protocol. It is
 not a Cairn runtime, adapter, agent loop, state schema, memory system, or
 workflow engine. A host supplies one command; the witness drives its boundary

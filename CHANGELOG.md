@@ -10,6 +10,14 @@ updates this file.
 ## [Unreleased]
 
 ### Added
+- **Phase 6 answer-free conformance kit v2:** a verifier-owned witness at
+  `conformance/v2/` that removes case labels, expected decisions, and recovered
+  task/continuation values from host recovery requests. It requires a real
+  reducing compaction, derives effect decisions independently from provider
+  facts and durable tool class, rejects action before re-observation, and logs
+  verifier-owned event timestamps. Fifteen focused tests include a 30-cell
+  semantic control, copied-kit execution, and the candidate-5 label-lookup and
+  decision-copy attacks. This is Stage 6A infrastructure, not conformance.
 - **Phase 6 verifier-grounded conformance kit v1:** a standard-library,
   host-neutral witness at `conformance/v1/` that owns child launch/kill,
   fresh recovery workspaces, per-run nonces, checkpoint/artifact hashes, and
@@ -45,12 +53,20 @@ updates this file.
   decisions. The 36-cell reference matrix and 15-cell sealed holdout had no duplicate or silent-loss cells.
 
 ### Changed
+- **Phase 6 v1 scope corrected:** candidate 5 proved that v1's verifier-owned
+  runtime facts were insufficient because its host requests still disclosed
+  case labels, negative state, recovery continuation/task data, and the
+  provider's expected decision. The candidate was stopped before tests or
+  reference execution and frozen at its failing source commit. v1 remains
+  reproducible but is superseded by v2 for new Stage 6A evidence; no Cairn
+  recovery contract changed.
 - **Phase 6 v0 scope corrected:** the published v0 evaluator validates a
   self-attested structural evidence envelope, not that a host actually ran the
   recovery operation. It remains available for historical compatibility but
-  cannot admit a Stage 6A implementation; the verifier-owned v1 route is now
-  required. The finding came from the stopped Haiku candidate and v0's own
-  synthetic passing fixture, not from a change to Cairn runtime semantics.
+  cannot admit a Stage 6A implementation; the answer-free verifier-owned v2
+  route is now required. The finding came from the stopped Haiku candidate and
+  v0's own synthetic passing fixture, not from a change to Cairn runtime
+  semantics.
 - **P6 Pydantic AI/DBOS target is stopped, not a negative ecosystem claim:**
   Pydantic AI 2.40.0 plus DBOS 2.31.0 ran a SQLite workflow, but the
   credential-free deterministic model rejected native compaction. Enabling the

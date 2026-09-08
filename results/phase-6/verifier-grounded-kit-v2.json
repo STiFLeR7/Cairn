@@ -1,0 +1,67 @@
+{
+  "schema_version": "cairn.p6-verifier-grounded-kit.v2",
+  "generated_at": "2026-09-08",
+  "state": "KIT_V2_READY",
+  "claim": "The copied v2 kit drives real host processes while withholding case labels, recovery task state, negative labels, and expected effect decisions from the host boundary.",
+  "supersedes_for_new_evidence": "conformance/v1",
+  "does_not_claim": [
+    "an independent implementation passed",
+    "Stage 6B sealing or reproduction",
+    "Phase 6 admission",
+    "universal interoperability",
+    "exactly-once effects"
+  ],
+  "causal_input": {
+    "candidate_record": "results/phase-6/stage-6a-haiku-candidate-5.json",
+    "failure": "A v1 host embedded reference-cell provider facts and copied the provider's expected decision; v1 could not mechanically distinguish that from reconciliation."
+  },
+  "kit": {
+    "root": "conformance/v2",
+    "published_commit": "214344b74ad3cedb143d8c57745679d04f47befc",
+    "aggregate_sha256": "c3d27799c215c44819f1e9013fe484d931f4fb2475ea5240528e57d622bbfd16",
+    "files": [
+      {"path": "conformance/v2/README.md", "bytes": 4348, "sha256": "5d5d8a23e022d2250c2530c3c95fb34d9010132dbd0dee0d38f9743ee671745a"},
+      {"path": "conformance/v2/vectors.json", "bytes": 985, "sha256": "e6d3037d736a3961ef6e4e1a09de592a12a79ebfd07d29a9f4e169e4e925107a"},
+      {"path": "conformance/v2/witness.py", "bytes": 19969, "sha256": "22857a958be122a9029dba34dabd6aeed23a8f8c7ad7027865a0c3c1fb4ea558"}
+    ]
+  },
+  "verification": {
+    "python": "3.12.4",
+    "tests": {
+      "command": "python -m pytest tests/test_p6_witness_v2.py -q",
+      "passed": 15,
+      "failed": 0,
+      "includes": [
+        "30-cell semantic host control",
+        "copied-kit execution outside repository",
+        "cell-label lookup rejection",
+        "expected-decision copy rejection",
+        "fabricated process boundary rejection",
+        "fixed artifact rejection",
+        "replay rejection",
+        "skipped recovery rejection",
+        "action-before-observation rejection",
+        "fake compaction rejection",
+        "checkpoint and recovered state loss rejection",
+        "unobserved effect rejection"
+      ]
+    },
+    "lint": {
+      "command": "ruff check conformance/v2/witness.py tests/test_p6_witness_v2.py",
+      "passed": true
+    },
+    "atomic_mailbox_regression": {
+      "command": "run the 30-cell semantic control three consecutive times",
+      "passed": 3,
+      "failed": 0
+    },
+    "standard_library_only": true
+  },
+  "remaining_self_attested": [
+    "independent authorship",
+    "source provenance",
+    "absence of evaluator-aware parent/verifier inspection",
+    "dependency independence"
+  ],
+  "next_gate": "Publish the exact kit commit, then give only conformance/v2 to a new independent implementer and require pre-freeze source/dependency audit before reference execution."
+}

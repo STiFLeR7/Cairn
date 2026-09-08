@@ -6,16 +6,22 @@ It is not a new Cairn runtime or integration program.
 
 ## Current state: BLOCKED / UNADMITTED
 
-The historical [Conformance Kit v0](../../conformance/v0/README.md) is
-published and copy-isolated, but validates a self-attested structural evidence
-envelope only. It is not an admissible Stage 6A route. The required
-[Conformance Kit v1](../../conformance/v1/README.md) is a host-neutral,
-verifier-owned witness: it launches/kills child processes, creates a fresh
-recovery workspace, independently hashes state/artifacts, and owns the
-observation/provider mailboxes. The full trust boundary and limits are in the
-[verifier-grounding design](phase-6-verifier-grounding.md).
+The historical [Conformance Kit v0](../../conformance/v0/README.md) validates a
+self-attested evidence envelope only. [Kit v1](../../conformance/v1/README.md)
+added verifier-owned processes, workspaces, hashes, and mailboxes, but candidate
+5 demonstrated that its host inputs still disclosed reference labels and
+expected answers. Both remain published for reproduction but are not
+admissible for a new Stage 6A run. The required
+[Conformance Kit v2](../../conformance/v2/README.md) retains verifier ownership
+while removing those answer channels. The full trust boundary and limits are
+in the [verifier-grounding design](phase-6-verifier-grounding.md).
 
 The P6 frozen baseline is [freeze.json](../../results/phase-6/freeze.json).
+The current v2 validation is
+[verifier-grounded-kit-v2.json](../../results/phase-6/verifier-grounded-kit-v2.json):
+15 focused checks passed, including a complete 30-cell semantic control,
+copy-isolated execution, answer-table attacks, and independently recomputed kit
+hashes pinned to commit `214344b74ad3cedb143d8c57745679d04f47befc`.
 The kit validation is [kit-verdict.json](../../results/phase-6/kit-verdict.json):
 14 focused checks passed for its then-current four-file kit, including
 copied-kit execution outside the repository. The current handoff validation is
@@ -30,7 +36,7 @@ completes, no Phase 6 conformance claim is permitted.
 
 ### Stage 6A — independent implementation
 
-An implementer may use only the published v1 kit, its public profile, vectors,
+An implementer may use only the published v2 kit, its public profile, vectors,
 and witness interface to create a new runtime in a fresh repository.
 It must independently demonstrate an actual abrupt process death, a distinct
 fresh process, durable continuation/compaction state consumed by recovery,
@@ -42,11 +48,22 @@ The first Stage 6A Haiku-only candidate is a **FAIL before reference
 execution**. Its source did not import Cairn and did not touch `D:/imgshape`,
 but audit found a synthetic `parent_pid + 1` identity, fallback-generated
 events/finals, fixed artifact hashes, and effect state selected from cell
-labels. This exposed a v0 conformance-kit weakness, so it was replaced for new
-runs with verifier-owned v1 rather than repaired or evaluated. The external
-repository and raw trace are preserved at the path and hashes recorded in
+labels. This exposed a v0 conformance-kit weakness, so v0 was replaced by a
+verifier-owned witness rather than repairing or evaluating the candidate. The
+external repository and raw trace are preserved at the path and hashes recorded in
 [stage-6a-haiku-candidate-1.json](../../results/phase-6/stage-6a-haiku-candidate-1.json).
 It was stopped rather than repaired or evaluated.
+
+Candidate 5 used the verifier-owned v1 witness and was also stopped before
+reference execution. Its source imported no Cairn package and its accepted
+source-producing traces contain only `claude-haiku-4-5-20251001`, but
+`effects.py` embedded the five reference labels with their provider facts and
+expected decisions. `prepare.py` selected intent facts from the label and
+`recover.py` copied `provider.decision`. The frozen rejected commit, trace
+hashes, and non-executed gates are recorded in
+[stage-6a-haiku-candidate-5.json](../../results/phase-6/stage-6a-haiku-candidate-5.json).
+This is both an implementation failure and a v1 protocol finding; it changes
+no admitted Cairn contract. Kit v2 is the only route for a subsequent run.
 
 ### Stage 6B — independent sealing and reproduction
 
@@ -120,7 +137,7 @@ Phase 6 can be admitted only when all of the following exist:
 1. A non-Cairn implementation uses only the copied kit.
 2. Its author and repository provenance prove it does not import Cairn runtime
    code or copied Cairn host drivers.
-3. It passes the complete 30-cell public reference matrix through the v1
+3. It passes the complete 30-cell public reference matrix through the v2
    witness, with verifier-derived raw process/workspace/mailbox evidence and
    an independent source/dependency audit.
 4. A different holdout author seals and runs an unchanged 30-cell holdout.
@@ -132,7 +149,7 @@ compatibility claim, native-host feature, or exactly-once guarantee.
 
 ## Smallest next action
 
-An independent implementer should consume only a copied v1 kit and choose a
+An independent implementer should consume only a copied v2 kit and choose a
 host that can expose a fresh process, durable workspace and journal,
 compaction state, and an ambiguous effect window. They run the 30-cell matrix
 through the copied witness, then submit source/dependency provenance for audit.

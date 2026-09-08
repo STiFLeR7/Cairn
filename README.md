@@ -88,7 +88,7 @@ claim that Cairn makes arbitrary agents reliable or provides exactly-once extern
 | **P3 — external effects** | [Receipt/Reconciliation Contract v0](docs/design/receipt-reconciliation-contract-v0.md) | One deterministic create-once provider effect: 36 reference and 15 sealed-holdout cells; no duplicate or silent-loss cells. The holdout reused the provider/harness, so this is not independent-provider validation ([verdict](results/phase-3/p3-verdict.json)) |
 | **P4 — external host** | [Claude Code integration proof](docs/design/phase-4-claude-code-integration.md) | One Claude Code host/provider proof. V5 gives the shared-checkpoint/effect reference control; V6 adds a post-compaction causal negative and independently sealed generic U/R/C holdout ([admission verdict](results/phase-4/reconstitution-v6/verdict.json)). |
 | **P5 — second host portability** | Two-host portability evidence | Claude Code’s admitted P4 evidence and OpenHands SDK 1.42.1’s sealed reference plus independent holdout passed the same host-neutral recovery/effect criteria ([verdict](results/phase-5/two-host-portability-verdict.json)). This is deterministic two-host evidence, not universal compatibility or a standard. |
-| **P6 — independent conformance** | [Conformance Kit v1](conformance/v1/README.md) | A verifier-owned host-neutral witness is published. It observes OS child death/fresh recovery, hashes workspace state itself, and owns observation/provider mailboxes ([grounding design](docs/design/phase-6-verifier-grounding.md)). Historical v0 validates only a self-attested structural envelope and is not admissible P6 evidence. No independent implementation or sealed holdout has passed; this is not an interoperability claim. |
+| **P6 — independent conformance** | [Conformance Kit v2](conformance/v2/README.md) | The current verifier-owned host-neutral witness hides case labels and expected answers, gives recovery only a checkpoint/workspace identity, observes OS child death/fresh recovery, hashes workspace state itself, and owns observation/provider mailboxes ([grounding design](docs/design/phase-6-verifier-grounding.md)). v0 is self-attested and v1 is superseded after a failed candidate exposed answer-bearing host inputs. No independent implementation or sealed holdout has passed; this is not an interoperability claim. |
 
 P2 requires a fresh process without the original transcript and is conditioned on acquiring a clean,
 verified checkpoint. P3 requires re-observation before a retry and admits only the decision semantics
@@ -97,7 +97,7 @@ never-retry → escalate. Neither contract establishes broad live-model performa
 or general external-effect delivery. P4 admits one host integration only; it does not expand either v0
 contract. P5 adds only deterministic two-host portability evidence; it does not establish universal
 compatibility, a host-native Cairn integration, exactly-once delivery, or an ecosystem standard. P6
-publishes a verifier-grounded conformance kit only; it does not yet add an independently implemented
+publishes an answer-free verifier-grounded conformance kit only; it does not yet add an independently implemented
 third host.
 
 The journey so far:
