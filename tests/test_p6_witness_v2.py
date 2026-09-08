@@ -93,9 +93,15 @@ if phase == "execute":
         (workspace / "artifact.txt").write_text("artifact:fixed", encoding="utf-8")
     else:
         artifact(task["digest"])
+    continuation = task["continuation"]
+    if mode == "nonce-derived-continuation":
+        continuation = {
+            field: f"{field}:{request['run_nonce']}"
+            for field in task["continuation"]
+        }
     write("result.json", {
         "run_nonce": request["run_nonce"], "status": "completed",
-        "continuation": task["continuation"],
+        "continuation": continuation,
     })
 elif phase == "prepare":
     task = request["task"]
@@ -128,9 +134,15 @@ elif phase == "recover":
         artifact(checkpoint["task_digest"])
     write("observation-request.json", {"run_nonce": request["run_nonce"]})
     response_path = workspace / "observation-response.json"
-    while not response_path.exists():
-        time.sleep(0.01)
-    response = json.loads(response_path.read_text(encoding="utf-8"))
+    deadline = time.monotonic() + 10
+    while True:
+        if time.monotonic() > deadline:
+            raise TimeoutError("observation response remained unreadable")
+        try:
+            response = json.loads(response_path.read_text(encoding="utf-8"))
+            break
+        except (FileNotFoundError, PermissionError):
+            time.sleep(0.01)
     if mode == "replayed-response":
         response["response_token"] = "replayed"
     if mode == "recovery-state-loss":
@@ -244,6 +256,7 @@ def test_semantic_host_runs_complete_answer_free_matrix(tmp_path: Path):
     [
         ("fabricated-pid", "R", "prepare child exited before verifier kill"),
         ("fixed-artifact", "U", "artifact bytes do not match verifier expectation"),
+        ("nonce-derived-continuation", "U", "recovered continuation mismatch"),
         ("replayed-response", "R", "response token mismatch"),
         ("skipped-recovery", "R", "no observation request"),
         ("action-before-observe", "R", "action occurred before re-observation"),

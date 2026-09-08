@@ -34,7 +34,8 @@ The witness invokes:
 and a `task` containing:
 
 - a verifier-generated digest;
-- the eight continuation obligations listed in `vectors.json`;
+- the eight continuation obligations listed in `vectors.json`, with values
+  randomized independently from the run nonce;
 - `checkpoint_mode` (`full` or `compact`);
 - an optional effect intent containing an unpredictable fingerprint and one of
   the admitted tool classes;
@@ -77,8 +78,9 @@ for completed/resolved outcomes.
 The witness owns process creation and death, fresh directories, nonces,
 provider/world observations, timestamps, file inspection, artifact hashes,
 checkpoint hashes, and the final verdict. It rejects output before
-re-observation, replayed tokens, fixed artifacts, lost continuation state,
-non-reducing compaction, missing durable intent, and incorrect reconciliation.
+re-observation, replayed tokens, fixed artifacts, nonce-derived or lost
+continuation state, non-reducing compaction, missing durable intent, and
+incorrect reconciliation.
 
 No local protocol can prove the private reasoning of a fully privileged
 program. Source authorship, dependency independence, prohibited imports,

@@ -74,8 +74,8 @@ def _new_process(command: list[str], phase: str, request: Path) -> subprocess.Po
     )
 
 
-def _continuation(nonce: str) -> dict[str, str]:
-    return {field: f"{field}:{nonce}" for field in CONTINUATION_FIELDS}
+def _continuation() -> dict[str, str]:
+    return {field: secrets.token_urlsafe(24) for field in CONTINUATION_FIELDS}
 
 
 def _prepare_request(
@@ -239,7 +239,7 @@ def _run_cell(
     root = output / "work" / nonce
     pre, recovery = root / "pre", root / "recovery"
     pre.mkdir(parents=True)
-    continuation = _continuation(nonce)
+    continuation = _continuation()
     volatile_context = secrets.token_hex(2048)
     effect_facts = EFFECT_FACTS.get(cell)
     effect_intent = None if not effect_facts else {
