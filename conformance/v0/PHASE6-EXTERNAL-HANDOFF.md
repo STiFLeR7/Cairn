@@ -8,10 +8,10 @@ REPRODUCER; it does not claim Phase 6 conformance or alter Cairn contracts.
 
 For candidate 7, the IMPLEMENTER build/freeze and v2 reference-execution
 sections are complete and immutable. Do not repeat or adapt them. The next
-authorized transition starts at **Holdout and reproduction** with the published
-`candidate.bundle`. Commands below that mention the historical v0 evaluator are
-format guidance only; the corrected v2 witness and candidate-7 publication
-manifest are the authoritative Stage 6A inputs.
+authorized transition is governed by the authoritative
+[v2 Stage 6B handoff](../v2/STAGE6B-HANDOFF.md). The remainder of this v0 file
+is retained only to reproduce the earlier handoff design; its evaluator
+commands must not be used for a new claim.
 
 ## Objective and boundary
 

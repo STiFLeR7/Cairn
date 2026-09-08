@@ -65,6 +65,8 @@ provider responses, and a nonce-bound manifest. This rejects ordinary
 synthetic/replayed evidence. Implementation authorship, source independence,
 and an arbitrary program's internal reasoning cannot be established by a
 local execution protocol; supply a separate provenance and dependency audit.
+Verifier JSON uses atomic replacement, and child-authored mailbox files are not
+accepted until they parse as complete JSON.
 
 Kit v1 is only Stage 6A reference evidence. It is not Phase 6 admission and
 does not replace independently sealed holdout/reproduction in Stage 6B.

@@ -10,6 +10,11 @@ updates this file.
 ## [Unreleased]
 
 ### Added
+- **Phase 6B external-authority handoff:** an executable v2 procedure pins the
+  frozen candidate-7 bundle, commit, tree, witness, and semantic-rule digests;
+  separates SEALER and REPRODUCER commands; and supplies an append-only custody
+  template. It does not author a holdout, supply either missing authority, or
+  admit Phase 6.
 - **Phase 6A clean-room reference pass:** a separate Haiku-only implementation
   pinned to public kit commit `0ec49cc` passed all 30 answer-free v2 reference
   cells. Verifier-owned processes performed real death/fresh recovery,
@@ -27,7 +32,7 @@ updates this file.
   task/continuation values from host recovery requests. It requires a real
   reducing compaction, derives effect decisions independently from provider
   facts and durable tool class, rejects action before re-observation, and logs
-  verifier-owned event timestamps. Fifteen focused tests include a 30-cell
+  verifier-owned event timestamps. Focused tests include a 30-cell
   semantic control, copied-kit execution, and the candidate-5 label-lookup and
   decision-copy attacks. This is Stage 6A infrastructure, not conformance.
 - **Phase 6 verifier-grounded conformance kit v1:** a standard-library,
@@ -65,6 +70,12 @@ updates this file.
   decisions. The 36-cell reference matrix and 15-cell sealed holdout had no duplicate or silent-loss cells.
 
 ### Changed
+- **Phase 6 mailbox publication is race-safe:** v1/v2 verifier JSON now uses
+  atomic replacement and waits for child-authored mailboxes to parse before
+  treating them as ready. Missing recovery-mailbox failures retain child
+  stdout/stderr. A deterministic partial-write control and five copied-kit
+  stress repetitions cover the Windows race; the test host also retries
+  transient file locks.
 - **Phase 6 verifier kill race closed:** v1/v2 no longer equate calling
   `kill()` with proving verifier-owned death. They now require the child exit
   status that the OS reports for forced termination, rejecting a host that

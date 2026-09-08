@@ -1,0 +1,83 @@
+{
+  "schema_version": "cairn.phase6b-chain-of-custody.v2",
+  "state": "AWAITING_EXTERNAL_SEALER",
+  "claim": "BLOCKED_UNADMITTED",
+  "run_id": null,
+  "actors": {
+    "implementer": {
+      "provenance": "published-stage6a-candidate-7",
+      "model": "claude-haiku-4-5-20251001"
+    },
+    "sealer": {
+      "identity": null,
+      "session_id": null,
+      "authorship_attestation_sha256": null
+    },
+    "reproducer": {
+      "identity": null,
+      "session_id": null,
+      "independence_attestation_sha256": null
+    }
+  },
+  "separation": {
+    "implementer_ne_sealer": null,
+    "implementer_ne_reproducer": null,
+    "sealer_ne_reproducer": null
+  },
+  "candidate": {
+    "commit": "ca29b601454f83d0ab75433522c40930089bc5d3",
+    "tree": "35c9c96e3f0d4cf869cba39a20629fe30b2ca61e",
+    "bundle_sha256": "e964ea84a7145477183942912b76493a37af753abe3a7fd5bf9a75a98e21b33d",
+    "command": "python host.py <execute|prepare|recover> <request-json>",
+    "tests_verdict": null
+  },
+  "holdout": {
+    "repository_commit": null,
+    "repository_tree": null,
+    "bundle_sha256": null,
+    "vectors_sha256": null,
+    "witness_sha256": null,
+    "provider_sha256": null,
+    "manifest_sha256": null,
+    "sealed_at_utc": null,
+    "first_executed_at_utc": null
+  },
+  "sealer_run": {
+    "environment_sha256": null,
+    "command_sha256": null,
+    "evidence_index_sha256": null,
+    "verdict_sha256": null,
+    "cells_total": null,
+    "cells_passed": null,
+    "verdict": null
+  },
+  "reproducer_run": {
+    "environment_sha256": null,
+    "command_sha256": null,
+    "evidence_index_sha256": null,
+    "verdict_sha256": null,
+    "cells_total": null,
+    "cells_passed": null,
+    "semantic_verdict_matches": null,
+    "verdict": null
+  },
+  "target_preservation": {
+    "original_imgshape_used": false,
+    "before_manifest_sha256": null,
+    "after_manifest_sha256": null,
+    "preserved_exactly": null
+  },
+  "state_history": [
+    "AWAITING_EXTERNAL_SEALER",
+    "HOLDOUT_SEALED",
+    "SEALER_EXECUTED",
+    "REPRODUCER_EXECUTED",
+    "PASS|FAIL|INCONCLUSIVE"
+  ],
+  "final": {
+    "verdict": "BLOCKED_UNADMITTED",
+    "reason": "Awaiting genuinely separate sealer and reproducer evidence.",
+    "phase6_admitted": false,
+    "finalized_at_utc": null
+  }
+}

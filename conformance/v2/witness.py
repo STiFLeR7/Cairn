@@ -53,11 +53,19 @@ def _wait_for(path: Path, child: subprocess.Popen[str], timeout: float = 10.0) -
     deadline = time.monotonic() + timeout
     while time.monotonic() < deadline:
         if path.is_file():
-            return True
+            try:
+                _read_json(path)
+                return True
+            except (OSError, ValueError, json.JSONDecodeError):
+                pass
         if child.poll() is not None:
             return False
         time.sleep(0.01)
-    return path.is_file()
+    try:
+        _read_json(path)
+        return True
+    except (OSError, ValueError, json.JSONDecodeError):
+        return False
 
 
 def _finish(child: subprocess.Popen[str]) -> int | None:
@@ -356,6 +364,8 @@ def _run_cell(
     observation_request = recovery / "observation-request.json"
     if not _wait_for(observation_request, recover):
         record["process"]["recover"]["exit_code"] = _finish(recover)
+        stdout, stderr = recover.communicate()
+        record["process"]["recover"].update(stdout=stdout, stderr=stderr)
         return _failure(record, "recovery: no observation request before action")
     unexpected = {p.name for p in recovery.iterdir()} - {
         "checkpoint.json", "request.json", "observation-request.json",
@@ -399,6 +409,8 @@ def _run_cell(
     result_path = recovery / "result.json"
     if not _wait_for(result_path, recover):
         record["process"]["recover"]["exit_code"] = _finish(recover)
+        stdout, stderr = recover.communicate()
+        record["process"]["recover"].update(stdout=stdout, stderr=stderr)
         return _failure(record, "recovery: result missing after observation")
     record["process"]["recover"]["exit_code"] = _finish(recover)
     _event(record, "process_exited", phase="recover", pid=recover.pid,

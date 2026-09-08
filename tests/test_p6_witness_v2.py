@@ -68,7 +68,14 @@ request = json.loads(Path(request_path).read_text(encoding="utf-8"))
 workspace = Path(request["workspace"])
 
 def write(name, value):
-    (workspace / name).write_text(json.dumps(value, sort_keys=True), encoding="utf-8")
+    path = workspace / name
+    encoded = json.dumps(value, sort_keys=True)
+    if mode == "partial-json":
+        path.write_text(encoded[:1], encoding="utf-8")
+        time.sleep(0.05)
+        path.write_text(encoded, encoding="utf-8")
+    else:
+        path.write_text(encoded, encoding="utf-8")
 
 def artifact(task_digest):
     (workspace / "artifact.txt").write_bytes(("artifact:" + task_digest).encode())
@@ -251,6 +258,21 @@ def test_semantic_host_runs_complete_answer_free_matrix(tmp_path: Path):
             assert "decision" not in response["provider"]
 
 
+def test_partial_json_write_is_not_treated_as_complete(tmp_path: Path):
+    witness = _load_witness()
+    host = tmp_path / "semantic_host.py"
+    host.write_text(SEMANTIC_HOST, encoding="utf-8")
+
+    verdict = witness.run(
+        [sys.executable, str(host), "partial-json"],
+        tmp_path / "evidence",
+        cells=("R",),
+        repetitions=1,
+    )
+
+    assert verdict["passed"] is True, verdict["failures"]
+
+
 @pytest.mark.parametrize(
     ("mode", "cell", "expected"),
     [
@@ -288,7 +310,8 @@ def test_published_v2_kit_is_self_contained_and_rule_based():
     kit = ROOT / "conformance" / "v2"
 
     assert {path.name for path in kit.iterdir() if path.is_file()} == {
-        "README.md", "vectors.json", "witness.py"
+        "README.md", "STAGE6B-HANDOFF.md", "stage6b-chain-of-custody.template.json",
+        "vectors.json", "witness.py"
     }
     vectors = json.loads((kit / "vectors.json").read_text(encoding="utf-8"))
     assert vectors["schema_version"] == "cairn.conformance-vectors.v2"

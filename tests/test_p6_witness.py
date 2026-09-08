@@ -35,7 +35,14 @@ workspace = Path(request["workspace"])
 workspace.mkdir(parents=True, exist_ok=True)
 
 def write(name, value):
-    (workspace / name).write_text(json.dumps(value, sort_keys=True), encoding="utf-8")
+    path = workspace / name
+    encoded = json.dumps(value, sort_keys=True)
+    if mode == "partial-json":
+        path.write_text(encoded[:1], encoding="utf-8")
+        time.sleep(0.05)
+        path.write_text(encoded, encoding="utf-8")
+    else:
+        path.write_text(encoded, encoding="utf-8")
 
 def artifact():
     (workspace / "artifact.txt").write_text("artifact:" + request["task_digest"], encoding="utf-8")
@@ -66,11 +73,15 @@ elif phase == "recover":
         raise SystemExit(0)
     write("observation-request.json", {"run_nonce": request["run_nonce"]})
     response_path = workspace / "observation-response.json"
-    for _ in range(300):
-        if response_path.exists():
+    deadline = time.monotonic() + 10
+    while True:
+        if time.monotonic() > deadline:
+            raise TimeoutError("observation response remained unreadable")
+        try:
+            response = json.loads(response_path.read_text(encoding="utf-8"))
             break
-        time.sleep(0.01)
-    response = json.loads(response_path.read_text(encoding="utf-8"))
+        except (FileNotFoundError, PermissionError, json.JSONDecodeError):
+            time.sleep(0.01)
     continuation = json.loads((workspace / "checkpoint.json").read_text(encoding="utf-8"))["continuation"]
     if mode == "recovery-state-loss":
         continuation["verified_work"] = "lost"
@@ -115,6 +126,12 @@ def test_honest_host_runs_the_complete_verifier_owned_matrix(host: Path, tmp_pat
     assert len(manifest["runs"]) == 30
     assert all(run["process"]["prepare"]["pid"] != run["process"]["recover"]["pid"] for run in manifest["runs"] if run["cell"] != "U")
     assert all(run["verifier_owned"] is True for run in manifest["runs"])
+
+
+def test_partial_json_write_is_not_treated_as_complete(host: Path, tmp_path: Path):
+    verdict = _run(host, tmp_path / "partial-json", "partial-json", "R")
+
+    assert verdict["passed"] is True, verdict["failures"]
 
 
 @pytest.mark.parametrize(

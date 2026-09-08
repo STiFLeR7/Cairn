@@ -102,6 +102,11 @@ remains blocked on a genuinely separate SEALER authoring the post-freeze
 holdout and an uninvolved REPRODUCER executing it. Stage 6A alone is not
 evidence of ecosystem portability or a Phase 6 admission.
 
+The executable actor boundary, frozen candidate identities, sealing rules, and
+commands are published in the
+[v2 Stage 6B handoff](../../conformance/v2/STAGE6B-HANDOFF.md). Cairn does not
+provide either missing authority.
+
 Pydantic AI 2.40.0 plus DBOS 2.31.0 was the first capability target. It is
 stopped for this environment, not rejected as an ecosystem: its deterministic
 `TestModel` does not support `compact_messages`, and the provider-native

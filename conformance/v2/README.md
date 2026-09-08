@@ -83,6 +83,10 @@ re-observation, replayed tokens, fixed artifacts, nonce-derived or lost
 continuation state, non-reducing compaction, missing durable intent, and
 incorrect reconciliation.
 
+Verifier JSON is published by atomic replacement. Child-authored mailbox files
+are not considered ready until they parse as complete JSON; missing recovery
+mailbox failures retain child stdout and stderr for causal diagnosis.
+
 No local protocol can prove the private reasoning of a fully privileged
 program. Source authorship, dependency independence, prohibited imports,
 evaluator-aware branches, and attempts to inspect the verifier remain subject
@@ -100,3 +104,7 @@ The first recorded 30/30 Stage 6A execution against the corrected public input
 is [candidate 7](../../results/phase-6/stage-6a-haiku-candidate-7/README.md).
 Its frozen implementation and exact-state evidence do not replace the Stage 6B
 sealer/reproducer gate.
+
+External actors continue with the authoritative
+[Stage 6B handoff](STAGE6B-HANDOFF.md). It pins candidate 7, explains that this
+witness is the v2 evaluator, and gives separate SEALER and REPRODUCER commands.
