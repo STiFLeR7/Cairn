@@ -1,0 +1,39 @@
+{
+  "phase": "P6",
+  "candidate": "external-independent-runtime-v4",
+  "verdict": "REJECTED_PRE_REFERENCE",
+  "classification": "independent implementation defect",
+  "candidate_root": "D:/phase6-independent-runtime-v4",
+  "candidate_commit": "e87c960c7872762754e8b2462748e1804319bd37",
+  "driver_sha256": "9a6199312f39b6868d47b8f2ef7d506e99823dcd986adfb06db3c8c49cb13adb",
+  "builder_sha256": "5a10bf6d6915fddd44ca2f4c336c15c0d11741d75a885fad1e428e144582fadd",
+  "phase1_sha256": "cb902faec65ab4af04a5fadffbe0585023ea76bdabbdcca7a434d4b8adc674c0",
+  "phase2_sha256": "54d0db284d80b2abfe83b68adb0aa5861d2e1dc341725046470a6c56d4460a1c",
+  "local_submission_sha256": "e7194b507ed786dfebdb2de8aeb11ce87c554b66e044b506ce435a34ca34ae78",
+  "evaluator_verdict": "FAIL",
+  "evaluator_failure_classes": [
+    "all 30 runs contain event references absent from the evidence inventory",
+    "E_ESC_NEVER is emitted as check-before-retry despite the published never-retry vector"
+  ],
+  "source_audit": {
+    "phase1_exits_with_os_exit": false,
+    "fresh_process": true,
+    "compacted_state_consumed_by_phase2": false,
+    "negative_compaction_is_insufficient": false,
+    "effect_result_is_provider_derived": false,
+    "implementation_author_is_independent": false
+  },
+  "findings": [
+    "Phase 1 invokes sys.exit(137), not the required abrupt os._exit(137).",
+    "C and C_NEG only write context artifacts; phase 2 reloads checkpoint.json, not a compacted state. C_NEG retains every required field and escalates from the cell name.",
+    "build_submission.py derives observation, matching, decision, and receipt/ledger flags from helper functions keyed by cell name instead of provider facts.",
+    "E_MATCH invokes commit_provider after a matching observation, contrary to a non-mutating skip.",
+    "The submission’s implementation author is STiFLeR7, so it is not an independently operated implementation.",
+    "The generated submission fails the copied evaluator; its self-check tested per-cell artifacts but never evaluated the constructed submission."
+  ],
+  "consequences": [
+    "No public reference, sealed holdout, or uninvolved reproduction was disclosed to or run by this candidate.",
+    "No Cairn contract changed.",
+    "This candidate is not evidence of P6 portability or independent implementability."
+  ]
+}

@@ -63,6 +63,16 @@ is a second reminder that evaluator acceptance is necessary but insufficient:
 the implementation and its raw host records must survive independent audit.
 P6 remains not admitted.
 
+A fourth clean-room, Haiku-authored candidate added real subprocess PIDs but
+was stopped before reference disclosure as well. Its generated 30-run
+submission fails the copied evaluator because event evidence references are
+not inventoried, and its `E_ESC_NEVER` record violates the published vector.
+Source review independently found that compaction was never consumed by phase
+2, effect facts were derived from cell names, and the declared author was on
+the Cairn side. The [v4 stopped record](../../results/phase-6/external-independent-runtime-v4/)
+preserves the exact revision and failures. It does not change any contract or
+admit P6.
+
 ## Admission gate
 
 Phase 6 can be admitted only when all of the following exist:
