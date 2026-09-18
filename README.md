@@ -77,7 +77,7 @@ Cairn **complements** agent frameworks (OpenHands, LangGraph, custom harnesses) 
 
 ## Project status
 
-**Recovery proof ladder P1–P5: complete, narrowly. P6 Stage 6A passed; P6 is not admitted.** The existing BYOM library
+**Recovery proof ladder P1–P5: complete, narrowly. P6 is blocked and not admitted.** The existing BYOM library
 remains 0.x and experimental. The evidence-backed claims are the three narrow contracts below, not a
 claim that Cairn makes arbitrary agents reliable or provides exactly-once external effects.
 
@@ -88,7 +88,7 @@ claim that Cairn makes arbitrary agents reliable or provides exactly-once extern
 | **P3 — external effects** | [Receipt/Reconciliation Contract v0](docs/design/receipt-reconciliation-contract-v0.md) | One deterministic create-once provider effect: 36 reference and 15 sealed-holdout cells; no duplicate or silent-loss cells. The holdout reused the provider/harness, so this is not independent-provider validation ([verdict](results/phase-3/p3-verdict.json)) |
 | **P4 — external host** | [Claude Code integration proof](docs/design/phase-4-claude-code-integration.md) | One Claude Code host/provider proof. V5 gives the shared-checkpoint/effect reference control; V6 adds a post-compaction causal negative and independently sealed generic U/R/C holdout ([admission verdict](results/phase-4/reconstitution-v6/verdict.json)). |
 | **P5 — second host portability** | Two-host portability evidence | Claude Code’s admitted P4 evidence and OpenHands SDK 1.42.1’s sealed reference plus independent holdout passed the same host-neutral recovery/effect criteria ([verdict](results/phase-5/two-host-portability-verdict.json)). This is deterministic two-host evidence, not universal compatibility or a standard. |
-| **P6 — independent conformance** | [Stage 6A reference pass](results/phase-6/stage-6a-haiku-candidate-7/README.md) | A clean-room, Haiku-only implementation at frozen commit `ca29b60` passed the answer-free v2 matrix 30/30 and restored all 115 Git-visible `imgshape` files exactly after verifier-owned process death. A prior Stage 6B holdout was rejected because its effect facts were synthesized. The replacement [real-provider protocol](conformance/v2/STAGE6B-HANDOFF.md) is ready for a new sealer and reproducer; P6 remains unadmitted. |
+| **P6 — independent conformance** | [candidate-7 defect record](results/phase-6/stage-6a-candidate-7-real-provider-defect.json) | Candidate 7’s historical 30/30 reference run and exact-state control remain preserved, but it failed the subsequent real-provider boundary. It is not Stage 6A-capable. The provider protocol is preserved; a fresh clean-room Stage 6A implementation is required before a new sealer/reproducer chain. P6 remains unadmitted. |
 
 P2 requires a fresh process without the original transcript and is conditioned on acquiring a clean,
 verified checkpoint. P3 requires re-observation before a retry and admits only the decision semantics
@@ -97,9 +97,10 @@ never-retry → escalate. Neither contract establishes broad live-model performa
 or general external-effect delivery. P4 admits one host integration only; it does not expand either v0
 contract. P5 adds only deterministic two-host portability evidence; it does not establish universal
 compatibility, a host-native Cairn integration, exactly-once delivery, or an ecosystem standard. P6
-now has one code-independent Stage 6A reference implementation. A prior Stage 6B holdout is
-historical rejected evidence; a new real-provider seal and uninvolved reproduction are still required.
-That is not Phase 6 admission or an ecosystem standard.
+has historical code-independent reference evidence, but no currently qualified independent
+implementation. Candidate 7 failed a real-provider preflight; its attempted seal is invalid for
+admission. A fresh Stage 6A implementation, then a new real-provider seal and uninvolved
+reproduction, are required. That is not Phase 6 admission or an ecosystem standard.
 
 The journey so far:
 

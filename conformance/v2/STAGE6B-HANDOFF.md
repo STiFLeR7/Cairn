@@ -1,9 +1,12 @@
 # Phase 6B external sealing and reproduction
 
-**State: `STAGE 6A PASS; PHASE 6 BLOCKED / UNADMITTED`.** This procedure
-starts from the frozen candidate-7 implementation. It does not authorize a
-Cairn maintainer, the implementation author, or this workspace to act as the
-SEALER or REPRODUCER.
+**State: `PROTOCOL PRESERVED; NO ACTIVE CANDIDATE; PHASE 6 BLOCKED / UNADMITTED`.**
+Candidate 7 failed the public real-provider preflight after this procedure was
+published. Its attempted seal is spent and invalid for admission. Do **not**
+seal, rerun, or reproduce candidate `ca29b601`; retain this document as the
+historical protocol/input record until a new Stage 6A candidate has passed.
+It does not authorize a Cairn maintainer, the implementation author, or this
+workspace to act as the SEALER or REPRODUCER.
 
 ## Frozen inputs
 

@@ -1,0 +1,43 @@
+{
+  "schema_version": "cairn.phase6.stage6a-real-provider-defect.v1",
+  "status": "FAILED",
+  "failure_classification": "INDEPENDENT IMPLEMENTATION DEFECT",
+  "phase6_status": "BLOCKED / UNADMITTED",
+  "candidate": {
+    "commit": "ca29b601454f83d0ab75433522c40930089bc5d3",
+    "tree": "35c9c96e3f0d4cf869cba39a20629fe30b2ca61e",
+    "bundle_sha256": "e964ea84a7145477183942912b76493a37af753abe3a7fd5bf9a75a98e21b33d",
+    "preserved_unchanged": true,
+    "stage6a_capable": false
+  },
+  "protocol": {
+    "public_commit": "8cb4303f60fd86dd0ca5792b252ff7fe07845221",
+    "preserved": true,
+    "stage6b_candidate_seal": "ABORTED / INVALID FOR ADMISSION"
+  },
+  "causal_finding": {
+    "source": "recovery.py:_read_json",
+    "behavior": "five reads with four 10 ms waits return an empty object when the verifier response is not yet present; recover then raises an observation-response nonce mismatch",
+    "provider_conformance": "A separate HTTP provider process durably recorded one foreign resource, its receipt, and a real present observation before the verifier published the response.",
+    "sealer_failure": "Recovery exited without result after the real provider observation response was published.",
+    "controlled_reproduction": "The public Stage 6A real-provider preflight kills a real prepare process, calls the separate durable provider, then publishes its response asynchronously. Frozen candidate 7 fails that preflight."
+  },
+  "spent_sealer": {
+    "run_root": "D:/phase6b-sealer-20260918-151912",
+    "holdout_commit": "6d8b16327fcaa44ffb40f0a5323d94970cdf970a",
+    "holdout_tree": "fb215efbc25964a0ea74147adb8671883a7dd556",
+    "holdout_bundle_sha256": "fe1aaacdbc65a5e59a130eab69fd121d8e9eb548810d39d9c9291c6727695229",
+    "attempted_cells": 19,
+    "passed_cells": 18,
+    "failed_cell": "E_ESC_MISMATCH",
+    "not_reusable": true
+  },
+  "raw_evidence": {
+    "failing_cell_record_sha256": "385412a253f356a3bdc1653462aeeb75eec5c8f9b7a07b50736d009dd8c695dd",
+    "chain_of_custody_sha256": "768e9fab1d81af2336d14e65d2d23da26fb7440049e9ec24118985242c2fdf94",
+    "sealer_verdict_sha256": "e03c57431c57799beada2722a5aad573817fa23bd10c51931188446867bbe3ad",
+    "provider_ledger_sha256": "e90d809a159eecfa4eefccf4b9dafb8f125b2f5f1bfbd2cc68451cc587f6f5d5",
+    "provider_events_sha256": "3dff43f36d321daefba5492d433e1ff8403f4d45e31343132f569dc7afc93b18"
+  },
+  "next": "A new clean-room Stage 6A implementation must pass the public matrix, source/evidence audit, and real-provider preflight before a new independently authored Stage 6B holdout may be sealed."
+}

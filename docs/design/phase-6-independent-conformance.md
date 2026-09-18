@@ -81,7 +81,8 @@ This is an implementation failure and a v2 challenge-generation finding, not a
 Continuation Contract change. At that point another candidate could not receive
 the kit until the nonce-independence hardening was published.
 
-Candidate 7 is the first **Stage 6A PASS** against the corrected public input.
+Candidate 7 recorded the first **reference-matrix Stage 6A PASS** against the
+corrected public input.
 A Claude Code team whose 301 recorded model responses all identify
 `claude-haiku-4-5-20251001` built a new implementation in a separate repository
 from the public v2 kit. Its frozen commit `ca29b601454f83d0ab75433522c40930089bc5d3`
@@ -93,14 +94,20 @@ killed the checkpoint process and recovered all 115 Git-visible files in
 `D:/imgshape` from a distinct fresh process with unchanged HEAD and worktree.
 The frozen source bundle and sanitized records are in
 [stage-6a-haiku-candidate-7](../../results/phase-6/stage-6a-haiku-candidate-7/).
-This satisfies only Stage 6A; it is not a Phase 6 admission.
+That historical reference evidence is preserved, but candidate 7 subsequently
+failed the real-provider preflight: its recovery did not wait long enough for
+an asynchronously published, provider-derived response. This is an
+**INDEPENDENT IMPLEMENTATION DEFECT**, not a provider or Cairn-contract defect.
+Candidate 7 is therefore not Stage 6A-capable for a new seal; see the
+[defect record](../../results/phase-6/stage-6a-candidate-7-real-provider-defect.json).
 
 ### Stage 6B — independent sealing and reproduction
 
-The Stage 6A implementation is now frozen and reference-passing. Stage 6B
-remains blocked on a genuinely separate SEALER authoring the post-freeze
-holdout and an uninvolved REPRODUCER executing it. Stage 6A alone is not
-evidence of ecosystem portability or a Phase 6 admission.
+The candidate is frozen as failed historical evidence. Stage 6B remains
+blocked on a fresh independent Stage 6A implementation passing both the
+public matrix and real-provider preflight; only then can a genuinely separate
+SEALER author a post-freeze holdout and an uninvolved REPRODUCER execute it.
+Stage 6A alone is not evidence of ecosystem portability or a Phase 6 admission.
 
 The first external Stage 6B holdout and reproduction were audited and
 **rejected**. Although their 30/30 result was reproducible, their sealed
@@ -119,8 +126,9 @@ checks the resulting receipt and ledger. This is intentionally a proof of
 reconciliation semantics at the frozen host boundary, not a claim that the
 candidate itself owns an HTTP client or provides exactly-once delivery.
 
-No replacement holdout has been sealed. The protocol is ready for a new,
-genuinely separate SEALER followed by an uninvolved REPRODUCER.
+The protocol is preserved, but the attempted candidate-7 seal is spent and
+invalid for admission. No replacement holdout may be sealed until the fresh
+Stage 6A gate completes.
 
 The executable actor boundary, frozen candidate identities, sealing rules, and
 commands are published in the

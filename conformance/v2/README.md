@@ -100,14 +100,26 @@ unadmitted until a different sealer authors a post-freeze holdout and an
 uninvolved reproducer obtains the same verdict. Do not claim a standard,
 universal compatibility, native Cairn support, or exactly-once effects.
 
-The first recorded 30/30 Stage 6A execution against the corrected public input
-is [candidate 7](../../results/phase-6/stage-6a-haiku-candidate-7/README.md).
-Its frozen implementation and exact-state evidence do not replace the Stage 6B
-sealer/reproducer gate.
+Candidate 7’s recorded 30/30 Stage 6A reference execution is preserved, but it
+subsequently failed the real-provider preflight. It is not qualified for a new
+Stage 6B seal; see the [defect record](../../results/phase-6/stage-6a-candidate-7-real-provider-defect.json).
 
-External actors continue with the authoritative
-[Stage 6B handoff](STAGE6B-HANDOFF.md). It pins candidate 7, explains that this
-witness is the v2 evaluator, and gives separate SEALER and REPRODUCER commands.
+Before a future candidate is frozen, it must also pass the public real-provider
+preflight. This is not a holdout: it kills a real prepare process, uses a
+separate durable HTTP provider, and publishes the resulting observation
+asynchronously to the fresh recovery process.
+
+```powershell
+python stage6a_real_provider.py --output preflight --host python host.py
+```
+
+The host must treat an absent observation response as pending until an
+appropriate recovery deadline, not as a completed mismatch. The preflight
+does not expose a Stage 6B holdout or replace the later sealer/reproducer gate.
+
+The [Stage 6B handoff](STAGE6B-HANDOFF.md) remains the historical provider
+protocol and custody procedure, but its candidate-7 pin is inactive. A future
+candidate receives a newly pinned handoff only after passing the preflight.
 
 ## Stage 6B real-provider correction
 
@@ -125,6 +137,8 @@ the candidate's decision with the durable provider state. The candidate does
 not receive provider credentials or the ledger path. This preserves the frozen
 candidate boundary while requiring real external-effect evidence.
 
-This repository has published the corrected protocol only. No replacement
-holdout has been authored or sealed, and no new SEALER or REPRODUCER execution
-has occurred. Phase 6 remains **BLOCKED / UNADMITTED**.
+The corrected provider protocol itself is unchanged. Candidate 7’s first
+real-provider seal attempt is spent and invalid for admission; it must not be
+rerun. No new holdout may be authored until a fresh Stage 6A candidate passes
+the public reference matrix and real-provider preflight. Phase 6 remains
+**BLOCKED / UNADMITTED**.

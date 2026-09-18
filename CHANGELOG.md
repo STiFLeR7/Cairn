@@ -9,6 +9,16 @@ updates this file.
 
 ## [Unreleased]
 
+### Fixed
+- **Phase 6 candidate-7 real-provider defect:** the frozen clean-room
+  candidate passed the answer-free reference matrix but failed when its fresh
+  recovery had to await a response derived from the separate durable provider.
+  The provider and protocol conformed; the candidate’s bounded observation
+  wait exhausted and it exited without a result. Candidate `ca29b601` and its
+  attempted Stage 6B seal are preserved as failed historical evidence, not
+  patched or rerun. The public kit now includes a one-case real-provider
+  preflight for future Stage 6A candidates. Phase 6 remains blocked/unadmitted.
+
 ### Added
 - **Phase 6B real-provider sealing protocol:** the next external holdout must
   start a verifier-owned create-once provider in a separate process with a

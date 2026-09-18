@@ -1,8 +1,8 @@
 {
   "schema_version": "cairn.phase6b-protocol-validation.v1",
-  "status": "READY_FOR_NEW_EXTERNAL_SEALER",
+  "status": "PROTOCOL_PRESERVED_PENDING_FRESH_STAGE6A_CANDIDATE",
   "phase6_status": "BLOCKED / UNADMITTED",
-  "scope": "Protocol and focused verifier-owned provider tests only. No new holdout was authored, sealed, or executed.",
+  "scope": "Protocol and focused verifier-owned provider tests only. Candidate 7 later failed a real-provider preflight; its attempted seal is invalid. No new holdout may be sealed until a fresh Stage 6A candidate passes.",
   "provider": {
     "path": "conformance/v2/stage6b_provider.py",
     "sha256": "597707df5a35d3f8468ef77c2220e687fa241bf01d9e25a1698c5e0257f91d9a",
@@ -22,8 +22,8 @@
     "duplicate creation"
   ],
   "validation": {
-    "command": "pytest -q tests/test_p6_stage6b_provider.py tests/test_p6_stage6b_public_inputs.py tests/test_p6_witness_v2.py tests/test_p6_freeze.py; ruff check conformance/v2/stage6b_provider.py tests/test_p6_stage6b_provider.py tests/test_p6_stage6b_public_inputs.py tests/test_p6_witness_v2.py",
-    "result": "29 passed; ruff clean; JSON and diff checks passed"
+    "command": "pytest -q tests/test_p6_real_provider_preflight.py tests/test_p6_stage6b_provider.py tests/test_p6_stage6b_public_inputs.py tests/test_p6_witness_v2.py tests/test_p6_freeze.py; ruff check conformance/v2/stage6a_real_provider.py conformance/v2/stage6b_provider.py tests/test_p6_real_provider_preflight.py tests/test_p6_stage6b_provider.py tests/test_p6_stage6b_public_inputs.py tests/test_p6_witness_v2.py",
+    "result": "30 passed; ruff clean; JSON and diff checks passed"
   },
-  "next_gate": "A genuinely separate SEALER authors and seals a new holdout, then an uninvolved REPRODUCER executes it."
+  "next_gate": "A fresh Haiku-only independent Stage 6A implementation passes the public reference matrix, source/evidence audit, and real-provider preflight. Only then may a genuinely separate SEALER author a new holdout."
 }

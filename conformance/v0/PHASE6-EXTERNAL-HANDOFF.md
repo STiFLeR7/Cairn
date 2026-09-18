@@ -1,17 +1,16 @@
 # Phase 6 external-authority handoff
 
-**State: `STAGE 6A PASS; PHASE 6 BLOCKED / UNADMITTED`.** The frozen Stage 6A
-candidate and reference evidence are published at
+**State: `CANDIDATE 7 FAILED REAL-PROVIDER PREFLIGHT; PHASE 6 BLOCKED / UNADMITTED`.**
+The frozen candidate and historical reference evidence are published at
 [`results/phase-6/stage-6a-haiku-candidate-7/`](../../results/phase-6/stage-6a-haiku-candidate-7/).
 The remaining procedure requires a genuinely separate SEALER and uninvolved
 REPRODUCER; it does not claim Phase 6 conformance or alter Cairn contracts.
 
-For candidate 7, the IMPLEMENTER build/freeze and v2 reference-execution
-sections are complete and immutable. Do not repeat or adapt them. The next
-authorized transition is governed by the authoritative
-[v2 Stage 6B handoff](../v2/STAGE6B-HANDOFF.md). The remainder of this v0 file
-is retained only to reproduce the earlier handoff design; its evaluator
-commands must not be used for a new claim.
+Candidate 7 is not eligible for a new seal; do not repeat or adapt it. A fresh
+Stage 6A implementation must pass the public real-provider preflight before a
+new Stage 6B handoff can be issued. The remainder of this v0 file is retained
+only to reproduce the earlier handoff design; its evaluator commands must not
+be used for a new claim.
 
 ## Objective and boundary
 
