@@ -17,6 +17,7 @@ SEALER or REPRODUCER.
 | Host command | `python host.py <execute|prepare|recover> <request-json>` |
 | Reference witness SHA-256 | `f175254920909f6d882b15ae3d6532a503087b48346ad79f4ee0dc505742ded5` |
 | Semantic-rules SHA-256 | `e6d3037d736a3961ef6e4e1a09de592a12a79ebfd07d29a9f4e169e4e925107a` |
+| Real-provider SHA-256 | `597707df5a35d3f8468ef77c2220e687fa241bf01d9e25a1698c5e0257f91d9a` |
 
 The candidate's bundled `public-kit/witness.py` records its original public
 input. It is evidence, not the Phase 6B verifier. The external SEALER authors a
@@ -76,11 +77,15 @@ if ($LASTEXITCODE -ne 0) { throw 'Cairn checkout predates the v2 verifier fix' }
 
 $WitnessHash = (Get-FileHash "$Cairn/conformance/v2/witness.py" -Algorithm SHA256).Hash.ToLowerInvariant()
 $VectorsHash = (Get-FileHash "$Cairn/conformance/v2/vectors.json" -Algorithm SHA256).Hash.ToLowerInvariant()
+$ProviderHash = (Get-FileHash "$Cairn/conformance/v2/stage6b_provider.py" -Algorithm SHA256).Hash.ToLowerInvariant()
 if ($WitnessHash -ne 'f175254920909f6d882b15ae3d6532a503087b48346ad79f4ee0dc505742ded5') {
   throw 'reference witness digest mismatch'
 }
 if ($VectorsHash -ne 'e6d3037d736a3961ef6e4e1a09de592a12a79ebfd07d29a9f4e169e4e925107a') {
   throw 'semantic-rules digest mismatch'
+}
+if ($ProviderHash -ne '597707df5a35d3f8468ef77c2220e687fa241bf01d9e25a1698c5e0257f91d9a') {
+  throw 'real-provider digest mismatch'
 }
 
 $Bundle = "$Cairn/results/phase-6/stage-6a-haiku-candidate-7/candidate.bundle"

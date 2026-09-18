@@ -5,6 +5,7 @@
   "scope": "Protocol and focused verifier-owned provider tests only. No new holdout was authored, sealed, or executed.",
   "provider": {
     "path": "conformance/v2/stage6b_provider.py",
+    "sha256": "597707df5a35d3f8468ef77c2220e687fa241bf01d9e25a1698c5e0257f91d9a",
     "properties": [
       "separate local provider process",
       "durable create-once provider ledger outside candidate state",
@@ -21,8 +22,8 @@
     "duplicate creation"
   ],
   "validation": {
-    "command": "pytest -q tests/test_p6_stage6b_provider.py tests/test_p6_witness_v2.py; ruff check conformance/v2/stage6b_provider.py tests/test_p6_stage6b_provider.py tests/test_p6_witness_v2.py",
-    "result": "27 passed; ruff clean; JSON and diff checks passed"
+    "command": "pytest -q tests/test_p6_stage6b_provider.py tests/test_p6_stage6b_public_inputs.py tests/test_p6_witness_v2.py tests/test_p6_freeze.py; ruff check conformance/v2/stage6b_provider.py tests/test_p6_stage6b_provider.py tests/test_p6_stage6b_public_inputs.py tests/test_p6_witness_v2.py",
+    "result": "29 passed; ruff clean; JSON and diff checks passed"
   },
   "next_gate": "A genuinely separate SEALER authors and seals a new holdout, then an uninvolved REPRODUCER executes it."
 }
