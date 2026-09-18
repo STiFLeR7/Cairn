@@ -1,0 +1,65 @@
+{
+  "schema_version": "cairn.phase6.stage6b-provider-envelope-correction.v1",
+  "status": "PROTOCOL_CORRECTION_VALIDATED",
+  "phase6_status": "BLOCKED / UNADMITTED",
+  "scope": "Public Stage 6A real-provider preflight and Stage 6B provider/evaluator interface only.",
+  "root_cause": {
+    "candidate": "ad14c19dbb725fb29f07a9f76e5e486aa9c27e18",
+    "prior_preflight": "D:/phase6a-v9-real-provider-preflight",
+    "failure": "The preflight response exposed only observation and resource_fingerprint, while the evaluator required state, resource_id, request_fingerprint, and idempotency_key.",
+    "classification": "PUBLIC INTERFACE CONTRADICTION"
+  },
+  "canonical_provider_observation": {
+    "provider_owned": true,
+    "fields": [
+      "state",
+      "observation",
+      "resource_id",
+      "request_fingerprint",
+      "resource_fingerprint",
+      "idempotency_key",
+      "receipt_id",
+      "observation_event_id"
+    ],
+    "absent_unknown_semantics": {
+      "resource_id": null,
+      "request_fingerprint": null,
+      "resource_fingerprint": null,
+      "receipt_id": null,
+      "idempotency_key": "the queried key",
+      "observation_event_id": "the durable provider observe event"
+    },
+    "authority": "The verifier derives the envelope from the separate provider's durable ledger and compares the candidate-reported envelope back to that ledger. Candidate facts are never authoritative."
+  },
+  "contract_consistency": {
+    "receipt_reconciliation_v0": "Preserved: durable intent precedes dispatch; a fresh process re-observes before decision; matching present skips; absent retries only after observation; unknown/mismatch/never-retry escalate; duplicate provider creation fails.",
+    "not_added": [
+      "exactly-once delivery",
+      "candidate provider credentials",
+      "candidate-owned provider state",
+      "a Stage 6B holdout",
+      "a Stage 6 admission"
+    ]
+  },
+  "diagnostic_compatibility_run": {
+    "candidate_commit": "ad14c19dbb725fb29f07a9f76e5e486aa9c27e18",
+    "candidate_tree": "6fb24ef1dc62ff9bc2ce3c33246c147cbe7e04b2",
+    "candidate_modified": false,
+    "purpose": "Confirms only that the impossible public interface has been removed; it is not Stage 6A evidence.",
+    "output": "D:/phase6a-v9-provider-envelope-compatibility",
+    "verdict_sha256": "7e6be2213cc1ee4abcce74e5bfe96e20df3bf193aedfb7195a14c2c2e69a5095",
+    "provider_ledger_sha256": "837aa2204ae879b2bffcc2fccc87e9fe3344d3a8b2d7c84076fc860dfb6cc19b",
+    "provider_events_sha256": "7424d8ffcac70ea5ee977d3ec265c48a8f24e968260f23f40acd699ee9a7bdb1",
+    "passed": true
+  },
+  "published_artifacts": {
+    "stage6b_provider_sha256": "bdf552c81c3997bbe11fdbbf442c9a3bf72aad1238ab134fd5d315924668b43a",
+    "stage6a_real_provider_sha256": "db952db087f8f81556308e9735efabe0b7eb7fe5e76bf727a6b3449f4d19097a"
+  },
+  "holdout": {
+    "created": false,
+    "sealer_started": false,
+    "reproducer_started": false
+  },
+  "next": "Publish this correction, then begin with a new independent Haiku-only Stage 6A implementation. Freeze it before a new independent sealer and uninvolved reproducer chain."
+}

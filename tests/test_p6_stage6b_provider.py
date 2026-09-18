@@ -5,7 +5,11 @@ from pathlib import Path
 
 import pytest
 
-from conformance.v2.stage6b_provider import launch_provider, verify_effect_evidence
+from conformance.v2.stage6b_provider import (
+    candidate_observation_from_provider,
+    launch_provider,
+    verify_effect_evidence,
+)
 
 
 def test_provider_is_a_separate_process_with_a_durable_create_once_ledger(tmp_path: Path):
@@ -51,21 +55,63 @@ def test_provider_observation_is_ledger_derived_not_cell_derived(tmp_path: Path)
         absent = provider.observe("different-request")
 
     assert {key: actual[key] for key in (
-        "state", "resource_id", "request_fingerprint", "idempotency_key",
+        "state", "observation", "resource_id", "request_fingerprint",
+        "resource_fingerprint", "idempotency_key", "receipt_id",
     )} == {
         "state": "present",
+        "observation": "present",
         "resource_id": actual["resource_id"],
         "request_fingerprint": "fingerprint-2",
+        "resource_fingerprint": "fingerprint-2",
         "idempotency_key": "request-2",
+        "receipt_id": actual["receipt_id"],
     }
     assert {key: absent[key] for key in (
-        "state", "resource_id", "request_fingerprint", "idempotency_key",
+        "state", "observation", "resource_id", "request_fingerprint",
+        "resource_fingerprint", "idempotency_key", "receipt_id",
     )} == {
         "state": "absent",
+        "observation": "absent",
         "resource_id": None,
         "request_fingerprint": None,
+        "resource_fingerprint": None,
         "idempotency_key": "different-request",
+        "receipt_id": None,
     }
+
+
+def test_candidate_observation_exposes_only_provider_derived_evaluator_fields(tmp_path: Path):
+    with launch_provider(tmp_path / "ledger") as provider:
+        receipt = provider.create(
+            idempotency_key="request-2b",
+            request_fingerprint="fingerprint-2b",
+            request_id="dispatch-2b",
+        )
+        present = provider.observe("request-2b")
+        absent = provider.observe("request-absent")
+        provider.configure(unknown=True)
+        unknown = provider.observe("request-unknown")
+
+    present_envelope = candidate_observation_from_provider(present)
+    assert present_envelope == {
+        "state": "present",
+        "observation": "present",
+        "resource_id": present["resource_id"],
+        "request_fingerprint": "fingerprint-2b",
+        "resource_fingerprint": "fingerprint-2b",
+        "idempotency_key": "request-2b",
+        "receipt_id": receipt["receipt_id"],
+        "observation_event_id": present["observation_event_id"],
+    }
+    for raw, state in ((absent, "absent"), (unknown, "unknown")):
+        envelope = candidate_observation_from_provider(raw)
+        assert envelope["state"] == envelope["observation"] == state
+        assert envelope["idempotency_key"] == raw["idempotency_key"]
+        assert envelope["resource_id"] is None
+        assert envelope["request_fingerprint"] is None
+        assert envelope["resource_fingerprint"] is None
+        assert envelope["receipt_id"] is None
+        assert envelope["observation_event_id"] == raw["observation_event_id"]
 
 
 def test_effect_evaluator_rejects_synthetic_or_unobserved_effect_evidence(tmp_path: Path):
@@ -102,10 +148,7 @@ def test_effect_evaluator_rejects_retry_before_real_reobservation_and_duplicate_
 def test_effect_evaluator_requires_a_real_ledger_receipt_for_retry(tmp_path: Path):
     with launch_provider(tmp_path / "ledger") as provider:
         observed = provider.observe("request-5")
-        candidate_observation = {
-            key: observed[key]
-            for key in ("state", "resource_id", "request_fingerprint", "idempotency_key")
-        }
+        candidate_observation = candidate_observation_from_provider(observed)
         with pytest.raises(ValueError, match="receipt is absent from the durable provider ledger"):
             verify_effect_evidence(
                 provider=provider,
@@ -131,10 +174,7 @@ def test_effect_evaluator_rejects_a_real_retry_receipt_without_post_result_dispa
             request_fingerprint="fingerprint-6",
             request_id="post-recovery-dispatch-6",
         )
-        candidate_observation = {
-            key: observed[key]
-            for key in ("state", "resource_id", "request_fingerprint", "idempotency_key")
-        }
+        candidate_observation = candidate_observation_from_provider(observed)
         with pytest.raises(ValueError, match="post-result provider dispatch"):
             verify_effect_evidence(
                 provider=provider,
@@ -159,10 +199,7 @@ def test_effect_evaluator_accepts_real_observation_then_one_real_retry(tmp_path:
             request_fingerprint="fingerprint-7",
             request_id="post-recovery-dispatch-7",
         )
-        candidate_observation = {
-            key: observed[key]
-            for key in ("state", "resource_id", "request_fingerprint", "idempotency_key")
-        }
+        candidate_observation = candidate_observation_from_provider(observed)
         verdict = verify_effect_evidence(
             provider=provider,
             idempotency_key="request-7",

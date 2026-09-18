@@ -20,9 +20,17 @@ import time
 from typing import Any
 
 try:  # Supports both ``python stage6a_real_provider.py`` and package imports.
-    from stage6b_provider import launch_provider, verify_effect_evidence
+    from stage6b_provider import (
+        candidate_observation_from_provider,
+        launch_provider,
+        verify_effect_evidence,
+    )
 except ModuleNotFoundError:  # pragma: no cover - import mode only
-    from conformance.v2.stage6b_provider import launch_provider, verify_effect_evidence
+    from conformance.v2.stage6b_provider import (
+        candidate_observation_from_provider,
+        launch_provider,
+        verify_effect_evidence,
+    )
 
 
 CONTINUATION_FIELDS = (
@@ -165,9 +173,11 @@ def run(command: list[str], output: Path, *, response_delay_ms: int = 100) -> di
         # The external provider has replied; publication remains asynchronous to the host.
         time.sleep(response_delay_ms / 1000)
         token = secrets.token_urlsafe(24)
-        response = {"run_nonce": nonce, "response_token": token, "provider": {
-            "observation": actual["state"], "resource_fingerprint": actual["request_fingerprint"],
-        }}
+        response = {
+            "run_nonce": nonce,
+            "response_token": token,
+            "provider": candidate_observation_from_provider(actual),
+        }
         response_path = recovery / "observation-response.json"
         _write_json(response_path, response)
         record["observation_response_sha256"] = _hash(response_path)

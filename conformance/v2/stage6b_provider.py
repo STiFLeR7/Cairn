@@ -130,6 +130,17 @@ class _Ledger:
                 "resource_id": None if resource is None else resource["resource_id"],
                 "request_fingerprint": None if resource is None else resource["request_fingerprint"],
             }
+        response["receipt_id"] = next(
+            (
+                receipt_id
+                for receipt_id, receipt in reversed(list(state.get("receipts", {}).items()))
+                if receipt.get("idempotency_key") == idempotency_key
+                and receipt.get("resource_id") == response["resource_id"]
+            ),
+            None,
+        )
+        response["observation"] = response["state"]
+        response["resource_fingerprint"] = response["request_fingerprint"]
         event = self.event("observe", **response)
         return {**response, "observation_event_id": event["event_id"]}
 
@@ -250,6 +261,32 @@ class ProviderClient:
         return _read_json(self._ledger_path, {"resources": {}})
 
 
+def candidate_observation_from_provider(observation: dict[str, Any]) -> dict[str, Any]:
+    """Expose only the provider's durable observation in the host-visible envelope."""
+    state = observation.get("state")
+    if state not in {"present", "absent", "unknown"}:
+        raise ValueError("provider observation state is invalid")
+    if observation.get("observation") not in {None, state}:
+        raise ValueError("provider observation alias does not match state")
+    resource_id = observation.get("resource_id")
+    request_fingerprint = observation.get("request_fingerprint")
+    receipt_id = observation.get("receipt_id")
+    if observation.get("resource_fingerprint") not in {None, request_fingerprint}:
+        raise ValueError("provider resource fingerprint alias does not match request fingerprint")
+    if state != "present" and any(value is not None for value in (resource_id, request_fingerprint, receipt_id)):
+        raise ValueError("absent or unknown provider observation contains resource evidence")
+    return {
+        "state": state,
+        "observation": state,
+        "resource_id": resource_id,
+        "request_fingerprint": request_fingerprint,
+        "resource_fingerprint": request_fingerprint,
+        "idempotency_key": observation.get("idempotency_key"),
+        "receipt_id": receipt_id,
+        "observation_event_id": observation.get("observation_event_id"),
+    }
+
+
 @contextmanager
 def launch_provider(ledger: Path) -> Iterator[ProviderClient]:
     """Start one provider process whose durable ledger is outside candidate state."""
@@ -324,12 +361,9 @@ def verify_effect_evidence(
         raise ValueError("provider observation is absent from the durable provider ledger")
     state = actual["state"]
     resource_fingerprint = actual["request_fingerprint"]
-    expected = {
-        "state": state,
-        "resource_id": actual["resource_id"],
-        "request_fingerprint": resource_fingerprint,
-        "idempotency_key": idempotency_key,
-    }
+    expected = candidate_observation_from_provider(actual)
+    if expected["idempotency_key"] != idempotency_key:
+        raise ValueError("provider observation idempotency key does not match requested observation")
     if candidate_observation != expected:
         if state != "present" and candidate_observation.get("state") == "present":
             raise ValueError("candidate claims a durable provider ledger resource that does not exist")

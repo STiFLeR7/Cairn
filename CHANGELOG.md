@@ -1,5 +1,17 @@
 # Changelog
 
+## Unreleased
+
+- **Phase 6B provider/evaluator consistency:** the public preflight now exposes
+  the complete verifier-owned, ledger-derived provider observation required by
+  its evaluator, including explicit absent/unknown null semantics. The
+  evaluator still recomputes the envelope from durable provider state and
+  rejects synthetic facts, invented receipts, action before re-observation, and
+  duplicate creation. This corrects an interface contradiction exposed by
+  frozen diagnostic candidate `ad14c19`; it does not modify that candidate,
+  admit Stage 6A/6B, alter Receipt/Reconciliation Contract v0, or create a
+  holdout.
+
 All notable changes to Cairn are recorded here. Format follows
 [Keep a Changelog](https://keepachangelog.com/); the project adheres to
 [Semantic Versioning](https://semver.org/) from `v1.0` onward.

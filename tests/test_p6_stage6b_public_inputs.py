@@ -28,6 +28,7 @@ def test_stage6b_handoff_hashes_are_canonical_git_bytes_and_checkout_stable():
         "Reference witness SHA-256": "conformance/v2/witness.py",
         "Semantic-rules SHA-256": "conformance/v2/vectors.json",
         "Real-provider SHA-256": "conformance/v2/stage6b_provider.py",
+        "Stage 6A real-provider preflight SHA-256": "conformance/v2/stage6a_real_provider.py",
     }
     for label, relative in artifacts.items():
         expected = _handoff_hash(label)

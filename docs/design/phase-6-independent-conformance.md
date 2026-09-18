@@ -135,6 +135,20 @@ commands are published in the
 [v2 Stage 6B handoff](../../conformance/v2/STAGE6B-HANDOFF.md). Cairn does not
 provide either missing authority.
 
+### Public provider-observation correction
+
+Candidate `ad14c19` exposed a public-interface contradiction in the first
+real-provider preflight: its response exposed only a state alias and
+fingerprint, while the evaluator required a resource ID, request fingerprint,
+and idempotency key. The provider now publishes one canonical, ledger-derived
+observation envelope after re-observation. It carries state, resource identity,
+request/resource fingerprints, idempotency key, receipt identity where present,
+and the durable observation-event identity; absent and unknown resource fields
+are explicit `null`. The evaluator recomputes that envelope from the provider
+ledger rather than trusting the host. This is a protocol-consistency correction,
+not new Receipt/Reconciliation Contract v0 semantics. Candidate `ad14c19`
+remains frozen diagnostic evidence only; it is not a new Stage 6A admission.
+
 Pydantic AI 2.40.0 plus DBOS 2.31.0 was the first capability target. It is
 stopped for this environment, not rejected as an ecosystem: its deterministic
 `TestModel` does not support `compact_messages`, and the provider-native

@@ -20,7 +20,8 @@ workspace to act as the SEALER or REPRODUCER.
 | Host command | `python host.py <execute|prepare|recover> <request-json>` |
 | Reference witness SHA-256 | `f175254920909f6d882b15ae3d6532a503087b48346ad79f4ee0dc505742ded5` |
 | Semantic-rules SHA-256 | `e6d3037d736a3961ef6e4e1a09de592a12a79ebfd07d29a9f4e169e4e925107a` |
-| Real-provider SHA-256 | `597707df5a35d3f8468ef77c2220e687fa241bf01d9e25a1698c5e0257f91d9a` |
+| Real-provider SHA-256 | `bdf552c81c3997bbe11fdbbf442c9a3bf72aad1238ab134fd5d315924668b43a` |
+| Stage 6A real-provider preflight SHA-256 | `db952db087f8f81556308e9735efabe0b7eb7fe5e76bf727a6b3449f4d19097a` |
 
 The candidate's bundled `public-kit/witness.py` records its original public
 input. It is evidence, not the Phase 6B verifier. The external SEALER authors a
@@ -87,8 +88,12 @@ if ($WitnessHash -ne 'f175254920909f6d882b15ae3d6532a503087b48346ad79f4ee0dc5057
 if ($VectorsHash -ne 'e6d3037d736a3961ef6e4e1a09de592a12a79ebfd07d29a9f4e169e4e925107a') {
   throw 'semantic-rules digest mismatch'
 }
-if ($ProviderHash -ne '597707df5a35d3f8468ef77c2220e687fa241bf01d9e25a1698c5e0257f91d9a') {
+if ($ProviderHash -ne 'bdf552c81c3997bbe11fdbbf442c9a3bf72aad1238ab134fd5d315924668b43a') {
   throw 'real-provider digest mismatch'
+}
+$PreflightHash = (Get-FileHash "$Cairn/conformance/v2/stage6a_real_provider.py" -Algorithm SHA256).Hash.ToLowerInvariant()
+if ($PreflightHash -ne 'db952db087f8f81556308e9735efabe0b7eb7fe5e76bf727a6b3449f4d19097a') {
+  throw 'real-provider preflight digest mismatch'
 }
 
 $Bundle = "$Cairn/results/phase-6/stage-6a-haiku-candidate-7/candidate.bundle"
@@ -168,9 +173,16 @@ verifier-owned witness, effect provider, and manifest. It must:
 12. test matching, absent, unknown, mismatch, and never-retry effect outcomes
    against that verifier-owned create-once provider whose durable state is
    externally observed, never inferred from a cell name;
-13. pass the provider observation returned by the real `observe` call to the
-   candidate only after recording its event ID, then compare the candidate's
-   reported observation and decision with the ledger-derived facts;
+13. pass the canonical provider observation returned by the real `observe` call
+   to the candidate only after recording its event ID. The candidate-visible
+   object has `state` and compatibility alias `observation`; `resource_id`,
+   `request_fingerprint`, and compatibility alias `resource_fingerprint`;
+   `idempotency_key`; `receipt_id`; and `observation_event_id`. For `absent`
+   and `unknown`, all resource/receipt/fingerprint fields are `null`, while
+   the queried `idempotency_key` and real observation event ID remain present.
+   Every value originates in the verifier-owned provider and durable ledger;
+   the candidate must not invent or enrich it. The evaluator then compares the
+   candidate's reported envelope and decision with ledger-derived facts;
 14. derive verdicts exclusively from verifier-owned observations; and
 15. preserve every cell's request, raw process record, workspace inventory,
    provider executable hash, ready/PID record, provider event log, provider

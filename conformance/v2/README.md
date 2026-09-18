@@ -117,6 +117,28 @@ The host must treat an absent observation response as pending until an
 appropriate recovery deadline, not as a completed mismatch. The preflight
 does not expose a Stage 6B holdout or replace the later sealer/reproducer gate.
 
+### Canonical real-provider observation
+
+The preflight publishes a verifier-owned provider envelope only after the
+fresh recovery process has written `observation-request.json`. It contains:
+
+- `state` and the compatibility alias `observation` (`present`, `absent`, or
+  `unknown`);
+- `resource_id`, `request_fingerprint`, and compatibility alias
+  `resource_fingerprint`;
+- the queried `idempotency_key`;
+- `receipt_id` when a durable provider receipt exists; and
+- `observation_event_id` from the provider's append-only event log.
+
+For `absent` and `unknown`, `resource_id`, both fingerprint fields, and
+`receipt_id` are explicitly `null`; the idempotency key and real observation
+event remain available. The candidate may copy and reason from this envelope,
+but must never manufacture its fields. The evaluator independently derives the
+same envelope from the provider ledger and rejects any mismatch, invented
+receipt/resource, provider ledger inside candidate state, retry before
+observation, or duplicate create. This adds evidence provenance only; it does
+not add exactly-once semantics or change the v0 retry/skip/escalate rules.
+
 The [Stage 6B handoff](STAGE6B-HANDOFF.md) remains the historical provider
 protocol and custody procedure, but its candidate-7 pin is inactive. A future
 candidate receives a newly pinned handoff only after passing the preflight.
