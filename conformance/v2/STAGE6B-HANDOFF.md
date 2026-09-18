@@ -24,6 +24,29 @@ new post-freeze witness from the public v2 protocol, and the REPRODUCER uses
 that sealed witness unchanged. Kit v2 has no separate `evaluate.py`: the
 verifier-owned witness produces and evaluates the evidence.
 
+## Protocol correction: real provider evidence is mandatory
+
+The previously sealed Stage 6B holdout (`d34a5d8649494502f5f226fdcd344d8043735b17`,
+bundle `ce61fbb38461a3866b0cc47a35e8a3d1adbac00b6c4fddcede15a82810388d13`) is
+**REJECTED / HISTORICAL**. Its witness synthesized effect observations from an
+internal class map. It remains preserved evidence of a protocol failure; it is
+not reusable, resealable, or admissible evidence.
+
+Every new Stage 6B holdout must use
+[`stage6b_provider.py`](stage6b_provider.py) unchanged or an independently
+auditable equivalent that meets the same interface and evidence requirements.
+It starts a verifier-owned loopback provider in a separate OS process and
+persists its ledger outside the candidate repository. The candidate receives
+neither the provider credential nor the ledger location. This protocol does
+not change candidate `ca29b601`; its recovery action is its
+`retry`/`skip`/`escalate` decision. A verifier-owned effect dispatcher performs
+a physical retry only after recording that decision, because the frozen host
+interface has no provider credential or direct provider API.
+
+This proves a real externally observed reconciliation boundary. It does **not**
+claim that the frozen candidate directly implements a provider client or
+exactly-once delivery.
+
 ## Actor boundary
 
 - **SEALER:** a person/session distinct from the candidate implementer. Authors
@@ -110,12 +133,54 @@ verifier-owned witness, effect provider, and manifest. It must:
 6. require re-observation before any recovery action;
 7. test real compact-state reduction and loss of volatile context while
    preserving the eight continuation obligations;
-8. test matching, absent, unknown, mismatch, and never-retry effect outcomes
-   against a verifier-owned create-once provider whose durable state is
+8. start one verifier-owned provider process per effect cell, with its durable
+   ledger at `$RunRoot/provider-ledger/<run-nonce>` outside both candidate and
+   recovery workspaces;
+9. use that provider's `dispatch`, `create`, and `observe` operations with a
+   random idempotency key, request ID, and fingerprint. Its response must be
+   read from the provider after the candidate writes `observation-request.json`;
+   it must never be synthesized from a class name, fixed receipt, or hidden
+   answer table;
+10. make the ambiguity window real: after durable candidate `intent.json`, the
+   verifier-owned dispatcher records `dispatch`; it may commit at the provider;
+   it withholds any receipt from the candidate; then it kills the prepare
+   process and begins fresh recovery. The provider ledger must survive that
+   candidate death;
+11. use the real provider outcomes below, while keeping the case identity and
+   expected decision private from the host:
+
+| Private condition | Actual provider operation before crash | Required recovery result | Provider evidence |
+| --- | --- | --- | --- |
+| matching present | dispatch then create with the durable intent | observe → `skip` | one matching resource; no post-result dispatch |
+| absent, safe retry | dispatch only | observe → `retry`, then one verifier-owned post-result create | one matching resource and durable retry receipt |
+| unknown | dispatch only, then provider enters unavailable state | observe → `escalate` | unknown observation; no post-result dispatch |
+| mismatched present | dispatch then create using the same key and a foreign fingerprint | observe → `escalate` | one foreign resource; no post-result dispatch |
+| absent, never retry | dispatch only | observe → `escalate` | no resource; no post-result dispatch |
+
+12. test matching, absent, unknown, mismatch, and never-retry effect outcomes
+   against that verifier-owned create-once provider whose durable state is
    externally observed, never inferred from a cell name;
-9. derive verdicts exclusively from verifier-owned observations; and
-10. preserve every cell's request, raw process record, workspace inventory,
-    provider ledger, evidence, stdout, and stderr.
+13. pass the provider observation returned by the real `observe` call to the
+   candidate only after recording its event ID, then compare the candidate's
+   reported observation and decision with the ledger-derived facts;
+14. derive verdicts exclusively from verifier-owned observations; and
+15. preserve every cell's request, raw process record, workspace inventory,
+   provider executable hash, ready/PID record, provider event log, provider
+   ledger, dispatch record, receipts, observation record, evidence, stdout,
+   and stderr.
+
+The holdout evaluator must call `verify_effect_evidence` with the candidate
+root (or demonstrate an equivalent independent check) after the candidate
+result. For a retry it must
+also prove that the receipt exists in the durable provider ledger and was
+issued after the real observation. A candidate-reported receipt, process ID,
+resource ID, observation, or `PASS` is never authoritative.
+
+The evaluator must reject: no provider process or ledger; a provider response
+not backed by an `observe` event; an invented/fixed receipt or resource ID; a
+provider result derived from a cell label; a retry before re-observation; a
+retry with no post-result dispatch; a duplicate creation; and any provider
+state created inside the candidate repository.
 
 The public task states all acceptance criteria. The witness implementation and
 expected outcomes may remain private until sealing, but their hashes and the
@@ -187,6 +252,14 @@ command digests, and compares the semantic verdict with the SEALER result.
 Fresh random challenges mean raw evidence files need not be byte-identical;
 the sealed witness, candidate identity, 30/30 outcome, and protected
 invariants must match.
+
+For every effect cell the REPRODUCER must additionally verify the provider
+process/PID record, the provider-ledger and event-log hashes, the actual
+`observe` event referenced by the response, idempotency-key/resource identity,
+create count, receipt identity where retry occurred, and ordering:
+`intent → dispatch → (optional commit) → process death → observation request →
+provider observe → candidate result → (retry only: post-result dispatch)`. A
+candidate workspace must contain no provider ledger or provider credential.
 
 ## Admission decision
 

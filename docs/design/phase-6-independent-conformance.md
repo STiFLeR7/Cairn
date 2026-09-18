@@ -102,6 +102,26 @@ remains blocked on a genuinely separate SEALER authoring the post-freeze
 holdout and an uninvolved REPRODUCER executing it. Stage 6A alone is not
 evidence of ecosystem portability or a Phase 6 admission.
 
+The first external Stage 6B holdout and reproduction were audited and
+**rejected**. Although their 30/30 result was reproducible, their sealed
+witness synthesized effect observations from a private cell mapping rather than
+observing a durable external provider. That result is historical protocol-failure
+evidence, not a failed Stage 6A candidate and not admissible Phase 6 evidence.
+The frozen candidate remains unchanged.
+
+The replacement Stage 6B protocol now requires a verifier-owned, separate
+create-once provider process with a ledger outside the candidate workspace.
+Its effects matrix records durable intent, actual dispatch, optional provider
+commit with deliberately withheld receipt, candidate death, fresh recovery,
+real provider observation, and only then the candidate decision. For a retry,
+the verifier-owned dispatcher performs one post-result create and the evaluator
+checks the resulting receipt and ledger. This is intentionally a proof of
+reconciliation semantics at the frozen host boundary, not a claim that the
+candidate itself owns an HTTP client or provides exactly-once delivery.
+
+No replacement holdout has been sealed. The protocol is ready for a new,
+genuinely separate SEALER followed by an uninvolved REPRODUCER.
+
 The executable actor boundary, frozen candidate identities, sealing rules, and
 commands are published in the
 [v2 Stage 6B handoff](../../conformance/v2/STAGE6B-HANDOFF.md). Cairn does not

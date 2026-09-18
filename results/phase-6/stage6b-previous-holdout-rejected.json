@@ -1,0 +1,22 @@
+{
+  "schema_version": "cairn.phase6b-historical-rejection.v1",
+  "status": "REJECTED_HISTORICAL_NOT_ADMISSIBLE",
+  "phase6_status": "BLOCKED / UNADMITTED",
+  "holdout": {
+    "commit": "d34a5d8649494502f5f226fdcd344d8043735b17",
+    "tree": "cd5237e677f7e80ad2c161548aa660db4f9235d6",
+    "bundle_sha256": "ce61fbb38461a3866b0cc47a35e8a3d1adbac00b6c4fddcede15a82810388d13"
+  },
+  "candidate": {
+    "commit": "ca29b601454f83d0ab75433522c40930089bc5d3",
+    "bundle_sha256": "e964ea84a7145477183942912b76493a37af753abe3a7fd5bf9a75a98e21b33d",
+    "preserved": true
+  },
+  "audit_finding": "The sealed witness derived provider observations from an internal effect-class mapping. It had no verifier-owned provider process or durable external provider ledger.",
+  "prohibited_follow_up": [
+    "reuse this holdout or its seal",
+    "treat its 30/30 result as external-effect evidence",
+    "modify the frozen Stage 6A candidate"
+  ],
+  "required_replacement": "A new holdout under conformance/v2/STAGE6B-HANDOFF.md using the verifier-owned real-provider protocol."
+}

@@ -1,0 +1,28 @@
+{
+  "schema_version": "cairn.phase6b-protocol-validation.v1",
+  "status": "READY_FOR_NEW_EXTERNAL_SEALER",
+  "phase6_status": "BLOCKED / UNADMITTED",
+  "scope": "Protocol and focused verifier-owned provider tests only. No new holdout was authored, sealed, or executed.",
+  "provider": {
+    "path": "conformance/v2/stage6b_provider.py",
+    "properties": [
+      "separate local provider process",
+      "durable create-once provider ledger outside candidate state",
+      "idempotency key and request fingerprint",
+      "real dispatch, receipt, and observation events",
+      "verifier-derived reconciliation validation"
+    ]
+  },
+  "negative_controls": [
+    "synthetic/unobserved provider state",
+    "invented retry receipt",
+    "retry before real re-observation",
+    "retry without post-result provider dispatch",
+    "duplicate creation"
+  ],
+  "validation": {
+    "command": "pytest -q tests/test_p6_stage6b_provider.py tests/test_p6_witness_v2.py; ruff check conformance/v2/stage6b_provider.py tests/test_p6_stage6b_provider.py tests/test_p6_witness_v2.py",
+    "result": "27 passed; ruff clean; JSON and diff checks passed"
+  },
+  "next_gate": "A genuinely separate SEALER authors and seals a new holdout, then an uninvolved REPRODUCER executes it."
+}

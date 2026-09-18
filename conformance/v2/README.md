@@ -108,3 +108,23 @@ sealer/reproducer gate.
 External actors continue with the authoritative
 [Stage 6B handoff](STAGE6B-HANDOFF.md). It pins candidate 7, explains that this
 witness is the v2 evaluator, and gives separate SEALER and REPRODUCER commands.
+
+## Stage 6B real-provider correction
+
+Stage 6B is a distinct post-freeze proof. The first sealed holdout is retained
+as rejected historical evidence because it synthesized provider observations
+from its witness-local effect mapping. It cannot support external-effect
+reconciliation claims.
+
+The next SEALER must use the bundled
+[`stage6b_provider.py`](stage6b_provider.py) protocol (or an independently
+auditable equivalent) in a new holdout. It launches a provider in its own
+process, persists an external create-once ledger, records real dispatches,
+receipts and observations, and makes the verifier—not the candidate—compare
+the candidate's decision with the durable provider state. The candidate does
+not receive provider credentials or the ledger path. This preserves the frozen
+candidate boundary while requiring real external-effect evidence.
+
+This repository has published the corrected protocol only. No replacement
+holdout has been authored or sealed, and no new SEALER or REPRODUCER execution
+has occurred. Phase 6 remains **BLOCKED / UNADMITTED**.

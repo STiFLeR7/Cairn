@@ -88,7 +88,7 @@ claim that Cairn makes arbitrary agents reliable or provides exactly-once extern
 | **P3 — external effects** | [Receipt/Reconciliation Contract v0](docs/design/receipt-reconciliation-contract-v0.md) | One deterministic create-once provider effect: 36 reference and 15 sealed-holdout cells; no duplicate or silent-loss cells. The holdout reused the provider/harness, so this is not independent-provider validation ([verdict](results/phase-3/p3-verdict.json)) |
 | **P4 — external host** | [Claude Code integration proof](docs/design/phase-4-claude-code-integration.md) | One Claude Code host/provider proof. V5 gives the shared-checkpoint/effect reference control; V6 adds a post-compaction causal negative and independently sealed generic U/R/C holdout ([admission verdict](results/phase-4/reconstitution-v6/verdict.json)). |
 | **P5 — second host portability** | Two-host portability evidence | Claude Code’s admitted P4 evidence and OpenHands SDK 1.42.1’s sealed reference plus independent holdout passed the same host-neutral recovery/effect criteria ([verdict](results/phase-5/two-host-portability-verdict.json)). This is deterministic two-host evidence, not universal compatibility or a standard. |
-| **P6 — independent conformance** | [Stage 6A reference pass](results/phase-6/stage-6a-haiku-candidate-7/README.md) | A clean-room, Haiku-only implementation at frozen commit `ca29b60` passed the answer-free v2 matrix 30/30 and restored all 115 Git-visible `imgshape` files exactly after verifier-owned process death. The public evaluator and an independent evidence recomputation passed. Stage 6B has no independent sealer/reproducer result, so P6 remains unadmitted and this is not an interoperability claim. |
+| **P6 — independent conformance** | [Stage 6A reference pass](results/phase-6/stage-6a-haiku-candidate-7/README.md) | A clean-room, Haiku-only implementation at frozen commit `ca29b60` passed the answer-free v2 matrix 30/30 and restored all 115 Git-visible `imgshape` files exactly after verifier-owned process death. A prior Stage 6B holdout was rejected because its effect facts were synthesized. The replacement [real-provider protocol](conformance/v2/STAGE6B-HANDOFF.md) is ready for a new sealer and reproducer; P6 remains unadmitted. |
 
 P2 requires a fresh process without the original transcript and is conditioned on acquiring a clean,
 verified checkpoint. P3 requires re-observation before a retry and admits only the decision semantics
@@ -97,8 +97,9 @@ never-retry → escalate. Neither contract establishes broad live-model performa
 or general external-effect delivery. P4 admits one host integration only; it does not expand either v0
 contract. P5 adds only deterministic two-host portability evidence; it does not establish universal
 compatibility, a host-native Cairn integration, exactly-once delivery, or an ecosystem standard. P6
-now has one code-independent Stage 6A reference implementation, but no independently sealed holdout
-or uninvolved reproduction. That is not Phase 6 admission or an ecosystem standard.
+now has one code-independent Stage 6A reference implementation. A prior Stage 6B holdout is
+historical rejected evidence; a new real-provider seal and uninvolved reproduction are still required.
+That is not Phase 6 admission or an ecosystem standard.
 
 The journey so far:
 

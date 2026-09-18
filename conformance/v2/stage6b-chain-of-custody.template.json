@@ -1,5 +1,5 @@
 {
-  "schema_version": "cairn.phase6b-chain-of-custody.v2",
+  "schema_version": "cairn.phase6b-chain-of-custody.v3-real-provider",
   "state": "AWAITING_EXTERNAL_SEALER",
   "claim": "BLOCKED_UNADMITTED",
   "run_id": null,
@@ -38,6 +38,7 @@
     "vectors_sha256": null,
     "witness_sha256": null,
     "provider_sha256": null,
+    "provider_protocol": "cairn.stage6b-provider.v1",
     "manifest_sha256": null,
     "sealed_at_utc": null,
     "first_executed_at_utc": null
@@ -51,6 +52,21 @@
     "cells_passed": null,
     "verdict": null
   },
+  "provider_evidence": {
+    "provider_root_outside_candidate": null,
+    "candidate_received_provider_credentials": false,
+    "effect_cells": {
+      "provider_pid_records_sha256": null,
+      "provider_ledgers_sha256": null,
+      "provider_event_logs_sha256": null,
+      "dispatch_records_sha256": null,
+      "observation_records_sha256": null,
+      "receipt_records_sha256": null,
+      "provider_observations_ledger_backed": null,
+      "retry_after_reobservation_only": null,
+      "duplicate_creations": null
+    }
+  },
   "reproducer_run": {
     "environment_sha256": null,
     "command_sha256": null,
@@ -59,6 +75,7 @@
     "cells_total": null,
     "cells_passed": null,
     "semantic_verdict_matches": null,
+    "provider_evidence_verified": null,
     "verdict": null
   },
   "target_preservation": {

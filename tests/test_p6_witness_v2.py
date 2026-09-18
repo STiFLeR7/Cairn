@@ -311,7 +311,7 @@ def test_published_v2_kit_is_self_contained_and_rule_based():
 
     assert {path.name for path in kit.iterdir() if path.is_file()} == {
         "README.md", "STAGE6B-HANDOFF.md", "stage6b-chain-of-custody.template.json",
-        "vectors.json", "witness.py"
+        "stage6b_provider.py", "vectors.json", "witness.py"
     }
     vectors = json.loads((kit / "vectors.json").read_text(encoding="utf-8"))
     assert vectors["schema_version"] == "cairn.conformance-vectors.v2"

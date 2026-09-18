@@ -13,7 +13,7 @@ This P1–P6 ladder is separate from the legacy numbered phases below.
 - [x] **P3 — external-effect recovery** *([Receipt/Reconciliation Contract v0](docs/design/receipt-reconciliation-contract-v0.md); one deterministic create-once provider effect, no exactly-once claim)*
 - [x] **P4 — external integration proof** *([Claude Code integration proof](docs/design/phase-4-claude-code-integration.md); V5 reference/effect evidence plus V6 causal post-compaction negative and independently sealed generic U/R/C holdout; no exactly-once or interoperability claim)*
 - [x] **P5 — independent host portability** *([two-host verdict](results/phase-5/two-host-portability-verdict.json); OpenCode remained stopped at native compaction, while OpenHands SDK 1.42.1 passed sealed reference and independent-holdout host-neutral matrices alongside the admitted Claude Code P4 evidence; deterministic portability only)*
-- [ ] **P6 — independent ecosystem conformance** *(Stage 6A passed 30/30 with a frozen Haiku-only clean-room implementation and exact `imgshape` recovery; [evidence](results/phase-6/stage-6a-haiku-candidate-7/README.md). Stage 6B independent sealing/reproduction remains required; P6 is unadmitted.)*
+- [ ] **P6 — independent ecosystem conformance** *(Stage 6A passed 30/30 with a frozen Haiku-only clean-room implementation and exact `imgshape` recovery; [evidence](results/phase-6/stage-6a-haiku-candidate-7/README.md). The prior Stage 6B holdout is rejected historical evidence because it synthesized provider facts. A new [real-provider seal](conformance/v2/STAGE6B-HANDOFF.md) and independent reproduction remain required; P6 is unadmitted.)*
 
 ## Phases
 

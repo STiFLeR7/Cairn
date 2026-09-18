@@ -10,6 +10,15 @@ updates this file.
 ## [Unreleased]
 
 ### Added
+- **Phase 6B real-provider sealing protocol:** the next external holdout must
+  start a verifier-owned create-once provider in a separate process with a
+  durable ledger outside the candidate workspace. It records real dispatch,
+  receipt, and observation events; rejects synthetic provider facts, invented
+  receipts, blind retry, missing post-result retry dispatch, and duplicate
+  creation; and adds provider evidence to the custody template. The prior
+  Stage 6B holdout is retained as rejected historical evidence because it
+  synthesized effect observations. This publishes only a replacement protocol:
+  no new holdout was sealed, Phase 6 remains blocked/unadmitted.
 - **Phase 6B external-authority handoff:** an executable v2 procedure pins the
   frozen candidate-7 bundle, commit, tree, witness, and semantic-rule digests;
   separates SEALER and REPRODUCER commands; and supplies an append-only custody
