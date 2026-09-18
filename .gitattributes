@@ -2,6 +2,7 @@
 /conformance/v2/witness.py text eol=lf
 /conformance/v2/vectors.json text eol=lf
 /conformance/v2/stage6b_provider.py text eol=lf
+/conformance/v2/stage6a_real_provider.py text eol=lf
 /results/phase-3/*.json text eol=lf
 /results/phase-4/reconstitution-v2/** -text -diff whitespace=-cr-at-eol
 /results/phase-4/reconstitution-v5/** -text -diff whitespace=-cr-at-eol
