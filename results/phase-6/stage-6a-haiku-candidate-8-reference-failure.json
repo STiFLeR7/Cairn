@@ -1,0 +1,51 @@
+{
+  "schema_version": "cairn.phase6.stage6a-candidate-reference-failure.v1",
+  "status": "FAILED",
+  "failure_classification": "INDEPENDENT IMPLEMENTATION DEFECT",
+  "phase6_status": "BLOCKED / UNADMITTED",
+  "candidate": {
+    "commit": "f791e78a1ed82d86bd46e9e8862eaf616178219c",
+    "tree": "1e822108b9967f6d74fa986e32fb12dadba18a9d",
+    "bundle_sha256": null,
+    "implementation_frozen_before_evidence": true,
+    "preserved_unchanged": true,
+    "stage6a_capable": false
+  },
+  "public_inputs": {
+    "protocol_commit": "d490547a79fa0acd40144528dd7607ea9284db5b",
+    "witness_sha256": "f175254920909f6d882b15ae3d6532a503087b48346ad79f4ee0dc505742ded5",
+    "vectors_sha256": "e6d3037d736a3961ef6e4e1a09de592a12a79ebfd07d29a9f4e169e4e925107a",
+    "real_provider_preflight_sha256": "4892a7c1f80ee5a4cf295cd44b40243a746e734c2bb9299bccea76f86a6a9fd4"
+  },
+  "provenance": {
+    "implementer_model": "claude-haiku-4-5-20251001",
+    "other_models": false,
+    "cairn_runtime_import": false,
+    "prior_candidate_or_fixture_reference": false,
+    "fixed_sha256_constant": false
+  },
+  "causal_finding": {
+    "failed_gate": "verifier-owned answer-free v2 reference matrix",
+    "first_failed_cell": "R / repetition 1",
+    "observed_behavior": "prepare writes checkpoint.json and ready.json, then exits with code 0 before verifier-owned forced termination.",
+    "required_behavior": "prepare must remain alive after ready.json until verifier-owned process death.",
+    "source": "host.py:prepare_phase returns immediately after writing ready.json",
+    "conclusion": "The candidate does not implement the required crash boundary; the failure is independent of provider behavior."
+  },
+  "execution": {
+    "candidate_self_test_exit": 0,
+    "reference_exit": 1,
+    "reference_counts": {"runs": 2, "passed": 1, "failed": 1},
+    "no_rerun_or_patch_after_failure": true,
+    "real_provider_preflight": "NOT RUN: blocked by failed required reference gate",
+    "stage6b_holdout": "NOT CREATED"
+  },
+  "raw_evidence": {
+    "root": "D:/phase6a-v8-evaluation",
+    "reference_manifest_sha256": "66ec1c383481ddf933db231b76d5ab9e888a71513bad64ea87b70ccc7bee5724",
+    "failed_run_sha256": "5bf366bee380bb3051fffd36a1ac7cb4aa0068651a5c3be25e261535c1aabb83",
+    "uninterrupted_run_sha256": "67e3fe1e5a224e6d9cf4e42b5e44289c1c9443b5e6c593293d20e52eb00d20fb",
+    "reference_stdout_sha256": "66ec1c383481ddf933db231b76d5ab9e888a71513bad64ea87b70ccc7bee5724"
+  },
+  "next": "Do not reuse this candidate or its evidence. A new clean-room Stage 6A candidate must independently pass the reference matrix, source/evidence audit, and real-provider preflight before a new Stage 6B sealer is permitted."
+}
