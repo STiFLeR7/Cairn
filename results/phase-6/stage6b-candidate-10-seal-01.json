@@ -1,0 +1,38 @@
+{
+ "schema_version": "cairn.phase6.stage6b-seal-record.v1",
+ "status": "SPENT: SEALER-DECLARED FAIL (evidence rule), NOT A CANDIDATE DEFECT",
+ "phase6_status": "BLOCKED / UNADMITTED",
+ "candidate": {
+  "id": "stage-6a-haiku-candidate-10",
+  "commit": "3dae0273856fab4295f15e3bf27daafbea5c59cc",
+  "unchanged": true
+ },
+ "sealer": {
+  "tool": "Codex CLI 0.162.1",
+  "session_id": "01a1525d-3476-7f10-9035-ef12110123e5 (first attempt; its sandbox could not start a shell and did nothing)",
+  "run_root": "D:/phase6b-sealer-c10-01",
+  "prompt": "D:/phase6b-sealer-c10-01/SEALER-PROMPT.txt"
+ },
+ "holdout": {
+  "commit": "0cf5ff8a37e4b309ab46ae6fd92563de066cdfe4",
+  "bundle_sha256": "0f1a5c42a8ebc0ed10bf6c0cac3ce2debfb142aca6ea63049b8ec249e6a2ce36",
+  "sealed_before_execution": true,
+  "sealed_at_local": "2026-10-19T10:05:34+05:30",
+  "first_executed_at_local": "2026-10-19T10:05:58+05:30"
+ },
+ "sealer_run": {
+  "semantic_counts": {
+   "runs": 30,
+   "passed": 30,
+   "failed": 0
+  },
+  "declared_verdict": "FAIL",
+  "declared_reason": "effect_never cells (3) have no provider-ledger.json (12 ledgers for 15 effect cells)"
+ },
+ "maintainer_audit": {
+  "finding": "stage6b_provider.py writes provider-ledger.json only on state change. Dispatch-only never-retry cells have no state change, so the file is correctly absent; their provider-events.jsonl shows dispatch then observe with no post-result dispatch, as required.",
+  "classification": "Protocol ambiguity in the handoff's ledger evidence rule. Not a candidate defect.",
+  "action": "Handoff clarified (ledger directory contents). This seal is spent; a new seal requires a new holdout identity. The sealer's declared verdict is preserved, not overturned."
+ },
+ "next": "Fresh SEALER run with a new holdout identity under the clarified handoff."
+}

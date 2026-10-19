@@ -5,7 +5,11 @@ Candidate 10 passed the corrected v2 reference matrix (30/30), the source/eviden
 audit and the public real-provider preflight
 ([qualification record](../../results/phase-6/stage-6a-haiku-candidate-10/qualification.json)).
 Candidate 7 (`ca29b601`) and its attempted seal remain spent and invalid; do not
-seal, rerun, or reproduce it. This document does not authorize a Cairn
+seal, rerun, or reproduce it. The first candidate 10 seal (holdout `0cf5ff8a`) is
+spent: it ran 30/30 semantically, but its sealer declared FAIL by treating the
+absent `provider-ledger.json` in dispatch-only cells as missing evidence
+([record](../../results/phase-6/stage6b-candidate-10-seal-01.json)). It must not
+be rerun or reproduced; a new seal requires a new holdout identity. This document does not authorize a Cairn
 maintainer, the implementation author, or the session that evaluated candidate 10
 to act as the SEALER or REPRODUCER.
 
@@ -180,6 +184,18 @@ verifier-owned witness, effect provider, and manifest. It must:
    provider executable hash, ready/PID record, provider event log, provider
    ledger, dispatch record, receipts, observation record, evidence, stdout,
    and stderr.
+
+**Ledger directory contents.** The durable provider ledger for an effect cell is
+the directory `$RunRoot/provider-ledger/<run-nonce>`. It always contains
+`provider-ready.json` and the append-only `provider-events.jsonl`. The unchanged
+`stage6b_provider.py` writes `provider-ledger.json` only when provider state
+changes (a create, a receipt, or the unavailable state). In a cell where no
+state change is required, such as "absent, never retry" (dispatch only), that
+file is legitimately absent and the provider state is its documented empty
+default. Its absence is not missing evidence there. The event log, with the
+`dispatch` and `observe` events and no post-result dispatch, is the durable
+record. A cell whose required outcome is a resource, receipt or unavailable
+state must still have `provider-ledger.json`.
 
 The holdout evaluator must call `verify_effect_evidence` with the candidate
 root (or demonstrate an equivalent independent check) after the candidate

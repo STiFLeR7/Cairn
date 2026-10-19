@@ -5,8 +5,8 @@
   "run_id": null,
   "actors": {
     "implementer": {
-      "provenance": "published-stage6a-candidate-7",
-      "model": "claude-haiku-4-5-20251001"
+      "provenance": "published-stage6a-candidate-10",
+      "model": "claude-haiku-4-5"
     },
     "sealer": {
       "identity": null,
@@ -25,11 +25,11 @@
     "sealer_ne_reproducer": null
   },
   "candidate": {
-    "commit": "ca29b601454f83d0ab75433522c40930089bc5d3",
-    "tree": "35c9c96e3f0d4cf869cba39a20629fe30b2ca61e",
-    "bundle_sha256": "e964ea84a7145477183942912b76493a37af753abe3a7fd5bf9a75a98e21b33d",
+    "commit": "3dae0273856fab4295f15e3bf27daafbea5c59cc",
+    "tree": "9912b5c977ee6e5ef07ecf741f2ff980721f66da",
+    "bundle_sha256": "e5904e6f7502c171cd5bc8d027dec04eeb1206915e34f29a8201c4098c994bbf",
     "command": "python host.py <execute|prepare|recover> <request-json>",
-    "tests_verdict": null
+    "tests_verdict": "NOT_APPLICABLE: candidate 10 ships no test suite"
   },
   "holdout": {
     "repository_commit": null,
