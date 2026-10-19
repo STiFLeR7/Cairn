@@ -19,7 +19,9 @@ from __future__ import annotations
 
 import os
 import re
+import sys
 import json
+import atexit
 import shutil
 import subprocess
 import tempfile
@@ -212,6 +214,7 @@ def claude_code_transport(
     action in ``TerminalWorld`` exactly as it does for every other live transport.
     """
     runner = run or subprocess.run
+    observed: set[str] = set()
 
     def complete(prompt: str) -> str:
         try:
@@ -240,11 +243,41 @@ def claude_code_transport(
         except (TypeError, ValueError) as exc:
             raise LiveModelConfigError("Claude Code returned invalid JSON") from exc
         reply = response.get("result") if isinstance(response, dict) else None
+        usage = response.get("modelUsage") if isinstance(response, dict) else None
+        if isinstance(usage, dict):
+            observed.update(usage)
         if response.get("is_error") or not isinstance(reply, str):
             raise LiveModelConfigError(f"Claude Code error: {reply or response}")
         return reply
 
+    complete.observed_models = observed  # type: ignore[attr-defined]
     return complete
+
+
+def _run_tree_killing(
+    args: list[str], *, input: str, timeout: float, env: Optional[dict], encoding: str
+) -> subprocess.CompletedProcess:
+    """Run ``args`` and, on timeout, kill the whole process tree before raising.
+
+    ``subprocess.run(timeout=)`` on a Windows ``.cmd`` shim kills only ``cmd.exe`` and then
+    blocks on pipes still held by its node/codex grandchildren; ``taskkill /T`` takes the tree.
+    """
+    proc = subprocess.Popen(args, stdin=subprocess.PIPE, stdout=subprocess.PIPE,
+                            stderr=subprocess.PIPE, text=True, encoding=encoding, env=env)
+    try:
+        out, err = proc.communicate(input=input, timeout=timeout)
+    except subprocess.TimeoutExpired:
+        if sys.platform == "win32":
+            subprocess.run(["taskkill", "/T", "/F", "/PID", str(proc.pid)],
+                           capture_output=True, check=False)
+        else:
+            proc.kill()
+        try:
+            proc.communicate(timeout=10)
+        except subprocess.TimeoutExpired:
+            pass
+        raise subprocess.TimeoutExpired(args, timeout) from None
+    return subprocess.CompletedProcess(args, proc.returncode, out, err)
 
 
 def codex_cli_transport(
@@ -253,6 +286,8 @@ def codex_cli_transport(
     command: str = "codex",
     timeout: float = 120.0,
     run: Optional[Callable[..., object]] = None,
+    reasoning_effort: Optional[str] = "medium",
+    codex_home_source: Optional[str] = None,
 ) -> Transport:
     """Use an authenticated local Codex CLI as a no-tools response transport.
 
@@ -261,24 +296,47 @@ def codex_cli_transport(
     returns only the final reply. Cairn executes the parsed action in ``TerminalWorld``; Codex
     never sees the benchmark checkout. The model ids Codex reports are kept in
     ``observed_models`` so a run can record the exact model used.
+
+    Codex runs against an isolated ``CODEX_HOME`` holding only a copy of ``auth.json`` (from
+    ``codex_home_source``, default ``$CODEX_HOME`` or ``~/.codex``) plus ``--ignore-user-config``,
+    so the user's hooks, AGENTS.md and config never reach the model; the reasoning effort is
+    pinned when given. The default runner kills the whole process tree on timeout.
     """
-    runner = run or subprocess.run
+    runner = run or _run_tree_killing
     observed: set[str] = set()
+    isolated: list[str] = []
+
+    def codex_home() -> str:
+        if not isolated:
+            source = codex_home_source or os.environ.get("CODEX_HOME") or os.path.join(
+                os.path.expanduser("~"), ".codex")
+            auth = os.path.join(source, "auth.json")
+            if not os.path.isfile(auth):
+                raise LiveModelConfigError(f"Codex auth not found in {source}")
+            home = tempfile.mkdtemp(prefix="cairn-codex-home-")
+            atexit.register(shutil.rmtree, home, ignore_errors=True)
+            shutil.copyfile(auth, os.path.join(home, "auth.json"))
+            isolated.append(home)
+        return isolated[0]
 
     def complete(prompt: str) -> str:
+        env = dict(os.environ, CODEX_HOME=codex_home())
         with tempfile.TemporaryDirectory(prefix="cairn-codex-") as tmp:
             schema = os.path.join(tmp, "schema.json")
             reply_path = os.path.join(tmp, "reply.txt")
             with open(schema, "w", encoding="utf-8") as f:
                 f.write(CLAUDE_CODE_SCHEMA)
             args = [shutil.which(command) or command, "exec", "--ephemeral", "--skip-git-repo-check", "-s", "read-only",
-                    "-C", tmp, "--output-schema", schema, "-o", reply_path, "--color", "never"]
+                    "-C", tmp, "--output-schema", schema, "-o", reply_path, "--color", "never",
+                    "--ignore-user-config"]
             if model:
                 args += ["-m", model]
+            if reasoning_effort:
+                args += ["-c", f'model_reasoning_effort="{reasoning_effort}"']
             args.append("-")
             try:
-                result = runner(args, input=f"{CLAUDE_CODE_SYSTEM}\n\n{prompt}", capture_output=True,
-                                text=True, encoding="utf-8", timeout=timeout, check=False)
+                result = runner(args, input=f"{CLAUDE_CODE_SYSTEM}\n\n{prompt}", timeout=timeout,
+                                env=env, encoding="utf-8")
             except FileNotFoundError as exc:
                 raise LiveModelConfigError(f"Codex command not found: {command}") from exc
             except subprocess.TimeoutExpired as exc:

@@ -372,6 +372,18 @@ def test_nim_coding_payload_is_limited_to_documented_models(monkeypatch):
     assert captured[1]["extra_body"] is None
 
 
+@pytest.fixture(autouse=True)
+def _fake_codex_home(tmp_path, monkeypatch):
+    """Point the Codex home source at a tmp dir holding a fake auth.json (never the user's)."""
+    home = tmp_path / "codex-home-source"
+    home.mkdir()
+    (home / "auth.json").write_text('{"fake": true}', encoding="utf-8")
+    (home / "AGENTS.md").write_text("user instructions that must not leak", encoding="utf-8")
+    (home / "hooks.json").write_text("{}", encoding="utf-8")
+    monkeypatch.setenv("CODEX_HOME", str(home))
+    return home
+
+
 def _codex_fake(reply: str | None, *, returncode: int = 0, stderr: str = "model: gpt-test\n"):
     captured = {}
 
@@ -466,3 +478,84 @@ def test_build_live_transport_keeps_observed_models(monkeypatch):
     base.observed_models = {"gpt-x"}
     monkeypatch.setattr(scenarios, "codex_cli_transport", lambda **kwargs: base)
     assert build_live_transport("default", provider="codex_cli").observed_models == {"gpt-x"}
+
+
+def test_codex_cli_transport_isolates_codex_home_and_pins_effort(monkeypatch, _fake_codex_home):
+    import os
+
+    monkeypatch.setattr("cairn.model_live.shutil.which", lambda c: None)
+    seen = []
+    fake_run, captured = _codex_fake('{"action": "python", "code": "x"}')
+
+    def spying_run(args, **kwargs):
+        home = kwargs["env"]["CODEX_HOME"]
+        seen.append((home, sorted(os.listdir(home))))
+        return fake_run(args, **kwargs)
+
+    transport = codex_cli_transport(run=spying_run, codex_home_source=str(_fake_codex_home))
+    transport("p")
+    transport("p")
+    home, files = seen[0]
+    assert files == ["auth.json"]
+    assert home != str(_fake_codex_home)
+    assert seen[1][0] == home  # one isolated home reused for later calls
+    with open(os.path.join(home, "auth.json"), encoding="utf-8") as f:
+        assert f.read() == '{"fake": true}'
+    args = captured["args"]
+    assert "--ignore-user-config" in args
+    assert args[args.index("-c") + 1] == 'model_reasoning_effort="medium"'
+    assert captured["kwargs"]["env"]["PATH"] == os.environ["PATH"]  # rest of the env inherited
+
+
+def test_codex_cli_transport_default_home_source_is_codex_home_env(monkeypatch, _fake_codex_home):
+    import os
+
+    monkeypatch.setattr("cairn.model_live.shutil.which", lambda c: None)
+    fake_run, captured = _codex_fake('{"action": "python", "code": "x"}')
+    codex_cli_transport(run=fake_run, reasoning_effort=None)("p")
+    home = captured["kwargs"]["env"]["CODEX_HOME"]
+    assert home != str(_fake_codex_home) and os.listdir(home) == ["auth.json"]
+    assert "-c" not in captured["args"]
+
+
+def test_codex_cli_transport_without_auth_is_a_config_error(monkeypatch, tmp_path):
+    monkeypatch.setattr("cairn.model_live.shutil.which", lambda c: None)
+    fake_run, _ = _codex_fake('{"action": "python", "code": "x"}')
+    empty = tmp_path / "empty-home"
+    empty.mkdir()
+    with pytest.raises(LiveModelConfigError, match="Codex auth not found"):
+        codex_cli_transport(run=fake_run, codex_home_source=str(empty))("p")
+
+
+def test_run_tree_killing_enforces_timeout():
+    import sys
+
+    from cairn.model_live import _run_tree_killing
+
+    start = time.monotonic()
+    with pytest.raises(subprocess.TimeoutExpired):
+        _run_tree_killing([sys.executable, "-c", "import time; time.sleep(30)"], input="",
+                          timeout=1, env=None, encoding="utf-8")
+    assert time.monotonic() - start < 15
+
+
+def test_run_tree_killing_returns_completed_process():
+    import sys
+
+    from cairn.model_live import _run_tree_killing
+
+    r = _run_tree_killing([sys.executable, "-c", "import sys; print(sys.stdin.read().upper())"],
+                          input="hi", timeout=30, env=None, encoding="utf-8")
+    assert r.returncode == 0 and r.stdout.strip() == "HI"
+
+
+def test_claude_code_transport_records_observed_models():
+    class Result:
+        returncode = 0
+        stderr = ""
+        stdout = '{"is_error": false, "result": "x", "modelUsage": {"claude-sonnet-x": {}}}'
+
+    transport = claude_code_transport(model="sonnet", run=lambda args, **kw: Result())
+    assert transport.observed_models == set()
+    transport("p")
+    assert transport.observed_models == {"claude-sonnet-x"}
