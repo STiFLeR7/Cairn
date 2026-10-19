@@ -1,0 +1,38 @@
+{
+ "schema_version": "cairn.phase6.stage6b-seal-record.v1",
+ "status": "SPENT: SEALER-DECLARED FAIL (untracked bytecode cache), NOT A CANDIDATE DEFECT",
+ "phase6_status": "BLOCKED / UNADMITTED",
+ "candidate": {
+  "id": "stage-6a-haiku-candidate-10",
+  "commit": "3dae0273856fab4295f15e3bf27daafbea5c59cc",
+  "unchanged": true
+ },
+ "sealer": {
+  "tool": "Codex CLI 0.162.1",
+  "run_root": "D:/phase6b-sealer-c10-02",
+  "prompt": "D:/phase6b-sealer-c10-02/SEALER-PROMPT.txt",
+  "independent_of_seal_01": "prompt forbade reading D:/phase6b-sealer-c10-01; session log shows no access"
+ },
+ "holdout": {
+  "commit": "55b81a545394579c31fda18e1da4d05e6fd8edf1",
+  "bundle_sha256": "29772853c8938d309740ec4f327a42913ee4b710c7553fbe504bca2c66c03c0b",
+  "sealed_before_execution": true,
+  "sealed_at_local": "2026-10-19T10:14:34+05:30",
+  "first_executed_at_local": "2026-10-19T10:15:08+05:30"
+ },
+ "sealer_run": {
+  "semantic_counts": {
+   "runs": 30,
+   "passed": 30,
+   "failed": 0
+  },
+  "declared_verdict": "FAIL",
+  "declared_reason": "untracked __pycache__/ appeared in the sealed holdout after execution (post-seal holdout mutation)"
+ },
+ "maintainer_audit": {
+  "finding": "Holdout HEAD and bundle digest are unchanged and there are no tracked changes; the only difference is an untracked __pycache__/ written by the Python interpreter when the witness imported stage6b_provider.py. The handoff's run command did not pass -B.",
+  "classification": "Procedure gap in the handoff's run command and mutation definition. Not a candidate defect.",
+  "action": "Handoff run commands now use python -B, and mutation is defined as a change to tracked files, the committed tree or the bundle. This seal is spent; the sealer's declared verdict is preserved."
+ },
+ "next": "Fresh SEALER run with a new holdout identity under the corrected handoff."
+}

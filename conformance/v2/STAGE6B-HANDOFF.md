@@ -9,7 +9,10 @@ seal, rerun, or reproduce it. The first candidate 10 seal (holdout `0cf5ff8a`) i
 spent: it ran 30/30 semantically, but its sealer declared FAIL by treating the
 absent `provider-ledger.json` in dispatch-only cells as missing evidence
 ([record](../../results/phase-6/stage6b-candidate-10-seal-01.json)). It must not
-be rerun or reproduced; a new seal requires a new holdout identity. This document does not authorize a Cairn
+be rerun or reproduced; a new seal requires a new holdout identity. The second
+candidate 10 seal (holdout `55b81a54`) is also spent: it ran 30/30, but its
+sealer declared FAIL because Python wrote an untracked `__pycache__/` into the
+holdout ([record](../../results/phase-6/stage6b-candidate-10-seal-02.json)). This document does not authorize a Cairn
 maintainer, the implementation author, or the session that evaluated candidate 10
 to act as the SEALER or REPRODUCER.
 
@@ -70,6 +73,13 @@ exactly-once delivery.
 
 Any actor overlap, candidate mutation, post-seal holdout mutation, or rerun
 under the same failed seal is a hard `FAIL`.
+
+A mutation is any change to a tracked file, the committed tree, or the sealed
+bundle of the candidate or holdout. Check it with `git status --porcelain
+--untracked-files=no`, `git rev-parse HEAD` and the bundle digest. Run Python
+with `-B` (as in the commands below) so the interpreter writes no bytecode
+cache. If an untracked interpreter cache such as `__pycache__/` still appears,
+record it in custody; it is not a mutation of sealed content.
 
 ## SEALER commands
 
@@ -233,7 +243,7 @@ After sealing, execute the holdout's documented command with the frozen host.
 The command shape must remain:
 
 ```powershell
-python "$Holdout/witness.py" --output "$RunRoot/sealer-output" --host python "$Candidate/host.py"
+python -B "$Holdout/witness.py" --output "$RunRoot/sealer-output" --host python -B "$Candidate/host.py"
 ```
 
 If the sealed witness reports anything other than 30/30, preserve the run and
@@ -263,7 +273,7 @@ if (@(git -C $Candidate status --porcelain).Count -ne 0 -or
   throw 'reproduction input is dirty'
 }
 
-python "$Holdout/witness.py" --output "$RunRoot/reproducer-output" --host python "$Candidate/host.py"
+python -B "$Holdout/witness.py" --output "$RunRoot/reproducer-output" --host python -B "$Candidate/host.py"
 ```
 
 The REPRODUCER independently inventories the output, records environment and
