@@ -13,7 +13,7 @@ MIN_COMPLETED = 9
 
 def run_calibration(scenario, runs: int = 10, *, base_factory: Callable[[], str] = tempfile.mkdtemp) -> dict:
     """Run the uncrashed task `runs` times; a run that raises counts as not completed."""
-    successes = completed = 0
+    outcomes: list[bool] = []
     errors: list[str] = []
     for _ in range(runs):
         try:
@@ -21,8 +21,13 @@ def run_calibration(scenario, runs: int = 10, *, base_factory: Callable[[], str]
         except Exception as exc:  # noqa: BLE001 — a transport error is recorded, not fatal
             errors.append(f"{type(exc).__name__}: {exc}"[:300])
             continue
-        completed += 1
-        successes += int(bool(outcome.success))
+        outcomes.append(bool(outcome.success))
+    return calibration_summary(runs, outcomes, errors)
+
+
+def calibration_summary(runs: int, outcomes: list[bool], errors: list[str]) -> dict:
+    """The calibration record and eligibility rule over completed runs' successes (`outcomes`)."""
+    completed, successes = len(outcomes), sum(outcomes)
     rate = successes / completed if completed else 0.0
     return {
         "runs": runs,
