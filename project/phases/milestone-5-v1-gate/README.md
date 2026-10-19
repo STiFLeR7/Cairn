@@ -17,14 +17,18 @@
 - **Calibration and verdicts** (`AP-0053`) — uncrashed calibration per model, capability-matched C1, live C3
   and the combined gate verdict; the strict `verdict_c1` is kept for comparison.
 - **Pre-registration** (`AP-0054`) — protocol and verdict code hashed and committed before any live call.
-- **Powered live run** (`AP-0055`) — Claude `sonnet` and Codex default, 32 planned cells each.
+- **Powered live run** (`AP-0055`) — Claude `sonnet` (effort low) and Codex `gpt-6-sol` (reasoning effort
+  medium, isolated Codex home), 32 planned cells each; per-unit checkpoints, pause on consecutive errors,
+  `--resume`.
 - **v1.0 go/no-go, take 4** (`AP-0056`) — GO, NO-GO or INCONCLUSIVE, published whichever way it falls.
 
 **Constraints:**
 - **Honest results** (ADR-0009) — negatives recorded, not buried; thresholds fixed before live data.
 - **Pre-registration guard** — the study runner refuses to run if any frozen file (every `src/cairn/**/*.py` and `benchmarks/*.py` file plus `protocol.json`) differs from its
   pre-registered hash, and refuses to overwrite a prior record without `--force` (the old record is kept as
-  `.superseded-<UTC>`).
+  `.superseded-<UTC>`). The freeze must equal the committed bytes and is never overwritten without
+  `--force`; every record stores the preregistration digest, and the gate is INCONCLUSIVE for a record
+  bound to a different one.
 - **No hardcoded harness** (ADR-0007 / ADR-0010) — no changes to the chain task, baselines, harness or `TerminalWorld`.
 - **No release** — a GO only unblocks AP-0036/0037, which still need explicit owner approval.
 - **Branch-per-phase** — master stays clean and merges via PR.

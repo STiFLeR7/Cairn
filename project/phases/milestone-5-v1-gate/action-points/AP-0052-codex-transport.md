@@ -18,10 +18,13 @@ and one OpenAI model without rate-limited free tiers.
 
 ## Scope
 
-**In:** `codex_cli_transport(*, model=None, command="codex", timeout=120.0, run=None)` in
-`src/cairn/model_live.py`, mirroring `claude_code_transport`: `codex exec --ephemeral
---skip-git-repo-check -s read-only -C <fresh empty temp dir> --output-schema <schema> -o <reply>` with the
-prompt on stdin (plus `-m <model>` when given); same system instruction and JSON reply schema, so
+**In:** `codex_cli_transport(*, model=None, command="codex", timeout=120.0, run=None,
+reasoning_effort="medium", codex_home_source=None)` in `src/cairn/model_live.py`, mirroring
+`claude_code_transport`: `codex exec --ephemeral --skip-git-repo-check -s read-only -C <fresh empty temp
+dir> --output-schema <schema> -o <reply> --color never --ignore-user-config` with the prompt on stdin (plus
+`-m <model>` when given and `-c model_reasoning_effort="<effort>"` when set); Codex runs with an isolated
+temp `CODEX_HOME` holding only a copy of `auth.json`, so the user's hooks, AGENTS.md and config never reach
+it; the default runner kills the whole process tree on timeout (Windows `.cmd` shims); same system instruction and JSON reply schema, so
 `parse_action` is unchanged. Returns only the reply text; Cairn executes the action in `TerminalWorld`.
 Errors raise `LiveModelConfigError`. Registered as the `codex_cli` provider in `benchmarks/scenarios.py`.
 On Windows, Codex is an npm `.cmd` shim, so the command is resolved with `shutil.which` before launch.
@@ -33,7 +36,11 @@ On Windows, Codex is an npm `.cmd` shim, so the command is resolved with `shutil
 - [x] Codex runs in an empty temp dir with a read-only sandbox; never touches the benchmark checkout
 - [x] Windows `.cmd` shim resolved via `shutil.which`
 - [x] `codex_cli` provider registered next to `claude_code`
+- [x] Isolated `CODEX_HOME` (only `auth.json`; missing auth is a config error), `--ignore-user-config`, pinned reasoning effort (tested)
+- [x] Timeout enforced by killing the process tree (tested with a sleeping child)
 
 ## Status / Log
 
 - 2026-10-19 — Done. Implemented and reviewed on branch `milestone-5-v1-gate`.
+- 2026-10-19 — Final-review fixes before the freeze: isolated Codex home, `--ignore-user-config`, pinned
+  effort, tree-killing timeout (spec amendments).

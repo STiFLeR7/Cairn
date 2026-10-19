@@ -21,7 +21,10 @@ cannot be tuned after the fact.
 **In:** `results/m5/protocol.json` (models, R_cal, eligibility, n, crash steps, repeats, baselines,
 effect, all thresholds, loss threshold); `benchmarks/m5_preregister.py` (`snapshot`,
 `write_preregistration`, `verify`) hashing every `src/cairn/**/*.py` and `benchmarks/*.py` file plus `results/m5/protocol.json` with SHA-256 (a file added after the freeze is also reported);
-the guard in `m5_study.py`. The freeze (`python benchmarks/m5_preregister.py write`) is committed and
+the guard in `m5_study.py`. `write_preregistration` refuses if a frozen path is untracked or differs from
+its `HEAD` bytes, and refuses to overwrite an existing preregistration without `write --force` (the old one
+is kept as `.superseded-<UTC>`). `preregistration_digest()` is stored in every live record and checked by
+the gate. The freeze (`python benchmarks/m5_preregister.py write`) is committed and
 pushed before AP-0055 starts. Thresholds are never changed after live data is seen; a change needs a new
 pre-registration and invalidates earlier live data for the gate.
 **Out:** the live run.
@@ -30,6 +33,7 @@ pre-registration and invalidates earlier live data for the gate.
 
 - [x] `protocol.json` written with the spec values
 - [x] `verify` names every missing or mismatching file; line-ending churn counts as a change (tested)
+- [x] The freeze refuses uncommitted or untracked frozen bytes and refuses to overwrite without `--force` (tested)
 - [ ] `results/m5/preregistration.json` written, committed and pushed
 
 ## Status / Log

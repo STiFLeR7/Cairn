@@ -55,11 +55,23 @@ INCONCLUSIVE, and the result is published whichever way it falls (ADR-0009).
 ### 4.1 Codex transport (AP-0052)
 
 `codex_cli_transport(*, model: str | None = None, command: str = "codex", timeout: float = 120.0,
-run=None) -> Transport` in `src/cairn/model_live.py`, mirroring `claude_code_transport`:
+run=None, reasoning_effort: str | None = "medium", codex_home_source: str | None = None) -> Transport`
+in `src/cairn/model_live.py`, mirroring `claude_code_transport`:
 
 - Invokes `codex exec --ephemeral --skip-git-repo-check -s read-only -C <fresh empty temp dir>
-  --output-schema <schema file> -o <reply file>` with the rendered prompt on stdin, plus `-m <model>`
-  when a model is given.
+  --output-schema <schema file> -o <reply file> --color never --ignore-user-config` with the rendered
+  prompt on stdin, plus `-m <model>` when a model is given and `-c model_reasoning_effort="<effort>"`
+  when an effort is set (the study pins `medium`).
+- **Isolated Codex home.** `--ignore-user-config` alone still loads `~/.codex/hooks.json` and
+  `~/.codex/AGENTS.md`, so on first call the transport creates one temp `CODEX_HOME`
+  (`cairn-codex-home-*`) holding only a copy of `auth.json` from `codex_home_source` (default
+  `$CODEX_HOME` or `~/.codex`; missing auth raises `LiveModelConfigError`), reuses it for every later
+  call, and removes it at exit. Codex runs with the inherited environment plus that `CODEX_HOME`, so the
+  user's hooks, instructions and config never reach the model. Auth contents are never printed or logged.
+- **Tree-killing timeout.** On Windows `subprocess.run(timeout=)` on a `.cmd` shim kills only `cmd.exe`
+  and then blocks on pipes held by the node/codex grandchildren. The default runner
+  (`_run_tree_killing`) kills the whole tree (`taskkill /T /F`, `kill()` elsewhere) and raises
+  `TimeoutExpired`, so the timeout is enforced.
 - Uses the same system instruction and JSON reply schema as the Claude transport, so `parse_action`
   is unchanged.
 - Returns only the reply text. Cairn executes the parsed action in `TerminalWorld`, as for every
@@ -115,8 +127,9 @@ every study cell exercises C1 and C3 together and C3 costs no extra calls. This 
 
 ## 5. Study protocol (AP-0055)
 
-Per model (Claude `sonnet` via `claude_code_transport`; Codex default model via `codex_cli_transport`,
-the exact model id recorded from the CLI at run time):
+Per model (Claude `sonnet` at `--effort low` via `claude_code_transport`; Codex pinned to model
+`gpt-6-sol` at reasoning effort `medium` via `codex_cli_transport` with an isolated Codex home; for both,
+the exact model ids reported by the CLI are recorded at run time as `observed_models`):
 
 1. Calibration: 10 uncrashed chain runs. Stop for that model if ineligible (recorded, not hidden).
 2. Study: chain `n=6`, crash steps `k ∈ {2, 3}`, baselines B0 (cold restart) and B3 (RGR), **8 repeats**
@@ -136,6 +149,14 @@ Before the first live call:
   `model_live.py`, `scenarios.py` and `protocol.json` in `results/m5/preregistration.json`, committed and
   pushed **before** AP-0055 starts.
 - AP-0055 refuses to run if the working tree differs from the pre-registered hashes.
+- The freeze covers every `src/cairn/**/*.py`, `benchmarks/*.py` and `protocol.json`, and must equal the
+  committed bytes: `write_preregistration` refuses if any frozen path is untracked or its working-tree
+  bytes differ from `HEAD`. It also refuses to overwrite an existing `preregistration.json` unless forced
+  (`write --force`), and then keeps the old file as `.superseded-<UTC>`.
+- Every record is bound to the preregistration: it stores `preregistration_sha256` (SHA-256 of
+  `preregistration.json`) and `preregistration_commit`. The gate is INCONCLUSIVE if any record's digest
+  differs from the current preregistration, and `gate-verdict.json` lists per-model accounting, skipped
+  cells, call stats, observed models and every `*.superseded-*` file.
 - Thresholds are not changed after any live data is seen. A change requires a new pre-registration and
   invalidates earlier live data for the gate.
 
@@ -151,7 +172,18 @@ CHECKLIST, the M5 README and the v1.0-hold record. On GO, AP-0036/0037 move from
 - Transport errors are counted per cell, never retried silently within a cell; a repeat that errors is
   recorded and counted against the 10% loss threshold (`run_repeated(..., resilient=True)` behaviour).
 - Rate-limit or usage-cap exhaustion pauses the run; resumption continues with remaining planned cells
-  and is noted in the manifest.
+  and is noted in the record. Implemented as: every calibration run and every study repeat is one unit,
+  appended as a JSON line to `results/m5/<label>.partial.jsonl` (header line: preregistration digest and
+  label). Two consecutive errored units pause the run (`StudyPaused`, exit code 3) with the checkpoint kept.
+  `python benchmarks/m5_study.py <label> --resume` requires the header digest to equal the current one,
+  reuses units whose latest line is `ok`, re-attempts errored or missing units, and reports every earlier
+  error line in the record as `resumed_errors` (count and texts). Units still errored at the end count as
+  lost. Calibration eligibility is decided only once all calibration units are done. On completion the
+  record is written and the checkpoint is renamed `<label>.partial.done-<UTC>.jsonl`.
+- **Retry counting.** `build_live_transport` counts calls and raised errors at the base transport (inside
+  `retrying`), so every retried attempt is visible; records store this as `call_stats`. Transport errors
+  include CLI `is_error` responses (e.g. structured-output exhaustion) and count as loss in both
+  calibration and study (record field `notes`); `errors` keeps up to 20 texts and `error_count` the total.
 
 ## 9. Testing
 
@@ -160,3 +192,18 @@ CHECKLIST, the M5 README and the v1.0-hold record. On GO, AP-0036/0037 move from
 - Offline end-to-end: the full M5 pipeline with fake transports (as `run_offline_repeated_study`), so the
   live run only swaps the transport.
 - Full existing suite stays green.
+
+## Amendments (2026-10-19, before freeze)
+
+Made after the final review and before any live call or pre-registration; no live data existed.
+
+1. Codex transport: isolated `CODEX_HOME` (only `auth.json`), `--ignore-user-config`, pinned reasoning
+   effort, tree-killing timeout (§4.1).
+2. Codex model pinned to `gpt-6-sol` at `medium` effort; Claude's `--effort low` recorded in the protocol;
+   Claude's exact model ids recorded from `modelUsage` (§5).
+3. Records bound to the preregistration digest; gate INCONCLUSIVE on mismatch; the freeze must equal the
+   committed bytes; `write` refuses to overwrite without `--force` (§6).
+4. Per-unit checkpoints with pause after two consecutive errored units, `--resume`, `resumed_errors`, and
+   base-level `call_stats` (§8).
+5. The C1 capability boundary `B3.success_rate >= calibration_rate - 0.10` is evaluated as
+   `>= round(calibration_rate - 0.10, 9)` so float error cannot fail an exact boundary (§4.2).
