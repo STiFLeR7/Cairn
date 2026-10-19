@@ -6,6 +6,7 @@ injected fake client stands in for a real LLM. No network, no SDK required.
 
 from __future__ import annotations
 
+import subprocess
 import time
 
 import pytest
@@ -16,6 +17,7 @@ from cairn.model_live import (
     LiveModelConfigError,
     LiveModelProvider,
     claude_code_transport,
+    codex_cli_transport,
     anthropic_transport,
     openai_chat_transport,
     openrouter_transport,
@@ -368,3 +370,87 @@ def test_nim_coding_payload_is_limited_to_documented_models(monkeypatch):
 
     assert captured[0]["extra_body"] == {"chat_template_kwargs": {"force_nonempty_content": True}}
     assert captured[1]["extra_body"] is None
+
+
+def _codex_fake(reply: str | None, *, returncode: int = 0, stderr: str = "model: gpt-test\n"):
+    captured = {}
+
+    class Result:
+        pass
+
+    def fake_run(args, **kwargs):
+        captured["args"] = args
+        captured["kwargs"] = kwargs
+        out = args[args.index("-o") + 1]
+        if reply is not None:
+            with open(out, "w", encoding="utf-8") as f:
+                f.write(reply)
+        r = Result()
+        r.returncode, r.stderr, r.stdout = returncode, stderr, ""
+        return r
+
+    return fake_run, captured
+
+
+def test_codex_cli_transport_is_sandboxed_and_returns_reply():
+    fake_run, captured = _codex_fake('{"action": "python", "code": "print(1)"}')
+    transport = codex_cli_transport(run=fake_run)
+    assert transport("prompt") == '{"action": "python", "code": "print(1)"}'
+    args = captured["args"]
+    assert args[:4] == ["codex", "exec", "--ephemeral", "--skip-git-repo-check"]
+    assert args[args.index("-s") + 1] == "read-only"
+    assert "--output-schema" in args and "-m" not in args
+    assert args[-1] == "-"
+    assert "prompt" in captured["kwargs"]["input"]
+    assert captured["kwargs"]["timeout"] == 120.0
+    assert transport.observed_models == {"gpt-test"}
+
+
+def test_codex_cli_transport_passes_model():
+    fake_run, captured = _codex_fake('{"action": "python", "code": "x"}')
+    codex_cli_transport(model="gpt-x", run=fake_run)("p")
+    assert captured["args"][captured["args"].index("-m") + 1] == "gpt-x"
+
+
+def test_codex_cli_transport_errors_are_config_errors():
+    for reply, code in [(None, 0), ("   ", 0), ('{"action": "python", "code": "x"}', 2)]:
+        fake_run, _ = _codex_fake(reply, returncode=code)
+        with pytest.raises(LiveModelConfigError):
+            codex_cli_transport(run=fake_run)("p")
+
+    def missing(*a, **k):
+        raise FileNotFoundError("codex")
+
+    with pytest.raises(LiveModelConfigError, match="not found"):
+        codex_cli_transport(run=missing)("p")
+
+    def slow(*a, **k):
+        raise subprocess.TimeoutExpired("codex", 1)
+
+    with pytest.raises(LiveModelConfigError, match="timed out"):
+        codex_cli_transport(run=slow)("p")
+
+
+def test_build_live_transport_routes_codex_cli(monkeypatch):
+    import benchmarks.scenarios as scenarios
+    from benchmarks.scenarios import build_live_transport
+
+    captured = []
+    monkeypatch.setattr(
+        scenarios, "codex_cli_transport",
+        lambda **kwargs: captured.append(kwargs) or (lambda _prompt: "TASK_COMPLETE"),
+    )
+    assert build_live_transport("default", provider="codex_cli")("p") == "TASK_COMPLETE"
+    assert captured == [{"model": None}]
+
+
+def test_build_live_transport_keeps_observed_models(monkeypatch):
+    import benchmarks.scenarios as scenarios
+    from benchmarks.scenarios import build_live_transport
+
+    def base(_prompt):
+        return "TASK_COMPLETE"
+
+    base.observed_models = {"gpt-x"}
+    monkeypatch.setattr(scenarios, "codex_cli_transport", lambda **kwargs: base)
+    assert build_live_transport("default", provider="codex_cli").observed_models == {"gpt-x"}

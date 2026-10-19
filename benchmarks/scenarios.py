@@ -19,6 +19,7 @@ from cairn.model_live import (
     Transport,
     anthropic_transport,
     claude_code_transport,
+    codex_cli_transport,
     openai_chat_transport,
 )
 from cairn.model_mock import ScriptableMockModel
@@ -309,6 +310,8 @@ def build_live_transport(
     """
     if provider == "claude_code":
         transport = claude_code_transport(model=model)
+    elif provider == "codex_cli":
+        transport = codex_cli_transport(model=None if model in ("", "default") else model)
     elif provider == "anthropic":
         kw = {"api_key_env": api_key_env} if api_key_env else {}
         transport = anthropic_transport(model=model, max_tokens=max_tokens, **kw)
@@ -324,11 +327,22 @@ def build_live_transport(
             max_tokens=max_tokens,
         )
     else:
-        known = ", ".join(["claude_code", "anthropic", *OPENAI_COMPATIBLE_PROVIDERS])
+        known = ", ".join(["claude_code", "codex_cli", "anthropic", *OPENAI_COMPATIBLE_PROVIDERS])
         raise ValueError(f"unknown provider {provider!r} (expected one of: {known})")
+    base = transport
     transport = retrying(transport)  # innermost: tolerate transient provider 429/5xx/"error" hiccups
     if transcript_path:
         transport = record_to(transport, transcript_path, model_version=model)
     if max_calls is not None or max_chars is not None:
         transport = Budget(max_calls=max_calls, max_chars=max_chars).wrap(transport)
+    if hasattr(base, "observed_models"):
+        try:
+            transport.observed_models = base.observed_models  # type: ignore[attr-defined]
+        except AttributeError:
+            inner = transport
+
+            def transport(prompt: str) -> str:
+                return inner(prompt)
+
+            transport.observed_models = base.observed_models  # type: ignore[attr-defined]
     return transport

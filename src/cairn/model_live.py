@@ -21,6 +21,7 @@ import os
 import re
 import json
 import subprocess
+import tempfile
 from typing import Callable, Optional
 
 from .model import CODE, FINISH, Action, StepRecord
@@ -242,6 +243,61 @@ def claude_code_transport(
             raise LiveModelConfigError(f"Claude Code error: {reply or response}")
         return reply
 
+    return complete
+
+
+def codex_cli_transport(
+    *,
+    model: Optional[str] = None,
+    command: str = "codex",
+    timeout: float = 120.0,
+    run: Optional[Callable[..., object]] = None,
+) -> Transport:
+    """Use an authenticated local Codex CLI as a no-tools response transport.
+
+    Each call runs ``codex exec`` ephemerally in a fresh empty temp dir under the read-only
+    sandbox, with the same system instruction and reply schema as the Claude Code transport, and
+    returns only the final reply. Cairn executes the parsed action in ``TerminalWorld``; Codex
+    never sees the benchmark checkout. The model ids Codex reports are kept in
+    ``observed_models`` so a run can record the exact model used.
+    """
+    runner = run or subprocess.run
+    observed: set[str] = set()
+
+    def complete(prompt: str) -> str:
+        with tempfile.TemporaryDirectory(prefix="cairn-codex-") as tmp:
+            schema = os.path.join(tmp, "schema.json")
+            reply_path = os.path.join(tmp, "reply.txt")
+            with open(schema, "w", encoding="utf-8") as f:
+                f.write(CLAUDE_CODE_SCHEMA)
+            args = [command, "exec", "--ephemeral", "--skip-git-repo-check", "-s", "read-only",
+                    "-C", tmp, "--output-schema", schema, "-o", reply_path, "--color", "never"]
+            if model:
+                args += ["-m", model]
+            args.append("-")
+            try:
+                result = runner(args, input=f"{CLAUDE_CODE_SYSTEM}\n\n{prompt}", capture_output=True,
+                                text=True, timeout=timeout, check=False)
+            except FileNotFoundError as exc:
+                raise LiveModelConfigError(f"Codex command not found: {command}") from exc
+            except subprocess.TimeoutExpired as exc:
+                raise LiveModelConfigError(f"Codex request timed out after {timeout:g}s") from exc
+            for line in (getattr(result, "stderr", "") or "").splitlines():
+                if line.startswith("model: "):
+                    observed.add(line[len("model: "):].strip())
+            if getattr(result, "returncode", 1):
+                raise LiveModelConfigError(
+                    f"Codex exited {result.returncode}: {(getattr(result, 'stderr', '') or '').strip()[-300:]}"
+                )
+            reply = ""
+            if os.path.exists(reply_path):
+                with open(reply_path, encoding="utf-8") as f:
+                    reply = f.read().strip()
+            if not reply:
+                raise LiveModelConfigError("Codex returned no reply")
+            return reply
+
+    complete.observed_models = observed  # type: ignore[attr-defined]
     return complete
 
 
