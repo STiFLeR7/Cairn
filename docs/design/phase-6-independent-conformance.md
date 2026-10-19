@@ -235,7 +235,7 @@ writing `ready.json` instead of staying alive until verifier-owned process
 death. Its real-provider preflight was not run and no holdout was created
 ([failure record](../../results/phase-6/stage-6a-haiku-candidate-8-reference-failure.json)).
 
-The next action is a fresh, separately identified clean-room Stage 6A
+The next action is a fresh, separately identified Haiku-only clean-room Stage 6A
 candidate that passes the corrected reference matrix, the source/evidence
 audit, and the real-provider preflight. Candidates 7 and 8 may not be reused.
 Only then does a separate SEALER receive the frozen candidate bundle and author
