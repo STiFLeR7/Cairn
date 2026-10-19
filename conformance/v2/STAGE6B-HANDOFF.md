@@ -25,7 +25,7 @@ to act as the SEALER or REPRODUCER.
 
 | Input | Required identity |
 | --- | --- |
-| Cairn ancestry floor | `68a269b` (first commit containing the candidate 10 records; resolve the full hash with `git rev-parse 68a269b`) |
+| Cairn ancestry floor | `68a269b9dbc491d45b181cac92732e2af8458889` |
 | Candidate bundle | `results/phase-6/stage-6a-haiku-candidate-10/candidate.bundle` |
 | Bundle SHA-256 | `e5904e6f7502c171cd5bc8d027dec04eeb1206915e34f29a8201c4098c994bbf` |
 | Candidate commit | `3dae0273856fab4295f15e3bf27daafbea5c59cc` |
