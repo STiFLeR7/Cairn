@@ -33,7 +33,49 @@ def snapshot(root: str = ".") -> dict:
     return {rel: _sha(os.path.join(root, rel)) for rel in frozen_paths(root)}
 
 
-def write_preregistration(root: str = ".") -> dict:
+def preregistration_digest(root: str = ".") -> str | None:
+    """sha256 of the preregistration file's bytes (what every live record is bound to), or None."""
+    path = os.path.join(root, PREREG)
+    return _sha(path) if os.path.exists(path) else None
+
+
+def _git(root: str, *args: str) -> subprocess.CompletedProcess:
+    return subprocess.run(["git", "-C", root, *args], capture_output=True, check=False)
+
+
+def uncommitted_frozen(root: str = ".") -> list[str]:
+    """Frozen paths whose working-tree bytes are not exactly the committed HEAD bytes.
+
+    The freeze must equal what a clean checkout of the recorded commit contains. Empty when
+    ``root`` is not inside a git work tree (e.g. a tmp dir in tests).
+    """
+    try:
+        inside = _git(root, "rev-parse", "--is-inside-work-tree").stdout.strip() == b"true"
+    except FileNotFoundError:
+        inside = False
+    if not inside:
+        return []
+    paths = frozen_paths(root)
+    tracked = set(_git(root, "ls-files", "-z", "--", *paths).stdout.decode("utf-8").split("\0"))
+    problems = []
+    for rel in paths:
+        if rel not in tracked:
+            problems.append(f"{rel}: untracked")
+            continue
+        head = _git(root, "cat-file", "blob", f"HEAD:./{rel}")
+        with open(os.path.join(root, rel), "rb") as f:
+            if head.returncode or head.stdout != f.read():
+                problems.append(f"{rel}: working-tree bytes differ from HEAD")
+    return problems
+
+
+def write_preregistration(root: str = ".", force: bool = False) -> dict:
+    path = os.path.join(root, PREREG)
+    if os.path.exists(path) and not force:
+        raise FileExistsError(f"{PREREG} exists; pass force=True (write --force) to supersede it")
+    problems = uncommitted_frozen(root)
+    if problems:
+        raise RuntimeError("refusing to freeze uncommitted bytes:\n  " + "\n  ".join(problems))
     try:
         commit = subprocess.run(["git", "-C", root, "rev-parse", "HEAD"], capture_output=True,
                                 text=True, check=False).stdout.strip() or None
@@ -41,7 +83,9 @@ def write_preregistration(root: str = ".") -> dict:
         commit = None
     record = {"files": snapshot(root), "git_commit": commit,
               "created_utc": datetime.now(timezone.utc).isoformat()}
-    path = os.path.join(root, PREREG)
+    if os.path.exists(path):
+        stamp = datetime.now(timezone.utc).strftime("%Y%m%dT%H%M%SZ")
+        os.replace(path, f"{path}.superseded-{stamp}")  # never delete
     os.makedirs(os.path.dirname(path), exist_ok=True)
     with open(path, "w", encoding="utf-8", newline="\n") as f:
         json.dump(record, f, indent=2)
@@ -69,8 +113,8 @@ def verify(root: str = ".") -> list[str]:
 
 
 if __name__ == "__main__":
-    if sys.argv[1:] == ["write"]:
-        print(json.dumps(write_preregistration(), indent=2))
+    if sys.argv[1:2] == ["write"]:
+        print(json.dumps(write_preregistration(force="--force" in sys.argv[2:]), indent=2))
     else:
         problems = verify()
         print("OK" if not problems else "\n".join(problems))
