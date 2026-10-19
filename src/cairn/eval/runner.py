@@ -240,6 +240,69 @@ def verdict_c1(summary: dict) -> dict:
             "b3_tax": b3["recovery_tax"], "b0_tax": b0["recovery_tax"]}
 
 
+CAPABILITY_MARGIN = 0.10
+MAX_LOST_FRACTION = 0.10
+GATE_MODELS = ("claude", "codex")
+
+
+def verdict_c1_capability(summary: dict, calibration_rate: float) -> dict:
+    """M5 capability-matched C1: recovery judged against the model's own uncrashed success rate.
+
+    Unlike the strict `verdict_c1` (B3 must succeed in every repetition), B3's success rate must be
+    within `CAPABILITY_MARGIN` of the calibration rate and at least B0's. Tax (success-conditioned,
+    no overlap) and regression checks are unchanged. Pre-registered for M5; do not edit thresholds.
+    """
+    b0, b3 = summary.get("B0"), summary.get("B3")
+    if not b0 or not b3 or b0["n"] == 0 or b3["n"] == 0:
+        return {"claim": "C1-capability", "supported": False, "checks": {},
+                "reason": "no fired B0/B3 cells to compare"}
+    if b0.get("n_success", 0) == 0:
+        return {"claim": "C1-capability", "supported": False, "checks": {},
+                "reason": "B0 never completed the recovery, so it has no cost-of-recovery to compare (AP-0048)"}
+    b3_rate, b0_rate = b3["task_success"].mean, b0["task_success"].mean
+    checks = {
+        "b3_within_capability": b3_rate >= calibration_rate - CAPABILITY_MARGIN,
+        "b3_at_least_b0_success": b3_rate >= b0_rate,
+        "tax_no_overlap": b3["recovery_tax"].max < b0["recovery_tax"].min,
+        "no_regression_at_least_b0": b3["no_regression"].mean >= b0["no_regression"].mean,
+    }
+    reason = (f"calibration {calibration_rate:.2f}; B3 success {b3_rate:.2f} vs B0 {b0_rate:.2f}; "
+              f"B3 tax max {b3['recovery_tax'].max:.2f} vs B0 tax min {b0['recovery_tax'].min:.2f}; "
+              f"no-regression B3 {b3['no_regression'].mean:.2f} vs B0 {b0['no_regression'].mean:.2f}; "
+              f"failed: {[k for k, ok in checks.items() if not ok] or 'none'}")
+    return {"claim": "C1-capability", "supported": all(checks.values()), "checks": checks, "reason": reason}
+
+
+def verdict_c3_live(summary: dict) -> dict:
+    """M5 live C3: the WAL (B3) never duplicates the torn effect; without it (B0) it does."""
+    b0, b3 = summary.get("B0"), summary.get("B3")
+    if not b0 or not b3 or b0["n"] == 0 or b3["n"] == 0:
+        return {"claim": "C3-live", "supported": False, "reason": "no fired B0/B3 cells"}
+    b3_dup, b0_dup = b3["effect_duplicates_total"], b0["effect_duplicates_total"]
+    supported = b3_dup == 0 and b0_dup >= 1
+    return {"claim": "C3-live", "supported": supported,
+            "reason": f"B3 duplicates {b3_dup} (must be 0); B0 duplicates {b0_dup} (must be >= 1)"}
+
+
+def verdict_v1_gate(per_model: dict) -> dict:
+    """M5 v1.0 gate over both models (pre-registered): INCONCLUSIVE / GO / NO-GO."""
+    missing = [m for m in GATE_MODELS if m not in per_model]
+    if missing:
+        return {"decision": "INCONCLUSIVE", "reason": f"missing model results: {missing}"}
+    for name in GATE_MODELS:
+        m = per_model[name]
+        if not m["eligible"]:
+            return {"decision": "INCONCLUSIVE", "reason": f"{name} ineligible at calibration"}
+        if m["planned_cells"] and m["lost_cells"] / m["planned_cells"] > MAX_LOST_FRACTION:
+            return {"decision": "INCONCLUSIVE",
+                    "reason": f"{name} lost {m['lost_cells']}/{m['planned_cells']} planned cells (> 10%)"}
+    failed = [f"{name}:{claim}" for name in GATE_MODELS for claim in ("c1", "c3")
+              if not per_model[name][claim]["supported"]]
+    if failed:
+        return {"decision": "NO-GO", "reason": f"not supported: {failed}"}
+    return {"decision": "GO", "reason": "C1 (capability-matched) and C3 supported on both models"}
+
+
 def format_repeated_table(summary: dict) -> str:
     """Render the per-baseline mean+/-spread summary (the repeated counterpart of `format_table`)."""
     cols = ["n", "n_success", "task_success", "solution_quality", "no_regression", "recovery_tax",
