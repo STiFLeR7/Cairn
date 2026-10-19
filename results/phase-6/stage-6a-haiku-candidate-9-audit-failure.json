@@ -1,0 +1,51 @@
+{
+ "schema_version": "cairn.phase6.stage6a-candidate-audit-failure.v1",
+ "status": "FAILED",
+ "failure_classification": "INDEPENDENT IMPLEMENTATION DEFECT",
+ "phase6_status": "BLOCKED / UNADMITTED",
+ "candidate": {
+  "commit": "0938cd954eaed5db6ff1d0df33a65c74c0f6e495",
+  "tree": "6c6730f48febb88fe6770d3ba96cea58f6ce4221",
+  "implementation_frozen_before_evidence": true,
+  "preserved_unchanged": true,
+  "stage6a_capable": false
+ },
+ "public_inputs": {
+  "protocol_commit": "ece6018bfe56a7fa923c819fe4379cb240e8de47",
+  "witness_sha256": "f175254920909f6d882b15ae3d6532a503087b48346ad79f4ee0dc505742ded5",
+  "vectors_sha256": "e6d3037d736a3961ef6e4e1a09de592a12a79ebfd07d29a9f4e169e4e925107a",
+  "real_provider_preflight_sha256": "db952db087f8f81556308e9735efabe0b7eb7fe5e76bf727a6b3449f4d19097a",
+  "stage6b_provider_sha256": "bdf552c81c3997bbe11fdbbf442c9a3bf72aad1238ab134fd5d315924668b43a"
+ },
+ "provenance": {
+  "implementer_model": "claude-haiku-4-5",
+  "implementer_session": "fresh Claude Code subagent, neutral prompt naming only the kit README; no prior-candidate information",
+  "other_models": false,
+  "cairn_runtime_import": false,
+  "prior_candidate_or_fixture_reference": false,
+  "fixed_sha256_constant": false
+ },
+ "causal_finding": {
+  "failed_gate": "pre-freeze source/evidence audit",
+  "source": "host.py:62-70 execute()",
+  "observed_behavior": "When an effect intent is present, execute() manufactures a provider observation (observation 'present', matching True, resource_fingerprint copied from the intent) and reports the effect resolved without observing a provider.",
+  "required_behavior": "Provider fields must come from a verifier-owned observation; the candidate must never manufacture them (conformance/v2/README.md).",
+  "conclusion": "Runtime gates passed, but the witness never invokes execute with an effect intent, so the manufactured path is unexercised. Runtime evidence does not substitute for the source audit."
+ },
+ "execution": {
+  "reference_counts": {
+   "runs": 30,
+   "passed": 30,
+   "failed": 0
+  },
+  "reference_stdout_sha256": "576378a391efd712434279a415f3bbc4590f459b1042baee8a2cac42e6ec8c47",
+  "real_provider_preflight": "PASSED",
+  "no_rerun_or_patch_after_failure": true,
+  "stage6b_holdout": "NOT CREATED"
+ },
+ "raw_evidence": {
+  "root": "D:/phase6a-v9-evaluation"
+ },
+ "next": "Do not reuse this candidate or its evidence.",
+ "identity_note": "Not the earlier diagnostic candidate v9 (D:/phase6a-v9-real-provider-preflight, D:/phase6a-v9-provider-envelope-compatibility) cited by stage6b-provider-envelope-correction.json; this is the next numbered Haiku Stage 6A candidate after candidate 8."
+}

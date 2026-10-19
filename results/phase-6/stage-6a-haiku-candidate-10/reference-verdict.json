@@ -1,0 +1,2592 @@
+{
+  "counts": {
+    "failed": 0,
+    "passed": 30,
+    "runs": 30
+  },
+  "failures": [],
+  "passed": true,
+  "runs": [
+    {
+      "artifact_sha256": "2212fa5fdfe03482667943ca2e284246e9e116010355b2f5b6acc6d22d483242",
+      "cell": "U",
+      "events": [
+        {
+          "kind": "process_started",
+          "phase": "execute",
+          "pid": 14564,
+          "seq": 1,
+          "time_ns": 1792382833312019600
+        },
+        {
+          "exit_code": 0,
+          "kind": "process_exited",
+          "phase": "execute",
+          "pid": 14564,
+          "seq": 2,
+          "time_ns": 1792382833401526400
+        },
+        {
+          "kind": "result_observed",
+          "seq": 3,
+          "sha256": "e293e0a837edb720a1ad89b2c95f004dc799a14d3f778b3daae37663f6107c03",
+          "time_ns": 1792382833425128300
+        }
+      ],
+      "failures": [],
+      "passed": true,
+      "process": {
+        "execute": {
+          "exit_code": 0,
+          "pid": 14564
+        }
+      },
+      "repetition": 1,
+      "result_sha256": "e293e0a837edb720a1ad89b2c95f004dc799a14d3f778b3daae37663f6107c03",
+      "run_nonce": "4131FwKZXRJ-bMmib-nKYnotmw-X-dDn",
+      "task_digest": "a1587db3eea40c7f4635cee99290f201d536da201c66368913ba018a81d52ae2",
+      "verifier_owned": true,
+      "workspace": {
+        "fresh_recovery": false,
+        "pre": "D:\\phase6a-v10-evaluation\\reference\\work\\4131FwKZXRJ-bMmib-nKYnotmw-X-dDn\\pre",
+        "recovery": "D:\\phase6a-v10-evaluation\\reference\\work\\4131FwKZXRJ-bMmib-nKYnotmw-X-dDn\\recovery"
+      }
+    },
+    {
+      "artifact_sha256": "2212fa5fdfe03482667943ca2e284246e9e116010355b2f5b6acc6d22d483242",
+      "cell": "R",
+      "events": [
+        {
+          "kind": "process_started",
+          "phase": "prepare",
+          "pid": 3172,
+          "seq": 1,
+          "time_ns": 1792382833434124400
+        },
+        {
+          "kind": "checkpoint_observed",
+          "seq": 2,
+          "sha256": "6cd3787c66961788098fecf9ff4bf5191dde2825ec7f1808f0c07b19e67cf0f3",
+          "time_ns": 1792382833524032300
+        },
+        {
+          "kind": "process_killed",
+          "phase": "prepare",
+          "pid": 3172,
+          "seq": 3,
+          "time_ns": 1792382833524032300
+        },
+        {
+          "kind": "process_started",
+          "phase": "recover",
+          "pid": 24968,
+          "seq": 4,
+          "time_ns": 1792382833537366700
+        },
+        {
+          "kind": "observation_requested",
+          "seq": 5,
+          "sha256": "f519e7d085956baf4622d22812dd8d04c452eac9534c4b7c08ef271968443a3a",
+          "time_ns": 1792382833610208800
+        },
+        {
+          "kind": "observation_responded",
+          "seq": 6,
+          "sha256": "cb883ef4b5ce6efa1d85b86cd83226db574deac758f258317c42c9d1793f8040",
+          "time_ns": 1792382833622762800
+        },
+        {
+          "exit_code": 0,
+          "kind": "process_exited",
+          "phase": "recover",
+          "pid": 24968,
+          "seq": 7,
+          "time_ns": 1792382833645761200
+        },
+        {
+          "kind": "result_observed",
+          "seq": 8,
+          "sha256": "a47288bc772fa1aeb3a46c826ffbc0085983d92685cf408802e6a584adb794fc",
+          "time_ns": 1792382833647717100
+        }
+      ],
+      "failures": [],
+      "observation_request_sha256": "f519e7d085956baf4622d22812dd8d04c452eac9534c4b7c08ef271968443a3a",
+      "observation_response_sha256": "cb883ef4b5ce6efa1d85b86cd83226db574deac758f258317c42c9d1793f8040",
+      "passed": true,
+      "process": {
+        "prepare": {
+          "exit_code": 1,
+          "killed_by_verifier": true,
+          "pid": 3172
+        },
+        "recover": {
+          "exit_code": 0,
+          "pid": 24968
+        }
+      },
+      "repetition": 1,
+      "result_sha256": "a47288bc772fa1aeb3a46c826ffbc0085983d92685cf408802e6a584adb794fc",
+      "run_nonce": "wyN9hMXfegP-cLOCELBnlXFa7Df29A44",
+      "task_digest": "a1587db3eea40c7f4635cee99290f201d536da201c66368913ba018a81d52ae2",
+      "verifier_owned": true,
+      "workspace": {
+        "fresh_recovery": true,
+        "pre": "D:\\phase6a-v10-evaluation\\reference\\work\\wyN9hMXfegP-cLOCELBnlXFa7Df29A44\\pre",
+        "recovery": "D:\\phase6a-v10-evaluation\\reference\\work\\wyN9hMXfegP-cLOCELBnlXFa7Df29A44\\recovery"
+      }
+    },
+    {
+      "cell": "R_NEG",
+      "events": [
+        {
+          "kind": "process_started",
+          "phase": "prepare",
+          "pid": 36208,
+          "seq": 1,
+          "time_ns": 1792382833655487100
+        },
+        {
+          "kind": "checkpoint_observed",
+          "seq": 2,
+          "sha256": "0d86fcd7de920be85d10ba4b32962209737f3179b9c084eeaabaa0c064aa2055",
+          "time_ns": 1792382833744876900
+        },
+        {
+          "kind": "process_killed",
+          "phase": "prepare",
+          "pid": 36208,
+          "seq": 3,
+          "time_ns": 1792382833747890100
+        },
+        {
+          "kind": "process_started",
+          "phase": "recover",
+          "pid": 14964,
+          "seq": 4,
+          "time_ns": 1792382833754350700
+        },
+        {
+          "kind": "observation_requested",
+          "seq": 5,
+          "sha256": "0be1140e790108ab73044b5b29030b5bb14c8b700f2a935740e4f07f7c4b9836",
+          "time_ns": 1792382833828654200
+        },
+        {
+          "kind": "observation_responded",
+          "seq": 6,
+          "sha256": "e9d11483f17c767cde4774a41f28fe6d3791bc49422e29a04ee66967e5ce6393",
+          "time_ns": 1792382833835733500
+        },
+        {
+          "exit_code": 0,
+          "kind": "process_exited",
+          "phase": "recover",
+          "pid": 14964,
+          "seq": 7,
+          "time_ns": 1792382833859251300
+        },
+        {
+          "kind": "result_observed",
+          "seq": 8,
+          "sha256": "50d8d82d4b436c5d4272006a70e3e286ff3fda54895abf323ada045f8e1cbbce",
+          "time_ns": 1792382833859251300
+        }
+      ],
+      "failures": [],
+      "observation_request_sha256": "0be1140e790108ab73044b5b29030b5bb14c8b700f2a935740e4f07f7c4b9836",
+      "observation_response_sha256": "e9d11483f17c767cde4774a41f28fe6d3791bc49422e29a04ee66967e5ce6393",
+      "passed": true,
+      "process": {
+        "prepare": {
+          "exit_code": 1,
+          "killed_by_verifier": true,
+          "pid": 36208
+        },
+        "recover": {
+          "exit_code": 0,
+          "pid": 14964
+        }
+      },
+      "repetition": 1,
+      "result_sha256": "50d8d82d4b436c5d4272006a70e3e286ff3fda54895abf323ada045f8e1cbbce",
+      "run_nonce": "equfP4OWEuVlQOrAczO1zNngqQhULzpC",
+      "task_digest": "2f92c19579472d71eef9228dcfb6c0d449def7fa7d9fdf49d7036228857a4773",
+      "verifier_owned": true,
+      "workspace": {
+        "fresh_recovery": true,
+        "pre": "D:\\phase6a-v10-evaluation\\reference\\work\\equfP4OWEuVlQOrAczO1zNngqQhULzpC\\pre",
+        "recovery": "D:\\phase6a-v10-evaluation\\reference\\work\\equfP4OWEuVlQOrAczO1zNngqQhULzpC\\recovery"
+      }
+    },
+    {
+      "artifact_sha256": "2212fa5fdfe03482667943ca2e284246e9e116010355b2f5b6acc6d22d483242",
+      "cell": "C",
+      "events": [
+        {
+          "kind": "process_started",
+          "phase": "prepare",
+          "pid": 33136,
+          "seq": 1,
+          "time_ns": 1792382833870759100
+        },
+        {
+          "kind": "checkpoint_observed",
+          "seq": 2,
+          "sha256": "3ed57b53d09466756019fa0baafe75b4f9a951e4823be9dee506b837915de954",
+          "time_ns": 1792382833966634900
+        },
+        {
+          "bytes": 678,
+          "kind": "compaction_observed",
+          "seq": 3,
+          "sha256": "ab7358c2c2f94dffe065318b719c9ba146256fc712cf9b5418420a8d8e6137da",
+          "time_ns": 1792382833977741500
+        },
+        {
+          "kind": "process_killed",
+          "phase": "prepare",
+          "pid": 33136,
+          "seq": 4,
+          "time_ns": 1792382833981962900
+        },
+        {
+          "kind": "process_started",
+          "phase": "recover",
+          "pid": 26140,
+          "seq": 5,
+          "time_ns": 1792382833984679800
+        },
+        {
+          "kind": "observation_requested",
+          "seq": 6,
+          "sha256": "de9b8aaead9d99128b939095eabce3bffd8a451e95ce8e066bae9ac2d5fcbbe0",
+          "time_ns": 1792382834063120000
+        },
+        {
+          "kind": "observation_responded",
+          "seq": 7,
+          "sha256": "0fb9ec389990555ceeb4d0bf2f191645ea30b6bdba3789ad346129b250633d7b",
+          "time_ns": 1792382834076879100
+        },
+        {
+          "exit_code": 0,
+          "kind": "process_exited",
+          "phase": "recover",
+          "pid": 26140,
+          "seq": 8,
+          "time_ns": 1792382834099154800
+        },
+        {
+          "kind": "result_observed",
+          "seq": 9,
+          "sha256": "c1521d20fbcff98ee5d3b0ddd071d7596dea31203836307ca37d9c68f3aa917b",
+          "time_ns": 1792382834101161200
+        }
+      ],
+      "failures": [],
+      "observation_request_sha256": "de9b8aaead9d99128b939095eabce3bffd8a451e95ce8e066bae9ac2d5fcbbe0",
+      "observation_response_sha256": "0fb9ec389990555ceeb4d0bf2f191645ea30b6bdba3789ad346129b250633d7b",
+      "passed": true,
+      "process": {
+        "prepare": {
+          "exit_code": 1,
+          "killed_by_verifier": true,
+          "pid": 33136
+        },
+        "recover": {
+          "exit_code": 0,
+          "pid": 26140
+        }
+      },
+      "repetition": 1,
+      "result_sha256": "c1521d20fbcff98ee5d3b0ddd071d7596dea31203836307ca37d9c68f3aa917b",
+      "run_nonce": "i5blRAu7duu1hyJ1hX7V7vf08pum87Si",
+      "task_digest": "a1587db3eea40c7f4635cee99290f201d536da201c66368913ba018a81d52ae2",
+      "verifier_owned": true,
+      "workspace": {
+        "fresh_recovery": true,
+        "pre": "D:\\phase6a-v10-evaluation\\reference\\work\\i5blRAu7duu1hyJ1hX7V7vf08pum87Si\\pre",
+        "recovery": "D:\\phase6a-v10-evaluation\\reference\\work\\i5blRAu7duu1hyJ1hX7V7vf08pum87Si\\recovery"
+      }
+    },
+    {
+      "cell": "C_NEG",
+      "events": [
+        {
+          "kind": "process_started",
+          "phase": "prepare",
+          "pid": 32048,
+          "seq": 1,
+          "time_ns": 1792382834106555500
+        },
+        {
+          "kind": "checkpoint_observed",
+          "seq": 2,
+          "sha256": "47dc1719eb39baf2bb732fd472e800ff1a3b3fcc7a26644d1aeca19cdb74ca99",
+          "time_ns": 1792382834199572000
+        },
+        {
+          "bytes": 678,
+          "kind": "compaction_observed",
+          "seq": 3,
+          "sha256": "b895060d324cfc47f44284d97c45627f62a8004dbc0f3d8a7b94e6d214c0020a",
+          "time_ns": 1792382834205475600
+        },
+        {
+          "kind": "process_killed",
+          "phase": "prepare",
+          "pid": 32048,
+          "seq": 4,
+          "time_ns": 1792382834205475600
+        },
+        {
+          "kind": "process_started",
+          "phase": "recover",
+          "pid": 29044,
+          "seq": 5,
+          "time_ns": 1792382834211791100
+        },
+        {
+          "kind": "observation_requested",
+          "seq": 6,
+          "sha256": "aafde0df973d8072e9f22115f4338346c82139ff0d96dd924bfd878b24716914",
+          "time_ns": 1792382834285787600
+        },
+        {
+          "kind": "observation_responded",
+          "seq": 7,
+          "sha256": "d759797e331d37a73e578fab1204cf296c84429b62377dfff3d2bb4a893d24fb",
+          "time_ns": 1792382834291444800
+        },
+        {
+          "exit_code": 0,
+          "kind": "process_exited",
+          "phase": "recover",
+          "pid": 29044,
+          "seq": 8,
+          "time_ns": 1792382834306949300
+        },
+        {
+          "kind": "result_observed",
+          "seq": 9,
+          "sha256": "6bce16b4251dd24dda07ed8b5ebcd7795e6ff7cb84a2dca205c533c1a069ce94",
+          "time_ns": 1792382834306949300
+        }
+      ],
+      "failures": [],
+      "observation_request_sha256": "aafde0df973d8072e9f22115f4338346c82139ff0d96dd924bfd878b24716914",
+      "observation_response_sha256": "d759797e331d37a73e578fab1204cf296c84429b62377dfff3d2bb4a893d24fb",
+      "passed": true,
+      "process": {
+        "prepare": {
+          "exit_code": 1,
+          "killed_by_verifier": true,
+          "pid": 32048
+        },
+        "recover": {
+          "exit_code": 0,
+          "pid": 29044
+        }
+      },
+      "repetition": 1,
+      "result_sha256": "6bce16b4251dd24dda07ed8b5ebcd7795e6ff7cb84a2dca205c533c1a069ce94",
+      "run_nonce": "kdVuMePVkKFXbgWIAsc1BfPjo01hLHpM",
+      "task_digest": "b53b07f34402e18b844645e13198fd6eb03d4eede4dc342b3289dd8dff5d5a87",
+      "verifier_owned": true,
+      "workspace": {
+        "fresh_recovery": true,
+        "pre": "D:\\phase6a-v10-evaluation\\reference\\work\\kdVuMePVkKFXbgWIAsc1BfPjo01hLHpM\\pre",
+        "recovery": "D:\\phase6a-v10-evaluation\\reference\\work\\kdVuMePVkKFXbgWIAsc1BfPjo01hLHpM\\recovery"
+      }
+    },
+    {
+      "artifact_sha256": "48344f52d2bd67a4a7245d4d94be0c7bf131399087262271f8e8c620a834c197",
+      "cell": "E_MATCH",
+      "events": [
+        {
+          "kind": "process_started",
+          "phase": "prepare",
+          "pid": 4372,
+          "seq": 1,
+          "time_ns": 1792382834316383900
+        },
+        {
+          "kind": "checkpoint_observed",
+          "seq": 2,
+          "sha256": "b34f3a68943076e9ef34c8b605f2047468d78553d56403e7dfe6063a789e65f2",
+          "time_ns": 1792382834398230900
+        },
+        {
+          "kind": "intent_observed",
+          "seq": 3,
+          "sha256": "9387626337637f5f483e846834326bb83fb45571c14e5d9242c345b69ce99305",
+          "time_ns": 1792382834407939600
+        },
+        {
+          "kind": "process_killed",
+          "phase": "prepare",
+          "pid": 4372,
+          "seq": 4,
+          "time_ns": 1792382834409459400
+        },
+        {
+          "kind": "process_started",
+          "phase": "recover",
+          "pid": 22156,
+          "seq": 5,
+          "time_ns": 1792382834418511900
+        },
+        {
+          "kind": "observation_requested",
+          "seq": 6,
+          "sha256": "98ef4b0fca37d64556d05f22ca211efb834e91112bd6d26e5269d2998c8cc96e",
+          "time_ns": 1792382834490500200
+        },
+        {
+          "kind": "observation_responded",
+          "seq": 7,
+          "sha256": "1608ab4a9e4834ab2b3782181e191d6f22d3914a0de2732a8f84e5a3592d6b97",
+          "time_ns": 1792382834501478400
+        },
+        {
+          "exit_code": 0,
+          "kind": "process_exited",
+          "phase": "recover",
+          "pid": 22156,
+          "seq": 8,
+          "time_ns": 1792382834525477200
+        },
+        {
+          "kind": "result_observed",
+          "seq": 9,
+          "sha256": "968b52ae38c6dd4cc2d0591ed2bdc6bfbff0e4a0eb7bccd933974d2a202773e5",
+          "time_ns": 1792382834531495300
+        }
+      ],
+      "failures": [],
+      "observation_request_sha256": "98ef4b0fca37d64556d05f22ca211efb834e91112bd6d26e5269d2998c8cc96e",
+      "observation_response_sha256": "1608ab4a9e4834ab2b3782181e191d6f22d3914a0de2732a8f84e5a3592d6b97",
+      "passed": true,
+      "process": {
+        "prepare": {
+          "exit_code": 1,
+          "killed_by_verifier": true,
+          "pid": 4372
+        },
+        "recover": {
+          "exit_code": 0,
+          "pid": 22156
+        }
+      },
+      "provider_observed": {
+        "observation": "present",
+        "resource_fingerprint": "ccc92bee72a5ceea45f19394ba4f736382b4276971e9157d6b7c844dd13e6e59"
+      },
+      "repetition": 1,
+      "result_sha256": "968b52ae38c6dd4cc2d0591ed2bdc6bfbff0e4a0eb7bccd933974d2a202773e5",
+      "run_nonce": "a4q2AEA64TD2gxxGc_ucpAnQ5DtDEbVv",
+      "task_digest": "961e005af4c0cc06852f6935e3585e0ef66948d2a7ab559d44115b6546995470",
+      "verifier_owned": true,
+      "workspace": {
+        "fresh_recovery": true,
+        "pre": "D:\\phase6a-v10-evaluation\\reference\\work\\a4q2AEA64TD2gxxGc_ucpAnQ5DtDEbVv\\pre",
+        "recovery": "D:\\phase6a-v10-evaluation\\reference\\work\\a4q2AEA64TD2gxxGc_ucpAnQ5DtDEbVv\\recovery"
+      }
+    },
+    {
+      "artifact_sha256": "70ad792f9709a6b058d10fc8ee8ae410e9545096257fac46f65c1d1717d17a35",
+      "cell": "E_ABSENT",
+      "events": [
+        {
+          "kind": "process_started",
+          "phase": "prepare",
+          "pid": 17840,
+          "seq": 1,
+          "time_ns": 1792382834544980600
+        },
+        {
+          "kind": "checkpoint_observed",
+          "seq": 2,
+          "sha256": "a9d6e23f8e4687b3addfb046a8b3a4b5926ea96e4127228619b41f7647d52130",
+          "time_ns": 1792382834640872200
+        },
+        {
+          "kind": "intent_observed",
+          "seq": 3,
+          "sha256": "747f15f85183a54cbfdbb019e3d42cc121d80285eb35e19046eaafa9edc53b29",
+          "time_ns": 1792382834642969200
+        },
+        {
+          "kind": "process_killed",
+          "phase": "prepare",
+          "pid": 17840,
+          "seq": 4,
+          "time_ns": 1792382834642969200
+        },
+        {
+          "kind": "process_started",
+          "phase": "recover",
+          "pid": 35820,
+          "seq": 5,
+          "time_ns": 1792382834654681100
+        },
+        {
+          "kind": "observation_requested",
+          "seq": 6,
+          "sha256": "47b86b35b97277f211fc561892208e0ce7ab7ea5dd524db3780d9f6a4522d3d5",
+          "time_ns": 1792382834739275600
+        },
+        {
+          "kind": "observation_responded",
+          "seq": 7,
+          "sha256": "3b5ee47eac7cc1ae779cd83487968e086617951d97567b4146e94a29da9b0bdc",
+          "time_ns": 1792382834744777900
+        },
+        {
+          "exit_code": 0,
+          "kind": "process_exited",
+          "phase": "recover",
+          "pid": 35820,
+          "seq": 8,
+          "time_ns": 1792382834766207800
+        },
+        {
+          "kind": "result_observed",
+          "seq": 9,
+          "sha256": "e514bd21907a22d96870b94f199a469b454cf561e7578d0ba1e2227194c125d6",
+          "time_ns": 1792382834775346200
+        }
+      ],
+      "failures": [],
+      "observation_request_sha256": "47b86b35b97277f211fc561892208e0ce7ab7ea5dd524db3780d9f6a4522d3d5",
+      "observation_response_sha256": "3b5ee47eac7cc1ae779cd83487968e086617951d97567b4146e94a29da9b0bdc",
+      "passed": true,
+      "process": {
+        "prepare": {
+          "exit_code": 1,
+          "killed_by_verifier": true,
+          "pid": 17840
+        },
+        "recover": {
+          "exit_code": 0,
+          "pid": 35820
+        }
+      },
+      "provider_observed": {
+        "observation": "absent",
+        "resource_fingerprint": null
+      },
+      "repetition": 1,
+      "result_sha256": "e514bd21907a22d96870b94f199a469b454cf561e7578d0ba1e2227194c125d6",
+      "run_nonce": "sUP6MDxGh_uOESZi4lpd3X4bu7k7wlqS",
+      "task_digest": "7ed0493f235ea13f35ee895fae6f21efd99d31130bd0998ff99e970d35117d59",
+      "verifier_owned": true,
+      "workspace": {
+        "fresh_recovery": true,
+        "pre": "D:\\phase6a-v10-evaluation\\reference\\work\\sUP6MDxGh_uOESZi4lpd3X4bu7k7wlqS\\pre",
+        "recovery": "D:\\phase6a-v10-evaluation\\reference\\work\\sUP6MDxGh_uOESZi4lpd3X4bu7k7wlqS\\recovery"
+      }
+    },
+    {
+      "cell": "E_ESC_UNKNOWN",
+      "events": [
+        {
+          "kind": "process_started",
+          "phase": "prepare",
+          "pid": 21032,
+          "seq": 1,
+          "time_ns": 1792382834784455300
+        },
+        {
+          "kind": "checkpoint_observed",
+          "seq": 2,
+          "sha256": "3f0e6783e8c7b897803db0ea2a9eb72a4443d80cba4e56936949ce967e9c9465",
+          "time_ns": 1792382834866933700
+        },
+        {
+          "kind": "intent_observed",
+          "seq": 3,
+          "sha256": "2b45d92b8da26e8a17829fbc931af709f78da8145feca9c07b10181734016d1a",
+          "time_ns": 1792382834877429400
+        },
+        {
+          "kind": "process_killed",
+          "phase": "prepare",
+          "pid": 21032,
+          "seq": 4,
+          "time_ns": 1792382834877429400
+        },
+        {
+          "kind": "process_started",
+          "phase": "recover",
+          "pid": 29252,
+          "seq": 5,
+          "time_ns": 1792382834886783300
+        },
+        {
+          "kind": "observation_requested",
+          "seq": 6,
+          "sha256": "dd27a899b417da600d4c07d6ee93788a506610bc7fb1a44f34eeaa0708228250",
+          "time_ns": 1792382834961033300
+        },
+        {
+          "kind": "observation_responded",
+          "seq": 7,
+          "sha256": "20ded5678e29eff7824af09925ddb1865c12a137335d446d0fd1e658d7ad652f",
+          "time_ns": 1792382834971069600
+        },
+        {
+          "exit_code": 0,
+          "kind": "process_exited",
+          "phase": "recover",
+          "pid": 29252,
+          "seq": 8,
+          "time_ns": 1792382834990383500
+        },
+        {
+          "kind": "result_observed",
+          "seq": 9,
+          "sha256": "447593f2611fecd670543f2ce24a19df0654e323e9ec1931c85f172aef6d51a9",
+          "time_ns": 1792382834990383500
+        }
+      ],
+      "failures": [],
+      "observation_request_sha256": "dd27a899b417da600d4c07d6ee93788a506610bc7fb1a44f34eeaa0708228250",
+      "observation_response_sha256": "20ded5678e29eff7824af09925ddb1865c12a137335d446d0fd1e658d7ad652f",
+      "passed": true,
+      "process": {
+        "prepare": {
+          "exit_code": 1,
+          "killed_by_verifier": true,
+          "pid": 21032
+        },
+        "recover": {
+          "exit_code": 0,
+          "pid": 29252
+        }
+      },
+      "provider_observed": {
+        "observation": "unknown",
+        "resource_fingerprint": null
+      },
+      "repetition": 1,
+      "result_sha256": "447593f2611fecd670543f2ce24a19df0654e323e9ec1931c85f172aef6d51a9",
+      "run_nonce": "xOzU5ZBVizQmsJXdZJVbYzK3Lt6aA2-2",
+      "task_digest": "4b276479f0584e97b660392f343cc2ce119f8a064e93903c2ec748da7b610407",
+      "verifier_owned": true,
+      "workspace": {
+        "fresh_recovery": true,
+        "pre": "D:\\phase6a-v10-evaluation\\reference\\work\\xOzU5ZBVizQmsJXdZJVbYzK3Lt6aA2-2\\pre",
+        "recovery": "D:\\phase6a-v10-evaluation\\reference\\work\\xOzU5ZBVizQmsJXdZJVbYzK3Lt6aA2-2\\recovery"
+      }
+    },
+    {
+      "cell": "E_ESC_MISMATCH",
+      "events": [
+        {
+          "kind": "process_started",
+          "phase": "prepare",
+          "pid": 26144,
+          "seq": 1,
+          "time_ns": 1792382834995512800
+        },
+        {
+          "kind": "checkpoint_observed",
+          "seq": 2,
+          "sha256": "1f40edb9c023713b3c1a8c350d5d7bf5827892b3b2c4480a67da4c101e199ad0",
+          "time_ns": 1792382835100077300
+        },
+        {
+          "kind": "intent_observed",
+          "seq": 3,
+          "sha256": "a888990a72e74d5c64dfd4e440e8c3c1765e6fc8b5feaf7c311b5462dd720295",
+          "time_ns": 1792382835110833400
+        },
+        {
+          "kind": "process_killed",
+          "phase": "prepare",
+          "pid": 26144,
+          "seq": 4,
+          "time_ns": 1792382835113346100
+        },
+        {
+          "kind": "process_started",
+          "phase": "recover",
+          "pid": 25060,
+          "seq": 5,
+          "time_ns": 1792382835121352100
+        },
+        {
+          "kind": "observation_requested",
+          "seq": 6,
+          "sha256": "1e47bf12440931efb76891057de25dfb2d6b8dee6059886c3ffb8e158ac09aa1",
+          "time_ns": 1792382835204365000
+        },
+        {
+          "kind": "observation_responded",
+          "seq": 7,
+          "sha256": "278911fb8ac106713f4fd3f469bd0ae47f501220fc0837836a295f28ddf792f3",
+          "time_ns": 1792382835215941200
+        },
+        {
+          "exit_code": 0,
+          "kind": "process_exited",
+          "phase": "recover",
+          "pid": 25060,
+          "seq": 8,
+          "time_ns": 1792382835235628500
+        },
+        {
+          "kind": "result_observed",
+          "seq": 9,
+          "sha256": "c30cbad026d8bafab5c9ed8411003e145f533a2b4ae5bfc32a5bf88d729e29fd",
+          "time_ns": 1792382835235628500
+        }
+      ],
+      "failures": [],
+      "observation_request_sha256": "1e47bf12440931efb76891057de25dfb2d6b8dee6059886c3ffb8e158ac09aa1",
+      "observation_response_sha256": "278911fb8ac106713f4fd3f469bd0ae47f501220fc0837836a295f28ddf792f3",
+      "passed": true,
+      "process": {
+        "prepare": {
+          "exit_code": 1,
+          "killed_by_verifier": true,
+          "pid": 26144
+        },
+        "recover": {
+          "exit_code": 0,
+          "pid": 25060
+        }
+      },
+      "provider_observed": {
+        "observation": "present",
+        "resource_fingerprint": "3c59ca41d3847cb70217778e56d36c15e4e8da60128387fae7be6a64404c9ba5"
+      },
+      "repetition": 1,
+      "result_sha256": "c30cbad026d8bafab5c9ed8411003e145f533a2b4ae5bfc32a5bf88d729e29fd",
+      "run_nonce": "ZBvfWIAilW9K0_9yADoqhzSSvnAy7Duz",
+      "task_digest": "67884f4ccf049f258bfc398969abf7c1bca42abc93037c3710b8d13562ffa874",
+      "verifier_owned": true,
+      "workspace": {
+        "fresh_recovery": true,
+        "pre": "D:\\phase6a-v10-evaluation\\reference\\work\\ZBvfWIAilW9K0_9yADoqhzSSvnAy7Duz\\pre",
+        "recovery": "D:\\phase6a-v10-evaluation\\reference\\work\\ZBvfWIAilW9K0_9yADoqhzSSvnAy7Duz\\recovery"
+      }
+    },
+    {
+      "cell": "E_ESC_NEVER",
+      "events": [
+        {
+          "kind": "process_started",
+          "phase": "prepare",
+          "pid": 33668,
+          "seq": 1,
+          "time_ns": 1792382835239764800
+        },
+        {
+          "kind": "checkpoint_observed",
+          "seq": 2,
+          "sha256": "7f722fa06f28ac8ca7c9d6641b43ecd0c1802bd543d5514f57d5eff1a0eedfa1",
+          "time_ns": 1792382835344063300
+        },
+        {
+          "kind": "intent_observed",
+          "seq": 3,
+          "sha256": "5b3d1586b1d4fb50c7eb6e91939f16a30f24969b313e1ebb00b5c7ead24a31aa",
+          "time_ns": 1792382835351618700
+        },
+        {
+          "kind": "process_killed",
+          "phase": "prepare",
+          "pid": 33668,
+          "seq": 4,
+          "time_ns": 1792382835351618700
+        },
+        {
+          "kind": "process_started",
+          "phase": "recover",
+          "pid": 7832,
+          "seq": 5,
+          "time_ns": 1792382835362717400
+        },
+        {
+          "kind": "observation_requested",
+          "seq": 6,
+          "sha256": "5c2d017330121027eefaa3240072e4e4e2f608009fe24d939b133ade4ffbf069",
+          "time_ns": 1792382835435474200
+        },
+        {
+          "kind": "observation_responded",
+          "seq": 7,
+          "sha256": "b08667e3ae6ea11d2bbb0ce7561e7bbf3aeb170b216e53118b8c641dd7be610a",
+          "time_ns": 1792382835444406100
+        },
+        {
+          "exit_code": 0,
+          "kind": "process_exited",
+          "phase": "recover",
+          "pid": 7832,
+          "seq": 8,
+          "time_ns": 1792382835465826700
+        },
+        {
+          "kind": "result_observed",
+          "seq": 9,
+          "sha256": "817e1576acaa196dc178ed68622beeff63303e02779e011566f42fe381b24900",
+          "time_ns": 1792382835465826700
+        }
+      ],
+      "failures": [],
+      "observation_request_sha256": "5c2d017330121027eefaa3240072e4e4e2f608009fe24d939b133ade4ffbf069",
+      "observation_response_sha256": "b08667e3ae6ea11d2bbb0ce7561e7bbf3aeb170b216e53118b8c641dd7be610a",
+      "passed": true,
+      "process": {
+        "prepare": {
+          "exit_code": 1,
+          "killed_by_verifier": true,
+          "pid": 33668
+        },
+        "recover": {
+          "exit_code": 0,
+          "pid": 7832
+        }
+      },
+      "provider_observed": {
+        "observation": "absent",
+        "resource_fingerprint": null
+      },
+      "repetition": 1,
+      "result_sha256": "817e1576acaa196dc178ed68622beeff63303e02779e011566f42fe381b24900",
+      "run_nonce": "CpesQ4_EhpHBRDvDpP2sIVwpZPK8s1C3",
+      "task_digest": "d523c22b5d22fcc165d659cd0a596c11ef2224c03f58505185c98935e0311a30",
+      "verifier_owned": true,
+      "workspace": {
+        "fresh_recovery": true,
+        "pre": "D:\\phase6a-v10-evaluation\\reference\\work\\CpesQ4_EhpHBRDvDpP2sIVwpZPK8s1C3\\pre",
+        "recovery": "D:\\phase6a-v10-evaluation\\reference\\work\\CpesQ4_EhpHBRDvDpP2sIVwpZPK8s1C3\\recovery"
+      }
+    },
+    {
+      "artifact_sha256": "b70898aed5cd12d8faa002617d79ba3ad00aa2f918719894080839d52e9000ad",
+      "cell": "U",
+      "events": [
+        {
+          "kind": "process_started",
+          "phase": "execute",
+          "pid": 33612,
+          "seq": 1,
+          "time_ns": 1792382835475838000
+        },
+        {
+          "exit_code": 0,
+          "kind": "process_exited",
+          "phase": "execute",
+          "pid": 33612,
+          "seq": 2,
+          "time_ns": 1792382835549230700
+        },
+        {
+          "kind": "result_observed",
+          "seq": 3,
+          "sha256": "0c48e97ee6bd54bb7974d80c169356ff997447467c84e891e39b0206fed7c8f1",
+          "time_ns": 1792382835574722500
+        }
+      ],
+      "failures": [],
+      "passed": true,
+      "process": {
+        "execute": {
+          "exit_code": 0,
+          "pid": 33612
+        }
+      },
+      "repetition": 2,
+      "result_sha256": "0c48e97ee6bd54bb7974d80c169356ff997447467c84e891e39b0206fed7c8f1",
+      "run_nonce": "nOnOZ16MXJWarQiGX5_a6TlABZQpEooC",
+      "task_digest": "aaecf57dd4c224d1fce3f9cb8c95b930b520ad19e4af1b1ff2a3fc6cfc21e586",
+      "verifier_owned": true,
+      "workspace": {
+        "fresh_recovery": false,
+        "pre": "D:\\phase6a-v10-evaluation\\reference\\work\\nOnOZ16MXJWarQiGX5_a6TlABZQpEooC\\pre",
+        "recovery": "D:\\phase6a-v10-evaluation\\reference\\work\\nOnOZ16MXJWarQiGX5_a6TlABZQpEooC\\recovery"
+      }
+    },
+    {
+      "artifact_sha256": "b70898aed5cd12d8faa002617d79ba3ad00aa2f918719894080839d52e9000ad",
+      "cell": "R",
+      "events": [
+        {
+          "kind": "process_started",
+          "phase": "prepare",
+          "pid": 18800,
+          "seq": 1,
+          "time_ns": 1792382835582320400
+        },
+        {
+          "kind": "checkpoint_observed",
+          "seq": 2,
+          "sha256": "9ba280feb239004dea9a6ac119ad4c4d74d261d4dcb73f118ace21d8f61911fb",
+          "time_ns": 1792382835675993300
+        },
+        {
+          "kind": "process_killed",
+          "phase": "prepare",
+          "pid": 18800,
+          "seq": 3,
+          "time_ns": 1792382835680848800
+        },
+        {
+          "kind": "process_started",
+          "phase": "recover",
+          "pid": 12316,
+          "seq": 4,
+          "time_ns": 1792382835687084000
+        },
+        {
+          "kind": "observation_requested",
+          "seq": 5,
+          "sha256": "d9df431e7425bac1c576bfc5aa5b2f47f0f719b0ea4462e983434dc692b91754",
+          "time_ns": 1792382835762384900
+        },
+        {
+          "kind": "observation_responded",
+          "seq": 6,
+          "sha256": "6c6644f9ebfc1309520f4c6e8290ca9f70889e9178225af0090e9fb3aaa57552",
+          "time_ns": 1792382835769852600
+        },
+        {
+          "exit_code": 0,
+          "kind": "process_exited",
+          "phase": "recover",
+          "pid": 12316,
+          "seq": 7,
+          "time_ns": 1792382835791771200
+        },
+        {
+          "kind": "result_observed",
+          "seq": 8,
+          "sha256": "50ee20c2b25de082a4b9f805bbd61574d407bd03899ba05cd99408964e5543f4",
+          "time_ns": 1792382835793403000
+        }
+      ],
+      "failures": [],
+      "observation_request_sha256": "d9df431e7425bac1c576bfc5aa5b2f47f0f719b0ea4462e983434dc692b91754",
+      "observation_response_sha256": "6c6644f9ebfc1309520f4c6e8290ca9f70889e9178225af0090e9fb3aaa57552",
+      "passed": true,
+      "process": {
+        "prepare": {
+          "exit_code": 1,
+          "killed_by_verifier": true,
+          "pid": 18800
+        },
+        "recover": {
+          "exit_code": 0,
+          "pid": 12316
+        }
+      },
+      "repetition": 2,
+      "result_sha256": "50ee20c2b25de082a4b9f805bbd61574d407bd03899ba05cd99408964e5543f4",
+      "run_nonce": "6fG0MqxHYbGZdF-shiD_kiInGb-G877c",
+      "task_digest": "aaecf57dd4c224d1fce3f9cb8c95b930b520ad19e4af1b1ff2a3fc6cfc21e586",
+      "verifier_owned": true,
+      "workspace": {
+        "fresh_recovery": true,
+        "pre": "D:\\phase6a-v10-evaluation\\reference\\work\\6fG0MqxHYbGZdF-shiD_kiInGb-G877c\\pre",
+        "recovery": "D:\\phase6a-v10-evaluation\\reference\\work\\6fG0MqxHYbGZdF-shiD_kiInGb-G877c\\recovery"
+      }
+    },
+    {
+      "cell": "R_NEG",
+      "events": [
+        {
+          "kind": "process_started",
+          "phase": "prepare",
+          "pid": 30788,
+          "seq": 1,
+          "time_ns": 1792382835803252900
+        },
+        {
+          "kind": "checkpoint_observed",
+          "seq": 2,
+          "sha256": "4404f080f45ccfe7b45c265bd92910a554b136506dfb003a29985b8e2b134956",
+          "time_ns": 1792382835899849900
+        },
+        {
+          "kind": "process_killed",
+          "phase": "prepare",
+          "pid": 30788,
+          "seq": 3,
+          "time_ns": 1792382835899849900
+        },
+        {
+          "kind": "process_started",
+          "phase": "recover",
+          "pid": 22276,
+          "seq": 4,
+          "time_ns": 1792382835907605200
+        },
+        {
+          "kind": "observation_requested",
+          "seq": 5,
+          "sha256": "42de002fab3a492ed7f0af4418a15ce4f6e767efdb1f8f6edf7805a3d2080e2d",
+          "time_ns": 1792382835981588900
+        },
+        {
+          "kind": "observation_responded",
+          "seq": 6,
+          "sha256": "24dc89c9a6918708bde8f81e9052857b43e152ee9cce90a68b4fe4d8db653849",
+          "time_ns": 1792382835989910000
+        },
+        {
+          "exit_code": 0,
+          "kind": "process_exited",
+          "phase": "recover",
+          "pid": 22276,
+          "seq": 7,
+          "time_ns": 1792382836006558000
+        },
+        {
+          "kind": "result_observed",
+          "seq": 8,
+          "sha256": "4008b6abbd9b6efa6af180aac86ca38f9109e398834f4dd89bfaab6d0230d698",
+          "time_ns": 1792382836006558000
+        }
+      ],
+      "failures": [],
+      "observation_request_sha256": "42de002fab3a492ed7f0af4418a15ce4f6e767efdb1f8f6edf7805a3d2080e2d",
+      "observation_response_sha256": "24dc89c9a6918708bde8f81e9052857b43e152ee9cce90a68b4fe4d8db653849",
+      "passed": true,
+      "process": {
+        "prepare": {
+          "exit_code": 1,
+          "killed_by_verifier": true,
+          "pid": 30788
+        },
+        "recover": {
+          "exit_code": 0,
+          "pid": 22276
+        }
+      },
+      "repetition": 2,
+      "result_sha256": "4008b6abbd9b6efa6af180aac86ca38f9109e398834f4dd89bfaab6d0230d698",
+      "run_nonce": "EIxrVWKfEM5GYv7W80YX9EUN5lQijtHj",
+      "task_digest": "a874f56b41b5f368c328d29131f30b97ef397f42ca974ec3a300fac4270eb5a9",
+      "verifier_owned": true,
+      "workspace": {
+        "fresh_recovery": true,
+        "pre": "D:\\phase6a-v10-evaluation\\reference\\work\\EIxrVWKfEM5GYv7W80YX9EUN5lQijtHj\\pre",
+        "recovery": "D:\\phase6a-v10-evaluation\\reference\\work\\EIxrVWKfEM5GYv7W80YX9EUN5lQijtHj\\recovery"
+      }
+    },
+    {
+      "artifact_sha256": "b70898aed5cd12d8faa002617d79ba3ad00aa2f918719894080839d52e9000ad",
+      "cell": "C",
+      "events": [
+        {
+          "kind": "process_started",
+          "phase": "prepare",
+          "pid": 33632,
+          "seq": 1,
+          "time_ns": 1792382836015586300
+        },
+        {
+          "kind": "checkpoint_observed",
+          "seq": 2,
+          "sha256": "94697bf3ff75b3d16c19b50b33d7195567458943b9a01acd52b329e8265da76f",
+          "time_ns": 1792382836111031200
+        },
+        {
+          "bytes": 678,
+          "kind": "compaction_observed",
+          "seq": 3,
+          "sha256": "e0bbf6fc7c3e2d080f649d9e561b1a0a7ef9bedf90c4cb5acb324216aec3dc7f",
+          "time_ns": 1792382836121654400
+        },
+        {
+          "kind": "process_killed",
+          "phase": "prepare",
+          "pid": 33632,
+          "seq": 4,
+          "time_ns": 1792382836123659100
+        },
+        {
+          "kind": "process_started",
+          "phase": "recover",
+          "pid": 18684,
+          "seq": 5,
+          "time_ns": 1792382836132077300
+        },
+        {
+          "kind": "observation_requested",
+          "seq": 6,
+          "sha256": "4356f818703b97f895dc642394132995f223101ac7c0d5addbe5e708e3a4080d",
+          "time_ns": 1792382836204829900
+        },
+        {
+          "kind": "observation_responded",
+          "seq": 7,
+          "sha256": "ace1ffd56349de9b07be89f2865437916c3060c32f981180b5176f0d1c63b7f8",
+          "time_ns": 1792382836214279700
+        },
+        {
+          "exit_code": 0,
+          "kind": "process_exited",
+          "phase": "recover",
+          "pid": 18684,
+          "seq": 8,
+          "time_ns": 1792382836234067100
+        },
+        {
+          "kind": "result_observed",
+          "seq": 9,
+          "sha256": "3d5cecb1e3114edd72fa3b06d11b22ddd8b5f11007e58df2212b04265eebdf23",
+          "time_ns": 1792382836234067100
+        }
+      ],
+      "failures": [],
+      "observation_request_sha256": "4356f818703b97f895dc642394132995f223101ac7c0d5addbe5e708e3a4080d",
+      "observation_response_sha256": "ace1ffd56349de9b07be89f2865437916c3060c32f981180b5176f0d1c63b7f8",
+      "passed": true,
+      "process": {
+        "prepare": {
+          "exit_code": 1,
+          "killed_by_verifier": true,
+          "pid": 33632
+        },
+        "recover": {
+          "exit_code": 0,
+          "pid": 18684
+        }
+      },
+      "repetition": 2,
+      "result_sha256": "3d5cecb1e3114edd72fa3b06d11b22ddd8b5f11007e58df2212b04265eebdf23",
+      "run_nonce": "h-GAj_EpWeNCv0rkxDU1cvlSyUELaiwW",
+      "task_digest": "aaecf57dd4c224d1fce3f9cb8c95b930b520ad19e4af1b1ff2a3fc6cfc21e586",
+      "verifier_owned": true,
+      "workspace": {
+        "fresh_recovery": true,
+        "pre": "D:\\phase6a-v10-evaluation\\reference\\work\\h-GAj_EpWeNCv0rkxDU1cvlSyUELaiwW\\pre",
+        "recovery": "D:\\phase6a-v10-evaluation\\reference\\work\\h-GAj_EpWeNCv0rkxDU1cvlSyUELaiwW\\recovery"
+      }
+    },
+    {
+      "cell": "C_NEG",
+      "events": [
+        {
+          "kind": "process_started",
+          "phase": "prepare",
+          "pid": 13332,
+          "seq": 1,
+          "time_ns": 1792382836248090200
+        },
+        {
+          "kind": "checkpoint_observed",
+          "seq": 2,
+          "sha256": "6dff3ff46544a65cecb9dcbba426c3d0f300e3435739a637f874e9c8d4b90fad",
+          "time_ns": 1792382836344029800
+        },
+        {
+          "bytes": 678,
+          "kind": "compaction_observed",
+          "seq": 3,
+          "sha256": "a8dc9ff09d91059e43d8c2e35af9eb5bd82f4e615891be96990f564b01624404",
+          "time_ns": 1792382836355331500
+        },
+        {
+          "kind": "process_killed",
+          "phase": "prepare",
+          "pid": 13332,
+          "seq": 4,
+          "time_ns": 1792382836357337900
+        },
+        {
+          "kind": "process_started",
+          "phase": "recover",
+          "pid": 27108,
+          "seq": 5,
+          "time_ns": 1792382836367924300
+        },
+        {
+          "kind": "observation_requested",
+          "seq": 6,
+          "sha256": "c5ba20a5d7637bb622c9a809cde0172b4651483493b5190d5278321b21662c00",
+          "time_ns": 1792382836442613200
+        },
+        {
+          "kind": "observation_responded",
+          "seq": 7,
+          "sha256": "3bff4b9013d625a9ae01d9db746aa56c593962ef504f3df3a59f816465fe205c",
+          "time_ns": 1792382836452874700
+        },
+        {
+          "exit_code": 0,
+          "kind": "process_exited",
+          "phase": "recover",
+          "pid": 27108,
+          "seq": 8,
+          "time_ns": 1792382836469737000
+        },
+        {
+          "kind": "result_observed",
+          "seq": 9,
+          "sha256": "d33f776ef4d89705360038e00f0b03c18f579b78db9b4c9140c4656d37fac071",
+          "time_ns": 1792382836469737000
+        }
+      ],
+      "failures": [],
+      "observation_request_sha256": "c5ba20a5d7637bb622c9a809cde0172b4651483493b5190d5278321b21662c00",
+      "observation_response_sha256": "3bff4b9013d625a9ae01d9db746aa56c593962ef504f3df3a59f816465fe205c",
+      "passed": true,
+      "process": {
+        "prepare": {
+          "exit_code": 1,
+          "killed_by_verifier": true,
+          "pid": 13332
+        },
+        "recover": {
+          "exit_code": 0,
+          "pid": 27108
+        }
+      },
+      "repetition": 2,
+      "result_sha256": "d33f776ef4d89705360038e00f0b03c18f579b78db9b4c9140c4656d37fac071",
+      "run_nonce": "elTmTS-1Tvbfu4-JTj1IjHRx84AfU0a9",
+      "task_digest": "ee83c5668a269c70ac2e14987cd1b582c86f74ec723a945c4bafa2c5627ed52c",
+      "verifier_owned": true,
+      "workspace": {
+        "fresh_recovery": true,
+        "pre": "D:\\phase6a-v10-evaluation\\reference\\work\\elTmTS-1Tvbfu4-JTj1IjHRx84AfU0a9\\pre",
+        "recovery": "D:\\phase6a-v10-evaluation\\reference\\work\\elTmTS-1Tvbfu4-JTj1IjHRx84AfU0a9\\recovery"
+      }
+    },
+    {
+      "artifact_sha256": "4c137f30332ab54a193cf4e52cb60b37f2faad36695e42a53319f34761064cda",
+      "cell": "E_MATCH",
+      "events": [
+        {
+          "kind": "process_started",
+          "phase": "prepare",
+          "pid": 29056,
+          "seq": 1,
+          "time_ns": 1792382836482234700
+        },
+        {
+          "kind": "checkpoint_observed",
+          "seq": 2,
+          "sha256": "a575572db55aeafa6aeebf597f37bd3b5720c573d9d9798231c7f100a547cba4",
+          "time_ns": 1792382836576022800
+        },
+        {
+          "kind": "intent_observed",
+          "seq": 3,
+          "sha256": "b3258aa2bd86bbd852b7ba93e08422fbc0553362fcbd621fdc766cf646efc9f0",
+          "time_ns": 1792382836589605500
+        },
+        {
+          "kind": "process_killed",
+          "phase": "prepare",
+          "pid": 29056,
+          "seq": 4,
+          "time_ns": 1792382836591113300
+        },
+        {
+          "kind": "process_started",
+          "phase": "recover",
+          "pid": 28916,
+          "seq": 5,
+          "time_ns": 1792382836599391800
+        },
+        {
+          "kind": "observation_requested",
+          "seq": 6,
+          "sha256": "12e29ec38d5355e7c288b0de88a0f818383f42a0cf06028dfbfc55e4e2427dc2",
+          "time_ns": 1792382836673485700
+        },
+        {
+          "kind": "observation_responded",
+          "seq": 7,
+          "sha256": "9cfdb83c26107e4ad23281881d53d3d211dd1ae9aa4c9c99e7407cf91239823d",
+          "time_ns": 1792382836687939300
+        },
+        {
+          "exit_code": 0,
+          "kind": "process_exited",
+          "phase": "recover",
+          "pid": 28916,
+          "seq": 8,
+          "time_ns": 1792382836709861700
+        },
+        {
+          "kind": "result_observed",
+          "seq": 9,
+          "sha256": "7ea43dd92d996ca84ab20b580904380711ab9c1a9f49f5b17c5bc854fe203690",
+          "time_ns": 1792382836718998700
+        }
+      ],
+      "failures": [],
+      "observation_request_sha256": "12e29ec38d5355e7c288b0de88a0f818383f42a0cf06028dfbfc55e4e2427dc2",
+      "observation_response_sha256": "9cfdb83c26107e4ad23281881d53d3d211dd1ae9aa4c9c99e7407cf91239823d",
+      "passed": true,
+      "process": {
+        "prepare": {
+          "exit_code": 1,
+          "killed_by_verifier": true,
+          "pid": 29056
+        },
+        "recover": {
+          "exit_code": 0,
+          "pid": 28916
+        }
+      },
+      "provider_observed": {
+        "observation": "present",
+        "resource_fingerprint": "16d129da2186332318d339d4bf54c4b4b3978ebb75dcc96344f82a46139bd0c1"
+      },
+      "repetition": 2,
+      "result_sha256": "7ea43dd92d996ca84ab20b580904380711ab9c1a9f49f5b17c5bc854fe203690",
+      "run_nonce": "0ywJfCKtH-J5gXHtD5yemhrH3GuNf_81",
+      "task_digest": "b51073ba18a8fb6dff16c027dcb65539f1e2499be4bb904150bb048a1702cbfe",
+      "verifier_owned": true,
+      "workspace": {
+        "fresh_recovery": true,
+        "pre": "D:\\phase6a-v10-evaluation\\reference\\work\\0ywJfCKtH-J5gXHtD5yemhrH3GuNf_81\\pre",
+        "recovery": "D:\\phase6a-v10-evaluation\\reference\\work\\0ywJfCKtH-J5gXHtD5yemhrH3GuNf_81\\recovery"
+      }
+    },
+    {
+      "artifact_sha256": "85c7bc774c50bf18be36235f6d4fe85f55d3b445027b04d81edb8404106c32e1",
+      "cell": "E_ABSENT",
+      "events": [
+        {
+          "kind": "process_started",
+          "phase": "prepare",
+          "pid": 32980,
+          "seq": 1,
+          "time_ns": 1792382836729119000
+        },
+        {
+          "kind": "checkpoint_observed",
+          "seq": 2,
+          "sha256": "cf530bbe5cdacc8efb85c4e4e8b7811fcd42777f86614a764bf37d414ed6f06e",
+          "time_ns": 1792382836822140700
+        },
+        {
+          "kind": "intent_observed",
+          "seq": 3,
+          "sha256": "f12053fce616cfb5f479707c0c972ce88947631459d851dab426d96f5cff4c1a",
+          "time_ns": 1792382836829705400
+        },
+        {
+          "kind": "process_killed",
+          "phase": "prepare",
+          "pid": 32980,
+          "seq": 4,
+          "time_ns": 1792382836832588800
+        },
+        {
+          "kind": "process_started",
+          "phase": "recover",
+          "pid": 21680,
+          "seq": 5,
+          "time_ns": 1792382836841107100
+        },
+        {
+          "kind": "observation_requested",
+          "seq": 6,
+          "sha256": "c2a466fee408b57e47c4a9d89fffc20ed5cb91d9a3290a062ad7a051d562f891",
+          "time_ns": 1792382836914195100
+        },
+        {
+          "kind": "observation_responded",
+          "seq": 7,
+          "sha256": "85e2c593eaad9a65889686c95019ec1bc2224fe317939e6b6dee5b14b562f9c2",
+          "time_ns": 1792382836918262200
+        },
+        {
+          "exit_code": 0,
+          "kind": "process_exited",
+          "phase": "recover",
+          "pid": 21680,
+          "seq": 8,
+          "time_ns": 1792382836943058400
+        },
+        {
+          "kind": "result_observed",
+          "seq": 9,
+          "sha256": "80db16c5258df0aa300bc60582004747cd9293c6059845005e20663975940b51",
+          "time_ns": 1792382836949105900
+        }
+      ],
+      "failures": [],
+      "observation_request_sha256": "c2a466fee408b57e47c4a9d89fffc20ed5cb91d9a3290a062ad7a051d562f891",
+      "observation_response_sha256": "85e2c593eaad9a65889686c95019ec1bc2224fe317939e6b6dee5b14b562f9c2",
+      "passed": true,
+      "process": {
+        "prepare": {
+          "exit_code": 1,
+          "killed_by_verifier": true,
+          "pid": 32980
+        },
+        "recover": {
+          "exit_code": 0,
+          "pid": 21680
+        }
+      },
+      "provider_observed": {
+        "observation": "absent",
+        "resource_fingerprint": null
+      },
+      "repetition": 2,
+      "result_sha256": "80db16c5258df0aa300bc60582004747cd9293c6059845005e20663975940b51",
+      "run_nonce": "ltBnQrXAjs57q6_VZa3MlUgX1qQey2ov",
+      "task_digest": "21d3c71bae0e07809055968661cce524a8a28241116fd4700cd62281a62ad5d3",
+      "verifier_owned": true,
+      "workspace": {
+        "fresh_recovery": true,
+        "pre": "D:\\phase6a-v10-evaluation\\reference\\work\\ltBnQrXAjs57q6_VZa3MlUgX1qQey2ov\\pre",
+        "recovery": "D:\\phase6a-v10-evaluation\\reference\\work\\ltBnQrXAjs57q6_VZa3MlUgX1qQey2ov\\recovery"
+      }
+    },
+    {
+      "cell": "E_ESC_UNKNOWN",
+      "events": [
+        {
+          "kind": "process_started",
+          "phase": "prepare",
+          "pid": 2832,
+          "seq": 1,
+          "time_ns": 1792382836957147700
+        },
+        {
+          "kind": "checkpoint_observed",
+          "seq": 2,
+          "sha256": "e26600d451495c45bec9c6fcd656e6e36a0e5eda11efd52b4df2fb732bf2e508",
+          "time_ns": 1792382837052261700
+        },
+        {
+          "kind": "intent_observed",
+          "seq": 3,
+          "sha256": "0a1729ace3534f52fead3feb43ff7140e7fd20309b9eea0940cde1ec7134ebb2",
+          "time_ns": 1792382837061012500
+        },
+        {
+          "kind": "process_killed",
+          "phase": "prepare",
+          "pid": 2832,
+          "seq": 4,
+          "time_ns": 1792382837061012500
+        },
+        {
+          "kind": "process_started",
+          "phase": "recover",
+          "pid": 32160,
+          "seq": 5,
+          "time_ns": 1792382837072026100
+        },
+        {
+          "kind": "observation_requested",
+          "seq": 6,
+          "sha256": "e08973531767c85496f00eb8c4d64aedc1bafb3bb7acb427450280b152a41f74",
+          "time_ns": 1792382837145098700
+        },
+        {
+          "kind": "observation_responded",
+          "seq": 7,
+          "sha256": "1f637ebfe178805be54256477c04179ab2c712c31646fbbf35f43eba88bfc538",
+          "time_ns": 1792382837153246000
+        },
+        {
+          "exit_code": 0,
+          "kind": "process_exited",
+          "phase": "recover",
+          "pid": 32160,
+          "seq": 8,
+          "time_ns": 1792382837173501200
+        },
+        {
+          "kind": "result_observed",
+          "seq": 9,
+          "sha256": "787b414b6ab16328ce0f5112b65845ff04a8796173cddd5eabdeb679ac2e3cbb",
+          "time_ns": 1792382837173501200
+        }
+      ],
+      "failures": [],
+      "observation_request_sha256": "e08973531767c85496f00eb8c4d64aedc1bafb3bb7acb427450280b152a41f74",
+      "observation_response_sha256": "1f637ebfe178805be54256477c04179ab2c712c31646fbbf35f43eba88bfc538",
+      "passed": true,
+      "process": {
+        "prepare": {
+          "exit_code": 1,
+          "killed_by_verifier": true,
+          "pid": 2832
+        },
+        "recover": {
+          "exit_code": 0,
+          "pid": 32160
+        }
+      },
+      "provider_observed": {
+        "observation": "unknown",
+        "resource_fingerprint": null
+      },
+      "repetition": 2,
+      "result_sha256": "787b414b6ab16328ce0f5112b65845ff04a8796173cddd5eabdeb679ac2e3cbb",
+      "run_nonce": "0Js4_ptnBPetNr8Ga_iTSiK8ebFUEHuc",
+      "task_digest": "c5752e28b879b1a0106269ec6c9b6c796faf64439f9623ca364ef62aabe1654c",
+      "verifier_owned": true,
+      "workspace": {
+        "fresh_recovery": true,
+        "pre": "D:\\phase6a-v10-evaluation\\reference\\work\\0Js4_ptnBPetNr8Ga_iTSiK8ebFUEHuc\\pre",
+        "recovery": "D:\\phase6a-v10-evaluation\\reference\\work\\0Js4_ptnBPetNr8Ga_iTSiK8ebFUEHuc\\recovery"
+      }
+    },
+    {
+      "cell": "E_ESC_MISMATCH",
+      "events": [
+        {
+          "kind": "process_started",
+          "phase": "prepare",
+          "pid": 32280,
+          "seq": 1,
+          "time_ns": 1792382837180444800
+        },
+        {
+          "kind": "checkpoint_observed",
+          "seq": 2,
+          "sha256": "feb169e85f3491f44749ad5ae09061656e13b0c3a27a0c6ae98032b5a83cef8c",
+          "time_ns": 1792382837278626200
+        },
+        {
+          "kind": "intent_observed",
+          "seq": 3,
+          "sha256": "e2233fead10f9c95e40824d1fef141d1dd43eb8e0411b1e9dd07589dc58add15",
+          "time_ns": 1792382837290893500
+        },
+        {
+          "kind": "process_killed",
+          "phase": "prepare",
+          "pid": 32280,
+          "seq": 4,
+          "time_ns": 1792382837290893500
+        },
+        {
+          "kind": "process_started",
+          "phase": "recover",
+          "pid": 11380,
+          "seq": 5,
+          "time_ns": 1792382837305201700
+        },
+        {
+          "kind": "observation_requested",
+          "seq": 6,
+          "sha256": "df335956168de9fd0608eee0340c982df8e7e8b4ddaadd407c5bfd3ccb2d5ba8",
+          "time_ns": 1792382837378956600
+        },
+        {
+          "kind": "observation_responded",
+          "seq": 7,
+          "sha256": "9ad094bfb4ff19ed6f6b36621e535f618f59cb09b00f8e9859e9672ff007b5aa",
+          "time_ns": 1792382837390287600
+        },
+        {
+          "exit_code": 0,
+          "kind": "process_exited",
+          "phase": "recover",
+          "pid": 11380,
+          "seq": 8,
+          "time_ns": 1792382837406242700
+        },
+        {
+          "kind": "result_observed",
+          "seq": 9,
+          "sha256": "2f98e0cc30edc027b52623a37f5a1d4663efc5a29db5160ea37b6dfbb0a4f578",
+          "time_ns": 1792382837407748600
+        }
+      ],
+      "failures": [],
+      "observation_request_sha256": "df335956168de9fd0608eee0340c982df8e7e8b4ddaadd407c5bfd3ccb2d5ba8",
+      "observation_response_sha256": "9ad094bfb4ff19ed6f6b36621e535f618f59cb09b00f8e9859e9672ff007b5aa",
+      "passed": true,
+      "process": {
+        "prepare": {
+          "exit_code": 1,
+          "killed_by_verifier": true,
+          "pid": 32280
+        },
+        "recover": {
+          "exit_code": 0,
+          "pid": 11380
+        }
+      },
+      "provider_observed": {
+        "observation": "present",
+        "resource_fingerprint": "a7735f4b71238f88cb958f623ecd20fbfe56a3d245c7442d78ccd9822ecb23d3"
+      },
+      "repetition": 2,
+      "result_sha256": "2f98e0cc30edc027b52623a37f5a1d4663efc5a29db5160ea37b6dfbb0a4f578",
+      "run_nonce": "0JtXV3yFsLiszsQWQnvmFCezRN2CXlZO",
+      "task_digest": "3739d627d294ca7f0a7486da37353bffebc4234c7f4bced0c600cb92ca6657f4",
+      "verifier_owned": true,
+      "workspace": {
+        "fresh_recovery": true,
+        "pre": "D:\\phase6a-v10-evaluation\\reference\\work\\0JtXV3yFsLiszsQWQnvmFCezRN2CXlZO\\pre",
+        "recovery": "D:\\phase6a-v10-evaluation\\reference\\work\\0JtXV3yFsLiszsQWQnvmFCezRN2CXlZO\\recovery"
+      }
+    },
+    {
+      "cell": "E_ESC_NEVER",
+      "events": [
+        {
+          "kind": "process_started",
+          "phase": "prepare",
+          "pid": 14572,
+          "seq": 1,
+          "time_ns": 1792382837411796500
+        },
+        {
+          "kind": "checkpoint_observed",
+          "seq": 2,
+          "sha256": "ee5554b5ab9fe9bb8d4d0b9b621fc0fe655367158dd993e3c6be8ce043a2b425",
+          "time_ns": 1792382837511691400
+        },
+        {
+          "kind": "intent_observed",
+          "seq": 3,
+          "sha256": "198a22524f39e000970999ab50e31ab076f2bca10639dcf203cc963500f1d923",
+          "time_ns": 1792382837521249200
+        },
+        {
+          "kind": "process_killed",
+          "phase": "prepare",
+          "pid": 14572,
+          "seq": 4,
+          "time_ns": 1792382837521249200
+        },
+        {
+          "kind": "process_started",
+          "phase": "recover",
+          "pid": 23476,
+          "seq": 5,
+          "time_ns": 1792382837527453700
+        },
+        {
+          "kind": "observation_requested",
+          "seq": 6,
+          "sha256": "104aefd8e72387bbda65a89f0934c10ab2fc6aee368a9ea27c1165be03c29d8c",
+          "time_ns": 1792382837606497300
+        },
+        {
+          "kind": "observation_responded",
+          "seq": 7,
+          "sha256": "5c95c4ea8b9e794e98bb135391dc5a3241211298019bc442ed7039181c2ff2a2",
+          "time_ns": 1792382837616729400
+        },
+        {
+          "exit_code": 0,
+          "kind": "process_exited",
+          "phase": "recover",
+          "pid": 23476,
+          "seq": 8,
+          "time_ns": 1792382837638443900
+        },
+        {
+          "kind": "result_observed",
+          "seq": 9,
+          "sha256": "dc4fb55192e937e7c073e70d15e04a83e9a6a4f823d9a6008b247914d3109025",
+          "time_ns": 1792382837638443900
+        }
+      ],
+      "failures": [],
+      "observation_request_sha256": "104aefd8e72387bbda65a89f0934c10ab2fc6aee368a9ea27c1165be03c29d8c",
+      "observation_response_sha256": "5c95c4ea8b9e794e98bb135391dc5a3241211298019bc442ed7039181c2ff2a2",
+      "passed": true,
+      "process": {
+        "prepare": {
+          "exit_code": 1,
+          "killed_by_verifier": true,
+          "pid": 14572
+        },
+        "recover": {
+          "exit_code": 0,
+          "pid": 23476
+        }
+      },
+      "provider_observed": {
+        "observation": "absent",
+        "resource_fingerprint": null
+      },
+      "repetition": 2,
+      "result_sha256": "dc4fb55192e937e7c073e70d15e04a83e9a6a4f823d9a6008b247914d3109025",
+      "run_nonce": "P6jizC_W7WZU3cGWJxL-TlNOqGYEzYXk",
+      "task_digest": "f0832e6ba67d6bf6b32ddcfb1329f6a39dee8e07d279129f1873c92d242f0f92",
+      "verifier_owned": true,
+      "workspace": {
+        "fresh_recovery": true,
+        "pre": "D:\\phase6a-v10-evaluation\\reference\\work\\P6jizC_W7WZU3cGWJxL-TlNOqGYEzYXk\\pre",
+        "recovery": "D:\\phase6a-v10-evaluation\\reference\\work\\P6jizC_W7WZU3cGWJxL-TlNOqGYEzYXk\\recovery"
+      }
+    },
+    {
+      "artifact_sha256": "4d654c5bb205eb947158fe61fe085ad246b95c41ed09d00052c408d191d4b7d2",
+      "cell": "U",
+      "events": [
+        {
+          "kind": "process_started",
+          "phase": "execute",
+          "pid": 21332,
+          "seq": 1,
+          "time_ns": 1792382837649654600
+        },
+        {
+          "exit_code": 0,
+          "kind": "process_exited",
+          "phase": "execute",
+          "pid": 21332,
+          "seq": 2,
+          "time_ns": 1792382837722302900
+        },
+        {
+          "kind": "result_observed",
+          "seq": 3,
+          "sha256": "8b25a25bc354a79ca1cb6517d8412bc732760609c08d088c422014c37cd63392",
+          "time_ns": 1792382837747593700
+        }
+      ],
+      "failures": [],
+      "passed": true,
+      "process": {
+        "execute": {
+          "exit_code": 0,
+          "pid": 21332
+        }
+      },
+      "repetition": 3,
+      "result_sha256": "8b25a25bc354a79ca1cb6517d8412bc732760609c08d088c422014c37cd63392",
+      "run_nonce": "exmZZdYJnfgZYUhpjzO1c7mLgJxegu47",
+      "task_digest": "5113859f54d43d9cdc223d643a286d1fa89b41d7aeccfbb4d48f64795dd9e32d",
+      "verifier_owned": true,
+      "workspace": {
+        "fresh_recovery": false,
+        "pre": "D:\\phase6a-v10-evaluation\\reference\\work\\exmZZdYJnfgZYUhpjzO1c7mLgJxegu47\\pre",
+        "recovery": "D:\\phase6a-v10-evaluation\\reference\\work\\exmZZdYJnfgZYUhpjzO1c7mLgJxegu47\\recovery"
+      }
+    },
+    {
+      "artifact_sha256": "4d654c5bb205eb947158fe61fe085ad246b95c41ed09d00052c408d191d4b7d2",
+      "cell": "R",
+      "events": [
+        {
+          "kind": "process_started",
+          "phase": "prepare",
+          "pid": 21588,
+          "seq": 1,
+          "time_ns": 1792382837752603300
+        },
+        {
+          "kind": "checkpoint_observed",
+          "seq": 2,
+          "sha256": "6d59973ab3b64f0566ce2644fbf4fbf02ca9a4cbc940f97eadbf2854fb987307",
+          "time_ns": 1792382837846187300
+        },
+        {
+          "kind": "process_killed",
+          "phase": "prepare",
+          "pid": 21588,
+          "seq": 3,
+          "time_ns": 1792382837848192600
+        },
+        {
+          "kind": "process_started",
+          "phase": "recover",
+          "pid": 20144,
+          "seq": 4,
+          "time_ns": 1792382837856309400
+        },
+        {
+          "kind": "observation_requested",
+          "seq": 5,
+          "sha256": "5e5605bc1bc99447e632ae4ad0aeaae2c6f52adf5cd979e64c63b09f6e80d8b1",
+          "time_ns": 1792382837929543700
+        },
+        {
+          "kind": "observation_responded",
+          "seq": 6,
+          "sha256": "d191293a2d470728bee3a25d5f512a2c6b828b62c69f8ca48006013ca8ea00b0",
+          "time_ns": 1792382837941280900
+        },
+        {
+          "exit_code": 0,
+          "kind": "process_exited",
+          "phase": "recover",
+          "pid": 20144,
+          "seq": 7,
+          "time_ns": 1792382837954535900
+        },
+        {
+          "kind": "result_observed",
+          "seq": 8,
+          "sha256": "e616301db6480d1cbf7f98e178dbc21ff00885493fd45e899a176fe07ca5bc38",
+          "time_ns": 1792382837957564800
+        }
+      ],
+      "failures": [],
+      "observation_request_sha256": "5e5605bc1bc99447e632ae4ad0aeaae2c6f52adf5cd979e64c63b09f6e80d8b1",
+      "observation_response_sha256": "d191293a2d470728bee3a25d5f512a2c6b828b62c69f8ca48006013ca8ea00b0",
+      "passed": true,
+      "process": {
+        "prepare": {
+          "exit_code": 1,
+          "killed_by_verifier": true,
+          "pid": 21588
+        },
+        "recover": {
+          "exit_code": 0,
+          "pid": 20144
+        }
+      },
+      "repetition": 3,
+      "result_sha256": "e616301db6480d1cbf7f98e178dbc21ff00885493fd45e899a176fe07ca5bc38",
+      "run_nonce": "_6OyR_k0g4cnQ6hKO6mMMD2caM9rSaAE",
+      "task_digest": "5113859f54d43d9cdc223d643a286d1fa89b41d7aeccfbb4d48f64795dd9e32d",
+      "verifier_owned": true,
+      "workspace": {
+        "fresh_recovery": true,
+        "pre": "D:\\phase6a-v10-evaluation\\reference\\work\\_6OyR_k0g4cnQ6hKO6mMMD2caM9rSaAE\\pre",
+        "recovery": "D:\\phase6a-v10-evaluation\\reference\\work\\_6OyR_k0g4cnQ6hKO6mMMD2caM9rSaAE\\recovery"
+      }
+    },
+    {
+      "cell": "R_NEG",
+      "events": [
+        {
+          "kind": "process_started",
+          "phase": "prepare",
+          "pid": 25224,
+          "seq": 1,
+          "time_ns": 1792382837964131600
+        },
+        {
+          "kind": "checkpoint_observed",
+          "seq": 2,
+          "sha256": "a19e46802375de0bb3d1fa4bc5ab3e59a5f2668fbbe75f5cd10256e2dcaf8509",
+          "time_ns": 1792382838056580200
+        },
+        {
+          "kind": "process_killed",
+          "phase": "prepare",
+          "pid": 25224,
+          "seq": 3,
+          "time_ns": 1792382838059917200
+        },
+        {
+          "kind": "process_started",
+          "phase": "recover",
+          "pid": 20856,
+          "seq": 4,
+          "time_ns": 1792382838064873800
+        },
+        {
+          "kind": "observation_requested",
+          "seq": 5,
+          "sha256": "be9b14a288a040494f29c20c35b6e11d1314aa89b8222181fdae5ace0ffbbec3",
+          "time_ns": 1792382838140942700
+        },
+        {
+          "kind": "observation_responded",
+          "seq": 6,
+          "sha256": "5683a3064a4c087c76549e3f715a93efa851aa57bc766c24062470627923b5fe",
+          "time_ns": 1792382838146964500
+        },
+        {
+          "exit_code": 0,
+          "kind": "process_exited",
+          "phase": "recover",
+          "pid": 20856,
+          "seq": 7,
+          "time_ns": 1792382838174704900
+        },
+        {
+          "kind": "result_observed",
+          "seq": 8,
+          "sha256": "806bbdbe52e7cd9a1673120066e7aaa366f718f5cb3f4f833b8b88df00ccf3f1",
+          "time_ns": 1792382838174704900
+        }
+      ],
+      "failures": [],
+      "observation_request_sha256": "be9b14a288a040494f29c20c35b6e11d1314aa89b8222181fdae5ace0ffbbec3",
+      "observation_response_sha256": "5683a3064a4c087c76549e3f715a93efa851aa57bc766c24062470627923b5fe",
+      "passed": true,
+      "process": {
+        "prepare": {
+          "exit_code": 1,
+          "killed_by_verifier": true,
+          "pid": 25224
+        },
+        "recover": {
+          "exit_code": 0,
+          "pid": 20856
+        }
+      },
+      "repetition": 3,
+      "result_sha256": "806bbdbe52e7cd9a1673120066e7aaa366f718f5cb3f4f833b8b88df00ccf3f1",
+      "run_nonce": "MlpCvX1lSFDRBjeCb_EKlikjxKoWe3rg",
+      "task_digest": "0b5ae6f7e33274554266269bd4dc23349c3cea7814202366b8d009d64d45e28e",
+      "verifier_owned": true,
+      "workspace": {
+        "fresh_recovery": true,
+        "pre": "D:\\phase6a-v10-evaluation\\reference\\work\\MlpCvX1lSFDRBjeCb_EKlikjxKoWe3rg\\pre",
+        "recovery": "D:\\phase6a-v10-evaluation\\reference\\work\\MlpCvX1lSFDRBjeCb_EKlikjxKoWe3rg\\recovery"
+      }
+    },
+    {
+      "artifact_sha256": "4d654c5bb205eb947158fe61fe085ad246b95c41ed09d00052c408d191d4b7d2",
+      "cell": "C",
+      "events": [
+        {
+          "kind": "process_started",
+          "phase": "prepare",
+          "pid": 28940,
+          "seq": 1,
+          "time_ns": 1792382838181116600
+        },
+        {
+          "kind": "checkpoint_observed",
+          "seq": 2,
+          "sha256": "276bb59fb8aa32f2938e0687f9c13ac864e05c2ceda0e9e4f825799721ff80d1",
+          "time_ns": 1792382838279305700
+        },
+        {
+          "bytes": 678,
+          "kind": "compaction_observed",
+          "seq": 3,
+          "sha256": "8fa542233ccc5047131ca4958951868acffdaa7590e7eb29c291f63fab45ed55",
+          "time_ns": 1792382838290450500
+        },
+        {
+          "kind": "process_killed",
+          "phase": "prepare",
+          "pid": 28940,
+          "seq": 4,
+          "time_ns": 1792382838290450500
+        },
+        {
+          "kind": "process_started",
+          "phase": "recover",
+          "pid": 36320,
+          "seq": 5,
+          "time_ns": 1792382838301300300
+        },
+        {
+          "kind": "observation_requested",
+          "seq": 6,
+          "sha256": "ad431f6db0f0473e9e0237647877c62b2147b593602f237ddbb75d8dab6a7f76",
+          "time_ns": 1792382838375378400
+        },
+        {
+          "kind": "observation_responded",
+          "seq": 7,
+          "sha256": "31a0550fafd2a4b3d540d4188d6e655cd6219d7daeb8434f0ab4688476fff54c",
+          "time_ns": 1792382838391187200
+        },
+        {
+          "exit_code": 0,
+          "kind": "process_exited",
+          "phase": "recover",
+          "pid": 36320,
+          "seq": 8,
+          "time_ns": 1792382838412452400
+        },
+        {
+          "kind": "result_observed",
+          "seq": 9,
+          "sha256": "60f84d2a4e3085850fec97afa412c6372195bfd95803e1983ae1818331c88287",
+          "time_ns": 1792382838412452400
+        }
+      ],
+      "failures": [],
+      "observation_request_sha256": "ad431f6db0f0473e9e0237647877c62b2147b593602f237ddbb75d8dab6a7f76",
+      "observation_response_sha256": "31a0550fafd2a4b3d540d4188d6e655cd6219d7daeb8434f0ab4688476fff54c",
+      "passed": true,
+      "process": {
+        "prepare": {
+          "exit_code": 1,
+          "killed_by_verifier": true,
+          "pid": 28940
+        },
+        "recover": {
+          "exit_code": 0,
+          "pid": 36320
+        }
+      },
+      "repetition": 3,
+      "result_sha256": "60f84d2a4e3085850fec97afa412c6372195bfd95803e1983ae1818331c88287",
+      "run_nonce": "0q7NlVis0avZl7-9FYS53wA6TDUzPbEn",
+      "task_digest": "5113859f54d43d9cdc223d643a286d1fa89b41d7aeccfbb4d48f64795dd9e32d",
+      "verifier_owned": true,
+      "workspace": {
+        "fresh_recovery": true,
+        "pre": "D:\\phase6a-v10-evaluation\\reference\\work\\0q7NlVis0avZl7-9FYS53wA6TDUzPbEn\\pre",
+        "recovery": "D:\\phase6a-v10-evaluation\\reference\\work\\0q7NlVis0avZl7-9FYS53wA6TDUzPbEn\\recovery"
+      }
+    },
+    {
+      "cell": "C_NEG",
+      "events": [
+        {
+          "kind": "process_started",
+          "phase": "prepare",
+          "pid": 24232,
+          "seq": 1,
+          "time_ns": 1792382838424164200
+        },
+        {
+          "kind": "checkpoint_observed",
+          "seq": 2,
+          "sha256": "8ce6b6cc0298cee4e50012e2435976c99f1f1a72c24955bc96c6713d29356cca",
+          "time_ns": 1792382838518597900
+        },
+        {
+          "bytes": 678,
+          "kind": "compaction_observed",
+          "seq": 3,
+          "sha256": "b2f4747a4d8fa2d637fc8ec64b94a714c185b668f77b2f192e9d299fec6a8cb8",
+          "time_ns": 1792382838526600900
+        },
+        {
+          "kind": "process_killed",
+          "phase": "prepare",
+          "pid": 24232,
+          "seq": 4,
+          "time_ns": 1792382838534588900
+        },
+        {
+          "kind": "process_started",
+          "phase": "recover",
+          "pid": 27464,
+          "seq": 5,
+          "time_ns": 1792382838541002300
+        },
+        {
+          "kind": "observation_requested",
+          "seq": 6,
+          "sha256": "074465da6023690002caa229bc10a107919f296764ff27f9d484924ce8883edf",
+          "time_ns": 1792382838617888500
+        },
+        {
+          "kind": "observation_responded",
+          "seq": 7,
+          "sha256": "f7d982558b1bddd716509709d7bc1d14b5635539fb4dcf7af235767e9fc27ba9",
+          "time_ns": 1792382838630004600
+        },
+        {
+          "exit_code": 0,
+          "kind": "process_exited",
+          "phase": "recover",
+          "pid": 27464,
+          "seq": 8,
+          "time_ns": 1792382838648816400
+        },
+        {
+          "kind": "result_observed",
+          "seq": 9,
+          "sha256": "27db4a27b2cb2cc79a573f14181f86cbeab59241a53614970280556bddf42da1",
+          "time_ns": 1792382838648816400
+        }
+      ],
+      "failures": [],
+      "observation_request_sha256": "074465da6023690002caa229bc10a107919f296764ff27f9d484924ce8883edf",
+      "observation_response_sha256": "f7d982558b1bddd716509709d7bc1d14b5635539fb4dcf7af235767e9fc27ba9",
+      "passed": true,
+      "process": {
+        "prepare": {
+          "exit_code": 1,
+          "killed_by_verifier": true,
+          "pid": 24232
+        },
+        "recover": {
+          "exit_code": 0,
+          "pid": 27464
+        }
+      },
+      "repetition": 3,
+      "result_sha256": "27db4a27b2cb2cc79a573f14181f86cbeab59241a53614970280556bddf42da1",
+      "run_nonce": "O7OZp3e6RYP9OqCrxnZK_0J9xPR6tu-l",
+      "task_digest": "297994ca15ccc4c329251b4f4adb89bb84c2bdfb4f331e4f6695057d0920a438",
+      "verifier_owned": true,
+      "workspace": {
+        "fresh_recovery": true,
+        "pre": "D:\\phase6a-v10-evaluation\\reference\\work\\O7OZp3e6RYP9OqCrxnZK_0J9xPR6tu-l\\pre",
+        "recovery": "D:\\phase6a-v10-evaluation\\reference\\work\\O7OZp3e6RYP9OqCrxnZK_0J9xPR6tu-l\\recovery"
+      }
+    },
+    {
+      "artifact_sha256": "23f59021a4c4016371320294e5f2914e33433e4f38c76156afd0bb317926c544",
+      "cell": "E_MATCH",
+      "events": [
+        {
+          "kind": "process_started",
+          "phase": "prepare",
+          "pid": 14948,
+          "seq": 1,
+          "time_ns": 1792382838659443500
+        },
+        {
+          "kind": "checkpoint_observed",
+          "seq": 2,
+          "sha256": "17d0543e8f7b14fc0d61c4beeca8fa3695bf30214fd29ee233c098d98b8d2a63",
+          "time_ns": 1792382838749652600
+        },
+        {
+          "kind": "intent_observed",
+          "seq": 3,
+          "sha256": "11c624414647dd8f7cf6e211af7fe91ebd575629a9148c25dd1d196589ab24dc",
+          "time_ns": 1792382838758883700
+        },
+        {
+          "kind": "process_killed",
+          "phase": "prepare",
+          "pid": 14948,
+          "seq": 4,
+          "time_ns": 1792382838758883700
+        },
+        {
+          "kind": "process_started",
+          "phase": "recover",
+          "pid": 34992,
+          "seq": 5,
+          "time_ns": 1792382838766891300
+        },
+        {
+          "kind": "observation_requested",
+          "seq": 6,
+          "sha256": "0cd0dc676d6028c104f7151dcaa63c0830166f2b27b73971a1e0c6145788dc8c",
+          "time_ns": 1792382838843264700
+        },
+        {
+          "kind": "observation_responded",
+          "seq": 7,
+          "sha256": "ae3f06bb60cb4aec8338833c44b5949eb138b659e03e52707356941ae065b2b6",
+          "time_ns": 1792382838858331800
+        },
+        {
+          "exit_code": 0,
+          "kind": "process_exited",
+          "phase": "recover",
+          "pid": 34992,
+          "seq": 8,
+          "time_ns": 1792382838877691800
+        },
+        {
+          "kind": "result_observed",
+          "seq": 9,
+          "sha256": "90a6ab97bb6541aa476c529a145bc219ce7191e815452ba7bedcca05dfe6b7b4",
+          "time_ns": 1792382838890107500
+        }
+      ],
+      "failures": [],
+      "observation_request_sha256": "0cd0dc676d6028c104f7151dcaa63c0830166f2b27b73971a1e0c6145788dc8c",
+      "observation_response_sha256": "ae3f06bb60cb4aec8338833c44b5949eb138b659e03e52707356941ae065b2b6",
+      "passed": true,
+      "process": {
+        "prepare": {
+          "exit_code": 1,
+          "killed_by_verifier": true,
+          "pid": 14948
+        },
+        "recover": {
+          "exit_code": 0,
+          "pid": 34992
+        }
+      },
+      "provider_observed": {
+        "observation": "present",
+        "resource_fingerprint": "a32331c2a29827be8e210dd91d850d42ae4142b9d2f73768be3e4aec07667eb6"
+      },
+      "repetition": 3,
+      "result_sha256": "90a6ab97bb6541aa476c529a145bc219ce7191e815452ba7bedcca05dfe6b7b4",
+      "run_nonce": "CgoB1iGGwKfFqC__7tqkd4nT3n1ZUu2z",
+      "task_digest": "edbe061b07c3914b2d257c81c69bdb3f4985d6280fd0995d292f6117b1ffda1d",
+      "verifier_owned": true,
+      "workspace": {
+        "fresh_recovery": true,
+        "pre": "D:\\phase6a-v10-evaluation\\reference\\work\\CgoB1iGGwKfFqC__7tqkd4nT3n1ZUu2z\\pre",
+        "recovery": "D:\\phase6a-v10-evaluation\\reference\\work\\CgoB1iGGwKfFqC__7tqkd4nT3n1ZUu2z\\recovery"
+      }
+    },
+    {
+      "artifact_sha256": "97437f2fe02524c4d5d05e4158bfce8ca9569753b190ff178f80c805c03d97c0",
+      "cell": "E_ABSENT",
+      "events": [
+        {
+          "kind": "process_started",
+          "phase": "prepare",
+          "pid": 8308,
+          "seq": 1,
+          "time_ns": 1792382838897622100
+        },
+        {
+          "kind": "checkpoint_observed",
+          "seq": 2,
+          "sha256": "c8f04c7b34be1876144af20bca980836107e0f4b302a2ab10ca54e434d99f844",
+          "time_ns": 1792382838994946400
+        },
+        {
+          "kind": "intent_observed",
+          "seq": 3,
+          "sha256": "e68be5c9762d909ae5473254b54a90b38cbfdb2c4db11ade898323495bb35ca9",
+          "time_ns": 1792382839000668600
+        },
+        {
+          "kind": "process_killed",
+          "phase": "prepare",
+          "pid": 8308,
+          "seq": 4,
+          "time_ns": 1792382839000668600
+        },
+        {
+          "kind": "process_started",
+          "phase": "recover",
+          "pid": 22280,
+          "seq": 5,
+          "time_ns": 1792382839012336000
+        },
+        {
+          "kind": "observation_requested",
+          "seq": 6,
+          "sha256": "54b22f4be24a50cb32b99e37b27adfb4e33c75b293f3f3e9cd47f7e1a50ee3e1",
+          "time_ns": 1792382839089439600
+        },
+        {
+          "kind": "observation_responded",
+          "seq": 7,
+          "sha256": "f27bb74241e76f5098f5672407052631851dbac8558fb41cceb7aadfdad080f2",
+          "time_ns": 1792382839099643600
+        },
+        {
+          "exit_code": 0,
+          "kind": "process_exited",
+          "phase": "recover",
+          "pid": 22280,
+          "seq": 8,
+          "time_ns": 1792382839118579700
+        },
+        {
+          "kind": "result_observed",
+          "seq": 9,
+          "sha256": "556229a91e3796a4af8b4bd140d8e81a7edd418287b72a252b5b6d53960e78fd",
+          "time_ns": 1792382839130269800
+        }
+      ],
+      "failures": [],
+      "observation_request_sha256": "54b22f4be24a50cb32b99e37b27adfb4e33c75b293f3f3e9cd47f7e1a50ee3e1",
+      "observation_response_sha256": "f27bb74241e76f5098f5672407052631851dbac8558fb41cceb7aadfdad080f2",
+      "passed": true,
+      "process": {
+        "prepare": {
+          "exit_code": 1,
+          "killed_by_verifier": true,
+          "pid": 8308
+        },
+        "recover": {
+          "exit_code": 0,
+          "pid": 22280
+        }
+      },
+      "provider_observed": {
+        "observation": "absent",
+        "resource_fingerprint": null
+      },
+      "repetition": 3,
+      "result_sha256": "556229a91e3796a4af8b4bd140d8e81a7edd418287b72a252b5b6d53960e78fd",
+      "run_nonce": "ZYzsJbUVVC3OFNlsXtYnxpdnNey0uu2T",
+      "task_digest": "652fca6876d222c91ac15f118d6cffc80f24a7b4d7e9a3b7f05829a830bf8779",
+      "verifier_owned": true,
+      "workspace": {
+        "fresh_recovery": true,
+        "pre": "D:\\phase6a-v10-evaluation\\reference\\work\\ZYzsJbUVVC3OFNlsXtYnxpdnNey0uu2T\\pre",
+        "recovery": "D:\\phase6a-v10-evaluation\\reference\\work\\ZYzsJbUVVC3OFNlsXtYnxpdnNey0uu2T\\recovery"
+      }
+    },
+    {
+      "cell": "E_ESC_UNKNOWN",
+      "events": [
+        {
+          "kind": "process_started",
+          "phase": "prepare",
+          "pid": 17024,
+          "seq": 1,
+          "time_ns": 1792382839138031300
+        },
+        {
+          "kind": "checkpoint_observed",
+          "seq": 2,
+          "sha256": "a234e419e6bbb6106611991d324638145898b1d998b56ee0f19a4b78453b0fd1",
+          "time_ns": 1792382839232255400
+        },
+        {
+          "kind": "intent_observed",
+          "seq": 3,
+          "sha256": "2a1ab099d5c3082b5dc3e1f5a8b7a974e4cbb7a0af7fe09583e3dd4479ad57c6",
+          "time_ns": 1792382839244171700
+        },
+        {
+          "kind": "process_killed",
+          "phase": "prepare",
+          "pid": 17024,
+          "seq": 4,
+          "time_ns": 1792382839246176100
+        },
+        {
+          "kind": "process_started",
+          "phase": "recover",
+          "pid": 10964,
+          "seq": 5,
+          "time_ns": 1792382839259796600
+        },
+        {
+          "kind": "observation_requested",
+          "seq": 6,
+          "sha256": "9939e694546403b943b518017feff2a5d0a864bc7069bca51ea02b4f1d26085e",
+          "time_ns": 1792382839334849200
+        },
+        {
+          "kind": "observation_responded",
+          "seq": 7,
+          "sha256": "3f00aa6b408e69eaf6baab878ee259d59eebfe26b2708e4811cb90295b8de64b",
+          "time_ns": 1792382839347942000
+        },
+        {
+          "exit_code": 0,
+          "kind": "process_exited",
+          "phase": "recover",
+          "pid": 10964,
+          "seq": 8,
+          "time_ns": 1792382839359794800
+        },
+        {
+          "kind": "result_observed",
+          "seq": 9,
+          "sha256": "fafdd89d0b740777da62002e63388b31759feea19af9bf47bc7b27def5bf09da",
+          "time_ns": 1792382839359794800
+        }
+      ],
+      "failures": [],
+      "observation_request_sha256": "9939e694546403b943b518017feff2a5d0a864bc7069bca51ea02b4f1d26085e",
+      "observation_response_sha256": "3f00aa6b408e69eaf6baab878ee259d59eebfe26b2708e4811cb90295b8de64b",
+      "passed": true,
+      "process": {
+        "prepare": {
+          "exit_code": 1,
+          "killed_by_verifier": true,
+          "pid": 17024
+        },
+        "recover": {
+          "exit_code": 0,
+          "pid": 10964
+        }
+      },
+      "provider_observed": {
+        "observation": "unknown",
+        "resource_fingerprint": null
+      },
+      "repetition": 3,
+      "result_sha256": "fafdd89d0b740777da62002e63388b31759feea19af9bf47bc7b27def5bf09da",
+      "run_nonce": "fnslBpKFqC_8tV9p0z70xsFX7QwECAlk",
+      "task_digest": "de26b38cff8549aa872cd1f76da9941c5672d44e726342dc0e82710640176ea0",
+      "verifier_owned": true,
+      "workspace": {
+        "fresh_recovery": true,
+        "pre": "D:\\phase6a-v10-evaluation\\reference\\work\\fnslBpKFqC_8tV9p0z70xsFX7QwECAlk\\pre",
+        "recovery": "D:\\phase6a-v10-evaluation\\reference\\work\\fnslBpKFqC_8tV9p0z70xsFX7QwECAlk\\recovery"
+      }
+    },
+    {
+      "cell": "E_ESC_MISMATCH",
+      "events": [
+        {
+          "kind": "process_started",
+          "phase": "prepare",
+          "pid": 33788,
+          "seq": 1,
+          "time_ns": 1792382839373243200
+        },
+        {
+          "kind": "checkpoint_observed",
+          "seq": 2,
+          "sha256": "e22750bafc0aa86feeab1a7b498332c6f74fae6df1686d9b70a97da4bbd2b60c",
+          "time_ns": 1792382839463531300
+        },
+        {
+          "kind": "intent_observed",
+          "seq": 3,
+          "sha256": "0306aaca866dd93cb617b33ffa99d0c0c0b5fca86df4e4134f1049941dfc7be8",
+          "time_ns": 1792382839479887800
+        },
+        {
+          "kind": "process_killed",
+          "phase": "prepare",
+          "pid": 33788,
+          "seq": 4,
+          "time_ns": 1792382839481473400
+        },
+        {
+          "kind": "process_started",
+          "phase": "recover",
+          "pid": 13964,
+          "seq": 5,
+          "time_ns": 1792382839488593300
+        },
+        {
+          "kind": "observation_requested",
+          "seq": 6,
+          "sha256": "0d22884f593bcca23e3444ce8b5453e19848e8a3c4383f0f136c5197c22c1932",
+          "time_ns": 1792382839561879000
+        },
+        {
+          "kind": "observation_responded",
+          "seq": 7,
+          "sha256": "d9c84d74995e3880512186c0761148c790a35d21a38a6cc501259185bd6379b2",
+          "time_ns": 1792382839565642300
+        },
+        {
+          "exit_code": 0,
+          "kind": "process_exited",
+          "phase": "recover",
+          "pid": 13964,
+          "seq": 8,
+          "time_ns": 1792382839596416800
+        },
+        {
+          "kind": "result_observed",
+          "seq": 9,
+          "sha256": "38eae2683df2a559d67c560695b2e372002d66fd633de9f52a86985fc2130a63",
+          "time_ns": 1792382839596416800
+        }
+      ],
+      "failures": [],
+      "observation_request_sha256": "0d22884f593bcca23e3444ce8b5453e19848e8a3c4383f0f136c5197c22c1932",
+      "observation_response_sha256": "d9c84d74995e3880512186c0761148c790a35d21a38a6cc501259185bd6379b2",
+      "passed": true,
+      "process": {
+        "prepare": {
+          "exit_code": 1,
+          "killed_by_verifier": true,
+          "pid": 33788
+        },
+        "recover": {
+          "exit_code": 0,
+          "pid": 13964
+        }
+      },
+      "provider_observed": {
+        "observation": "present",
+        "resource_fingerprint": "4de42c1c2fbf0295e916a98c4a6feaac7ea4dbdf2dfb735940e01463b2ffd80f"
+      },
+      "repetition": 3,
+      "result_sha256": "38eae2683df2a559d67c560695b2e372002d66fd633de9f52a86985fc2130a63",
+      "run_nonce": "WR4g1nB1Ed3ugvsmrUx6nkdv2joosJAV",
+      "task_digest": "56abfc19ed54e4118d552d254a23456a2c6f78aed420255c48195e069204f203",
+      "verifier_owned": true,
+      "workspace": {
+        "fresh_recovery": true,
+        "pre": "D:\\phase6a-v10-evaluation\\reference\\work\\WR4g1nB1Ed3ugvsmrUx6nkdv2joosJAV\\pre",
+        "recovery": "D:\\phase6a-v10-evaluation\\reference\\work\\WR4g1nB1Ed3ugvsmrUx6nkdv2joosJAV\\recovery"
+      }
+    },
+    {
+      "cell": "E_ESC_NEVER",
+      "events": [
+        {
+          "kind": "process_started",
+          "phase": "prepare",
+          "pid": 1072,
+          "seq": 1,
+          "time_ns": 1792382839596416800
+        },
+        {
+          "kind": "checkpoint_observed",
+          "seq": 2,
+          "sha256": "0184f74b38d302712f7083990501c95fc5541b1a51c861f74fc52ba059949b2e",
+          "time_ns": 1792382839690170200
+        },
+        {
+          "kind": "intent_observed",
+          "seq": 3,
+          "sha256": "f3c91d47d8e9aaba10192c042decf96040b88a15a9f81fc736aaef53be6feb2c",
+          "time_ns": 1792382839712783500
+        },
+        {
+          "kind": "process_killed",
+          "phase": "prepare",
+          "pid": 1072,
+          "seq": 4,
+          "time_ns": 1792382839712783500
+        },
+        {
+          "kind": "process_started",
+          "phase": "recover",
+          "pid": 29608,
+          "seq": 5,
+          "time_ns": 1792382839721728200
+        },
+        {
+          "kind": "observation_requested",
+          "seq": 6,
+          "sha256": "bec0e8768f880afe87c6c124d69a9777aa6a4c121dcb95a9652dae330ede8a80",
+          "time_ns": 1792382839794425300
+        },
+        {
+          "kind": "observation_responded",
+          "seq": 7,
+          "sha256": "2d599aa0ab57bddadd634969846d7d6a2e97dcd599fc5ae1ce458b0775dac1df",
+          "time_ns": 1792382839800374900
+        },
+        {
+          "exit_code": 0,
+          "kind": "process_exited",
+          "phase": "recover",
+          "pid": 29608,
+          "seq": 8,
+          "time_ns": 1792382839816363600
+        },
+        {
+          "kind": "result_observed",
+          "seq": 9,
+          "sha256": "2b8a8021052126e3e0b4be95d396e2f78be351911c4fd73d428af6c59a676cf6",
+          "time_ns": 1792382839816363600
+        }
+      ],
+      "failures": [],
+      "observation_request_sha256": "bec0e8768f880afe87c6c124d69a9777aa6a4c121dcb95a9652dae330ede8a80",
+      "observation_response_sha256": "2d599aa0ab57bddadd634969846d7d6a2e97dcd599fc5ae1ce458b0775dac1df",
+      "passed": true,
+      "process": {
+        "prepare": {
+          "exit_code": 1,
+          "killed_by_verifier": true,
+          "pid": 1072
+        },
+        "recover": {
+          "exit_code": 0,
+          "pid": 29608
+        }
+      },
+      "provider_observed": {
+        "observation": "absent",
+        "resource_fingerprint": null
+      },
+      "repetition": 3,
+      "result_sha256": "2b8a8021052126e3e0b4be95d396e2f78be351911c4fd73d428af6c59a676cf6",
+      "run_nonce": "q29oGzc6VdLkA5UhRTmPRCrJZtwNsp4e",
+      "task_digest": "b977db69e9eafa8d3e688a560fc871d3c31f30d1dff74b930e933d44470e1697",
+      "verifier_owned": true,
+      "workspace": {
+        "fresh_recovery": true,
+        "pre": "D:\\phase6a-v10-evaluation\\reference\\work\\q29oGzc6VdLkA5UhRTmPRCrJZtwNsp4e\\pre",
+        "recovery": "D:\\phase6a-v10-evaluation\\reference\\work\\q29oGzc6VdLkA5UhRTmPRCrJZtwNsp4e\\recovery"
+      }
+    }
+  ],
+  "schema_version": "cairn.conformance-witness-verdict.v2"
+}

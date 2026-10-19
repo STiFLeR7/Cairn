@@ -1,0 +1,66 @@
+{
+ "schema_version": "cairn.phase6.stage6a-candidate-qualification.v1",
+ "status": "STAGE 6A QUALIFIED",
+ "phase6_status": "BLOCKED / UNADMITTED: awaiting separate SEALER and uninvolved REPRODUCER (Stage 6B)",
+ "candidate": {
+  "commit": "3dae0273856fab4295f15e3bf27daafbea5c59cc",
+  "tree": "9912b5c977ee6e5ef07ecf741f2ff980721f66da",
+  "bundle": "candidate.bundle",
+  "bundle_sha256": "e5904e6f7502c171cd5bc8d027dec04eeb1206915e34f29a8201c4098c994bbf",
+  "implementation_frozen_before_evidence": true,
+  "preserved_unchanged": true
+ },
+ "public_inputs": {
+  "protocol_commit": "ece6018bfe56a7fa923c819fe4379cb240e8de47",
+  "witness_sha256": "f175254920909f6d882b15ae3d6532a503087b48346ad79f4ee0dc505742ded5",
+  "vectors_sha256": "e6d3037d736a3961ef6e4e1a09de592a12a79ebfd07d29a9f4e169e4e925107a",
+  "real_provider_preflight_sha256": "db952db087f8f81556308e9735efabe0b7eb7fe5e76bf727a6b3449f4d19097a",
+  "stage6b_provider_sha256": "bdf552c81c3997bbe11fdbbf442c9a3bf72aad1238ab134fd5d315924668b43a"
+ },
+ "provenance": {
+  "implementer_model": "claude-haiku-4-5",
+  "implementer_session": "fresh Claude Code subagent, neutral prompt naming only the kit README; no prior-candidate information",
+  "other_models": false,
+  "cairn_runtime_import": false,
+  "prior_candidate_or_fixture_reference": false,
+  "fixed_sha256_constant": false
+ },
+ "gates": {
+  "reference_matrix": {
+   "result": "PASSED",
+   "counts": {
+    "runs": 30,
+    "passed": 30,
+    "failed": 0
+   },
+   "verdict": "reference-verdict.json",
+   "verdict_sha256": "07dc61d0c72ab4512f0a5ebd83dd44d99dd4b6006020ae2d4cecd4ad04e0591f"
+  },
+  "real_provider_preflight": {
+   "result": "PASSED",
+   "verdict": "preflight-verdict.json",
+   "verdict_sha256": "81172cf9f910ef23a2575edd924158d3e9fd7cbbd86ead818cb8cac9462eca36"
+  },
+  "source_audit": {
+   "result": "PASSED",
+   "checks": [
+    "stdlib only (json, sys, pathlib, typing, time, traceback)",
+    "no Cairn import or reference to witness/preflight internals",
+    "no subprocess or filesystem traversal outside the request workspace",
+    "provider observation copied from the verifier response, never manufactured",
+    "effect decision follows vectors.json rules"
+   ],
+   "non_blocking_notes": [
+    "write_json_atomic is not atomic (plain write_text); docstring overstates it",
+    "recover waits for observation-response.json without a deadline (pending is never resolved by timeout)",
+    "execute ignores an effect intent and reports completed; the witness never sends one to execute",
+    "comment at host.py:61-62 refers to 'execute cell'/'negative flag' (descriptive only; no branch on case labels)"
+   ]
+  }
+ },
+ "raw_evidence": {
+  "root": "D:/phase6a-v10-evaluation"
+ },
+ "next": "A SEALER who was not involved in this candidate authors a post-freeze holdout under a newly pinned Stage 6B handoff; an uninvolved REPRODUCER then runs it in a fresh environment. The candidate must not be modified.",
+ "prior_candidates": "Candidate 9 (same protocol, same neutral prompt) failed the source audit: stage-6a-haiku-candidate-9-audit-failure.json. Candidate 10 received no information from it."
+}

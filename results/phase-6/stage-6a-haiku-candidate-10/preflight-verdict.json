@@ -1,0 +1,75 @@
+{
+  "effect_verdict": {
+    "decision": "escalate",
+    "ledger": {
+      "receipts": {
+        "receipt-c439bb76b20b2b32c9fc67769dac1675": {
+          "idempotency_key": "_zfgaaot1cYlI-Y9wpHBQNdy8ahVhEH2ewPO6Q",
+          "receipt_id": "receipt-c439bb76b20b2b32c9fc67769dac1675",
+          "request_fingerprint": "c392d5a5077d4df9a967722342642ca2337e46abecf7197b517447d8b137bf1a",
+          "resource_id": "resource-cf09b151fc6621d27e369528b6c802e2"
+        }
+      },
+      "resources": {
+        "_zfgaaot1cYlI-Y9wpHBQNdy8ahVhEH2ewPO6Q": {
+          "create_count": 1,
+          "first_request_id": "MHzd2Yh6VnO-kL4QxDpE_g",
+          "request_fingerprint": "c392d5a5077d4df9a967722342642ca2337e46abecf7197b517447d8b137bf1a",
+          "resource_id": "resource-cf09b151fc6621d27e369528b6c802e2"
+        }
+      },
+      "schema_version": "cairn.stage6b-provider.v1",
+      "unknown": false
+    },
+    "provider_observation": {
+      "idempotency_key": "_zfgaaot1cYlI-Y9wpHBQNdy8ahVhEH2ewPO6Q",
+      "observation": "present",
+      "observation_event_id": "I3cT_xYN2Omxqb5HOUU_8yjp",
+      "receipt_id": "receipt-c439bb76b20b2b32c9fc67769dac1675",
+      "request_fingerprint": "c392d5a5077d4df9a967722342642ca2337e46abecf7197b517447d8b137bf1a",
+      "resource_fingerprint": "c392d5a5077d4df9a967722342642ca2337e46abecf7197b517447d8b137bf1a",
+      "resource_id": "resource-cf09b151fc6621d27e369528b6c802e2",
+      "state": "present"
+    }
+  },
+  "observation_response_sha256": "e2eee03666a9f28e985c5e17cf2c1015acc43f3a05a68679a11cf1936f617067",
+  "passed": true,
+  "process": {
+    "prepare": {
+      "exit_code": 1,
+      "killed_by_verifier": true,
+      "pid": 19448
+    },
+    "recover": {
+      "exit_code": 0,
+      "pid": 27504,
+      "stderr": "",
+      "stdout": ""
+    }
+  },
+  "provider": {
+    "ledger": "D:\\phase6a-v10-evaluation\\preflight\\provider-ledger",
+    "observation": {
+      "idempotency_key": "_zfgaaot1cYlI-Y9wpHBQNdy8ahVhEH2ewPO6Q",
+      "observation": "present",
+      "observation_event_id": "I3cT_xYN2Omxqb5HOUU_8yjp",
+      "receipt_id": "receipt-c439bb76b20b2b32c9fc67769dac1675",
+      "request_fingerprint": "c392d5a5077d4df9a967722342642ca2337e46abecf7197b517447d8b137bf1a",
+      "resource_fingerprint": "c392d5a5077d4df9a967722342642ca2337e46abecf7197b517447d8b137bf1a",
+      "resource_id": "resource-cf09b151fc6621d27e369528b6c802e2",
+      "state": "present"
+    },
+    "observation_before_response": true,
+    "pid": 5268
+  },
+  "response_delay_ms": 100,
+  "result_sha256": "04e754beea68b0f0712dabc8e1a122482d1314b34b864313aaf33f1208758690",
+  "run_nonce": "ed7NsdZWS6aOnrcR2Dz43umaZ5aKrbqu",
+  "schema_version": "cairn.phase6a-real-provider-preflight.v1",
+  "task_digest": "008e267641892356c31807d5ea8874214f0904b42b42f16b038e0f4a6083da90",
+  "workspace": {
+    "fresh_recovery": true,
+    "pre": "D:\\phase6a-v10-evaluation\\preflight\\pre",
+    "recovery": "D:\\phase6a-v10-evaluation\\preflight\\recovery"
+  }
+}

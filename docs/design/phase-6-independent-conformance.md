@@ -226,20 +226,26 @@ compatibility claim, native-host feature, or exactly-once guarantee.
 
 ## Smallest next action
 
-No frozen Stage 6A candidate is currently qualified for a seal. Candidate 7
+Candidate 7
 passed the v2 reference matrix but failed the real-provider preflight
 ([defect record](../../results/phase-6/stage-6a-candidate-7-real-provider-defect.json)).
 Candidate 8, a clean-room `claude-haiku-4-5` implementation, failed the
-required crash boundary at cell R, repetition 1: `prepare` exited 0 after
-writing `ready.json` instead of staying alive until verifier-owned process
-death. Its real-provider preflight was not run and no holdout was created
+required crash boundary at cell R, repetition 1
 ([failure record](../../results/phase-6/stage-6a-haiku-candidate-8-reference-failure.json)).
+Candidate 9 passed the reference matrix (30/30) and the real-provider preflight
+but failed the source audit: its `execute` path manufactures a provider
+observation that the witness never exercises
+([failure record](../../results/phase-6/stage-6a-haiku-candidate-9-audit-failure.json)).
 
-The next action is a fresh, separately identified Haiku-only clean-room Stage 6A
-candidate that passes the corrected reference matrix, the source/evidence
-audit, and the real-provider preflight. Candidates 7 and 8 may not be reused.
-Only then does a separate SEALER receive the frozen candidate bundle and author
-a new, fully specified post-freeze holdout without modifying the
-implementation, and an uninvolved REPRODUCER execute that sealed input in a
-fresh environment. Any implementation change invalidates the Stage 6A freeze
-and requires a new candidate identity.
+Candidate 10, a fresh Haiku-only clean-room implementation built from the same
+neutral prompt with no information from earlier candidates, passed the corrected
+reference matrix (30/30), the source/evidence audit, and the real-provider
+preflight. It is the frozen candidate qualified for Stage 6B
+([qualification record](../../results/phase-6/stage-6a-haiku-candidate-10/qualification.json)).
+
+The next action is for a separate SEALER to receive the frozen candidate 10
+bundle and author a new, fully specified post-freeze holdout under a newly
+pinned Stage 6B handoff without modifying the implementation, and for an
+uninvolved REPRODUCER to execute that sealed input in a fresh environment.
+Any implementation change invalidates the Stage 6A freeze and requires a new
+candidate identity.
