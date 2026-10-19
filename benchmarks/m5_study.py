@@ -44,6 +44,10 @@ class StudyPaused(RuntimeError):
     """Consecutive units errored (e.g. a usage cap): the checkpoint is kept for `--resume`."""
 
 
+class BudgetExhausted(StudyPaused):
+    """The protocol's max_calls is spent across all sessions; a resume cannot grant a fresh budget."""
+
+
 def load_protocol(path: str = "results/m5/protocol.json") -> dict:
     with open(path, encoding="utf-8") as f:
         return json.load(f)
@@ -69,18 +73,40 @@ def _preregistration() -> tuple:
         return digest, json.load(f).get("git_commit")
 
 
-def _read_partial(path: str) -> tuple[dict, list[dict]]:
+def _read_partial(path: str, stamp: str) -> tuple[dict, list[dict]]:
+    """Read a checkpoint; a torn last line (hard kill) is moved to `<path>.torn-<UTC>`, never deleted.
+
+    The unit on a torn line is simply missing and re-attempted; the file is left ending in a newline so
+    later appends start on a fresh line.
+    """
     with open(path, encoding="utf-8") as f:
-        raw = [line for line in f.read().splitlines() if line.strip()]
-    lines = []
-    for n, line in enumerate(raw):
+        text = f.read()
+    complete, _, tail = text.rpartition("\n")
+    torn = False
+    if tail.strip():
         try:
-            lines.append(json.loads(line))
+            json.loads(tail)
+            complete = text
         except ValueError:
-            if n != len(raw) - 1:
-                raise
-            # a hard kill can tear only the last line; that unit is simply missing and re-attempted
+            torn = True
+    lines = [json.loads(line) for line in complete.splitlines() if line.strip()]
+    if not lines or "preregistration_sha256" not in lines[0]:
+        raise ValueError(f"{path} has no readable header line (torn or empty); cannot resume it")
+    if torn:
+        with open(f"{path}.torn-{stamp}", "w", encoding="utf-8") as f:
+            f.write(tail)
+        with open(path, "w", encoding="utf-8") as f:
+            f.write(complete + "\n")
+    elif not text.endswith("\n"):
+        with open(path, "a", encoding="utf-8") as f:
+            f.write("\n")
     return lines[0], lines[1:]
+
+
+def _sum_stats(sessions: list[dict]) -> dict:
+    if not any(sessions):
+        return {}
+    return {k: sum(s.get(k, 0) for s in sessions) for k in ("calls", "errors")}
 
 
 def _key(unit: dict) -> tuple:
@@ -106,8 +132,9 @@ def run_m5_model(label: str, protocol: dict, *, transport=None, out_dir: str = "
     planned = len(steps) * BASELINES * repeats
     latest: dict[tuple, dict] = {}
     resumed_errors: list[str] = []
+    prior_sessions: list[dict] = []  # call_stats of earlier sessions, from the last checkpoint line
     if resuming:
-        header, units = _read_partial(partial_path)
+        header, units = _read_partial(partial_path, stamp)
         if header.get("preregistration_sha256") != digest:
             raise ValueError(f"{partial_path} was written under preregistration "
                              f"{header.get('preregistration_sha256')}, not the current {digest}")
@@ -115,24 +142,40 @@ def run_m5_model(label: str, protocol: dict, *, transport=None, out_dir: str = "
             if unit["status"] == "error":
                 resumed_errors.append(unit["error"])
             latest[_key(unit)] = unit
+            prior_sessions = unit.get("call_stats_sessions", prior_sessions)
     else:
         _supersede(record_path, stamp)
         _supersede(partial_path, stamp)
         os.makedirs(out_dir, exist_ok=True)
         with open(partial_path, "w", encoding="utf-8") as f:
             f.write(json.dumps({"preregistration_sha256": digest, "label": label}) + "\n")
+    max_calls = protocol.get("max_calls")
+    prior_calls = _sum_stats(prior_sessions).get("calls", 0)
     if transport is None:
         os.makedirs("benchmarks/transcripts", exist_ok=True)
         if not resuming:
             _supersede(f"benchmarks/transcripts/m5-{label}.jsonl", stamp)
-        transport = build_live_transport(
-            cfg["model"], provider=cfg["provider"], max_calls=protocol["max_calls"],
+        transport = build_live_transport(  # the call ceiling is cumulative over resumed sessions
+            cfg["model"], provider=cfg["provider"],
+            max_calls=None if max_calls is None else max(0, max_calls - prior_calls),
             transcript_path=f"benchmarks/transcripts/m5-{label}.jsonl", transcript_append=resuming,
             reasoning_effort=cfg.get("reasoning_effort"),
         )
     streak = [0]
 
+    def sessions() -> list[dict]:
+        return prior_sessions + [dict(getattr(transport, "call_stats", None) or {})]
+
+    def check_budget() -> None:
+        used = _sum_stats(sessions()).get("calls", 0)
+        if max_calls is not None and used >= max_calls:
+            raise BudgetExhausted(f"cumulative calls {used} reached the protocol max_calls {max_calls} "
+                                  f"across {len(sessions())} session(s); checkpoint kept at {partial_path}, "
+                                  "but resuming cannot grant a fresh budget")
+
     def checkpoint(unit: dict) -> None:
+        unit["call_stats"] = _sum_stats(sessions())
+        unit["call_stats_sessions"] = sessions()
         with open(partial_path, "a", encoding="utf-8") as f:
             f.write(json.dumps(unit, default=str) + "\n")
         latest[_key(unit)] = unit
@@ -151,6 +194,7 @@ def run_m5_model(label: str, protocol: dict, *, transport=None, out_dir: str = "
     for i in range(cal_runs):
         if done(("cal", i)):
             continue
+        check_budget()
         cal = run_calibration(live_chain_scenario(n, transport), runs=1)
         ok = cal["completed"] == 1
         checkpoint({"unit": "cal", "i": i, "status": "ok" if ok else "error",
@@ -168,6 +212,7 @@ def run_m5_model(label: str, protocol: dict, *, transport=None, out_dir: str = "
             for i in range(repeats):
                 if done(("study", k, i)):
                     continue
+                check_budget()
                 errs: list[str] = []
                 run = run_repeated(
                     live_chain_effect_scenario(n, k, transport), steps=[k],
@@ -212,7 +257,8 @@ def run_m5_model(label: str, protocol: dict, *, transport=None, out_dir: str = "
     record["c3"] = verdict_c3_live(stats)
     record["eligible"] = record["calibration"]["eligible"]
     record["observed_models"] = sorted(getattr(transport, "observed_models", None) or [])
-    record["call_stats"] = dict(getattr(transport, "call_stats", None) or {})
+    record["call_stats"] = _sum_stats(sessions())  # cumulative over every resumed session
+    record["call_stats_sessions"] = sessions() if any(sessions()) else []
     with open(record_path, "w", encoding="utf-8") as f:
         json.dump(record, f, indent=2, default=str)
     os.replace(partial_path, os.path.join(out_dir, f"{label}.partial.done-{stamp}.jsonl"))

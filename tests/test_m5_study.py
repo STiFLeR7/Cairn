@@ -103,13 +103,19 @@ class UsageCap(RuntimeError):
     pass
 
 
-def _counting(calls, fail_at=()):
+def _counting(calls, fail_at=(), stats=False):
+    call_stats = {"calls": 0, "errors": 0}
+
     def transport(prompt):
         calls[0] += 1
+        call_stats["calls"] += 1
         if calls[0] in fail_at or (fail_at == "all"):
+            call_stats["errors"] += 1
             raise UsageCap("usage limit reached")
         return fake_chain_transport(6)(prompt)
 
+    if stats:
+        transport.call_stats = call_stats
     return transport
 
 
@@ -162,4 +168,54 @@ def test_resume_refuses_a_checkpoint_from_another_preregistration(tmp_path):
     (tmp_path / "claude.partial.jsonl").write_text(
         json.dumps({"preregistration_sha256": "0" * 64, "label": "claude"}) + "\n")
     with pytest.raises(ValueError, match="preregistration"):
+        run_m5_model("claude", PROTOCOL, transport=fake_chain_transport(6), out_dir=str(tmp_path), resume=True)
+
+
+def _paused_run(tmp_path, stats=True):
+    cal, s2 = _unit_calls("cal"), _unit_calls("study", 2)
+    first = [0]
+    cap_from = 10 * cal + s2 + 2
+    with pytest.raises(StudyPaused):
+        run_m5_model("claude", PROTOCOL, transport=_counting(first, set(range(cap_from, 10_000)), stats=stats),
+                     out_dir=str(tmp_path))
+    return first[0], first[0] - cap_from + 1
+
+
+def test_call_stats_are_cumulative_across_resumed_sessions(tmp_path):
+    calls_a, errors_a = _paused_run(tmp_path)
+    resumed = [0]
+    rec = run_m5_model("claude", PROTOCOL, transport=_counting(resumed, stats=True), out_dir=str(tmp_path),
+                       resume=True)
+    assert rec["call_stats_sessions"] == [{"calls": calls_a, "errors": errors_a},
+                                          {"calls": resumed[0], "errors": 0}]
+    assert rec["call_stats"] == {"calls": calls_a + resumed[0], "errors": errors_a}
+
+
+def test_resume_does_not_get_a_fresh_call_budget(tmp_path):
+    from benchmarks.m5_study import BudgetExhausted
+
+    calls_a, _ = _paused_run(tmp_path)
+    resumed = [0]
+    with pytest.raises(BudgetExhausted, match="max_calls"):
+        run_m5_model("claude", dict(PROTOCOL, max_calls=calls_a), transport=_counting(resumed, stats=True),
+                     out_dir=str(tmp_path), resume=True)
+    assert resumed[0] == 0
+
+
+def test_torn_last_line_is_set_aside_and_resume_works_twice(tmp_path):
+    _paused_run(tmp_path)
+    partial = tmp_path / "claude.partial.jsonl"
+    with open(partial, "a", encoding="utf-8") as f:
+        f.write('{"unit": "study", "k": 3, "i"')  # a hard kill mid-write
+    with pytest.raises(StudyPaused):
+        run_m5_model("claude", PROTOCOL, transport=_counting([0], "all"), out_dir=str(tmp_path), resume=True)
+    assert [p.read_text() for p in tmp_path.glob("claude.partial.jsonl.torn-*")] == ['{"unit": "study", "k": 3, "i"']
+    rec = run_m5_model("claude", PROTOCOL, transport=_counting([0]), out_dir=str(tmp_path), resume=True)
+    assert rec["accounting"]["balanced"] is True and rec["lost_cells"] == 0
+    assert rec["resumed_errors"]["count"] == 4
+
+
+def test_torn_header_is_a_clear_error(tmp_path):
+    (tmp_path / "claude.partial.jsonl").write_text('{"preregistration_sha2')
+    with pytest.raises(ValueError, match="claude.partial.jsonl"):
         run_m5_model("claude", PROTOCOL, transport=fake_chain_transport(6), out_dir=str(tmp_path), resume=True)
