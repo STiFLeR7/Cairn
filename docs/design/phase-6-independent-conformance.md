@@ -226,8 +226,20 @@ compatibility claim, native-host feature, or exactly-once guarantee.
 
 ## Smallest next action
 
-A separate SEALER receives the frozen candidate bundle and authors a new,
-fully specified post-freeze holdout without modifying the implementation. An
-uninvolved REPRODUCER then executes that sealed input in a fresh environment.
-Any implementation change invalidates the Stage 6A freeze and requires a new
-candidate identity.
+No frozen Stage 6A candidate is currently qualified for a seal. Candidate 7
+passed the v2 reference matrix but failed the real-provider preflight
+([defect record](../../results/phase-6/stage-6a-candidate-7-real-provider-defect.json)).
+Candidate 8, a clean-room `claude-haiku-4-5` implementation, failed the
+required crash boundary at cell R, repetition 1: `prepare` exited 0 after
+writing `ready.json` instead of staying alive until verifier-owned process
+death. Its real-provider preflight was not run and no holdout was created
+([failure record](../../results/phase-6/stage-6a-haiku-candidate-8-reference-failure.json)).
+
+The next action is a fresh, separately identified clean-room Stage 6A
+candidate that passes the corrected reference matrix, the source/evidence
+audit, and the real-provider preflight. Candidates 7 and 8 may not be reused.
+Only then does a separate SEALER receive the frozen candidate bundle and author
+a new, fully specified post-freeze holdout without modifying the
+implementation, and an uninvolved REPRODUCER execute that sealed input in a
+fresh environment. Any implementation change invalidates the Stage 6A freeze
+and requires a new candidate identity.
