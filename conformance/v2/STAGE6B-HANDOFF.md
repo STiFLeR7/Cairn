@@ -1,30 +1,31 @@
 # Phase 6B external sealing and reproduction
 
-**State: `PROTOCOL PRESERVED; NO ACTIVE CANDIDATE; PHASE 6 BLOCKED / UNADMITTED`.**
-Candidate 7 failed the public real-provider preflight after this procedure was
-published. Its attempted seal is spent and invalid for admission. Do **not**
-seal, rerun, or reproduce candidate `ca29b601`; retain this document as the
-historical protocol/input record until a new Stage 6A candidate has passed.
-It does not authorize a Cairn maintainer, the implementation author, or this
-workspace to act as the SEALER or REPRODUCER.
+**State: `PINNED TO STAGE 6A CANDIDATE 10; AWAITING EXTERNAL SEALER; PHASE 6 BLOCKED / UNADMITTED`.**
+Candidate 10 passed the corrected v2 reference matrix (30/30), the source/evidence
+audit and the public real-provider preflight
+([qualification record](../../results/phase-6/stage-6a-haiku-candidate-10/qualification.json)).
+Candidate 7 (`ca29b601`) and its attempted seal remain spent and invalid; do not
+seal, rerun, or reproduce it. This document does not authorize a Cairn
+maintainer, the implementation author, or the session that evaluated candidate 10
+to act as the SEALER or REPRODUCER.
 
 ## Frozen inputs
 
 | Input | Required identity |
 | --- | --- |
-| Cairn ancestry floor | `17089a8532bce9ddcdfd30c8eda77f5d4e241a6f` |
-| Candidate bundle | `results/phase-6/stage-6a-haiku-candidate-7/candidate.bundle` |
-| Bundle SHA-256 | `e964ea84a7145477183942912b76493a37af753abe3a7fd5bf9a75a98e21b33d` |
-| Candidate commit | `ca29b601454f83d0ab75433522c40930089bc5d3` |
-| Candidate tree | `35c9c96e3f0d4cf869cba39a20629fe30b2ca61e` |
+| Cairn ancestry floor | `68a269b` (first commit containing the candidate 10 records; resolve the full hash with `git rev-parse 68a269b`) |
+| Candidate bundle | `results/phase-6/stage-6a-haiku-candidate-10/candidate.bundle` |
+| Bundle SHA-256 | `e5904e6f7502c171cd5bc8d027dec04eeb1206915e34f29a8201c4098c994bbf` |
+| Candidate commit | `3dae0273856fab4295f15e3bf27daafbea5c59cc` |
+| Candidate tree | `9912b5c977ee6e5ef07ecf741f2ff980721f66da` |
 | Host command | `python host.py <execute|prepare|recover> <request-json>` |
 | Reference witness SHA-256 | `f175254920909f6d882b15ae3d6532a503087b48346ad79f4ee0dc505742ded5` |
 | Semantic-rules SHA-256 | `e6d3037d736a3961ef6e4e1a09de592a12a79ebfd07d29a9f4e169e4e925107a` |
 | Real-provider SHA-256 | `bdf552c81c3997bbe11fdbbf442c9a3bf72aad1238ab134fd5d315924668b43a` |
 | Stage 6A real-provider preflight SHA-256 | `db952db087f8f81556308e9735efabe0b7eb7fe5e76bf727a6b3449f4d19097a` |
 
-The candidate's bundled `public-kit/witness.py` records its original public
-input. It is evidence, not the Phase 6B verifier. The external SEALER authors a
+Candidate 10 ships no test suite and no copy of the kit; its frozen tree is `host.py`
+and `.gitignore`. The public kit inputs are pinned by the hashes above. The external SEALER authors a
 new post-freeze witness from the public v2 protocol, and the REPRODUCER uses
 that sealed witness unchanged. Kit v2 has no separate `evaluate.py`: the
 verifier-owned witness produces and evaluates the evidence.
@@ -43,7 +44,7 @@ auditable equivalent that meets the same interface and evidence requirements.
 It starts a verifier-owned loopback provider in a separate OS process and
 persists its ledger outside the candidate repository. The candidate receives
 neither the provider credential nor the ledger location. This protocol does
-not change candidate `ca29b601`; its recovery action is its
+not change candidate `3dae0273`; its recovery action is its
 `retry`/`skip`/`escalate` decision. A verifier-owned effect dispatcher performs
 a physical retry only after recording that decision, because the frozen host
 interface has no provider credential or direct provider API.
@@ -76,8 +77,8 @@ $Cairn = "$RunRoot/Cairn"
 $Candidate = "$RunRoot/candidate"
 
 git clone https://github.com/STiFLeR7/Cairn.git $Cairn
-git -C $Cairn merge-base --is-ancestor 17089a8532bce9ddcdfd30c8eda77f5d4e241a6f HEAD
-if ($LASTEXITCODE -ne 0) { throw 'Cairn checkout predates the v2 verifier fix' }
+git -C $Cairn merge-base --is-ancestor 68a269b9dbc491d45b181cac92732e2af8458889 HEAD
+if ($LASTEXITCODE -ne 0) { throw 'Cairn checkout predates the candidate 10 records' }
 
 $WitnessHash = (Get-FileHash "$Cairn/conformance/v2/witness.py" -Algorithm SHA256).Hash.ToLowerInvariant()
 $VectorsHash = (Get-FileHash "$Cairn/conformance/v2/vectors.json" -Algorithm SHA256).Hash.ToLowerInvariant()
@@ -96,32 +97,23 @@ if ($PreflightHash -ne 'db952db087f8f81556308e9735efabe0b7eb7fe5e76bf727a6b3449f
   throw 'real-provider preflight digest mismatch'
 }
 
-$Bundle = "$Cairn/results/phase-6/stage-6a-haiku-candidate-7/candidate.bundle"
+$Bundle = "$Cairn/results/phase-6/stage-6a-haiku-candidate-10/candidate.bundle"
 if ((Get-FileHash $Bundle -Algorithm SHA256).Hash.ToLowerInvariant() -ne
-    'e964ea84a7145477183942912b76493a37af753abe3a7fd5bf9a75a98e21b33d') {
+    'e5904e6f7502c171cd5bc8d027dec04eeb1206915e34f29a8201c4098c994bbf') {
   throw 'candidate bundle digest mismatch'
 }
 
 git clone $Bundle $Candidate
 if ((git -C $Candidate rev-parse HEAD) -ne
-    'ca29b601454f83d0ab75433522c40930089bc5d3') {
+    '3dae0273856fab4295f15e3bf27daafbea5c59cc') {
   throw 'candidate commit mismatch'
 }
 if ((git -C $Candidate rev-parse 'HEAD^{tree}') -ne
-    '35c9c96e3f0d4cf869cba39a20629fe30b2ca61e') {
+    '9912b5c977ee6e5ef07ecf741f2ff980721f66da') {
   throw 'candidate tree mismatch'
 }
 if (@(git -C $Candidate status --porcelain).Count -ne 0) {
   throw 'candidate worktree is dirty'
-}
-$TestOutput = python -B -m unittest discover -s $Candidate -p 'test_host.py' -v 2>&1
-$TestExit = $LASTEXITCODE
-$TestOutput
-if ($TestExit -ne 0 -or ($TestOutput -join "`n") -notmatch 'Ran 23 tests') {
-  throw 'candidate 23-test gate failed'
-}
-if (@(git -C $Candidate status --porcelain).Count -ne 0) {
-  throw 'candidate tests changed the frozen worktree'
 }
 ```
 
@@ -247,7 +239,7 @@ git clone "$RunRoot/candidate.bundle" $Candidate
 git clone "$RunRoot/holdout.bundle" $Holdout
 
 if ((git -C $Candidate rev-parse HEAD) -ne
-    'ca29b601454f83d0ab75433522c40930089bc5d3') {
+    '3dae0273856fab4295f15e3bf27daafbea5c59cc') {
   throw 'candidate commit mismatch'
 }
 if (@(git -C $Candidate status --porcelain).Count -ne 0 -or
@@ -255,15 +247,6 @@ if (@(git -C $Candidate status --porcelain).Count -ne 0 -or
   throw 'reproduction input is dirty'
 }
 
-$TestOutput = python -B -m unittest discover -s $Candidate -p 'test_host.py' -v 2>&1
-$TestExit = $LASTEXITCODE
-$TestOutput
-if ($TestExit -ne 0 -or ($TestOutput -join "`n") -notmatch 'Ran 23 tests') {
-  throw 'candidate 23-test gate failed'
-}
-if (@(git -C $Candidate status --porcelain).Count -ne 0) {
-  throw 'candidate tests changed the frozen worktree'
-}
 python "$Holdout/witness.py" --output "$RunRoot/reproducer-output" --host python "$Candidate/host.py"
 ```
 
