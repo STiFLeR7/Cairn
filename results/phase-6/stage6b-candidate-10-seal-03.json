@@ -1,0 +1,39 @@
+{
+ "schema_version": "cairn.phase6.stage6b-seal-record.v1",
+ "status": "ACTIVE SEAL: SEALER 30/30, AWAITING REPRODUCER",
+ "phase6_status": "BLOCKED / UNADMITTED",
+ "candidate": {
+  "id": "stage-6a-haiku-candidate-10",
+  "commit": "3dae0273856fab4295f15e3bf27daafbea5c59cc",
+  "bundle_sha256": "e5904e6f7502c171cd5bc8d027dec04eeb1206915e34f29a8201c4098c994bbf",
+  "unchanged": true
+ },
+ "sealer": {
+  "tool": "Codex CLI 0.162.1",
+  "run_root": "D:/phase6b-sealer-c10-03",
+  "prompt": "D:/phase6b-sealer-c10-03/SEALER-PROMPT.txt",
+  "independent_of_earlier_seals": "prompt forbade reading D:/phase6b-sealer-c10-01 and -02; session log shows no access"
+ },
+ "holdout": {
+  "commit": "5c82916c23df23a152ac0f8cc7eb27042040a1b3",
+  "bundle_sha256": "b7b0095a255bf761192e558e47988a71ea995edf2261bec32adf45bb4a61714d",
+  "sealed_before_execution": true,
+  "sealed_at_local": "2026-10-19T10:22:17+05:30",
+  "clean_after_run": true
+ },
+ "sealer_run": {
+  "command": "python -B witness.py --output sealer-output --host python -B host.py",
+  "executed_once": true,
+  "semantic_counts": {
+   "runs": 30,
+   "passed": 30,
+   "failed": 0
+  },
+  "declared_verdict": "30/30"
+ },
+ "maintainer_audit": {
+  "provider_evidence": "15 effect cells, 15 event logs; witness calls verify_effect_evidence. Present cells: create before observe. Retry cells: observe, then verifier-owned dispatch/create/receipt. Unknown cells: configured unavailable, then observe. Never-retry cells: dispatch then observe only, no ledger file (allowed by the clarified handoff).",
+  "integrity": "holdout HEAD and bundle digest match records; candidate unchanged; no untracked files in holdout"
+ },
+ "next": "An uninvolved REPRODUCER runs the sealed holdout in D:/phase6b-reproducer-c10-01; then Cairn maintainers audit the complete submission."
+}

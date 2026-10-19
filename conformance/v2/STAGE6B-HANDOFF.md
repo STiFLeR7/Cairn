@@ -1,6 +1,6 @@
 # Phase 6B external sealing and reproduction
 
-**State: `PINNED TO STAGE 6A CANDIDATE 10; AWAITING EXTERNAL SEALER; PHASE 6 BLOCKED / UNADMITTED`.**
+**State: `CANDIDATE 10 SEALED (HOLDOUT `5c82916c`, SEALER 30/30); AWAITING UNINVOLVED REPRODUCER; PHASE 6 BLOCKED / UNADMITTED`.**
 Candidate 10 passed the corrected v2 reference matrix (30/30), the source/evidence
 audit and the public real-provider preflight
 ([qualification record](../../results/phase-6/stage-6a-haiku-candidate-10/qualification.json)).
@@ -12,7 +12,10 @@ absent `provider-ledger.json` in dispatch-only cells as missing evidence
 be rerun or reproduced; a new seal requires a new holdout identity. The second
 candidate 10 seal (holdout `55b81a54`) is also spent: it ran 30/30, but its
 sealer declared FAIL because Python wrote an untracked `__pycache__/` into the
-holdout ([record](../../results/phase-6/stage6b-candidate-10-seal-02.json)). This document does not authorize a Cairn
+holdout ([record](../../results/phase-6/stage6b-candidate-10-seal-02.json)). The third
+seal (holdout `5c82916c`, bundle `b7b0095a…`) is the active seal: sealed before
+execution, 30/30, provider evidence verified
+([record](../../results/phase-6/stage6b-candidate-10-seal-03.json)). This document does not authorize a Cairn
 maintainer, the implementation author, or the session that evaluated candidate 10
 to act as the SEALER or REPRODUCER.
 
