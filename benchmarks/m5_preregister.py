@@ -7,17 +7,11 @@ import json
 import os
 import subprocess
 import sys
+from pathlib import Path
 from datetime import datetime, timezone
 
-FROZEN_FILES = [
-    "results/m5/protocol.json",
-    "src/cairn/eval/runner.py",
-    "src/cairn/eval/calibration.py",
-    "src/cairn/eval/scenario.py",
-    "src/cairn/model_live.py",
-    "benchmarks/scenarios.py",
-    "benchmarks/m5_study.py",
-]
+PROTOCOL = "results/m5/protocol.json"
+FROZEN_GLOBS = ["src/cairn/**/*.py", "benchmarks/*.py"]
 PREREG = "results/m5/preregistration.json"
 
 
@@ -26,8 +20,17 @@ def _sha(path: str) -> str:
         return hashlib.sha256(f.read()).hexdigest()
 
 
+def frozen_paths(root: str = ".") -> list[str]:
+    base = Path(root)
+    found = {p.relative_to(base).as_posix() for g in FROZEN_GLOBS for p in base.glob(g)
+             if p.is_file() and "__pycache__" not in p.parts}
+    if (base / PROTOCOL).is_file():
+        found.add(PROTOCOL)
+    return sorted(found)
+
+
 def snapshot(root: str = ".") -> dict:
-    return {rel: _sha(os.path.join(root, rel)) for rel in FROZEN_FILES}
+    return {rel: _sha(os.path.join(root, rel)) for rel in frozen_paths(root)}
 
 
 def write_preregistration(root: str = ".") -> dict:
@@ -53,12 +56,15 @@ def verify(root: str = ".") -> list[str]:
     with open(path, encoding="utf-8") as f:
         frozen = json.load(f)["files"]
     problems = []
-    for rel in FROZEN_FILES:
+    for rel, digest in sorted(frozen.items()):
         full = os.path.join(root, rel)
         if not os.path.exists(full):
             problems.append(f"{rel}: missing")
-        elif rel not in frozen or _sha(full) != frozen[rel]:
+        elif _sha(full) != digest:
             problems.append(f"{rel}: hash differs from preregistration")
+    for rel in frozen_paths(root):
+        if rel not in frozen:
+            problems.append(f"{rel}: not in preregistration")
     return problems
 
 

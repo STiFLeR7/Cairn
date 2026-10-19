@@ -22,7 +22,7 @@
 
 **Constraints:**
 - **Honest results** (ADR-0009) — negatives recorded, not buried; thresholds fixed before live data.
-- **Pre-registration guard** — the study runner refuses to run if any frozen file differs from its
+- **Pre-registration guard** — the study runner refuses to run if any frozen file (every `src/cairn/**/*.py` and `benchmarks/*.py` file plus `protocol.json`) differs from its
   pre-registered hash, and refuses to overwrite a prior record without `--force` (the old record is kept as
   `.superseded-<UTC>`).
 - **No hardcoded harness** (ADR-0007 / ADR-0010) — no changes to the chain task, baselines, harness or `TerminalWorld`.
