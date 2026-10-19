@@ -95,9 +95,10 @@ audit are both mandatory; neither substitutes for the other.
 
 ## Claim boundary
 
-A 30/30 v2 reference result is only Stage 6A evidence. Phase 6 remains
-unadmitted until a different sealer authors a post-freeze holdout and an
-uninvolved reproducer obtains the same verdict. Do not claim a standard,
+A 30/30 v2 reference result is only Stage 6A evidence. Phase 6 admission also
+requires a different sealer to author a post-freeze holdout and an uninvolved
+reproducer to obtain the same verdict. Phase 6 was admitted on 2026-10-19 on
+candidate 10 ([admission record](../../results/phase-6/phase6-admission.json)). Do not claim a standard,
 universal compatibility, native Cairn support, or exactly-once effects.
 
 Candidate 7’s recorded 30/30 Stage 6A reference execution is preserved, but it
@@ -161,6 +162,6 @@ candidate boundary while requiring real external-effect evidence.
 
 The corrected provider protocol itself is unchanged. Candidate 7’s first
 real-provider seal attempt is spent and invalid for admission; it must not be
-rerun. No new holdout may be authored until a fresh Stage 6A candidate passes
-the public reference matrix and real-provider preflight. Phase 6 remains
-**BLOCKED / UNADMITTED**.
+rerun. Candidate 10 later passed Stage 6A and was sealed and reproduced 30/30 under
+this protocol; Phase 6 is **ADMITTED** (2026-10-19,
+[admission record](../../results/phase-6/phase6-admission.json)).

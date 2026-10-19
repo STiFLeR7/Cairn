@@ -77,7 +77,7 @@ Cairn **complements** agent frameworks (OpenHands, LangGraph, custom harnesses) 
 
 ## Project status
 
-**Recovery proof ladder P1–P5: complete, narrowly. P6 is blocked and not admitted.** The existing BYOM library
+**Recovery proof ladder P1–P6: complete, narrowly.** The existing BYOM library
 remains 0.x and experimental. The evidence-backed claims are the three narrow contracts below, not a
 claim that Cairn makes arbitrary agents reliable or provides exactly-once external effects.
 
@@ -88,7 +88,7 @@ claim that Cairn makes arbitrary agents reliable or provides exactly-once extern
 | **P3 — external effects** | [Receipt/Reconciliation Contract v0](docs/design/receipt-reconciliation-contract-v0.md) | One deterministic create-once provider effect: 36 reference and 15 sealed-holdout cells; no duplicate or silent-loss cells. The holdout reused the provider/harness, so this is not independent-provider validation ([verdict](results/phase-3/p3-verdict.json)) |
 | **P4 — external host** | [Claude Code integration proof](docs/design/phase-4-claude-code-integration.md) | One Claude Code host/provider proof. V5 gives the shared-checkpoint/effect reference control; V6 adds a post-compaction causal negative and independently sealed generic U/R/C holdout ([admission verdict](results/phase-4/reconstitution-v6/verdict.json)). |
 | **P5 — second host portability** | Two-host portability evidence | Claude Code’s admitted P4 evidence and OpenHands SDK 1.42.1’s sealed reference plus independent holdout passed the same host-neutral recovery/effect criteria ([verdict](results/phase-5/two-host-portability-verdict.json)). This is deterministic two-host evidence, not universal compatibility or a standard. |
-| **P6 — independent conformance** | [candidate-7 defect record](results/phase-6/stage-6a-candidate-7-real-provider-defect.json); [candidate-8 failure record](results/phase-6/stage-6a-haiku-candidate-8-reference-failure.json) | Candidate 7’s historical 30/30 reference run and exact-state control remain preserved, but it failed the subsequent real-provider boundary. Fresh candidate 8 failed the public crash-boundary gate before provider testing. A later diagnostic candidate exposed and validated the correction of a provider/evaluator field-provenance contradiction; it is not Stage 6A evidence. Neither historical candidate is Stage 6A-capable. Another clean-room implementation is required before a new sealer/reproducer chain. P6 remains unadmitted. |
+| **P6 — independent conformance** | [Admission record](results/phase-6/phase6-admission.json) | Haiku-only clean-room candidate 10 passed the v2 reference matrix (30/30), source audit and real-provider preflight ([Stage 6A](results/phase-6/stage-6a-haiku-candidate-10/qualification.json)). A separate sealer ([seal 3](results/phase-6/stage6b-candidate-10-seal-03.json)) and an uninvolved reproducer ([reproduction](results/phase-6/stage6b-candidate-10-reproduction-01.json)) each obtained 30/30 with verified provider evidence. Admitted 2026-10-19. Candidates 7–9 and seals 1–2 are preserved as failed or spent. One external chain; not a standard. |
 
 P2 requires a fresh process without the original transcript and is conditioned on acquiring a clean,
 verified checkpoint. P3 requires re-observation before a retry and admits only the decision semantics
@@ -97,11 +97,11 @@ never-retry → escalate. Neither contract establishes broad live-model performa
 or general external-effect delivery. P4 admits one host integration only; it does not expand either v0
 contract. P5 adds only deterministic two-host portability evidence; it does not establish universal
 compatibility, a host-native Cairn integration, exactly-once delivery, or an ecosystem standard. P6
-has historical code-independent reference evidence, but no currently qualified independent
-implementation. Candidate 7 failed a real-provider preflight; candidate 8 then failed the required
-verifier-owned crash boundary. Neither attempt is admissible, and no Stage 6B seal exists for candidate
-8. Another fresh Stage 6A implementation, then a new real-provider seal and uninvolved reproduction,
-are required. That is not Phase 6 admission or an ecosystem standard.
+adds evidence that the Recovery Conformance Kit v2 semantics can be implemented independently: a
+Haiku-only clean-room host (candidate 10) passed Stage 6A, and a separate sealer and an uninvolved
+reproducer each obtained 30/30 on a post-freeze real-provider holdout. Candidates 7–9 and two spent
+seals are preserved as failed or spent. P6 is one passing external chain; it is not an ecosystem
+standard, universal compatibility, or exactly-once delivery.
 
 The journey so far:
 
@@ -112,8 +112,8 @@ The journey so far:
 | **M4** | Ship the recovery mechanism as a **BYOM library** so anyone can reproduce C1 on their own model | 🟢 **Complete** — mechanism shipped; stays 0.x |
 
 **Honest scope ([ADR-0009](docs/adr/ADR-0009-evaluation-framework.md)).** The legacy live C1 claim remains
-suggestive rather than confirmed. P1–P4 establish narrowly scoped recovery semantics and one external-host
-integration proof in the recorded
+suggestive rather than confirmed. P1–P6 establish narrowly scoped recovery semantics, one external-host
+integration proof, two-host portability and one independent implementation in the recorded
 reference and sealed-holdout experiments; they do not change the v1.0 or broad live-performance gate.
 See the [Roadmap](ROADMAP.md), [Master Checklist](CHECKLIST.md), and
 [claims registry](docs/research/claims-registry.md).

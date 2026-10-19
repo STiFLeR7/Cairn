@@ -1,6 +1,6 @@
 # Phase 6 external-authority handoff
 
-**State: `CANDIDATE 7 FAILED REAL-PROVIDER PREFLIGHT; PHASE 6 BLOCKED / UNADMITTED`.**
+**State: `HISTORICAL (v0)`. Candidate 7 failed the real-provider preflight. Phase 6 was later admitted on candidate 10 under kit v2 ([admission record](../../results/phase-6/phase6-admission.json)).**
 The frozen candidate and historical reference evidence are published at
 [`results/phase-6/stage-6a-haiku-candidate-7/`](../../results/phase-6/stage-6a-haiku-candidate-7/).
 The remaining procedure requires a genuinely separate SEALER and uninvolved
