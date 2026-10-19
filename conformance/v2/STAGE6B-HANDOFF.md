@@ -1,6 +1,6 @@
 # Phase 6B external sealing and reproduction
 
-**State: `CANDIDATE 10 SEALED AND REPRODUCED (30/30 + 30/30); AWAITING MAINTAINER AUDIT AND ADMISSION DECISION; PHASE 6 UNADMITTED`.**
+**State: `PHASE 6 ADMITTED (2026-10-19)`: candidate 10 sealed and reproduced 30/30 + 30/30; owner-approved maintainer audit ([admission record](../../results/phase-6/phase6-admission.json)). Do not reseal or rerun this chain.**
 Candidate 10 passed the corrected v2 reference matrix (30/30), the source/evidence
 audit and the public real-provider preflight
 ([qualification record](../../results/phase-6/stage-6a-haiku-candidate-10/qualification.json)).

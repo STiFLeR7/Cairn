@@ -2,6 +2,15 @@
 
 ## Unreleased
 
+- **Phase 6 admitted (2026-10-19):** Haiku-only clean-room candidate 10
+  (`3dae0273`) passed Stage 6A (v2 reference 30/30, source audit, real-provider
+  preflight). Stage 6B seal 3 (holdout `5c82916c`) passed 30/30 and an
+  uninvolved reproducer matched it 30/30 with verified provider evidence. The
+  Stage 6B handoff was clarified on ledger evidence for dispatch-only cells and
+  now runs the witness with `python -B`; candidates 7–9 and seals 1–2 are
+  preserved as failed or spent. This admits independent implementability only;
+  it does not change the v1.0 hold.
+
 - **Phase 6B provider/evaluator consistency:** the public preflight now exposes
   the complete verifier-owned, ledger-derived provider observation required by
   its evaluator, including explicit absent/unknown null semantics. The

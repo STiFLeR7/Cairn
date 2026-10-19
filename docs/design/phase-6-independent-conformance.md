@@ -240,12 +240,10 @@ observation that the witness never exercises
 Candidate 10, a fresh Haiku-only clean-room implementation built from the same
 neutral prompt with no information from earlier candidates, passed the corrected
 reference matrix (30/30), the source/evidence audit, and the real-provider
-preflight. It is the frozen candidate qualified for Stage 6B
-([qualification record](../../results/phase-6/stage-6a-haiku-candidate-10/qualification.json)).
-
-The next action is for a separate SEALER to receive the frozen candidate 10
-bundle and author a new, fully specified post-freeze holdout under a newly
-pinned Stage 6B handoff without modifying the implementation, and for an
-uninvolved REPRODUCER to execute that sealed input in a fresh environment.
-Any implementation change invalidates the Stage 6A freeze and requires a new
-candidate identity.
+preflight ([qualification record](../../results/phase-6/stage-6a-haiku-candidate-10/qualification.json)).
+Two Stage 6B seals were spent on procedure gaps (ledger evidence rule; untracked
+bytecode cache). The third seal passed 30/30, an uninvolved reproducer matched it
+30/30, and the owner approved the maintainer audit. **Phase 6 was admitted on
+2026-10-19** ([admission record](../../results/phase-6/phase6-admission.json)).
+One passing external chain is evidence of independent implementability, not an
+ecosystem standard or universal compatibility.

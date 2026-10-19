@@ -1,0 +1,31 @@
+{
+ "schema_version": "cairn.phase6.admission.v1",
+ "phase": "P6 — independent ecosystem conformance",
+ "decision": "ADMITTED",
+ "decided_on": "2026-10-19",
+ "decided_by": "repository owner (STiFLeR7), approving the maintainer audit",
+ "chain": {
+  "stage6a": "results/phase-6/stage-6a-haiku-candidate-10/qualification.json",
+  "stage6b_seal": "results/phase-6/stage6b-candidate-10-seal-03.json",
+  "stage6b_reproduction": "results/phase-6/stage6b-candidate-10-reproduction-01.json",
+  "candidate_commit": "3dae0273856fab4295f15e3bf27daafbea5c59cc",
+  "holdout_commit": "5c82916c23df23a152ac0f8cc7eb27042040a1b3",
+  "counts": {
+   "sealer": "30/30",
+   "reproducer": "30/30"
+  }
+ },
+ "preserved_failures": [
+  "stage-6a-candidate-7-real-provider-defect.json",
+  "stage-6a-haiku-candidate-8-reference-failure.json",
+  "stage-6a-haiku-candidate-9-audit-failure.json",
+  "stage6b-candidate-10-seal-01.json",
+  "stage6b-candidate-10-seal-02.json"
+ ],
+ "provenance_notes_accepted": [
+  "Implementer was a Haiku subagent launched by the maintainer-evaluator session with a neutral prompt in an isolated workspace.",
+  "Sealer and reproducer were distinct Codex CLI sessions of the same tool and model.",
+  "The handoff was clarified twice (ledger evidence rule; python -B and mutation definition) before the counting seal."
+ ],
+ "claim_boundary": "Evidence of independent implementability of the Recovery Conformance Kit v2 semantics. Not an ecosystem standard, universal compatibility, native Cairn support, or exactly-once effects. Does not lift the v1.0 hold."
+}
