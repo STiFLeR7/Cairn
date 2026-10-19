@@ -392,7 +392,8 @@ def _codex_fake(reply: str | None, *, returncode: int = 0, stderr: str = "model:
     return fake_run, captured
 
 
-def test_codex_cli_transport_is_sandboxed_and_returns_reply():
+def test_codex_cli_transport_is_sandboxed_and_returns_reply(monkeypatch):
+    monkeypatch.setattr("cairn.model_live.shutil.which", lambda c: None)
     fake_run, captured = _codex_fake('{"action": "python", "code": "print(1)"}')
     transport = codex_cli_transport(run=fake_run)
     assert transport("prompt") == '{"action": "python", "code": "print(1)"}'
@@ -406,13 +407,24 @@ def test_codex_cli_transport_is_sandboxed_and_returns_reply():
     assert transport.observed_models == {"gpt-test"}
 
 
-def test_codex_cli_transport_passes_model():
+def test_codex_cli_transport_passes_model(monkeypatch):
+    monkeypatch.setattr("cairn.model_live.shutil.which", lambda c: None)
     fake_run, captured = _codex_fake('{"action": "python", "code": "x"}')
     codex_cli_transport(model="gpt-x", run=fake_run)("p")
     assert captured["args"][captured["args"].index("-m") + 1] == "gpt-x"
 
 
-def test_codex_cli_transport_errors_are_config_errors():
+def test_codex_cli_transport_resolves_windows_shim(monkeypatch):
+    shim = r"C:\npm\codex.cmd"
+    monkeypatch.setattr("cairn.model_live.shutil.which", lambda c: shim)
+    fake_run, captured = _codex_fake('{"action": "python", "code": "x"}')
+    codex_cli_transport(run=fake_run)("p")
+    assert captured["args"][0] == shim
+    assert captured["kwargs"]["encoding"] == "utf-8"
+
+
+def test_codex_cli_transport_errors_are_config_errors(monkeypatch):
+    monkeypatch.setattr("cairn.model_live.shutil.which", lambda c: None)
     for reply, code in [(None, 0), ("   ", 0), ('{"action": "python", "code": "x"}', 2)]:
         fake_run, _ = _codex_fake(reply, returncode=code)
         with pytest.raises(LiveModelConfigError):

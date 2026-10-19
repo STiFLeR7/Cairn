@@ -336,13 +336,5 @@ def build_live_transport(
     if max_calls is not None or max_chars is not None:
         transport = Budget(max_calls=max_calls, max_chars=max_chars).wrap(transport)
     if hasattr(base, "observed_models"):
-        try:
-            transport.observed_models = base.observed_models  # type: ignore[attr-defined]
-        except AttributeError:
-            inner = transport
-
-            def transport(prompt: str) -> str:
-                return inner(prompt)
-
-            transport.observed_models = base.observed_models  # type: ignore[attr-defined]
+        transport.observed_models = base.observed_models  # type: ignore[attr-defined]
     return transport

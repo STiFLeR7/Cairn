@@ -20,6 +20,7 @@ from __future__ import annotations
 import os
 import re
 import json
+import shutil
 import subprocess
 import tempfile
 from typing import Callable, Optional
@@ -270,14 +271,14 @@ def codex_cli_transport(
             reply_path = os.path.join(tmp, "reply.txt")
             with open(schema, "w", encoding="utf-8") as f:
                 f.write(CLAUDE_CODE_SCHEMA)
-            args = [command, "exec", "--ephemeral", "--skip-git-repo-check", "-s", "read-only",
+            args = [shutil.which(command) or command, "exec", "--ephemeral", "--skip-git-repo-check", "-s", "read-only",
                     "-C", tmp, "--output-schema", schema, "-o", reply_path, "--color", "never"]
             if model:
                 args += ["-m", model]
             args.append("-")
             try:
                 result = runner(args, input=f"{CLAUDE_CODE_SYSTEM}\n\n{prompt}", capture_output=True,
-                                text=True, timeout=timeout, check=False)
+                                text=True, encoding="utf-8", timeout=timeout, check=False)
             except FileNotFoundError as exc:
                 raise LiveModelConfigError(f"Codex command not found: {command}") from exc
             except subprocess.TimeoutExpired as exc:
