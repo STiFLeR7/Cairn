@@ -559,3 +559,36 @@ def test_claude_code_transport_records_observed_models():
     assert transport.observed_models == set()
     transport("p")
     assert transport.observed_models == {"claude-sonnet-x"}
+
+
+def test_build_live_transport_pins_codex_reasoning_effort_only_when_given(monkeypatch):
+    import benchmarks.scenarios as scenarios
+    from benchmarks.scenarios import build_live_transport
+
+    captured = []
+    monkeypatch.setattr(scenarios, "codex_cli_transport",
+                        lambda **kwargs: captured.append(kwargs) or (lambda _prompt: "TASK_COMPLETE"))
+    monkeypatch.setattr(scenarios, "claude_code_transport",
+                        lambda **kwargs: captured.append(kwargs) or (lambda _prompt: "TASK_COMPLETE"))
+    build_live_transport("gpt-6-sol", provider="codex_cli", reasoning_effort="medium")
+    build_live_transport("sonnet", provider="claude_code", reasoning_effort="medium")
+    assert captured == [{"model": "gpt-6-sol", "reasoning_effort": "medium"}, {"model": "sonnet"}]
+
+
+def test_build_live_transport_counts_base_calls_and_errors(monkeypatch):
+    import benchmarks.scenarios as scenarios
+    from benchmarks.scenarios import build_live_transport
+
+    replies = iter([RuntimeError("429 rate limit"), "TASK_COMPLETE"])
+
+    def base(_prompt):
+        r = next(replies)
+        if isinstance(r, Exception):
+            raise r
+        return r
+
+    monkeypatch.setattr(scenarios, "claude_code_transport", lambda **kwargs: base)
+    t = build_live_transport("sonnet", provider="claude_code", max_calls=10)
+    assert t.call_stats == {"calls": 0, "errors": 0}
+    assert t("p") == "TASK_COMPLETE"
+    assert t.call_stats == {"calls": 2, "errors": 1}  # the retried attempt is counted
