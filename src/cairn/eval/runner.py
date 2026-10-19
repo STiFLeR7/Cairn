@@ -261,7 +261,7 @@ def verdict_c1_capability(summary: dict, calibration_rate: float) -> dict:
                 "reason": "B0 never completed the recovery, so it has no cost-of-recovery to compare (AP-0048)"}
     b3_rate, b0_rate = b3["task_success"].mean, b0["task_success"].mean
     checks = {
-        "b3_within_capability": b3_rate >= calibration_rate - CAPABILITY_MARGIN,
+        "b3_within_capability": b3_rate >= round(calibration_rate - CAPABILITY_MARGIN, 9),
         "b3_at_least_b0_success": b3_rate >= b0_rate,
         "tax_no_overlap": b3["recovery_tax"].max < b0["recovery_tax"].min,
         "no_regression_at_least_b0": b3["no_regression"].mean >= b0["no_regression"].mean,

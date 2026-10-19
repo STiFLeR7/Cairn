@@ -60,3 +60,9 @@ def test_gate_outcomes():
     assert verdict_v1_gate({"claude": _model(lost=4), "codex": _model()})["decision"] == "INCONCLUSIVE"  # 12.5% > 10%
     assert verdict_v1_gate({"claude": _model(lost=3), "codex": _model()})["decision"] == "GO"  # 9.4%
     assert verdict_v1_gate({"claude": _model()})["decision"] == "INCONCLUSIVE"  # both models required
+
+
+def test_c1_capability_margin_boundary_is_inclusive_despite_float_error():
+    # 0.8 - 0.10 == 0.7000000000000001 in binary floating point; B3 at exactly 0.7 must pass.
+    v = verdict_c1_capability(summary(b3_succ=0.7, b0_succ=0.5), calibration_rate=0.8)
+    assert v["checks"]["b3_within_capability"] is True
