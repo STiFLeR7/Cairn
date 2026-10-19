@@ -51,7 +51,7 @@ def test_stage6b_handoff_pinned_candidate_and_ancestry_inputs_resolve():
     candidate_tree = re.search(r"\| Candidate tree \| `([0-9a-f]{40})` \|", text)
     floor = re.search(r"\| Cairn ancestry floor \| `([0-9a-f]{40})` \|", text)
     assert candidate_digest and candidate_commit and candidate_tree and floor
-    bundle = ROOT / "results" / "phase-6" / "stage-6a-haiku-candidate-7" / "candidate.bundle"
+    bundle = ROOT / "results" / "phase-6" / "stage-6a-haiku-candidate-10" / "candidate.bundle"
     assert hashlib.sha256(bundle.read_bytes()).hexdigest() == candidate_digest.group(1)
     assert subprocess.run(
         ["git", "merge-base", "--is-ancestor", floor.group(1), "HEAD"], cwd=ROOT,
