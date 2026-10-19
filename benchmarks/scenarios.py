@@ -228,6 +228,20 @@ def live_chain_scenario(
     )
 
 
+def live_chain_effect_scenario(
+    n: int, k: int, transport: Optional[Transport] = None, *, version: str = "live-fake",
+) -> Scenario:
+    """M5: the live chain task with a `send-report` effect torn by the crash at step `k`.
+
+    `run_until_failure` tears the effect only when `effect.at_step == k`, so a study runs one of
+    these per crash step. Every cell then scores C1 (recovery) and C3 (duplicates) together.
+    """
+    base = live_chain_scenario(n, transport, version=version)
+    base.name = f"live-chain-effect-{n}@{k}"
+    base.effect = EffectSpec(key="send-report", at_step=k)
+    return base
+
+
 def live_multi_file_scenario(
     n: int = 4, transport: Optional[Transport] = None, *, version: str = "live-fake", prefix: str = "step"
 ) -> Scenario:
