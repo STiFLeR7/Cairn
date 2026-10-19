@@ -1,0 +1,38 @@
+{
+ "schema_version": "cairn.phase6.stage6b-reproduction-record.v1",
+ "status": "REPRODUCED 30/30; AWAITING MAINTAINER AUDIT AND ADMISSION DECISION",
+ "phase6_status": "UNADMITTED",
+ "inputs": {
+  "candidate_bundle_sha256": "e5904e6f7502c171cd5bc8d027dec04eeb1206915e34f29a8201c4098c994bbf",
+  "candidate_commit": "3dae0273856fab4295f15e3bf27daafbea5c59cc",
+  "candidate_tree": "9912b5c977ee6e5ef07ecf741f2ff980721f66da",
+  "holdout_bundle_sha256": "b7b0095a255bf761192e558e47988a71ea995edf2261bec32adf45bb4a61714d",
+  "holdout_commit": "5c82916c23df23a152ac0f8cc7eb27042040a1b3",
+  "holdout_tree": "852b4aad1252952e7f3d89e617abd2703fd162ce",
+  "seal": "stage6b-candidate-10-seal-03.json"
+ },
+ "reproducer": {
+  "tool": "Codex CLI 0.162.1 (fresh session, distinct from the sealer session)",
+  "run_root": "D:/phase6b-reproducer-c10-01",
+  "prompt": "D:/phase6b-reproducer-c10-01/REPRODUCER-PROMPT.txt",
+  "inputs_received": "immutable copies of both bundles, digests, sealer custody record; procedure fetched from the public handoff",
+  "isolation": "prompt forbade reading D:/project-unknown, D:/phase6a-* and D:/phase6b-sealer-*; session log shows sealer paths only as text inside the custody record"
+ },
+ "reproducer_run": {
+  "command": "python -B holdout/witness.py --output reproducer-output --host python -B candidate/host.py",
+  "semantic_counts": {
+   "runs": 30,
+   "passed": 30,
+   "failed": 0
+  },
+  "matches_sealer": true,
+  "provider_evidence": "all 15 effect cells verified (PID records, ledger/event hashes, observe events, resource/receipt identity, ordering); 12 state ledgers, 3 dispatch-only cells correctly without one",
+  "inputs_clean_after_run": true
+ },
+ "maintainer_audit_notes": [
+  "Reproducer flagged that the handoff understated the candidate tree; corrected (tree also holds .gitattributes and a byte-identical kit/ copy). Commit and tree hashes were always correct.",
+  "Sealer and reproducer were distinct sessions of the same tool and model (Codex CLI). The protocol requires distinct sessions; a different tool, model or person would strengthen provenance.",
+  "The implementer was a Haiku subagent launched by the maintainer-evaluator session with a neutral prompt; see stage-6a-haiku-candidate-10/qualification.json."
+ ],
+ "next": "Owner/maintainer reviews the complete submission and decides Phase 6 admission."
+}

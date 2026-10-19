@@ -1,6 +1,6 @@
 # Phase 6B external sealing and reproduction
 
-**State: `CANDIDATE 10 SEALED (HOLDOUT `5c82916c`, SEALER 30/30); AWAITING UNINVOLVED REPRODUCER; PHASE 6 BLOCKED / UNADMITTED`.**
+**State: `CANDIDATE 10 SEALED AND REPRODUCED (30/30 + 30/30); AWAITING MAINTAINER AUDIT AND ADMISSION DECISION; PHASE 6 UNADMITTED`.**
 Candidate 10 passed the corrected v2 reference matrix (30/30), the source/evidence
 audit and the public real-provider preflight
 ([qualification record](../../results/phase-6/stage-6a-haiku-candidate-10/qualification.json)).
@@ -15,7 +15,9 @@ sealer declared FAIL because Python wrote an untracked `__pycache__/` into the
 holdout ([record](../../results/phase-6/stage6b-candidate-10-seal-02.json)). The third
 seal (holdout `5c82916c`, bundle `b7b0095a…`) is the active seal: sealed before
 execution, 30/30, provider evidence verified
-([record](../../results/phase-6/stage6b-candidate-10-seal-03.json)). This document does not authorize a Cairn
+([record](../../results/phase-6/stage6b-candidate-10-seal-03.json)). An
+uninvolved reproducer obtained 30/30 with matching semantics and verified
+provider evidence ([record](../../results/phase-6/stage6b-candidate-10-reproduction-01.json)). This document does not authorize a Cairn
 maintainer, the implementation author, or the session that evaluated candidate 10
 to act as the SEALER or REPRODUCER.
 
@@ -34,8 +36,9 @@ to act as the SEALER or REPRODUCER.
 | Real-provider SHA-256 | `bdf552c81c3997bbe11fdbbf442c9a3bf72aad1238ab134fd5d315924668b43a` |
 | Stage 6A real-provider preflight SHA-256 | `db952db087f8f81556308e9735efabe0b7eb7fe5e76bf727a6b3449f4d19097a` |
 
-Candidate 10 ships no test suite and no copy of the kit; its frozen tree is `host.py`
-and `.gitignore`. The public kit inputs are pinned by the hashes above. The external SEALER authors a
+Candidate 10 ships no test suite. Its frozen tree contains `host.py`, `.gitignore`,
+`.gitattributes` and, from the implementer's input commit, a byte-identical copy of
+the public v2 kit under `kit/`. The public kit inputs are pinned by the hashes above. The external SEALER authors a
 new post-freeze witness from the public v2 protocol, and the REPRODUCER uses
 that sealed witness unchanged. Kit v2 has no separate `evaluate.py`: the
 verifier-owned witness produces and evaluates the evidence.
