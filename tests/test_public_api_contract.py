@@ -42,9 +42,6 @@ def test_every_public_name_is_importable():
         assert hasattr(cairn, name), f"cairn.{name} is in __all__ but not importable"
 
 
-def test_version_is_still_0x():
-    # Guards against an accidental/unapproved v1.0 bump — the v1.0 release is HELD
-    # (needs explicit approval + powered live evidence; the project stays 0.x).
-    assert cairn.__version__.startswith("0."), (
-        f"__version__ is {cairn.__version__!r}; v1.0+ requires explicit approval + live evidence"
-    )
+def test_version_is_1_0_0():
+    # v1.0.0 was approved by the owner on 2026-10-21 (AP-0036) after the M5 GO gate.
+    assert cairn.__version__ == "1.0.0"

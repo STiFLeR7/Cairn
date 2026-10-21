@@ -1,6 +1,15 @@
 # Changelog
 
-## Unreleased
+All notable changes to Cairn are recorded here. Format follows
+[Keep a Changelog](https://keepachangelog.com/); the project adheres to
+[Semantic Versioning](https://semver.org/) from `v1.0` onward.
+
+Per the [documentation policy](docs/governance/documentation-policy.md), every meaningful change
+updates this file.
+
+## [Unreleased]
+
+## [1.0.0] — 2026-10-21 — v1.0: pre-registered live recovery gate (M5 GO) and P1–P6 proof ladder
 
 - **M5 v1.0 gate: GO (2026-10-21, AP-0056):** the pre-registered live study (commit
   `e1b4280`; Claude `claude-sonnet-5-5` and Codex `gpt-6-sol`, 32/32 cells each, 520 calls and 0 errors each)
@@ -28,15 +37,6 @@
   frozen diagnostic candidate `ad14c19`; it does not modify that candidate,
   admit Stage 6A/6B, alter Receipt/Reconciliation Contract v0, or create a
   holdout.
-
-All notable changes to Cairn are recorded here. Format follows
-[Keep a Changelog](https://keepachangelog.com/); the project adheres to
-[Semantic Versioning](https://semver.org/) from `v1.0` onward.
-
-Per the [documentation policy](docs/governance/documentation-policy.md), every meaningful change
-updates this file.
-
-## [Unreleased]
 
 ### Fixed
 - **Phase 6 candidate-7 real-provider defect:** the frozen clean-room

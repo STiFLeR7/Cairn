@@ -1,7 +1,7 @@
 # Action Point Index
 
 > Live rollup of all Action Points. **Phases 0–5** APs (AP-0001 … AP-0033) are committed and `Done`;
-> **Phase 6** (AP-0034 … AP-0037): AP-0034/0035 `Done`, AP-0036/0037 **Unblocked — awaiting owner approval** (M5 GO, 2026-10-21).
+> **Phase 6** (AP-0034 … AP-0037): AP-0034/0035 `Done`, AP-0036 `Done` (release prep; v1.0.0 approved 2026-10-21, tag + GitHub release by controller), AP-0037 **unblocked — awaiting owner approval** (M5 GO, 2026-10-21).
 > **Milestone M1** (AP-0038 … AP-0042) complete & merged (PR #7) 2026-06-16: all five `Done`; **outcome
 > NO-GO**; project stays 0.x, AP-0036/0037 stay `Blocked`. **Milestone M2** (AP-0043 … AP-0047) entered
 > 2026-06-16: **AP-0043…AP-0047 `Done` (M2 complete,
@@ -86,7 +86,7 @@
 |---|---|---|
 | [AP-0034](../phases/phase-6-paper-release/action-points/AP-0034-paper-draft.md) | Paper draft ("Checkpoints Are Compactions") | Done |
 | [AP-0035](../phases/phase-6-paper-release/action-points/AP-0035-reproducibility-package.md) | Reproducibility package & artifact polish | Done |
-| [AP-0036](../phases/phase-6-paper-release/action-points/AP-0036-v1-release.md) | v1.0 OSS release — *M5 GO (AP-0056, 2026-10-21); awaiting owner approval* | Unblocked — awaiting owner approval |
+| [AP-0036](../phases/phase-6-paper-release/action-points/AP-0036-v1-release.md) | v1.0 OSS release — *M5 GO (AP-0056); owner approved 2026-10-21; release prep done, tag + GitHub release executed by controller* | Done |
 | [AP-0037](../phases/phase-6-paper-release/action-points/AP-0037-public-positioning.md) | Public positioning / announcement — *M5 GO (AP-0056, 2026-10-21); awaiting owner approval* | Unblocked — awaiting owner approval |
 
 ## Milestone M1 — Live-LLM Validation *(committed — entered 2026-06-16)*

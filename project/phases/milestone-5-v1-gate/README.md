@@ -62,3 +62,7 @@ AP-0053 (verdicts)─┘
 ## Outcome
 
 **Decision: GO** for v1.0 (`results/m5/gate-verdict.json`: "C1 (capability-matched) and C3 supported on both models"). Details, numbers and honest scope: [AP-0056](action-points/AP-0056-v1-go-no-go-take4.md). AP-0036/0037 are Unblocked — awaiting owner approval; nothing has been tagged, released or announced.
+
+## Note: verifying after the v1.0 version bump
+
+The M5 pre-registration pins the code at `168a6e6`. After the v1.0 version bump, `python benchmarks/m5_preregister.py` at HEAD reports `src/cairn/__init__.py` as changed (`__version__` 0.3.0 → 1.0.0). This is expected; verify the M5 evidence at commit `e1b4280`.

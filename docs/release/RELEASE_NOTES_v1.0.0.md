@@ -1,53 +1,61 @@
-# Cairn v1.0.0 — release notes (DRAFT)
+# Cairn v1.0.0 — release notes
 
-> **Draft, pending approval.** This documents the intended `v1.0.0` release. The tag and GitHub release
-> are cut only on explicit human approval (AP-0036). On execution: bump `pyproject.toml` to `1.0.0`, set
-> `CITATION.cff` `version`/`date-released`, move the `CHANGELOG` `Unreleased` section under `v1.0.0`, tag
-> `v1.0.0`, and publish.
+Released 2026-10-21 (owner approval: AP-0036). Cairn is a framework-agnostic reference implementation and
+benchmark for recoverable long-horizon AI agents, built around the thesis **"Checkpoints Are Compactions."**
+v1.0.0 follows the pre-registered live recovery gate (M5), which returned **GO**.
 
-## Cairn v1.0.0 — Recoverable long-horizon agents
+## Highlights
 
-Cairn is a framework-agnostic **reference implementation and benchmark** for recoverable long-horizon AI
-agents, built around the thesis **"Checkpoints Are Compactions."** v1.0.0 is the first complete cut: the
-specification, a runnable reference harness with recovery, and a reproducible benchmark.
+- **BYOM recovery library (M4):** the Re-grounding Recovery (RGR) protocol as public functions over `World`,
+  `CheckpointStore` and `EffectLedger` seams, plus an opt-in `Agent` loop and reference implementations. You
+  bring your own agent loop, model and keys.
+- **P1–P6 proof ladder:** P1 crash/restart; P2 compaction continuity (Continuation Contract v0); P3 external
+  effects (Receipt/Reconciliation Contract v0); P4 Claude Code host integration; P5 two-host portability
+  (Claude Code and OpenHands SDK 1.42.1); **P6 independent conformance, admitted 2026-10-19** (Haiku-only
+  clean-room candidate 10: Stage 6A 30/30, sealed holdout 30/30, uninvolved reproducer 30/30).
+- **M5 v1.0 gate: GO** (pre-registered before any live call; commit `e1b4280`;
+  [`gate-verdict.json`](../../results/m5/gate-verdict.json): "C1 (capability-matched) and C3 supported on both
+  models"). Per model, Claude `claude-sonnet-5-5` and Codex `gpt-6-sol` returned identical numbers:
+  - calibration 10/10; 32/32 planned cells fired (B0 16, B3 16), 0 skipped, 0 lost; 520 calls, 0 errors;
+  - C1 (capability-matched): B3 success 1.00 vs B0 1.00; recovery tax B3 mean 4.50 ± 0.50 (max 5.00) vs B0
+    8.00 ± 0.00 (min 8.00); no-regression B3 0.42 vs B0 0.00;
+  - C3: 0 duplicate effects with B3 vs 16 with B0.
 
-### Highlights
+## Scope and limitations
 
-- **Continuation State** ("cairn") — a typed durable core (sufficient statistic) + prunable elastic tail.
-- **Re-grounding Recovery (RGR)** — resume by load → re-observe → reconcile → re-plan → continue, surviving
-  non-determinism where replay cannot.
-- **Effect-safety write-ahead ledger** — eliminates duplicate irreversible effects for queryable tools;
-  escalates the unqueryable ones.
-- **Unified distillation** — one mechanism for context compaction *and* checkpointing.
-- **Failure-injection benchmark** — four baselines (B0–B3), five fidelity axes, ablation, cross-version.
-- **No hardcoded harness** — model, tools, tasks, sandbox, storage, policies all injected (ADR-0007).
+Honest scope of the M5 result (claims registry, 2026-10-21):
 
-### Results (deterministic reference harness — see scope)
+1. Both models were fully competent on the task, so the capability-matched rule was never stressed.
+2. The chain task's oracle advances one step per call, so recovery cost in work units is determined by task
+   structure for a competent model. The evidence shows RGR's recovery mechanism cuts recovery tax (5 vs 8 work
+   units at most/least) and preserves pre-crash work with near-zero variance; it is not a broad
+   live-performance or model-robustness claim.
+3. C3's torn effect is injected by the harness at the crash step, so C3-live is "effect safety under live
+   control flow", not model-dependent evidence.
+4. C2, C4 and C5 remain reference-harness only.
+5. One task (chain n=6), crash steps 2 and 3, 8 repeats, two models.
+6. Not an ecosystem standard; not exactly-once delivery.
 
-- **C1 supported:** RGR beats cold restart (recovery tax 1.5 vs 5.0 steps; no-regression 1.0 vs 0.0).
-- **C3 supported:** write-ahead ledger → 0 duplicate effects (gate PASS) vs 1 without (gate FAIL).
-- **C5 supported:** ablation identifies `plan` as the minimal sufficient component (fidelity cliff).
-- **C2 evidenced**, **C4 mechanism shown** (cross-version provenance).
+P-ladder boundaries (README "Project status"):
 
-### Scope & honesty
+- No exactly-once delivery of external effects; P3 admits only the decision semantics proven for its reference
+  effect (absent → retry; matching present → skip; unknown, mismatch, never-retry → escalate).
+- Not an ecosystem standard and not universal compatibility; P4 admits one host integration, P5 deterministic
+  two-host portability, P6 one passing external chain.
+- P2 requires a fresh process and a clean, verified checkpoint; neither v0 contract establishes broad
+  live-model performance or a framework API.
+- C2, C4 and C5 are reference-harness evidence only.
 
-All v1.0.0 evidence is from a **deterministic scripted-mock harness**, establishing mechanism correctness
-and reproducibility — **not** a live-LLM study. A live-LLM empirical study with statistical testing, and
-faithfully-realized non-crash failure types, are the headline future work. See `PAPER.md` §9 and the
-[claims registry](../research/claims-registry.md).
+## Reproduce
 
-### Reproduce
+- M5 evidence: [`results/m5/`](../../results/m5/) (`preregistration.json`, `protocol.json`, `claude.json`,
+  `codex.json`, `gate-verdict.json`); design: the
+  [M5 spec](../superpowers/specs/2026-10-19-m5-v1-gate-design.md); re-run with `python benchmarks/m5_study.py`
+  (needs the `claude` and `codex` CLIs). The pre-registration pins code at `168a6e6`; verify the evidence at
+  commit `e1b4280`.
+- Reference harness: `python -m pytest -q`; see [`REPRODUCE.md`](../../REPRODUCE.md).
 
-```bash
-make all        # or: python -m pytest -q && python examples/recovery_demo.py && python benchmarks/recovery_matrix.py
-```
-See [`REPRODUCE.md`](../../REPRODUCE.md). 42 tests; deterministic.
-
-### Install / cite
+## Install / cite
 
 - Apache-2.0. Python 3.12+, no third-party runtime dependencies.
-- Cite via [`CITATION.cff`](../../CITATION.cff).
-
-### Acknowledgements
-
-Built in the open with rigorous AP/phase governance (Phases 0–6) and documentation-first discipline.
+- Cite via [`CITATION.cff`](../../CITATION.cff) (version 1.0.0, released 2026-10-21).

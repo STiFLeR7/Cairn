@@ -138,7 +138,7 @@ This P1–P6 ladder is separate from the legacy numbered phases below.
 
 - [x] `AP-0034` Paper draft ("Checkpoints Are Compactions")
 - [x] `AP-0035` Reproducibility package & artifact polish
-- [~] `AP-0036` v1.0 OSS release — *Unblocked — awaiting owner approval (M5 GO 2026-10-21; release notes ready)*
+- [x] `AP-0036` v1.0 OSS release — *Done (release prep 2026-10-21: v1.0.0 version/CHANGELOG/CITATION/release notes; approved by owner, tag + GitHub release executed by controller)*
 - [~] `AP-0037` Public positioning — *Unblocked — awaiting owner approval (M5 GO 2026-10-21; announcement drafted)*
 
 ## Phase 6 completion criteria
@@ -223,4 +223,4 @@ This P1–P6 ladder is separate from the legacy numbered phases below.
 - [x] Pre-registration written and committed before any live call
 - [x] Powered live run recorded for both models (calibration 10/10, 32/32 fired, 0 lost each)
 - [x] Recorded v1.0 go/no-go take 4 — **GO**; C1 (capability-matched) and C3 supported on both models, honestly scoped
-- [ ] v1.0 tag, release and announcement (AP-0036/0037) — **awaiting explicit owner approval**
+- [ ] v1.0 tag + GitHub release (AP-0036) — approved 2026-10-21 by owner; executed by controller. Announcement (AP-0037) — **awaiting explicit owner approval**

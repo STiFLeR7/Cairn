@@ -14,7 +14,7 @@
 | **3** | Minimal Harness | Build the substrate (no recovery yet) | 🟢 Complete | Minimal Code Harness + Runtime honoring the boundary contract; baseline tasks complete |
 | **4** | Recovery v1 (three pillars) | Unified distillation + re-grounding + effect-safety | 🟢 Complete | Agent recovers from injected failure end-to-end |
 | **5** | Evaluation & Benchmark | Failure-injection harness, baselines, ablations | 🟢 Complete | Results reproduce the headline claims |
-| **6** | Paper & Release | Write-up + reproducible OSS artifact | 🟢 Core done | Paper draft + reproducibility package merged. **v1.0 release & announcement deferred** to a future milestone (await a live-LLM study — current evidence is reference-harness only, ADR-0009). |
+| **6** | Paper & Release | Write-up + reproducible OSS artifact | 🟢 Release prep done | Paper draft + reproducibility package merged. **v1.0.0 release prep done 2026-10-21** (AP-0036; owner-approved, tag + GitHub release executed by controller). Announcement (AP-0037) unblocked — awaiting owner approval. |
 
 **Legend:** ⬜ Not started · 🟡 In Progress · 🟢 Complete · 🔴 Blocked
 
@@ -116,8 +116,8 @@ before that limitation can be removed.
 
 37 Action Points span the 7 phases; the post-phase milestones add **M1** (AP-0038 … AP-0042),
 **M2** (AP-0043 … AP-0047), and **M3** (AP-0048 … AP-0051), all `Done` and merged, plus **M5** (AP-0052 … AP-0056, `Done`). **Phases 0–5
-(AP-0001 … AP-0033) `Done`**; Phase 6 AP-0034/0035 `Done`, AP-0036/0037 **Unblocked — awaiting owner approval**
-(M5 returned **GO** for v1.0 on 2026-10-21; no tag, release or announcement yet). **Milestone M4** ran on the superpowers spec→plan→execute workflow as
+(AP-0001 … AP-0033) `Done`**; Phase 6 AP-0034/0035/0036 `Done` (v1.0.0 release prep; owner approved 2026-10-21, tag + GitHub release executed by controller), AP-0037 **unblocked — awaiting owner approval**
+(M5 returned **GO** for v1.0 on 2026-10-21; no announcement yet). **Milestone M4** ran on the superpowers spec→plan→execute workflow as
 **five slices (AP-1 … AP-5)**, all merged (PRs #10/#11/#12), tracked in
 [`project/phases/milestone-4-byom-library/README.md`](project/phases/milestone-4-byom-library/README.md).
 Full list: [`project/tracking/ap-index.md`](project/tracking/ap-index.md).
