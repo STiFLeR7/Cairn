@@ -2,10 +2,10 @@
 id: AP-0054
 title: "Pre-registration: freeze protocol + verdict code before any live call"
 phase: milestone-5-v1-gate
-status: In progress
+status: Done
 owner: maintainers
 created: 2026-10-19
-updated: 2026-10-19
+updated: 2026-10-21
 depends_on: [AP-0052, AP-0053]
 related_docs: [docs/superpowers/specs/2026-10-19-m5-v1-gate-design.md, results/m5/protocol.json, benchmarks/m5_preregister.py]
 related_adrs: [ADR-0009]
@@ -34,8 +34,9 @@ pre-registration and invalidates earlier live data for the gate.
 - [x] `protocol.json` written with the spec values
 - [x] `verify` names every missing or mismatching file; line-ending churn counts as a change (tested)
 - [x] The freeze refuses uncommitted or untracked frozen bytes and refuses to overwrite without `--force` (tested)
-- [ ] `results/m5/preregistration.json` written, committed and pushed
+- [x] `results/m5/preregistration.json` written and committed (commit `e1b4280`, sha256 `226cc8866f2c…`, 92 source files + protocol at code commit `168a6e6`)
 
 ## Status / Log
 
 - 2026-10-19 — In progress. Tooling, protocol and guard done; freeze pending.
+- 2026-10-21 — Done. Freeze committed as `e1b4280` before any live call.

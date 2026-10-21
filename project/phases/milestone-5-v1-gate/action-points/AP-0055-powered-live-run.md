@@ -2,10 +2,10 @@
 id: AP-0055
 title: Powered live run (Claude, Codex)
 phase: milestone-5-v1-gate
-status: Not started
+status: Done
 owner: maintainers
 created: 2026-10-19
-updated: 2026-10-19
+updated: 2026-10-21
 depends_on: [AP-0054]
 related_docs: [docs/superpowers/specs/2026-10-19-m5-v1-gate-design.md, benchmarks/m5_study.py, results/m5/protocol.json]
 related_adrs: [ADR-0009]
@@ -31,6 +31,12 @@ consecutive errored units (e.g. a usage cap) pause the run, and `python benchmar
 
 ## Acceptance Criteria
 
-- [ ] Run refuses to start unless `verify` is clean
-- [ ] Both models calibrated; ineligibility recorded if it occurs
-- [ ] Study manifests and transcripts committed for both models
+- [x] Run refuses to start unless `verify` is clean
+- [x] Both models calibrated; ineligibility recorded if it occurs
+- [x] Study manifests and transcripts committed for both models
+
+## Status / Log
+
+- 2026-10-21 — Done. Claude (`claude-sonnet-5-5`, [`claude.json`](../../../../results/m5/claude.json)) and Codex
+  (`gpt-6-sol`, [`codex.json`](../../../../results/m5/codex.json)): calibration 10/10 each; 32/32 planned cells
+  fired (B0 16, B3 16), 0 skipped, 0 lost; 520 calls, 0 errors each.

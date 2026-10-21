@@ -23,7 +23,7 @@ This P1–P6 ladder is separate from the legacy numbered phases below.
 - [x] **Phase 3 — Minimal Harness** 🟢 *(complete & merged — PR #3; 13 tests passing)*
 - [x] **Phase 4 — Recovery v1 (three pillars)** 🟢 *(complete & merged — PR #4; 33 tests passing)*
 - [x] **Phase 5 — Evaluation & Benchmark** 🟢 *(complete & merged — PR #5; 42 tests passing)*
-- [x] **Phase 6 — Paper & Release** 🟢 *(core done & merged — PR #6: paper + repro; v1.0 release & announcement **deferred** to Milestone M1's go/no-go)*
+- [x] **Phase 6 — Paper & Release** 🟢 *(core done & merged — PR #6: paper + repro; v1.0 release & announcement **unblocked by M5's GO (2026-10-21) — awaiting owner approval**)*
 
 ## Milestones (post-7-phase)
 
@@ -31,6 +31,7 @@ This P1–P6 ladder is separate from the legacy numbered phases below.
 - [x] **Milestone M2 — Recovery-faithful live benchmark** 🟢 *(complete 2026-06-23; 5 / 5 APs; shipped as **v0.2.0**; **v1.0 go/no-go take 2 → NO-GO** — live C1 suggestive not confirmed, project stays 0.x)*
 - [x] **Milestone M3 — Powered live study (v1.0 gate)** 🟢 *(complete 2026-06-29; 4 / 4 APs; **v1.0 go/no-go take 3 → NO-GO** — strongest live signal yet (`gpt-oss-120b`, RGR ≈ halves recovery tax) but strict verdict confounded; project stays 0.x)*
 - [x] **Milestone M4 — BYOM Recovery Library** 🟢 *(complete & merged 2026-07-02, PRs #10/#11/#12; 5 / 5 slices AP-1…AP-5; recovery mechanism shipped as a bring-your-own-model library; in-repo, 0.x — ships nothing outward)*
+- [x] **Milestone M5 — v1.0 gate** 🟢 *(complete 2026-10-21; 5 / 5 APs AP-0052…AP-0056; **v1.0 go/no-go take 4 → GO** — C1 (capability-matched) and C3 supported on Claude `sonnet` and Codex `gpt-6-sol`; AP-0036/0037 unblocked, awaiting owner approval)*
 
 ## Phase 0 — Action Points
 
@@ -137,8 +138,8 @@ This P1–P6 ladder is separate from the legacy numbered phases below.
 
 - [x] `AP-0034` Paper draft ("Checkpoints Are Compactions")
 - [x] `AP-0035` Reproducibility package & artifact polish
-- [~] `AP-0036` v1.0 OSS release — *deferred to the v1.0 milestone (release notes ready)*
-- [~] `AP-0037` Public positioning — *deferred to the v1.0 milestone (announcement drafted)*
+- [~] `AP-0036` v1.0 OSS release — *Unblocked — awaiting owner approval (M5 GO 2026-10-21; release notes ready)*
+- [~] `AP-0037` Public positioning — *Unblocked — awaiting owner approval (M5 GO 2026-10-21; announcement drafted)*
 
 ## Phase 6 completion criteria
 
@@ -208,3 +209,18 @@ This P1–P6 ladder is separate from the legacy numbered phases below.
 - [x] The existing benchmark/eval runs unchanged on the new public API (regression guard green)
 - [x] A runnable, offline, deterministic example + guide + public API reference; example smoke-tested in CI
 - [x] Public surface locked by a contract test; `__version__` guarded at 0.x; ships nothing outward (v1.0 hold intact)
+
+## Milestone M5 — Action Points
+
+- [x] `AP-0052` `codex_cli_transport`: Codex as a no-tools response transport
+- [x] `AP-0053` Calibration run, capability-matched C1 verdict, live C3 verdict, gate verdict
+- [x] `AP-0054` Pre-registration — protocol + verdict code frozen before any live call (commit `e1b4280`)
+- [x] `AP-0055` Powered live run — Claude `sonnet` and Codex `gpt-6-sol`, 32/32 cells each, 0 lost
+- [x] `AP-0056` v1.0 go/no-go, take 4 — **GO** (AP-0036/0037 unblocked, awaiting owner approval)
+
+## Milestone M5 completion criteria
+
+- [x] Pre-registration written and committed before any live call
+- [x] Powered live run recorded for both models (calibration 10/10, 32/32 fired, 0 lost each)
+- [x] Recorded v1.0 go/no-go take 4 — **GO**; C1 (capability-matched) and C3 supported on both models, honestly scoped
+- [ ] v1.0 tag, release and announcement (AP-0036/0037) — **awaiting explicit owner approval**

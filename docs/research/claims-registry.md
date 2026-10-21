@@ -193,3 +193,29 @@ change a claim's *statement*, register a **new** claim that supersedes the old o
     Nemotron lost 2/3 repeats to 429). A **paid / higher-rate-limit, instruction-reliable model** is required
     to remove the rate-limit and model-competence confounds. C3/C2/C4/C5 still not wired live. **v1.0 stays
     held** — strongest live signal yet, still not a clean confirmation. Input to AP-0051 (go/no-go take 3).
+- 2026-10-21 — **Milestone M5 v1.0 gate (AP-0054…AP-0056): C1 (capability-matched) and C3 supported on both
+  models — decision GO** ([`gate-verdict.json`](../../results/m5/gate-verdict.json): "C1 (capability-matched)
+  and C3 supported on both models"). Pre-registered before any live call:
+  [`preregistration.json`](../../results/m5/preregistration.json) (commit `e1b4280`, sha256 `226cc8866f2c…`,
+  freezing 92 source files + [`protocol.json`](../../results/m5/protocol.json) at code commit `168a6e6`);
+  spec: [M5 design](../superpowers/specs/2026-10-19-m5-v1-gate-design.md).
+  - **Claude** (`claude-sonnet-5-5` via the `claude` CLI, effort low; [`claude.json`](../../results/m5/claude.json)):
+    calibration 10/10 (rate 1.00); 32/32 planned cells fired (B0 16, B3 16), 0 skipped, 0 lost; 520 calls, 0
+    errors. **C1-capability supported:** B3 success 1.00 vs B0 1.00; B3 recovery tax max 5.00 < B0 min 8.00 (B3
+    mean 4.50 ± 0.50, B0 8.00 ± 0.00); no-regression B3 0.42 vs B0 0.00. **C3 supported:** B3 0 duplicate
+    effects, B0 16. The older strict `verdict_c1` is also supported.
+  - **Codex** (`gpt-6-sol` via the `codex` CLI, isolated `CODEX_HOME`, effort medium;
+    [`codex.json`](../../results/m5/codex.json)): identical numbers to Claude on every metric above
+    (calibration 10/10, 32/32 fired, 0 lost, 520 calls and 0 errors, same tax / no-regression / duplicate
+    counts; strict C1 also supported). The runs are independent: 0 of 520 Codex replies are identical to
+    Claude's.
+  - **Honest scope.** (1) Both models were fully competent on the task, so the capability-matched rule was
+    never stressed. (2) The chain task's oracle advances one step per call, so recovery cost in work units is
+    determined by task structure for a competent model: the evidence shows RGR's recovery mechanism cuts
+    recovery tax (5 vs 8 work units at most/least) and preserves pre-crash work with near-zero variance, not a
+    broad live-performance or model-robustness claim. (3) C3's torn effect is injected by the harness at the
+    crash step, so C3-live is "effect safety under live control flow", not model-dependent evidence. (4)
+    C2/C4/C5 remain reference-harness only. (5) One task (chain n=6), crash steps 2 and 3, 8 repeats, two
+    models. (6) Not an ecosystem standard; not exactly-once delivery.
+  - **Consequence.** The v1.0 gate returns **GO**; AP-0036 (release) and AP-0037 (announcement) move from
+    `Blocked` to "Unblocked — awaiting owner approval". No tag, release or announcement is made by this entry.
