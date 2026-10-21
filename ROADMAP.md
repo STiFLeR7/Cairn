@@ -46,6 +46,7 @@ before that limitation can be removed.
 | **M2** | Recovery-faithful live benchmark | A non-batchable task + real-model metrics | 🟢 Complete (v0.2.0) | **NO-GO** for v1.0 — live run resolved the M1 blocker (crash fires, recovery exercised) and leans toward C1, but evidence is *suggestive, not confirmed* (n=2); stays 0.x |
 | **M3** | Powered live study (v1.0 gate) | Turn M2's *suggestive* signal into a *powered, confirmable* result | 🟢 Complete | **NO-GO** take 3 — strongest live signal yet (`gpt-oss-120b`, 28 fired cells: RGR ≈ halves recovery tax, higher success), but the strict verdict is confounded by free-tier limits + model competence; stays 0.x |
 | **M4** | BYOM Recovery Library | Ship the recovery *mechanism* as a bring-your-own-model library | 🟢 Complete | **Mechanism shipped** — public `checkpoint`/`recover` + opt-in `Agent` + `World` contracts + example/guide/CI; C1 now **user-reproducible** on their own model; in-repo, 0.x, ships nothing outward |
+| **M5** | v1.0 gate (powered, capability-matched live study) | Decide v1.0 with a pre-registered, capability-matched live study on two subscription-CLI models | 🟢 Complete | **GO** for v1.0 — C1 (capability-matched) and C3 supported on Claude `sonnet` and Codex `gpt-6-sol` (32/32 cells each, 0 lost); one chain task, two crash steps, 8 repeats; AP-0036/0037 unblocked, awaiting owner approval |
 
 > **Milestone M1 — Live-LLM Validation (complete 2026-06-16; outcome NO-GO).** M1 added real LLM providers
 > behind the model seam (injected, no hardcoding — ADR-0007/0010: Anthropic + a stdlib OpenRouter factory),
@@ -96,12 +97,27 @@ before that limitation can be removed.
 > intact, and C1 is **not** claimed as confirmed. See
 > [`project/phases/milestone-4-byom-library/README.md`](project/phases/milestone-4-byom-library/README.md).
 
+> **Milestone M5 — v1.0 gate (complete 2026-10-21; outcome GO).** M5 ran the live study M3 called for:
+> subscription CLIs (Claude Code `claude-sonnet-5-5`, Codex `gpt-6-sol`), per-model uncrashed calibration, a
+> **capability-matched** C1 verdict, and C3 (effect safety) wired into the live run. The protocol and verdict
+> code were **pre-registered** (commit `e1b4280`, 92 source files + `protocol.json` hashed) before any live
+> call. Both models calibrated 10/10 and fired 32/32 planned cells (520 calls, 0 errors, 0 lost). **Decision:
+> GO** (`results/m5/gate-verdict.json`): C1 (capability-matched) and C3 supported on both models — B3 success
+> 1.00 vs B0 1.00, B3 tax max 5.00 < B0 min 8.00, B3 0 duplicate effects vs B0 16. **Honest scope:** both models
+> were fully competent, so the capability-matched rule was never stressed; the chain oracle advances one step
+> per call, so this shows the recovery mechanism cutting recovery tax and preserving pre-crash work, not
+> broad live performance or model robustness; C3's torn effect is harness-injected; C2/C4/C5 remain
+> reference-harness only; one task, two crash steps, 8 repeats, two models; not an ecosystem standard, not
+> exactly-once delivery. **AP-0036/0037 are now Unblocked — awaiting owner approval**; no tag, release or
+> announcement has been made. See the [claims registry](docs/research/claims-registry.md) (2026-10-21) and
+> [`project/phases/milestone-5-v1-gate/README.md`](project/phases/milestone-5-v1-gate/README.md).
+
 ## AP distribution
 
 37 Action Points span the 7 phases; the post-phase milestones add **M1** (AP-0038 … AP-0042),
-**M2** (AP-0043 … AP-0047), and **M3** (AP-0048 … AP-0051), all `Done` and merged. **Phases 0–5
-(AP-0001 … AP-0033) `Done`**; Phase 6 AP-0034/0035 `Done`, AP-0036/0037 `Blocked` (gated on a *powered*
-live study — still held after M3). **Milestone M4** ran on the superpowers spec→plan→execute workflow as
+**M2** (AP-0043 … AP-0047), and **M3** (AP-0048 … AP-0051), all `Done` and merged, plus **M5** (AP-0052 … AP-0056, `Done`). **Phases 0–5
+(AP-0001 … AP-0033) `Done`**; Phase 6 AP-0034/0035 `Done`, AP-0036/0037 **Unblocked — awaiting owner approval**
+(M5 returned **GO** for v1.0 on 2026-10-21; no tag, release or announcement yet). **Milestone M4** ran on the superpowers spec→plan→execute workflow as
 **five slices (AP-1 … AP-5)**, all merged (PRs #10/#11/#12), tracked in
 [`project/phases/milestone-4-byom-library/README.md`](project/phases/milestone-4-byom-library/README.md).
 Full list: [`project/tracking/ap-index.md`](project/tracking/ap-index.md).

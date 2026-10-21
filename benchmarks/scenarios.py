@@ -19,6 +19,7 @@ from cairn.model_live import (
     Transport,
     anthropic_transport,
     claude_code_transport,
+    codex_cli_transport,
     openai_chat_transport,
 )
 from cairn.model_mock import ScriptableMockModel
@@ -227,6 +228,20 @@ def live_chain_scenario(
     )
 
 
+def live_chain_effect_scenario(
+    n: int, k: int, transport: Optional[Transport] = None, *, version: str = "live-fake",
+) -> Scenario:
+    """M5: the live chain task with a `send-report` effect torn by the crash at step `k`.
+
+    `run_until_failure` tears the effect only when `effect.at_step == k`, so a study runs one of
+    these per crash step. Every cell then scores C1 (recovery) and C3 (duplicates) together.
+    """
+    base = live_chain_scenario(n, transport, version=version)
+    base.name = f"live-chain-effect-{n}@{k}"
+    base.effect = EffectSpec(key="send-report", at_step=k)
+    return base
+
+
 def live_multi_file_scenario(
     n: int = 4, transport: Optional[Transport] = None, *, version: str = "live-fake", prefix: str = "step"
 ) -> Scenario:
@@ -295,6 +310,8 @@ def build_live_transport(
     max_calls: Optional[int] = None,
     max_chars: Optional[int] = None,
     max_tokens: int = 2048,
+    reasoning_effort: Optional[str] = None,
+    transcript_append: bool = False,
 ) -> Transport:
     """Construct the REAL transport for a live run (AP-0040/AP-0049, **GATED**).
 
@@ -306,9 +323,16 @@ def build_live_transport(
     :class:`Budget` ceiling (so it cannot run away on cost). Calling this without a key raises
     ``LiveModelConfigError`` — the live path is wired but **inert** until explicitly enabled with a
     key and an approved spend.
+
+    ``reasoning_effort`` pins Codex's reasoning effort (``codex_cli`` only; other providers ignore
+    it). The final transport carries ``call_stats = {"calls", "errors"}`` counted at the BASE
+    transport, so every retried attempt and every raised error is visible in the record.
     """
     if provider == "claude_code":
         transport = claude_code_transport(model=model)
+    elif provider == "codex_cli":
+        kw = {"reasoning_effort": reasoning_effort} if reasoning_effort else {}
+        transport = codex_cli_transport(model=None if model in ("", "default") else model, **kw)
     elif provider == "anthropic":
         kw = {"api_key_env": api_key_env} if api_key_env else {}
         transport = anthropic_transport(model=model, max_tokens=max_tokens, **kw)
@@ -324,11 +348,25 @@ def build_live_transport(
             max_tokens=max_tokens,
         )
     else:
-        known = ", ".join(["claude_code", "anthropic", *OPENAI_COMPATIBLE_PROVIDERS])
+        known = ", ".join(["claude_code", "codex_cli", "anthropic", *OPENAI_COMPATIBLE_PROVIDERS])
         raise ValueError(f"unknown provider {provider!r} (expected one of: {known})")
-    transport = retrying(transport)  # innermost: tolerate transient provider 429/5xx/"error" hiccups
+    base = transport
+    call_stats = {"calls": 0, "errors": 0}
+
+    def counted(prompt: str) -> str:
+        call_stats["calls"] += 1
+        try:
+            return base(prompt)
+        except Exception:
+            call_stats["errors"] += 1
+            raise
+
+    transport = retrying(counted)  # innermost: tolerate transient provider 429/5xx/"error" hiccups
     if transcript_path:
-        transport = record_to(transport, transcript_path, model_version=model)
+        transport = record_to(transport, transcript_path, model_version=model, append=transcript_append)
     if max_calls is not None or max_chars is not None:
         transport = Budget(max_calls=max_calls, max_chars=max_chars).wrap(transport)
+    if hasattr(base, "observed_models"):
+        transport.observed_models = base.observed_models  # type: ignore[attr-defined]
+    transport.call_stats = call_stats  # type: ignore[attr-defined]
     return transport

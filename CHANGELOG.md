@@ -2,6 +2,14 @@
 
 ## Unreleased
 
+- **M5 v1.0 gate: GO (2026-10-21, AP-0056):** the pre-registered live study (commit
+  `e1b4280`; Claude `claude-sonnet-5-5` and Codex `gpt-6-sol`, 32/32 cells each, 520 calls and 0 errors each)
+  supports C1 (capability-matched) and C3 on both models (`results/m5/gate-verdict.json`): B3 success 1.00 vs
+  B0 1.00, B3 recovery tax max 5.00 < B0 min 8.00, B3 0 duplicate effects vs B0 16. Scope is narrow: both models
+  were fully competent, the chain oracle advances one step per call, C3's torn effect is harness-injected,
+  C2/C4/C5 stay reference-harness only, one task and two models; not an ecosystem standard or exactly-once
+  delivery. AP-0036/0037 move to "Unblocked — awaiting owner approval"; no tag, release or announcement made.
+
 - **Phase 6 admitted (2026-10-19):** Haiku-only clean-room candidate 10
   (`3dae0273`) passed Stage 6A (v2 reference 30/30, source audit, real-provider
   preflight). Stage 6B seal 3 (holdout `5c82916c`) passed 30/30 and an

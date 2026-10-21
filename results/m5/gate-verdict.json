@@ -1,0 +1,41 @@
+{
+  "decision": "GO",
+  "reason": "C1 (capability-matched) and C3 supported on both models",
+  "models": {
+    "claude": {
+      "accounting": {
+        "planned": 32,
+        "fired": 32,
+        "skipped": 0,
+        "lost": 0,
+        "balanced": true
+      },
+      "skipped_cells": 0,
+      "call_stats": {
+        "calls": 520,
+        "errors": 0
+      },
+      "observed_models": [
+        "claude-sonnet-5-5"
+      ]
+    },
+    "codex": {
+      "accounting": {
+        "planned": 32,
+        "fired": 32,
+        "skipped": 0,
+        "lost": 0,
+        "balanced": true
+      },
+      "skipped_cells": 0,
+      "call_stats": {
+        "calls": 520,
+        "errors": 0
+      },
+      "observed_models": [
+        "gpt-6-sol"
+      ]
+    }
+  },
+  "superseded_files": []
+}

@@ -1,0 +1,18 @@
+{
+  "milestone": "M5 v1.0 gate",
+  "spec": "docs/superpowers/specs/2026-10-19-m5-v1-gate-design.md",
+  "models": {
+    "claude": {"provider": "claude_code", "model": "sonnet", "effort": "low"},
+    "codex": {"provider": "codex_cli", "model": "gpt-6-sol", "reasoning_effort": "medium", "isolated_codex_home": true}
+  },
+  "task": "live chain", "n": 6, "steps": [2, 3], "repeats": 8,
+  "baselines": ["B0 ColdRestart", "B3 RGR"],
+  "effect": {"key": "send-report", "torn_at": "crash step"},
+  "calibration_runs": 10,
+  "eligibility": {"min_calibration_rate": 0.80, "min_completed_runs": 9},
+  "c1_capability": {"margin": 0.10, "b3_at_least_b0_success": true, "tax": "B3.max < B0.min (success-conditioned)", "no_regression": "B3.mean >= B0.mean", "b0_min_successes": 1},
+  "c3_live": {"b3_duplicates": 0, "b0_min_duplicates": 1},
+  "gate": {"max_lost_fraction": 0.10, "go": "C1 and C3 supported on both models"},
+  "max_calls": 2500,
+  "resume": "per-unit checkpoints; errored/missing units re-attempted; prior errors kept"
+}

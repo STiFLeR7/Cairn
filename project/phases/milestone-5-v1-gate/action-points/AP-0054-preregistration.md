@@ -1,0 +1,42 @@
+---
+id: AP-0054
+title: "Pre-registration: freeze protocol + verdict code before any live call"
+phase: milestone-5-v1-gate
+status: Done
+owner: maintainers
+created: 2026-10-19
+updated: 2026-10-21
+depends_on: [AP-0052, AP-0053]
+related_docs: [docs/superpowers/specs/2026-10-19-m5-v1-gate-design.md, results/m5/protocol.json, benchmarks/m5_preregister.py]
+related_adrs: [ADR-0009]
+---
+
+## Objective
+
+Fix the protocol and verdict code before any live data exists, so the GO / NO-GO / INCONCLUSIVE outcome
+cannot be tuned after the fact.
+
+## Scope
+
+**In:** `results/m5/protocol.json` (models, R_cal, eligibility, n, crash steps, repeats, baselines,
+effect, all thresholds, loss threshold); `benchmarks/m5_preregister.py` (`snapshot`,
+`write_preregistration`, `verify`) hashing every `src/cairn/**/*.py` and `benchmarks/*.py` file plus `results/m5/protocol.json` with SHA-256 (a file added after the freeze is also reported);
+the guard in `m5_study.py`. `write_preregistration` refuses if a frozen path is untracked or differs from
+its `HEAD` bytes, and refuses to overwrite an existing preregistration without `write --force` (the old one
+is kept as `.superseded-<UTC>`). `preregistration_digest()` is stored in every live record and checked by
+the gate. The freeze (`python benchmarks/m5_preregister.py write`) is committed and
+pushed before AP-0055 starts. Thresholds are never changed after live data is seen; a change needs a new
+pre-registration and invalidates earlier live data for the gate.
+**Out:** the live run.
+
+## Acceptance Criteria
+
+- [x] `protocol.json` written with the spec values
+- [x] `verify` names every missing or mismatching file; line-ending churn counts as a change (tested)
+- [x] The freeze refuses uncommitted or untracked frozen bytes and refuses to overwrite without `--force` (tested)
+- [x] `results/m5/preregistration.json` written and committed (commit `e1b4280`, sha256 `226cc8866f2c…`, 92 source files + protocol at code commit `168a6e6`)
+
+## Status / Log
+
+- 2026-10-19 — In progress. Tooling, protocol and guard done; freeze pending.
+- 2026-10-21 — Done. Freeze committed as `e1b4280` before any live call.

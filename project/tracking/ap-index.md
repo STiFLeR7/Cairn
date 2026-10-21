@@ -1,7 +1,7 @@
 # Action Point Index
 
 > Live rollup of all Action Points. **Phases 0–5** APs (AP-0001 … AP-0033) are committed and `Done`;
-> **Phase 6** (AP-0034 … AP-0037): AP-0034/0035 `Done`, AP-0036/0037 `Blocked` (deferred to M1's go/no-go).
+> **Phase 6** (AP-0034 … AP-0037): AP-0034/0035 `Done`, AP-0036/0037 **Unblocked — awaiting owner approval** (M5 GO, 2026-10-21).
 > **Milestone M1** (AP-0038 … AP-0042) complete & merged (PR #7) 2026-06-16: all five `Done`; **outcome
 > NO-GO**; project stays 0.x, AP-0036/0037 stay `Blocked`. **Milestone M2** (AP-0043 … AP-0047) entered
 > 2026-06-16: **AP-0043…AP-0047 `Done` (M2 complete,
@@ -11,7 +11,9 @@
 > **Milestone M4** (BYOM recovery library) complete & merged 2026-07-02 as **five superpowers slices
 > (AP-1 … AP-5)**, in-repo 0.x — ships nothing outward; the recovery mechanism as a bring-your-own-model
 > library; C1 **not** confirmed (user-reproducible).
-> Last updated: 2026-07-02.
+> **Milestone M5** (AP-0052 … AP-0056) complete 2026-10-21: **v1.0 go/no-go take 4 → GO**; AP-0036/0037
+> Unblocked — awaiting owner approval (nothing tagged, released or announced).
+> Last updated: 2026-10-21.
 
 **Status values:** Proposed · Accepted · In Progress · In Review · Done · Blocked · Superseded
 
@@ -84,8 +86,8 @@
 |---|---|---|
 | [AP-0034](../phases/phase-6-paper-release/action-points/AP-0034-paper-draft.md) | Paper draft ("Checkpoints Are Compactions") | Done |
 | [AP-0035](../phases/phase-6-paper-release/action-points/AP-0035-reproducibility-package.md) | Reproducibility package & artifact polish | Done |
-| [AP-0036](../phases/phase-6-paper-release/action-points/AP-0036-v1-release.md) | v1.0 OSS release — *deferred to Milestone M1's go/no-go (AP-0042)* | Blocked |
-| [AP-0037](../phases/phase-6-paper-release/action-points/AP-0037-public-positioning.md) | Public positioning / announcement — *deferred to Milestone M1's go/no-go (AP-0042)* | Blocked |
+| [AP-0036](../phases/phase-6-paper-release/action-points/AP-0036-v1-release.md) | v1.0 OSS release — *M5 GO (AP-0056, 2026-10-21); awaiting owner approval* | Unblocked — awaiting owner approval |
+| [AP-0037](../phases/phase-6-paper-release/action-points/AP-0037-public-positioning.md) | Public positioning / announcement — *M5 GO (AP-0056, 2026-10-21); awaiting owner approval* | Unblocked — awaiting owner approval |
 
 ## Milestone M1 — Live-LLM Validation *(committed — entered 2026-06-16)*
 
@@ -129,3 +131,13 @@
 | AP-3 | Opt-in `Agent` loop on the primitives + `regrounded_history` de-dup | Done *(PR #10)* |
 | AP-4 | BYOM example + guide + public API reference + CI smoke test | Done *(PR #11)* |
 | AP-5 | Public-API contract lock + design-spec reconciliation (§12) + trackers/CHANGELOG | Done *(this PR)* |
+
+## Milestone M5 — v1.0 gate *(complete 2026-10-21)*
+
+| ID | Title | Status |
+|---|---|---|
+| [AP-0052](../phases/milestone-5-v1-gate/action-points/AP-0052-codex-transport.md) | `codex_cli_transport`: Codex as a no-tools response transport | Done |
+| [AP-0053](../phases/milestone-5-v1-gate/action-points/AP-0053-calibration-and-verdicts.md) | Calibration run, capability-matched C1 verdict, live C3 verdict, gate verdict | Done |
+| [AP-0054](../phases/milestone-5-v1-gate/action-points/AP-0054-preregistration.md) | Pre-registration: freeze protocol + verdict code before any live call | Done |
+| [AP-0055](../phases/milestone-5-v1-gate/action-points/AP-0055-powered-live-run.md) | Powered live run (Claude, Codex) | Done *(32/32 cells each, 0 lost)* |
+| [AP-0056](../phases/milestone-5-v1-gate/action-points/AP-0056-v1-go-no-go-take4.md) | v1.0 go/no-go, take 4 | Done *(GO; AP-0036/0037 unblocked, awaiting owner approval)* |

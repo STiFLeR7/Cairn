@@ -6,6 +6,7 @@ injected fake client stands in for a real LLM. No network, no SDK required.
 
 from __future__ import annotations
 
+import subprocess
 import time
 
 import pytest
@@ -16,6 +17,7 @@ from cairn.model_live import (
     LiveModelConfigError,
     LiveModelProvider,
     claude_code_transport,
+    codex_cli_transport,
     anthropic_transport,
     openai_chat_transport,
     openrouter_transport,
@@ -368,3 +370,225 @@ def test_nim_coding_payload_is_limited_to_documented_models(monkeypatch):
 
     assert captured[0]["extra_body"] == {"chat_template_kwargs": {"force_nonempty_content": True}}
     assert captured[1]["extra_body"] is None
+
+
+@pytest.fixture(autouse=True)
+def _fake_codex_home(tmp_path, monkeypatch):
+    """Point the Codex home source at a tmp dir holding a fake auth.json (never the user's)."""
+    home = tmp_path / "codex-home-source"
+    home.mkdir()
+    (home / "auth.json").write_text('{"fake": true}', encoding="utf-8")
+    (home / "AGENTS.md").write_text("user instructions that must not leak", encoding="utf-8")
+    (home / "hooks.json").write_text("{}", encoding="utf-8")
+    monkeypatch.setenv("CODEX_HOME", str(home))
+    return home
+
+
+def _codex_fake(reply: str | None, *, returncode: int = 0, stderr: str = "model: gpt-test\n"):
+    captured = {}
+
+    class Result:
+        pass
+
+    def fake_run(args, **kwargs):
+        captured["args"] = args
+        captured["kwargs"] = kwargs
+        out = args[args.index("-o") + 1]
+        if reply is not None:
+            with open(out, "w", encoding="utf-8") as f:
+                f.write(reply)
+        r = Result()
+        r.returncode, r.stderr, r.stdout = returncode, stderr, ""
+        return r
+
+    return fake_run, captured
+
+
+def test_codex_cli_transport_is_sandboxed_and_returns_reply(monkeypatch):
+    monkeypatch.setattr("cairn.model_live.shutil.which", lambda c: None)
+    fake_run, captured = _codex_fake('{"action": "python", "code": "print(1)"}')
+    transport = codex_cli_transport(run=fake_run)
+    assert transport("prompt") == '{"action": "python", "code": "print(1)"}'
+    args = captured["args"]
+    assert args[:4] == ["codex", "exec", "--ephemeral", "--skip-git-repo-check"]
+    assert args[args.index("-s") + 1] == "read-only"
+    assert "--output-schema" in args and "-m" not in args
+    assert args[-1] == "-"
+    assert "prompt" in captured["kwargs"]["input"]
+    assert captured["kwargs"]["timeout"] == 120.0
+    assert transport.observed_models == {"gpt-test"}
+
+
+def test_codex_cli_transport_passes_model(monkeypatch):
+    monkeypatch.setattr("cairn.model_live.shutil.which", lambda c: None)
+    fake_run, captured = _codex_fake('{"action": "python", "code": "x"}')
+    codex_cli_transport(model="gpt-x", run=fake_run)("p")
+    assert captured["args"][captured["args"].index("-m") + 1] == "gpt-x"
+
+
+def test_codex_cli_transport_resolves_windows_shim(monkeypatch):
+    shim = r"C:\npm\codex.cmd"
+    monkeypatch.setattr("cairn.model_live.shutil.which", lambda c: shim)
+    fake_run, captured = _codex_fake('{"action": "python", "code": "x"}')
+    codex_cli_transport(run=fake_run)("p")
+    assert captured["args"][0] == shim
+    assert captured["kwargs"]["encoding"] == "utf-8"
+
+
+def test_codex_cli_transport_errors_are_config_errors(monkeypatch):
+    monkeypatch.setattr("cairn.model_live.shutil.which", lambda c: None)
+    for reply, code in [(None, 0), ("   ", 0), ('{"action": "python", "code": "x"}', 2)]:
+        fake_run, _ = _codex_fake(reply, returncode=code)
+        with pytest.raises(LiveModelConfigError):
+            codex_cli_transport(run=fake_run)("p")
+
+    def missing(*a, **k):
+        raise FileNotFoundError("codex")
+
+    with pytest.raises(LiveModelConfigError, match="not found"):
+        codex_cli_transport(run=missing)("p")
+
+    def slow(*a, **k):
+        raise subprocess.TimeoutExpired("codex", 1)
+
+    with pytest.raises(LiveModelConfigError, match="timed out"):
+        codex_cli_transport(run=slow)("p")
+
+
+def test_build_live_transport_routes_codex_cli(monkeypatch):
+    import benchmarks.scenarios as scenarios
+    from benchmarks.scenarios import build_live_transport
+
+    captured = []
+    monkeypatch.setattr(
+        scenarios, "codex_cli_transport",
+        lambda **kwargs: captured.append(kwargs) or (lambda _prompt: "TASK_COMPLETE"),
+    )
+    assert build_live_transport("default", provider="codex_cli")("p") == "TASK_COMPLETE"
+    assert captured == [{"model": None}]
+
+
+def test_build_live_transport_keeps_observed_models(monkeypatch):
+    import benchmarks.scenarios as scenarios
+    from benchmarks.scenarios import build_live_transport
+
+    def base(_prompt):
+        return "TASK_COMPLETE"
+
+    base.observed_models = {"gpt-x"}
+    monkeypatch.setattr(scenarios, "codex_cli_transport", lambda **kwargs: base)
+    assert build_live_transport("default", provider="codex_cli").observed_models == {"gpt-x"}
+
+
+def test_codex_cli_transport_isolates_codex_home_and_pins_effort(monkeypatch, _fake_codex_home):
+    import os
+
+    monkeypatch.setattr("cairn.model_live.shutil.which", lambda c: None)
+    seen = []
+    fake_run, captured = _codex_fake('{"action": "python", "code": "x"}')
+
+    def spying_run(args, **kwargs):
+        home = kwargs["env"]["CODEX_HOME"]
+        seen.append((home, sorted(os.listdir(home))))
+        return fake_run(args, **kwargs)
+
+    transport = codex_cli_transport(run=spying_run, codex_home_source=str(_fake_codex_home))
+    transport("p")
+    transport("p")
+    home, files = seen[0]
+    assert files == ["auth.json"]
+    assert home != str(_fake_codex_home)
+    assert seen[1][0] == home  # one isolated home reused for later calls
+    with open(os.path.join(home, "auth.json"), encoding="utf-8") as f:
+        assert f.read() == '{"fake": true}'
+    args = captured["args"]
+    assert "--ignore-user-config" in args
+    assert args[args.index("-c") + 1] == 'model_reasoning_effort="medium"'
+    assert captured["kwargs"]["env"]["PATH"] == os.environ["PATH"]  # rest of the env inherited
+
+
+def test_codex_cli_transport_default_home_source_is_codex_home_env(monkeypatch, _fake_codex_home):
+    import os
+
+    monkeypatch.setattr("cairn.model_live.shutil.which", lambda c: None)
+    fake_run, captured = _codex_fake('{"action": "python", "code": "x"}')
+    codex_cli_transport(run=fake_run, reasoning_effort=None)("p")
+    home = captured["kwargs"]["env"]["CODEX_HOME"]
+    assert home != str(_fake_codex_home) and os.listdir(home) == ["auth.json"]
+    assert "-c" not in captured["args"]
+
+
+def test_codex_cli_transport_without_auth_is_a_config_error(monkeypatch, tmp_path):
+    monkeypatch.setattr("cairn.model_live.shutil.which", lambda c: None)
+    fake_run, _ = _codex_fake('{"action": "python", "code": "x"}')
+    empty = tmp_path / "empty-home"
+    empty.mkdir()
+    with pytest.raises(LiveModelConfigError, match="Codex auth not found"):
+        codex_cli_transport(run=fake_run, codex_home_source=str(empty))("p")
+
+
+def test_run_tree_killing_enforces_timeout():
+    import sys
+
+    from cairn.model_live import _run_tree_killing
+
+    start = time.monotonic()
+    with pytest.raises(subprocess.TimeoutExpired):
+        _run_tree_killing([sys.executable, "-c", "import time; time.sleep(30)"], input="",
+                          timeout=1, env=None, encoding="utf-8")
+    assert time.monotonic() - start < 15
+
+
+def test_run_tree_killing_returns_completed_process():
+    import sys
+
+    from cairn.model_live import _run_tree_killing
+
+    r = _run_tree_killing([sys.executable, "-c", "import sys; print(sys.stdin.read().upper())"],
+                          input="hi", timeout=30, env=None, encoding="utf-8")
+    assert r.returncode == 0 and r.stdout.strip() == "HI"
+
+
+def test_claude_code_transport_records_observed_models():
+    class Result:
+        returncode = 0
+        stderr = ""
+        stdout = '{"is_error": false, "result": "x", "modelUsage": {"claude-sonnet-x": {}}}'
+
+    transport = claude_code_transport(model="sonnet", run=lambda args, **kw: Result())
+    assert transport.observed_models == set()
+    transport("p")
+    assert transport.observed_models == {"claude-sonnet-x"}
+
+
+def test_build_live_transport_pins_codex_reasoning_effort_only_when_given(monkeypatch):
+    import benchmarks.scenarios as scenarios
+    from benchmarks.scenarios import build_live_transport
+
+    captured = []
+    monkeypatch.setattr(scenarios, "codex_cli_transport",
+                        lambda **kwargs: captured.append(kwargs) or (lambda _prompt: "TASK_COMPLETE"))
+    monkeypatch.setattr(scenarios, "claude_code_transport",
+                        lambda **kwargs: captured.append(kwargs) or (lambda _prompt: "TASK_COMPLETE"))
+    build_live_transport("gpt-6-sol", provider="codex_cli", reasoning_effort="medium")
+    build_live_transport("sonnet", provider="claude_code", reasoning_effort="medium")
+    assert captured == [{"model": "gpt-6-sol", "reasoning_effort": "medium"}, {"model": "sonnet"}]
+
+
+def test_build_live_transport_counts_base_calls_and_errors(monkeypatch):
+    import benchmarks.scenarios as scenarios
+    from benchmarks.scenarios import build_live_transport
+
+    replies = iter([RuntimeError("429 rate limit"), "TASK_COMPLETE"])
+
+    def base(_prompt):
+        r = next(replies)
+        if isinstance(r, Exception):
+            raise r
+        return r
+
+    monkeypatch.setattr(scenarios, "claude_code_transport", lambda **kwargs: base)
+    t = build_live_transport("sonnet", provider="claude_code", max_calls=10)
+    assert t.call_stats == {"calls": 0, "errors": 0}
+    assert t("p") == "TASK_COMPLETE"
+    assert t.call_stats == {"calls": 2, "errors": 1}  # the retried attempt is counted

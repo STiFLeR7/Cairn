@@ -110,11 +110,12 @@ The journey so far:
 | **Legacy phases 0–6** | Specify, build, and *measure* recovery in a deterministic reference harness | 🟢 Historical mechanism and benchmark work; see the proof ladder above for the currently admitted P1–P4 boundaries |
 | **M1–M3** | Run the benchmark against **real LLMs** to confirm the headline claim (C1) | 🟢 Live pipeline works; RGR looks strong — but **NO-GO** for v1.0: evidence is *suggestive, not confirmed* (free-tier rate limits + underpowered runs) |
 | **M4** | Ship the recovery mechanism as a **BYOM library** so anyone can reproduce C1 on their own model | 🟢 **Complete** — mechanism shipped; stays 0.x |
+| **M5** | Pre-registered, capability-matched live study on two subscription-CLI models to decide v1.0 | 🟢 **Complete — GO** for v1.0 (C1 capability-matched + C3 supported on Claude and Codex; awaiting owner approval to release) |
 
 **Honest scope ([ADR-0009](docs/adr/ADR-0009-evaluation-framework.md)).** The legacy live C1 claim remains
-suggestive rather than confirmed. P1–P6 establish narrowly scoped recovery semantics, one external-host
+suggestive rather than confirmed; M5's pre-registered study returned **GO** for v1.0 (awaiting owner approval to release) on a deliberately narrow basis: one chain task, two competent models, C2/C4/C5 reference-only, a harness-injected C3 effect (see the [claims registry](docs/research/claims-registry.md), 2026-10-21). P1–P6 establish narrowly scoped recovery semantics, one external-host
 integration proof, two-host portability and one independent implementation in the recorded
-reference and sealed-holdout experiments; they do not change the v1.0 or broad live-performance gate.
+reference and sealed-holdout experiments; they do not by themselves establish broad live performance.
 See the [Roadmap](ROADMAP.md), [Master Checklist](CHECKLIST.md), and
 [claims registry](docs/research/claims-registry.md).
 
