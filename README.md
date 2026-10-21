@@ -10,7 +10,7 @@ checking what actually happened, and continuing — not by starting over.*
 [![License](https://img.shields.io/badge/license-Apache--2.0-blue.svg)](LICENSE)
 [![Status](https://img.shields.io/badge/status-P1--P4%20evidence%20current-brightgreen.svg)](ROADMAP.md)
 [![Tests](https://img.shields.io/badge/tests-P4%20controls%20verified-brightgreen.svg)](tests/)
-[![Version](https://img.shields.io/badge/version-0.x%20(v1.0%20held)-orange.svg)](CHANGELOG.md)
+[![Version](https://img.shields.io/badge/version-1.0.0-blue.svg)](CHANGELOG.md)
 
 </div>
 
@@ -78,7 +78,7 @@ Cairn **complements** agent frameworks (OpenHands, LangGraph, custom harnesses) 
 ## Project status
 
 **Recovery proof ladder P1–P6: complete, narrowly.** The existing BYOM library
-remains 0.x and experimental. The evidence-backed claims are the three narrow contracts below, not a
+is released as v1.0.0 (2026-10-21). The evidence-backed claims are the three narrow contracts below, not a
 claim that Cairn makes arbitrary agents reliable or provides exactly-once external effects.
 
 | Proof phase | Admitted result | Evidence boundary |
