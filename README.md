@@ -12,6 +12,8 @@ checking what actually happened, and continuing — not by starting over.*
 [![Tests](https://img.shields.io/badge/tests-P4%20controls%20verified-brightgreen.svg)](tests/)
 [![Version](https://img.shields.io/badge/version-1.0.0-blue.svg)](CHANGELOG.md)
 
+**Website:** [cairn.stifler.in](https://cairn.stifler.in) · [Quickstart](https://cairn.stifler.in/quickstart) · [Compare](https://cairn.stifler.in/compare)
+
 </div>
 
 ---
